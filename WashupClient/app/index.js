@@ -7,19 +7,25 @@ import configureStore from './redux/store/configure-store'
 import App from './redux/containers/App'
 import { BrowserRouter } from 'react-router-dom'
 
-import './resources/css/bootstrap.css'
+  
+import './resources/css/bootstrap.min.css';
 import './resources/css/font-awesome.css'
+import './resources/owl-carousel/owl.carousel.min.css'
+import './resources/owl-carousel/owl.theme.default.min.css'
+import './resources/css/swiper-bundle.min.css'
 import './resources/css/style.css'
 import './resources/css/style.responsive.css'
-import './resources/owl-carousel/owl.carousel.css'
-import './resources/owl-carousel/owl.theme.default.css'
 
-import './resources/js/jquery-1.11.2.js'
+import './resources/js/jquery-1.11.2.min.js'
 import './resources/js/jquery-ui.js'
-import './resources/js/bootstrap.js'
+import './resources/js/bootstrap.min.js'
 import './resources/owl-carousel/owl.carousel.js'
-import './resources/js/func.js'
+import './resources/js/swiper-bundle.min.js'
 import './resources/js/main.js'
+
+
+
+
 
 const store = configureStore()
 

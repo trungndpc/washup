@@ -1,78 +1,93 @@
-$(document).ready(function () {
-	// slider multi items
-	var owl1 = $(".owl-carousel");
-	owl1.owlCarousel({
-		loop:true,
-		autoPlay:true,
-		slideSpeed : 5000,
-		stopOnHover : true,
-		nav: true,
-		margin:30,
-		responsiveClass:true,
-		responsive:{
-			0:{items:1,nav:true},
-			600:{items:2,nav:true},
-			1000:{items:4,nav:true,loop:false}
-		}
-  	});
-	// Custom Navigation Events
-	$(".next").click(function(){
-		owl1.trigger('owl.next');
-	})
-	$(".prev").click(function(){
-		owl1.trigger('owl.prev');
-	})
-	$(".play").click(function(){
-		owl1.trigger('owl.play',1000); //owl.play event accept autoPlay speed as second parameter
-	})
-	$(".stop").click(function(){
-		owl1.trigger('owl.stop');
-	})
-	
-})
+window.initOwlCarousel = function () {
+	setTimeout(function () {
+		var owl1 = $(".owl-carousel");
+		owl1.owlCarousel({
+			loop: true,
+			autoPlay: true,
+			slideSpeed: 5000,
+			stopOnHover: true,
+			nav: true,
+			margin: 30,
+			responsiveClass: true,
+			responsive: {
+				0: { items: 1, nav: true },
+				600: { items: 2, nav: true },
+				1000: { items: 4, nav: true, loop: false }
+			}
+		});
 
-$(document).ready(function() {		
-	// membership slider
-	var owl2 = $("#membership_slider");
-	owl2.owlCarousel({
-		loop:true,
-		autoPlay:false,
-		responsiveClass: true,
-		stopOnHover : true,
-		smartSpeed: 1000,
-		margin: 30,
-		navigationText : ["<i class='fa fa-angle-left' aria-hidden='true'></i>","<i class='fa fa-angle-right' aria-hidden='true'></i>"],
-		itemsCustom : [
-			[0, 1],
-			[450, 2],
-			[600, 3],
-			[700, 3],
-			[992, 4],
-			[1200, 4],
-			[1400, 4],
-			[1600, 4]
-		]
-	});
-	
-	// product slider
-	var owl3 = $("#product_slider");
-	owl3.owlCarousel({
-		loop:true,
-		autoPlay:true,
-		responsiveClass: true,
-		stopOnHover : true,
-		smartSpeed: 1000,
-		margin: 30,
-		navigationText : ["<i class='fa fa-angle-left' aria-hidden='true'></i>","<i class='fa fa-angle-right' aria-hidden='true'></i>"],
-		itemsCustom : [
-			[0, 1],
-			[450, 2],
-			[600, 3],
-			[700, 3],
-			[992, 4],
-			[1200, 4],
-			[1400, 6],
-			[1600, 6]
-		]
-	});
-})
+		$(".next").click(function () {
+			owl1.trigger('owl.next');
+		})
+		$(".prev").click(function () {
+			owl1.trigger('owl.prev');
+		})
+		$(".play").click(function () {
+			owl1.trigger('owl.play', 1000); //owl.play event accept autoPlay speed as second parameter
+		})
+		$(".stop").click(function () {
+			owl1.trigger('owl.stop');
+		})
+	}, 100);
+}
+
+window.initSwiper = function () {
+	setTimeout(function () {
+		var swiper = new Swiper('.swiper-container', {
+			slidesPerView: 1,
+			spaceBetween: 10,
+			loop: true,
+			loopFillGroupWithBlank: true,
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			breakpoints: {
+				420: {
+					slidesPerView: 1,
+					spaceBetween: 10,
+				},
+				640: {
+					slidesPerView: 2,
+					spaceBetween: 10,
+				},
+				768: {
+					slidesPerView: 4,
+					spaceBetween: 20,
+				},
+				1024: {
+					slidesPerView: 4,
+					spaceBetween: 20,
+				},
+				1200: {
+					slidesPerView: 6,
+					spaceBetween: 20,
+				},
+			}
+		});
+	}, 100)
+
+}
+
+
+
+
+
+// $(document).ready(function() {		
+// 	// slider multi items
+
+// 	// Custom Navigation Events
+
+
+
+
+// 	// booking schedule
+// 	$("#schedule_now").click(function(){
+// 		$('#ModalBooking .modal-body').html('Loading...');
+// 		var url = "ajaxs/booking/step1.html";
+// 		$.get(url,function(req) {
+// 			$('#ModalBooking .modal-body').html(req);
+// 			$('#ModalBooking').modal('show');
+// 		})
+// 	})
+// })

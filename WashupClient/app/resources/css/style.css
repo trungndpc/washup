@@ -338,7 +338,7 @@ a:hover {text-decoration:none; color:#1b3868}
 	right: 15px;
 	padding-right: 20px;
 }
-#membership_slider .owl-stage-outer {padding:30px 5px }
+	#membership_slider .owl-stage-outer {padding:30px 5px }
 
 
 /* PRODUCT LIST */
@@ -365,14 +365,15 @@ a:hover {text-decoration:none; color:#1b3868}
 	width:20px; height:20px; vertical-align:middle
 }
 
-#product_slider {text-align:center}
-#product_slider .item{
+#product_slider, #product_list {text-align:center}
+#product_slider .item, #product_list .item{
 	background:#fff; padding:10px; border-radius: 8px; border: 1px solid #e97e15;
 }
-#product_slider .item img {height:240px; width:100%; object-fit:container}
-#product_slider .item .name {display:block; height: 25px; white-space: nowrap;}
-#product_slider .item .price {font-size:20px; color:red;font-weight:bold; font-style: italic; margin-bottom:35px;}
-#product_slider .item .btn_buy {
+#product_slider .item img, #product_list .item img {height:240px; width:100%; object-fit:contain}
+#product_slider .item .name, #product_list .item .name {display:block; height: 25px; white-space: nowrap; overflow: hidden;}
+#product_slider .item .price, #product_list .item .price {
+	font-size:20px; color:red;font-weight:bold; font-style: italic; margin-bottom:35px;}
+#product_slider .item .btn_buy, #product_list .item .btn_buy {
 	background: rgba(0,187,255,1);
 	background: -moz-linear-gradient(top, rgba(0,187,255,1) 0%, rgba(0,123,255,1) 100%);
 	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,187,255,1)), color-stop(100%, rgba(0,123,255,1)));
@@ -387,10 +388,16 @@ a:hover {text-decoration:none; color:#1b3868}
     border-left: 0;
 	width:100%;
 }
+.swiper-container {
+	width: 100%;
+	height: 100%;
+}
+
+
 
 #site-news{padding:21px 0 30px;}
 #site-news .ls_news .item{margin-bottom:15px; }
-#site-news .panel_header { margin:10px 0 15px}
+#site-news .panel_header { margin:10px 0 15px; height: 40px;}
 #site-news .news {box-shadow:0px 9px 10px #ccc;border-radius: 0 0 10px 10px;}
 #site-news .news .content{padding:15px 15px 15px 25px; background:#fff; border-radius:0 0 10px 10px}
 #site-news .news .img{width:100%; height:225px; overflow:hidden;background-size:cover;border-radius: 10px 10px 0 0;}
@@ -421,3 +428,29 @@ a:hover {text-decoration:none; color:#1b3868}
 .site-info .text {float:left; width: calc(100% - 25px);}
 .site-info h4 {font-size:14px; color:#1b396a;}
 #site-footer .copyright{line-height:40px;padding:#11px;border-top:#e0e7eb 2px solid;}
+
+/* SCHEDULE */
+#schedule_now {
+	position: fixed; 
+	bottom: 50px; right:15px;
+	z-index:999;
+	width:145px; height:80px;
+	border-radius:8px;
+	box-shadow: 1px 1px 3px #999;
+	font-weight:bold;
+	font-size: 15px;
+}
+#schedule_now a {text-decoration:none}
+#schedule_now .orange {
+	padding:8px 15px 5px; border-radius: 8px 8px 0 0;
+	background:#f8901f; color:#fff;
+}
+#schedule_now .orange .fa {
+	font-size:26px; margin-right:8px;
+	padding-top: 5px; float:left;
+}
+#schedule_now .blue {
+	padding:5px 15px; border-radius: 0 0 8px 8px;
+	background:#1c386e; color:#f8901f;
+	text-align:center;
+}

@@ -1,0 +1,576 @@
+@media (min-width: 992px) {
+	#ModalBooking .modal-lg {
+		width: 962px;
+	}
+}
+
+#ModalBooking .modal-content, #ModalBookingNotify .modal-content
+{border-radius:12px;}
+#ModalBooking .modal-body, #ModalBookingNotify .modal-body {padding:0}
+#ModalBooking .main-title, #ModalBookingNotify .main-title {
+	background:#1b3a6a; color:#345a90;
+	height:94px; padding: 16px;
+	border-radius: 10px 10px 0 0;
+}
+#ModalBooking .tab, #ModalBookingNotify .tab {margin:0; padding:0; height: 78px;}
+#ModalBooking .tab .item, #ModalBookingNotify .tab .item {
+    text-align:center; font-size:16px;
+    letter-spacing:-0.5px; position:relative;
+    height: 100%;
+}
+#ModalBooking .tab .active,
+#ModalBooking .tab .open {color:#fff}
+#ModalBooking .tab .active .info, 
+#ModalBooking .tab .open .info {color:#ffd212; margin: 5px 0; font-size:18px; line-height: 1.2;}
+
+#ModalBooking .tab .title, #ModalBookingNotify .tab .title{
+    color:#ffc11c; font-size: 28px;
+    text-align: center; letter-spacing: -0.5px;
+}
+#ModalBooking .tab .heading{
+    color:#ffc11c; font-size: 28px;
+    text-align: center; letter-spacing: -0.5px;
+}
+
+#ModalBooking .line {
+	height:3px; 
+	background: #ff981a;
+    background: -moz-linear-gradient(left, #ff981a 0%, #f1f722 100%);
+    background: -webkit-gradient(left left, left bottom, color-sleft(0%, #ff981a), color-sleft(100%, #f1f722));
+    background: -webkit-linear-gradient(left, #ff981a 0%, #f1f722 100%);
+    background: -o-linear-gradient(left, #ff981a 0%, #f1f722 100%);
+    background: -ms-linear-gradient(left, #ff981a 0%, #f1f722 100%);
+    background: linear-gradient(to right, #ff981a 0%, #f1f722 100%);
+}
+
+#ModalBooking .box_input {
+	padding: 10px 75px;
+}
+#ModalBooking .form-group {}
+#ModalBooking .fa-car, #ModalBooking .fa-motorcycle {
+	color: #1b3a6a;
+    font-size: 16px;
+    margin-left: 5px;
+}
+#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
+	background: #e6e6e6;
+    color: #ccc;
+    font-size: 16px;
+    padding: 8px 15px;
+    box-shadow: none;
+    border-radius: 40px;
+    width: 190px;
+}
+#ModalBooking .btn-fefault:hover, #ModalBookingNotify .btn-fefault:hover {background:#e1e1e1; color:#666}
+#ModalBooking .btn-fefault .fa, #ModalBookingNotify .btn-fefault .fa {float:left; font-size: 24px;}
+#ModalBooking .btn-success, #ModalBookingNotify .btn-success {
+	background: url(../images/btn_success.png) no-repeat center left;
+    color: #fff; text-shadow:1px 1px 1px #d07b1d;
+    font-size: 16px;
+    padding: 8px 20px;
+    box-shadow: none;
+    border-radius: 40px;
+	border:0;
+    width: 190px;
+}
+#ModalBooking .btn-success2, #ModalBookingNotify .btn-success2 {
+    background: url(../images/btn_success.png) no-repeat center left;
+    color: #fff;
+    text-shadow: 1px 1px 1px #d07b1d;
+    font-size: 16px;
+    padding: 8px 13px;
+    box-shadow: none;
+    border-radius: 40px;
+    border: 0;
+    width: 196px;
+}
+#ModalBooking .btn-success:hover, #ModalBookingNotify .btn-success:hover {opacity:0.8}
+#ModalBooking .fa-calendar-check {
+	width: 18px; height: 21px;
+	float:left; font-size: 24px;
+	background: url(../images/icons/icon_calendar_check.png) no-repeat center center;
+}
+#ModalBooking label {font-weight:normal}
+
+.arrow-up {
+	width: 0; height: 0; 
+	border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid #ffffff;
+    text-align: center;
+    margin: auto;
+	position:absolute; 
+	bottom:-3px; left: 50%;
+    transform: translate(-50%,0);
+}
+
+
+/* STEP 2 */
+#ModalBooking h3.title { 
+	color: #1b3a6a;
+    letter-spacing: -1px;
+    font-size: 28px;
+    border-left: 3px solid #f8901f;
+    padding-left: 10px;
+}
+#box_calendar {padding:15px;}
+#box_calendar .tab_calendar {padding: 0 20px;}
+#box_calendar .tab_calendar a {
+	float: left;
+    width: 250px; position: relative;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+	border: 1px solid #091e3e;
+    border-bottom: 0;
+    padding: 10px 0;
+    color: #929292;
+    font-size: 15px;
+    font-weight: 500;
+	background: #091e3e;
+	background: -moz-linear-gradient(left, #091e3e 0%, #1b3a69 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, #091e3e), color-stop(100%, #1b3a69));
+	background: -webkit-linear-gradient(top, #091e3e 0%, #1b3a69 100%);
+	background: -o-linear-gradient(left, #091e3e 0%, #1b3a69 100%);
+	background: -ms-linear-gradient(left, #091e3e 0%, #1b3a69 100%);
+	background: linear-gradient(to right, #091e3e 0%, #1b3a69 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#091e3e', endColorstr='#1b3a69', GradientType=0 );
+}
+#box_calendar .tab_calendar a.active::after{
+	content: ''; flex: 1; 
+	height: 2px;
+    background-color: #fff;
+    position: absolute;
+    bottom: -2px;
+    width: 250px;
+    left: 0;
+}
+#box_calendar .tab_calendar .name {color:#fff; font-size:17px; text-transform:uppercase}
+#box_calendar .tab_calendar a.active {
+    border: 1px solid #e7e7e7;
+    border-bottom: 0;
+    color: #929292;
+	background:none
+}
+#box_calendar .tab_calendar .active .name {color:#1a3969}
+#box_calendar .calendar_content {
+	clear: both;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    padding: 15px;
+	overflow:hidden;
+}
+#box_calendar .calendar_content .hour {
+	float:left; width:16%; height: 65px; 
+	margin:2px;
+	border:1px solid #e7e7e7; 
+	border-radius: 4px;
+	text-align:center;
+	cursor:pointer;
+	position:relative
+}
+.calendar_content .name {
+	font-weight:bold; font-size:20px; 
+	letter-spacing:-1px; display:block;
+	color:#1b3a6a; padding-top: 8px;
+}
+.calendar_content .status {
+	color:#f8901f;
+}
+.calendar_content .full {	
+	cursor: not-allowed !important;
+}
+.calendar_content .full .name {
+	color: #cacaca;
+}
+.calendar_content .full .status {
+	color: #cacaca;
+}
+.calendar_content .active {border:1px solid #8cc63f !important}
+.calendar_content .fa {
+	color:#8cc63f; position:absolute; 
+	top: 5px; right: 5px;
+    font-size: 18px;
+}
+.clipboard_check {
+	background:url(../images/icons/clipboard_check.png) no-repeat center center;
+	height:24px; width:18px; vertical-align:middle
+}
+
+.calendar-container {position:relative}
+.calendar_nav {
+	position: absolute;
+    width: 100%; top: 150px;
+}
+.calendar_nav .fa{
+	color:#f8901f; background:#efefef; 
+	padding: 30px 12px;
+    border-radius: 6px;
+    font-size: 20px; cursor:pointer
+}
+.calendar_nav .fa:hover {background:#1b3a6a}
+.calendar_nav .fa-chevron-left { 
+	position: absolute;
+    left: -50px;
+}
+.calendar_nav .fa-chevron-right {
+	position: absolute;
+    right: -50px;
+}
+
+#ModalBooking .time_up {
+	border: 1px solid #ffd212;
+    border-radius: 6px;
+    position: relative;
+    margin: 5px -10px 0 0px;
+    height: 58px;
+	position:relative;
+}
+#ModalBooking .time_up .text {
+	position: absolute;
+    background: #1b3a6a;
+    top: -10px;
+    left: 45px;
+    font-size: 14px;
+    color: #fff;
+    padding: 0 8px;
+    display: block;
+}
+#ModalBooking .time_up .timer {
+	font-size: 30px;
+    letter-spacing: -1px;
+    color: #ffd212;
+    margin-top: 6px;
+}
+#box_calendar .tab_calendar .title {
+	color: #ffd212;
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 5px 0;
+    letter-spacing: -0.5px;
+}
+#box_calendar .tab_calendar .active .title {color:#1b3a6a}
+
+.service_content {
+	height:322px; overflow-y:scroll;
+}
+.service_content .service {
+	clear:both;
+	border:1px solid #dfdfdf; border-radius:8px;
+	height: 96px; overflow: hidden;
+    margin: 5px 25px 15px 10px;
+    vertical-align: middle;
+}
+.service_content .service .container {
+	width: 60px;
+    height: 100%;
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 22px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.service_content .service .box_right {
+	background:#e6e6e6; padding:0;
+}
+.service_content .service .box_right.box_select {
+	background: #f7901e;
+	background: -moz-linear-gradient(left, #f7901e 0%, #f7e71e 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, #f7901e), color-stop(100%, #f7e71e));
+	background: -webkit-linear-gradient(top, #f7901e 0%, #f7e71e 100%);
+	background: -o-linear-gradient(left, #f7901e 0%, #f7e71e 100%);
+	background: -ms-linear-gradient(left, #f7901e 0%, #f7e71e 100%);
+	background: linear-gradient(to right, #f7901e 0%, #f7e71e 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7901e', endColorstr='#f7e71e', GradientType=0 );
+}
+.service_content .service .box_right .price {
+	vertical-align: middle;
+    font-size: 34px;
+    font-weight: 500;
+    color: #f7901e;
+    letter-spacing: -2px;
+    line-height: 96px;
+    margin-right: 20px;
+}
+.service_content .service .box_right .info {padding:10px}
+.service_content .service .box_right .name {
+	text-transform:uppercase; margin-bottom: 10px;
+}
+.service_content .service .box_right .hashtag {
+	clear:both
+}
+.service_content .service .box_right .hashtag a {
+    color: #999;
+    border: 1px solid #fff;
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+.service_content .service .box_select .hashtag a {
+	color: #fff;
+}
+.service_content .service .box_select .price {color:#fff}
+
+/* Hide the browser's default radio button */
+.service_content input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+/* Create a custom radio button */
+.service_content .checkmark {
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  height: 17px;
+  width: 17px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+/* On mouse-over, add a grey background color */
+.service_content:hover input ~ .checkmark {
+    background-color: #eee;
+}
+
+/* When the radio button is checked, add a blue background */
+.service_content input:checked ~ .checkmark {
+	background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.service_content .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.service_content input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.service_content .checkmark:after {
+ 	top: 2px;
+    left: 2px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #1b3a6a;
+}
+
+#ModalBooking .payment a { 
+	float:left; margin-right:5px; 
+	border:1px solid #e7e7e7;
+	border-radius:4px;
+	padding:5px 15px;
+	color:#666;
+}
+#ModalBooking .payment a.active {color:#333; border:1px solid #f7901e !important}
+#ModalBooking .payment .fa {
+	color: #c5c5c5;
+    position: relative;
+    top: unset;
+    right: unset;
+}
+
+#ModalBooking .book_cancel, #ModalBookingNotify .book_cancel {
+    background: url(../images/book_cancel.png) no-repeat center center;
+    width: 265px;
+    height: 46px;
+    border: 0;
+    display: inline-block;
+    color: #1b3a6a;
+    font-size: 16px;
+    font-weight: 500;
+}
+.booking_final {padding:40px 50px 30px;}
+.booking_final .fa {width:10%}
+
+.booking_final .icon_maps{
+    width: 35px;  height: 28px; float:left;
+	background:url(../images/icons/icon_maps.png) no-repeat left center;
+}
+.booking_final .icon_date{
+    width: 35px;  height: 28px; float:left;
+	background:url(../images/icons/icon_date.png) no-repeat left center;
+}
+.booking_final .icon_clock{
+    width: 35px;  height: 28px; float:left;
+	background:url(../images/icons/icon_clock.png) no-repeat left center;
+}
+.booking_final .icon_car{
+    width: 35px;  height: 28px; float:left;
+	background:url(../images/icons/icon_car.png) no-repeat left center;
+}
+.booking_final .icon_idcard{
+    width: 35px;  height: 28px; float:left;
+	background:url(../images/icons/icon_identity.png) no-repeat left center;
+}
+.booking_final .clipboard_check{
+    width: 35px;  height: 28px; float:left;
+	background:url(../images/icons/icon_check.png) no-repeat left center;
+}
+.booking_final .icon_money{
+    width: 35px;  height: 28px; float:left;
+	background:url(../images/icons/icon_money.png) no-repeat left center;
+}
+.booking_final .icon_pay{
+    width: 35px;  height: 28px; float:left;
+	background:url(../images/icons/icon_pay.png) no-repeat left center;
+}
+.booking_final .icon_note{
+    width: 35px;  height: 28px; float:left;
+	background:url(../images/icons/icon_note.png) no-repeat left center;
+}
+
+.booking_final {font-size:18px; color:#888; letter-spacing: -0.5px;}
+.booking_final .form-group {
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+.booking_final .col-left {
+    float: left;
+    width: 48%;
+}
+.booking_final .col-right {
+    float: right;
+    width: 48%;
+}
+.booking_final .info {
+    float:left; display: block; width:90%
+}
+.booking_final .title {
+    float: left;
+    color:#1b3a6a; font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+.booking_final .text {float:right}
+
+.booking_final .booking_close {
+    width:171px; height:46px; color:#1b3a6a;
+    font-size: 20px;
+    font-weight: bold;
+    background: url(../images/book_close.png) no-repeat center center;
+}
+.icon_success {
+    width:90px; height:90px; display: block; margin: auto;
+    background: url(../images/icons/icon_success.png) no-repeat center center;
+}
+
+.input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+.input-group-append {
+    margin-left: -1px; display: flex;
+}
+.input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group>.custom-file, .input-group>.custom-select, .input-group>.form-control, .input-group>.form-control-plaintext {
+    position: relative;
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
+    min-width: 0;
+    margin-bottom: 0;
+}
+.input-group>.input-group-append>.btn, .input-group>.input-group-append>.input-group-text,
+.input-group>.input-group-prepend:first-child>.btn:not(:first-child),
+.input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child),
+.input-group>.input-group-prepend:not(:first-child)>.btn,
+.input-group>.input-group-prepend:not(:first-child)>.input-group-text {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.input-group-text {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+.input-group[class*=col-] {padding-left:15px; padding-right:15px}
+.requiement_wrapper {
+    padding:40px 50px 30px;
+}
+.recruitment_content {
+    height:300px; overflow-y: scroll;
+    padding-right: 25px;
+    font-size:15px;
+}
+.requiement_wrapper .title {
+    height:38px; line-height:38px; border-bottom: 1px solid #eee;
+    position:relative; margin-bottom: 50px;
+}
+.requiement_wrapper .title span {
+    position: absolute;
+    border: 1px solid #eee;
+    padding: 5px 30px;
+    border-radius: 27px;
+    top: 35px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #fff;
+    color: #1b3a6a;
+    font-size: 26px;
+    letter-spacing: -1px;
+}
+.requiement_wrapper form {text-align: left}
+.icon_folder {
+    width:20px; height:20px;
+    background:url(../images/icons/icon_folder.png) no-repeat center center;
+}
+
+.scrollbar{
+    float: left;
+    height: 300px;
+    width: 100%;
+    background: #fff;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+}
+.force-overflow
+{
+    min-height: 450px;
+}
+#scroll-3::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+    background-color: #ededed;
+}
+
+#scroll-3::-webkit-scrollbar
+{
+    width: 8px;
+    background-color: #f8901f;
+}
+
+#scroll-3::-webkit-scrollbar-thumb
+{
+    background-color: #f8901f;
+}

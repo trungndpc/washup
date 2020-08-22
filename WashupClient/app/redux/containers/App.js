@@ -18,14 +18,10 @@ class App extends React.Component {
       console.log('Render: ', 'App')
     }
     return (
-      <div className="example-app">
-        <div>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/*" component={NotFoundPage} />
-          </Switch>
-        </div>
-      </div>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/*" component={NotFoundPage} />
+        </Switch>
     )
   }
 }
