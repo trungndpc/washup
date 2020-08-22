@@ -15,6 +15,7 @@ import './resources/owl-carousel/owl.theme.default.min.css'
 import './resources/css/swiper-bundle.min.css'
 import './resources/css/style.css'
 import './resources/css/style.responsive.css'
+import './resources/css/modal.css'
 
 import './resources/js/jquery-1.11.2.min.js'
 import './resources/js/jquery-ui.js'

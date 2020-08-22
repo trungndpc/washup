@@ -54,7 +54,7 @@ a:hover {text-decoration:none; color:#1b3868}
     position: absolute;
     top: 0;
     left: 50%;
-	z-index:9999;
+	z-index:100;
     transform: translate(-50%, 0%);
 }
 .nav_inner{position: relative;}
@@ -182,7 +182,9 @@ a:hover {text-decoration:none; color:#1b3868}
     color: #fff;
     font-weight: bold;
     font-size: 16px;
-    padding-left: 45px;
+    padding-top: 0px;
+    padding-left: 60px;
+    padding-bottom: 0px;
     text-shadow: 1px 1px #d87e19;
 }
 

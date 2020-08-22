@@ -2,25 +2,73 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../actions/app'
+import BookingStep1Modal from '../../components/BookingStep1Modal';
+import BookingStep2Modal from '../../components/BookingStep2Modal';
+import BookingStep3Modal from '../../components/BookingStep3Modal';
+import BookingStep4Modal from '../../components/BookingStep4Modal';
 
 class ListUser extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      isStep1 : false,
+      isStep2: false,
+      isStep3: false,
+      isStep4: false,
+    }
+    this.booking = this.booking.bind(this);
+    this.onCloseStep1Modal = this.onCloseStep1Modal.bind(this);
+    this.nextStep2 = this.nextStep2.bind(this);
+    this.nextStep3 = this.nextStep3.bind(this);
+    this.nextStep4 = this.nextStep4.bind(this);
 
-    this.reload = this.reload.bind(this)
+    this.prevStep1 = this.prevStep1.bind(this);
+    this.prevStep2 = this.prevStep2.bind(this);
+    this.onCloseBooking = this.onCloseBooking.bind(this);
   }
 
   componentDidMount() {
-    this.props.appActions.listItem()
   }
 
-  reload() {
-    this.props.appActions.listItem()
-  }
 
   componentDidMount() {
     window.initOwlCarousel();
     window.initSwiper();
+  }
+
+
+  booking() {
+    this.setState({isStep1: true})
+  }
+
+  nextStep2() {
+    this.setState({isStep1: false, isStep2: true, isStep3: false, isStep4: false});
+  }
+
+  nextStep3() {
+    this.setState({isStep1: false, isStep2: false, isStep3: true, isStep4: false});
+  }
+
+  nextStep4() {
+    this.setState({isStep1: false, isStep2: false, isStep3: false, isStep4: true});
+  }
+
+
+
+  prevStep1() {
+    this.setState({isStep1: true, isStep2: false, isStep3: false, isStep4: false});
+  }
+
+  prevStep2() {
+    this.setState({isStep1: false, isStep2: true, isStep3: false, isStep4: false});
+  }
+
+  onCloseStep1Modal() {
+    this.setState({isStep1: false, isStep2: false, isStep3: false, isStep4: false});
+  }
+
+  onCloseBooking() {
+    this.setState({isStep1: false, isStep2: false, isStep3: false, isStep4: false});
   }
 
   render() {
@@ -41,9 +89,7 @@ class ListUser extends React.Component {
               <i className="fa icon icon_link">&nbsp;</i> <span>Nhượng quyền</span></a>
             </div>
             <div className="menu">
-              {/* Top navigation */}
               <div className="logo">
-                {/* Centered link */}
                 <div className="topnav-centered">
                   <a href="index.html">
                     <img src={require('../../resources/images/logo/logo-washup.png')} className="img-responsive" />
@@ -54,11 +100,9 @@ class ListUser extends React.Component {
                 <i className="fa fa-bars" />
               </button>
               <div id="main-menu" className="topnav navbar collapse navbar-collapse">
-                {/* Left-aligned links (default) */}
                 <a href="#">Dịch vụ</a>
                 <a href="#">Lốp xe &amp; Phụ kiện</a>
                 <a href="#">Kinh nghiệm chăm sóc xe</a>
-                {/* Right-aligned links */}
                 <div className="topnav-right">
                   <a href="#">Tuyển dụng</a>
                   <a href="#">Liên hệ</a>
@@ -84,7 +128,7 @@ class ListUser extends React.Component {
                     <form name="frm_search" method="POST" action="#">
                       <i className="fa icon_phone icon" />
                       <input type="text" className="form-control input-field search_phone" placeholder="Nhập số điện thoại" />
-                      <div className="btn-search">ĐẶT LỊCH NGAY</div>
+                      <div onClick={this.booking} className="btn btn-search">ĐẶT LỊCH NGAY</div>
                     </form>
                   </div>
                 </div>
@@ -479,6 +523,10 @@ class ListUser extends React.Component {
             </div>
           </div>
         </div>
+      {this.state.isStep1 &&  <BookingStep1Modal onNext={this.nextStep2} onClose={this.onCloseStep1Modal} /> }
+      {this.state.isStep2 &&  <BookingStep2Modal onPrev={this.prevStep1} onNext={this.nextStep3} />}
+      {this.state.isStep3 &&  <BookingStep3Modal onPrev={this.prevStep2} onNext={this.nextStep4}/>}
+      {this.state.isStep4 &&  <BookingStep4Modal onClose={this.onCloseBooking} />}
       </div>
     )
   }

@@ -64,7 +64,7 @@
 #ModalBooking .btn-fefault:hover, #ModalBookingNotify .btn-fefault:hover {background:#e1e1e1; color:#666}
 #ModalBooking .btn-fefault .fa, #ModalBookingNotify .btn-fefault .fa {float:left; font-size: 24px;}
 #ModalBooking .btn-success, #ModalBookingNotify .btn-success {
-	background: url(../images/btn_success.png) no-repeat center left;
+	background: url('../images/btn_success.png') no-repeat center left;
     color: #fff; text-shadow:1px 1px 1px #d07b1d;
     font-size: 16px;
     padding: 8px 20px;
@@ -74,7 +74,7 @@
     width: 190px;
 }
 #ModalBooking .btn-success2, #ModalBookingNotify .btn-success2 {
-    background: url(../images/btn_success.png) no-repeat center left;
+    background: url('../images/btn_success.png') no-repeat center left;
     color: #fff;
     text-shadow: 1px 1px 1px #d07b1d;
     font-size: 16px;
@@ -88,7 +88,7 @@
 #ModalBooking .fa-calendar-check {
 	width: 18px; height: 21px;
 	float:left; font-size: 24px;
-	background: url(../images/icons/icon_calendar_check.png) no-repeat center center;
+	background: url('../images/icons/icon_calendar_check.png') no-repeat center center;
 }
 #ModalBooking label {font-weight:normal}
 
@@ -192,7 +192,7 @@
     font-size: 18px;
 }
 .clipboard_check {
-	background:url(../images/icons/clipboard_check.png) no-repeat center center;
+	background:url('../images/icons/clipboard_check.png') no-repeat center center;
 	height:24px; width:18px; vertical-align:middle
 }
 
@@ -381,7 +381,7 @@
 }
 
 #ModalBooking .book_cancel, #ModalBookingNotify .book_cancel {
-    background: url(../images/book_cancel.png) no-repeat center center;
+    background: url('../images/book_cancel.png') no-repeat center center;
     width: 265px;
     height: 46px;
     border: 0;
@@ -395,39 +395,39 @@
 
 .booking_final .icon_maps{
     width: 35px;  height: 28px; float:left;
-	background:url(../images/icons/icon_maps.png) no-repeat left center;
+	background:url('../images/icons/icon_maps.png') no-repeat left center;
 }
 .booking_final .icon_date{
     width: 35px;  height: 28px; float:left;
-	background:url(../images/icons/icon_date.png) no-repeat left center;
+	background:url('../images/icons/icon_date.png') no-repeat left center;
 }
 .booking_final .icon_clock{
     width: 35px;  height: 28px; float:left;
-	background:url(../images/icons/icon_clock.png) no-repeat left center;
+	background:url('../images/icons/icon_clock.png') no-repeat left center;
 }
 .booking_final .icon_car{
     width: 35px;  height: 28px; float:left;
-	background:url(../images/icons/icon_car.png) no-repeat left center;
+	background:url('../images/icons/icon_car.png') no-repeat left center;
 }
 .booking_final .icon_idcard{
     width: 35px;  height: 28px; float:left;
-	background:url(../images/icons/icon_identity.png) no-repeat left center;
+	background:url('../images/icons/icon_identity.png') no-repeat left center;
 }
 .booking_final .clipboard_check{
     width: 35px;  height: 28px; float:left;
-	background:url(../images/icons/icon_check.png) no-repeat left center;
+	background:url('../images/icons/icon_check.png') no-repeat left center;
 }
 .booking_final .icon_money{
     width: 35px;  height: 28px; float:left;
-	background:url(../images/icons/icon_money.png) no-repeat left center;
+	background:url('../images/icons/icon_money.png') no-repeat left center;
 }
 .booking_final .icon_pay{
     width: 35px;  height: 28px; float:left;
-	background:url(../images/icons/icon_pay.png) no-repeat left center;
+	background:url('../images/icons/icon_pay.png') no-repeat left center;
 }
 .booking_final .icon_note{
     width: 35px;  height: 28px; float:left;
-	background:url(../images/icons/icon_note.png) no-repeat left center;
+	background:url('../images/icons/icon_note.png') no-repeat left center;
 }
 
 .booking_final {font-size:18px; color:#888; letter-spacing: -0.5px;}

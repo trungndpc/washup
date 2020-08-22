@@ -3,8 +3,15 @@
  */
 import * as type from './action-types'
 
-export function listItem() {
+export function getInfoBooking() {
   return {
-    type: type.APP.GET_LIST_ITEM_ASYNC
+    type: type.APP.GET_INFO_BOOKING_ASYNC
+  }
+}
+
+export function booking(data) {
+  return {
+    type : type.APP.BOOKING_ASYNC,
+    data: data
   }
 }
