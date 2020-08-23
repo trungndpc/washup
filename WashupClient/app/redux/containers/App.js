@@ -10,7 +10,7 @@ import * as appActions from '../actions/app'
 import { withRouter, Switch, Route } from 'react-router-dom'
 import Home from './Home'
 import NotFoundPage from '../../components/NotFoundPage'
-
+import Alert from 'react-s-alert';
 class App extends React.Component {
   render() {
     //DEBUG
@@ -18,10 +18,13 @@ class App extends React.Component {
       console.log('Render: ', 'App')
     }
     return (
-        <Switch>
+      <Switch>
+        <div>
           <Route exact path="/" component={Home} />
           <Route path="/*" component={NotFoundPage} />
-        </Switch>
+          <Alert stack={{ limit: 3 }} />
+        </div>
+      </Switch>
     )
   }
 }

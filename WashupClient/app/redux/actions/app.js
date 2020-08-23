@@ -3,15 +3,30 @@
  */
 import * as type from './action-types'
 
-export function getInfoBooking() {
+export function getModels() {
   return {
-    type: type.APP.GET_INFO_BOOKING_ASYNC
+    type: type.APP.GET_MODELS_ASYNC
   }
+}
+
+export function getScheduleToday() {
+  return  {type: type.APP.GET_SCHEDULE_TODAY_ASYNC}
+}
+
+export function getServices() {
+  return {type: type.APP.GET_SERVICE_ASYNC }
 }
 
 export function booking(data) {
   return {
     type : type.APP.BOOKING_ASYNC,
+    data: data
+  }
+}
+
+export function putInforBooking(data) {
+  return {
+    type: type.APP.PUT_INFO_BOOKING,
     data: data
   }
 }

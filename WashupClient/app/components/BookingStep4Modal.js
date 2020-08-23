@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import TimeUtils from '../utils/TimeUtils';
 
 class BookingStep4Modal extends Component {
 
@@ -24,6 +25,8 @@ class BookingStep4Modal extends Component {
 
 
     render() {
+        const isLoading = this.props.app.isLoadingBooking;
+        const confirmBooking = this.props.app.confirmBooking;
         return (
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
@@ -35,12 +38,16 @@ class BookingStep4Modal extends Component {
                                     </div>
                                 </div>
                                 <div className="clearfix line">&nbsp;</div>
-                                <div className="booking_final">
+                                 {isLoading &&  <div style={{textAlign: 'center', padding: '30px'}}>
+                                    <img src={require('../resources/images/loading.gif')} />
+                                  </div> }
+
+                                { confirmBooking && <div className="booking_final">
                                     <div className="form-group">
                                         <i className="fa icon_maps" />
                                         <div className="info pull-left">
                                             <div className="title">ĐỊA CHỈ NHẬN XE</div>
-                                            <div className="address clearfix">156 Nguyễn Lương Bằng, P.Tân Phú, Quận 7, Tp.HCM</div>
+                                            <div className="address clearfix">{confirmBooking["pickUpAddress"]}</div>
                                         </div>
                                     </div>
                                     <div className="clearfix">
@@ -48,14 +55,14 @@ class BookingStep4Modal extends Component {
                                             <i className="fa icon_date" />
                                             <div className="info pull-left">
                                                 <div className="title">NGÀY</div>
-                                                <div className="text">16/08/2020</div>
+                                                <div className="text">{TimeUtils.formatDate(confirmBooking["timeSchedule"] * 1000)}</div>
                                             </div>
                                         </div>
                                         <div className="form-group col-right pull-right">
                                             <i className="fa icon_clock" />
                                             <div className="info pull-left">
                                                 <div className="title">GIỜ</div>
-                                                <div className="text">15:30</div>
+                                                <div className="text">{TimeUtils.timeSchedule(confirmBooking["timeSchedule"])}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -64,14 +71,14 @@ class BookingStep4Modal extends Component {
                                             <i className="fa icon_car" />
                                             <div className="info pull-left">
                                                 <div className="title">LOẠI XE</div>
-                                                <div className="text">Huyndai Tucson</div>
+                                            <div className="text">{confirmBooking["model"].brandName}</div>
                                             </div>
                                         </div>
                                         <div className="form-group col-right pull-right">
                                             <i className="fa icon_idcard" />
                                             <div className="info pull-left">
                                                 <div className="title">BIỂN SỐ XE</div>
-                                                <div className="text">60A-27450</div>
+                                            <div className="text">{confirmBooking["licensePlate"]}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -80,14 +87,14 @@ class BookingStep4Modal extends Component {
                                             <i className="fa clipboard_check" />
                                             <div className="info pull-left">
                                                 <div className="title">DỊCH VỤ</div>
-                                                <div className="text">Rửa xe tại nhà</div>
+                                                <div className="text">{confirmBooking["services"][0].name}</div>
                                             </div>
                                         </div>
                                         <div className="form-group col-right pull-right">
                                             <i className="fa icon_money" />
                                             <div className="info pull-left">
                                                 <div className="title">SỐ TIỀN</div>
-                                                <div className="text">350.000</div>
+                                                <div className="text">{confirmBooking["totalPrice"]}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +114,8 @@ class BookingStep4Modal extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
+                                }
                                 <hr />
                                 <div className="form-group text-center">
                                     <button onClick={this.close} type="button" className="btn btn-success back_home">TRỞ VỀ TRANG  CHỦ</button>

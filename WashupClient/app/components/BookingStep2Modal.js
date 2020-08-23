@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
+import TimeUtils from '../utils/TimeUtils'
 
 class BookingStep2Modal extends Component {
 
     constructor(props) {
         super(props);
+        const inforBooking = this.props.app.inforBooking;
+        this.state = {
+            tabDate: 1,
+            timestampEndDay: TimeUtils.getEndDay(TimeUtils.getCurrentDay()),
+            timeScheduleSelected: (inforBooking && inforBooking["timeSchedule"]) ? inforBooking["timeSchedule"] : null,
+            errorMsg: null
+        }
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
     }
@@ -11,23 +19,58 @@ class BookingStep2Modal extends Component {
     componentWillMount() {
         var body = document.getElementsByTagName('body')[0];
         body.className = "modal-open"
+        this.props.appActions.getScheduleToday();
     }
 
     prev() {
-      if (this.props.onPrev) {
-          this.props.onPrev();
-      }
+        if (this.props.onPrev) {
+            this.props.onPrev();
+        }
     }
 
     next() {
+        let inforBooking = { ...this.props.app.inforBooking }
+        if (!this.state.timeScheduleSelected) {
+            this.setState({ "errorMsg": "Vui lòng chọn thời gian" });
+            return false;
+        }
+        inforBooking["timeSchedule"] = this.state.timeScheduleSelected;
+        this.props.appActions.putInforBooking(inforBooking);
         if (this.props.onNext) {
             this.props.onNext();
         }
     }
 
+    selectTabDate(tabDateId) {
+        let timestampEndDay = 0;
+        if (tabDateId == 1) {
+            timestampEndDay = TimeUtils.getEndDay(TimeUtils.getCurrentDay());
+        } else if (tabDateId == 2) {
+            timestampEndDay = TimeUtils.getEndDay(TimeUtils.getTomorrow());
+        } else {
+            timestampEndDay = TimeUtils.getEndDay(TimeUtils.getDayAfterTomorrow());
+        }
+        this.setState({
+            "tabDate": tabDateId,
+            "timestampEndDay": timestampEndDay
+        })
+    }
+
+    selectSchedule(time) {
+        this.setState({ timeScheduleSelected: time })
+    }
+
 
 
     render() {
+        const inforBooking = this.props.app.inforBooking;
+        const schedules = (this.props.app.schedules && this.props.app.schedules[1]) ? this.props.app.schedules[1] : [];
+        var listSchedules = [];
+        schedules.forEach(function (item) {
+            if ((item["time"] * 1000) <= this.state.timestampEndDay && (item["time"] * 1000) >= TimeUtils.getBeforDay(this.state.timestampEndDay)) {
+                listSchedules.push(item)
+            }
+        }.bind(this))
         return (
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
@@ -37,14 +80,23 @@ class BookingStep2Modal extends Component {
                                 <div className="main-title">
                                     <div className="tab">
                                         <div className="item col-md-3 col-xs-12 open">
-                                            Số điện thoại:<div className="info">0933754386</div>
+                                            Số điện thoại:<div className="info">{inforBooking["phone"]}</div>
                                         </div>
                                         <div className="item col-md-3 col-xs-12 active">
-                                            Địa chỉ nhận xe: <div className="info">156 Nguyễn Lương Bằng, P.Tân Phú, Quận 7</div>
+                                            Địa chỉ nhận xe: <div className="info">{inforBooking["address"]}</div>
                                             <div className="arrow-up" />
                                         </div>
-                                        <div className="item col-md-3 col-xs-12">Khung giờ</div>
-                                        <div className="item col-md-3 col-xs-12" />
+                                        <div className={inforBooking["timeSchedule"] ? "item col-md-3 col-xs-12 open" : "item col-md-3 col-xs-12"}>
+                                            Khung giờ: <div className="info">{TimeUtils.getDayOfWeek(inforBooking["timeSchedule"])}<br />
+                                                {inforBooking["timeSchedule"] && TimeUtils.formatDate(inforBooking["timeSchedule"] * 1000)}
+                                            </div>
+                                        </div>
+                                        {inforBooking["timeSchedule"] && <div className={inforBooking["timeSchedule"] ? "item col-md-3 col-xs-12 open" : "item col-md-3 col-xs-12"}><div className="time_up">
+                                            <div className="text">Thời gian giữ chỗ</div>
+                                            <div className="timer">{TimeUtils.timeSchedule(inforBooking["timeSchedule"] / 1000)}</div>
+                                        </div>
+                                        </div>
+                                        }
                                     </div>
                                 </div>
                                 <div className="clearfix line">&nbsp;</div>
@@ -53,128 +105,52 @@ class BookingStep2Modal extends Component {
                                 </div>
                                 <div className="clearfix" />
                                 <div id="box_calendar" className="box_input">
+                                    {this.state.errorMsg && <div style={{ textAlign: 'center', color: 'red', paddingBottom: '10px' }}>{this.state.errorMsg}</div>}
                                     <div className="calendar-container">
                                         <div className="calendar-wrapper">
                                             <div className="item">
                                                 <div className="tab_calendar">
-                                                    <a href="javascript:void(0)" className="active">
+                                                    <a href="javascript:void(0)" onClick={() => { this.selectTabDate(1) }} className={this.state.tabDate == 1 ? "active" : ""}>
                                                         <div className="name">HÔM NAY</div>
-                                                        <div className="date">20/08/2020</div>
+                                                        <div className="date">{TimeUtils.formatDate(TimeUtils.getCurrentDay())}</div>
                                                     </a>
-                                                    <a href="javascript:void(0)">
-                                                        <div className="name">NGÀY MAI</div>
-                                                        <div className="date">21/08/2020</div>
+                                                    <a href="javascript:void(0)" onClick={() => { this.selectTabDate(2) }} className={this.state.tabDate == 2 ? "active" : ""}>
+                                                        <div className="name"  >NGÀY MAI</div>
+                                                        <div className="date">{TimeUtils.formatDate(TimeUtils.getTomorrow())}</div>
                                                     </a>
-                                                    <a href="javascript:void(0)">
-                                                        <div className="name">NGÀY KIA</div>
-                                                        <div className="date">22/08/2020</div>
+                                                    <a href="javascript:void(0)" onClick={() => { this.selectTabDate(3) }} className={this.state.tabDate == 3 ? "active" : ""}>
+                                                        <div className="name" >NGÀY KIA</div>
+                                                        <div className="date">{TimeUtils.formatDate(TimeUtils.getDayAfterTomorrow())}</div>
                                                     </a>
                                                 </div>
                                                 <div className="calendar_content">
-                                                    <div className="hour full">
-                                                        <span className="name">08:00</span>
-                                                        <span className="status">Hết chỗ</span>
-                                                    </div>
-                                                    <div className="hour full">
-                                                        <span className="name">08:15</span>
-                                                        <span className="status">Hết chỗ</span>
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">08:30</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">08:45</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">09:00</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">09:15</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">09:30</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">09:45</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">10:00</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">10:15</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">10:30</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">10:45</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">11:00</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">11:15</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">11:30</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">11:45</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">12:00</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">12:15</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">12:30</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">12:45</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">13:00</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">13:15</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">13:30</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
-                                                    <div className="hour book_now">
-                                                        <span className="name">13:45</span>
-                                                        <span className="status">Đặt ngay</span><i className="fa" />
-                                                    </div>
+                                                    {listSchedules && listSchedules.map((item) => {
+                                                        let className = "hour"
+                                                        if (item["status"] == 1) {
+                                                            className = className + " book_now";
+                                                        } else {
+                                                            className = className + " full";
+                                                        }
+
+                                                        if (item["time"] == this.state.timeScheduleSelected) {
+                                                            className = className + " active";
+                                                        }
+                                                        return (
+                                                            <div onClick={() => this.selectSchedule(item["time"])} key={item["time"]} className={className}>
+                                                                <span className="name">{TimeUtils.timeSchedule(item["time"])}</span>
+                                                                <span className="status">Đặt ngay</span><i className="fa" />
+                                                            </div>
+                                                        )
+                                                    })}
+                                                    {listSchedules && listSchedules.length == 0 && <div style={{ textAlign: 'center' }}>Không có lịch</div>}
                                                     <div className="clearfix" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="calendar_nav">
+                                        {/* <div className="calendar_nav">
                                             <div className="button"><i className="fa fa-chevron-left" /></div>
                                             <div className="button"><i className="fa fa-chevron-right" /></div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <hr />
                                     <div className="form-group row text-center">

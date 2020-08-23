@@ -21,7 +21,14 @@
 #ModalBooking .tab .active,
 #ModalBooking .tab .open {color:#fff}
 #ModalBooking .tab .active .info, 
-#ModalBooking .tab .open .info {color:#ffd212; margin: 5px 0; font-size:18px; line-height: 1.2;}
+#ModalBooking .tab .open .info {
+    color:#ffd212; margin: 5px 0; font-size:18px; line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
 
 #ModalBooking .tab .title, #ModalBookingNotify .tab .title{
     color:#ffc11c; font-size: 28px;

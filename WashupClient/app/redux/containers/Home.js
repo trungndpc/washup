@@ -6,18 +6,22 @@ import BookingStep1Modal from '../../components/BookingStep1Modal';
 import BookingStep2Modal from '../../components/BookingStep2Modal';
 import BookingStep3Modal from '../../components/BookingStep3Modal';
 import BookingStep4Modal from '../../components/BookingStep4Modal';
+import AlertUtils from '../../utils/AlertUtils';
+import { Model } from '../../constants/Constants';
 
-class ListUser extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isStep1 : false,
+      isStep1: false,
       isStep2: false,
       isStep3: false,
       isStep4: false,
     }
     this.booking = this.booking.bind(this);
     this.onCloseStep1Modal = this.onCloseStep1Modal.bind(this);
+    this.bookingOTOService = this.bookingOTOService.bind(this);
+    this.bookingXemayService = this.bookingXemayService.bind(this);
     this.nextStep2 = this.nextStep2.bind(this);
     this.nextStep3 = this.nextStep3.bind(this);
     this.nextStep4 = this.nextStep4.bind(this);
@@ -25,6 +29,7 @@ class ListUser extends React.Component {
     this.prevStep1 = this.prevStep1.bind(this);
     this.prevStep2 = this.prevStep2.bind(this);
     this.onCloseBooking = this.onCloseBooking.bind(this);
+
   }
 
   componentDidMount() {
@@ -38,45 +43,55 @@ class ListUser extends React.Component {
 
 
   booking() {
-    this.setState({isStep1: true})
+    if (this.phoneInputRef && this.phoneInputRef.value) {
+      this.props.appActions.putInforBooking({ "phone": this.phoneInputRef.value })
+      this.setState({ isStep1: true })
+    } else {
+      AlertUtils.showWarning("Vui lòng nhập số điện thoại")
+    }
+  }
+
+  bookingOTOService() {
+    this.props.appActions.putInforBooking({"transportId": Model.OTO})
+    this.setState({ isStep1: true })
+  }
+
+  bookingXemayService() {
+    this.props.appActions.putInforBooking({"transportId": Model.XEMAY})
+    this.setState({ isStep1: true })
   }
 
   nextStep2() {
-    this.setState({isStep1: false, isStep2: true, isStep3: false, isStep4: false});
+    this.setState({ isStep1: false, isStep2: true, isStep3: false, isStep4: false });
   }
 
   nextStep3() {
-    this.setState({isStep1: false, isStep2: false, isStep3: true, isStep4: false});
+    this.setState({ isStep1: false, isStep2: false, isStep3: true, isStep4: false });
   }
 
   nextStep4() {
-    this.setState({isStep1: false, isStep2: false, isStep3: false, isStep4: true});
+    this.setState({ isStep1: false, isStep2: false, isStep3: false, isStep4: true });
   }
 
 
 
   prevStep1() {
-    this.setState({isStep1: true, isStep2: false, isStep3: false, isStep4: false});
+    this.setState({ isStep1: true, isStep2: false, isStep3: false, isStep4: false });
   }
 
   prevStep2() {
-    this.setState({isStep1: false, isStep2: true, isStep3: false, isStep4: false});
+    this.setState({ isStep1: false, isStep2: true, isStep3: false, isStep4: false });
   }
 
   onCloseStep1Modal() {
-    this.setState({isStep1: false, isStep2: false, isStep3: false, isStep4: false});
+    this.setState({ isStep1: false, isStep2: false, isStep3: false, isStep4: false });
   }
 
   onCloseBooking() {
-    this.setState({isStep1: false, isStep2: false, isStep3: false, isStep4: false});
+    this.setState({ isStep1: false, isStep2: false, isStep3: false, isStep4: false });
   }
 
   render() {
-    //DEBUG
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Render: ', 'ListItem')
-    }
-
     return (
       <div>
         <div id="advertisement" className="hidden-xs">
@@ -127,7 +142,7 @@ class ListUser extends React.Component {
                   <div className="input-search input-icons">
                     <form name="frm_search" method="POST" action="#">
                       <i className="fa icon_phone icon" />
-                      <input type="text" className="form-control input-field search_phone" placeholder="Nhập số điện thoại" />
+                      <input defaultValue="0972797184" ref={e => this.phoneInputRef = e} type="number" className="form-control input-field search_phone" placeholder="Nhập số điện thoại" />
                       <div onClick={this.booking} className="btn btn-search">ĐẶT LỊCH NGAY</div>
                     </form>
                   </div>
@@ -155,7 +170,6 @@ class ListUser extends React.Component {
               <div className="panel_body pd-lr20">
                 <div className="serives_list row">
                   <div className="col col-sm-6 col-xs-12">
-                    <div><img src /></div>
                     <div className="form-group">
                       <img src={require('../../resources/images/oto.png')} className="img-responsive img_service" />
                       <div className="item">Rửa xe hơi nước <span className="price">350k</span></div>
@@ -163,10 +177,9 @@ class ListUser extends React.Component {
                       <div className="item">Tẩy ố sơn <span className="price">800k</span></div>
                       <div className="item btn-more text-center">Xem thêm dịch vụ khác</div>
                     </div>
-                    <button className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button>
+                    <button  onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button>
                   </div>
                   <div className="col col-sm-6 col-xs-12">
-                    <div><img src /></div>
                     <div className="form-group">
                       <img src={require('../../resources/images/xemay.png')} className="img-responsive img_service" />
                       <div className="item">Rửa siêu sạch <span className="price">2.000k</span></div>
@@ -174,7 +187,7 @@ class ListUser extends React.Component {
                       <div className="item">Phủ Ceramic 9H <span className="price">1.500k</span></div>
                       <div className="space" />
                     </div>
-                    <button className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button>
+                    <button  onClick={this.bookingXemayService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button>
                   </div>
                   <div className="clearfix" />
                 </div>
@@ -399,7 +412,7 @@ class ListUser extends React.Component {
                       Thường khi xe để lâu ngày hoặc bán ế để lâu trong bãi, các ron cao su, sun roof, nhựa xẽ bị oxi hóa xuống cấp làm xe bị dột...
                     </div>
                     <div className>
-                      <a className="readmore" href>Xem chi tiết <i className="fa fa-chevron-right" /></a>
+                      <a className="readmore" href="#">Xem chi tiết <i className="fa fa-chevron-right" /></a>
                     </div>
                   </div>
                 </div>
@@ -523,10 +536,10 @@ class ListUser extends React.Component {
             </div>
           </div>
         </div>
-      {this.state.isStep1 &&  <BookingStep1Modal onNext={this.nextStep2} onClose={this.onCloseStep1Modal} /> }
-      {this.state.isStep2 &&  <BookingStep2Modal onPrev={this.prevStep1} onNext={this.nextStep3} />}
-      {this.state.isStep3 &&  <BookingStep3Modal onPrev={this.prevStep2} onNext={this.nextStep4}/>}
-      {this.state.isStep4 &&  <BookingStep4Modal onClose={this.onCloseBooking} />}
+        {this.state.isStep1 && <BookingStep1Modal {...this.props} onNext={this.nextStep2} onClose={this.onCloseStep1Modal} />}
+        {this.state.isStep2 && <BookingStep2Modal {...this.props} onPrev={this.prevStep1} onNext={this.nextStep3} />}
+        {this.state.isStep3 && <BookingStep3Modal {...this.props} onPrev={this.prevStep2} onNext={this.nextStep4} />}
+        {this.state.isStep4 && <BookingStep4Modal {...this.props} onClose={this.onCloseBooking} />}
       </div>
     )
   }
@@ -547,4 +560,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ListUser)
+)(Home)

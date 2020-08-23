@@ -456,3 +456,13 @@ a:hover {text-decoration:none; color:#1b3868}
 	background:#1c386e; color:#f8901f;
 	text-align:center;
 }
+
+
+#ModalBooking .tab .active .info {
+	color:#ffd212; margin: 5px 0; font-size:18px; line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

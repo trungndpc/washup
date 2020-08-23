@@ -24,6 +24,9 @@ import './resources/owl-carousel/owl.carousel.js'
 import './resources/js/swiper-bundle.min.js'
 import './resources/js/main.js'
 
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+
 
 
 
