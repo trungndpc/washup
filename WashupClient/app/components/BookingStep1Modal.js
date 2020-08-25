@@ -150,10 +150,10 @@ class BookingStep1Modal extends Component {
                                 </div>
                                 <div className="form-group row">
                                     <div className="col-md-3 col-xs-12">Loại xe:</div>
-                                    <div className="col-md-2 col-xs-12">
+                                    <div className="col-md-2 col-xs-6">
                                         <label><input onChange={this.onChangeTransportation} type="radio" name="type" value={Model.OTO} defaultChecked={this.state.transportId == Model.OTO} /> Ô tô <i className="fa fa-car" /></label>
                                     </div>
-                                    <div className="col-md-2 col-xs-12">
+                                    <div className="col-md-2 col-xs-6">
                                         <label><input onChange={this.onChangeTransportation} type="radio" name="type" value={Model.XEMAY} defaultChecked={this.state.transportId == Model.XEMAY} /> Xe máy <i className="fa fa-motorcycle" /></label>
                                     </div>
                                 </div>

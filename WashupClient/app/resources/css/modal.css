@@ -21,14 +21,7 @@
 #ModalBooking .tab .active,
 #ModalBooking .tab .open {color:#fff}
 #ModalBooking .tab .active .info, 
-#ModalBooking .tab .open .info {
-    color:#ffd212; margin: 5px 0; font-size:18px; line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
+#ModalBooking .tab .open .info {color:#ffd212; margin: 5px 0; font-size:18px; line-height: 1.2;}
 
 #ModalBooking .tab .title, #ModalBookingNotify .tab .title{
     color:#ffc11c; font-size: 28px;
@@ -71,7 +64,7 @@
 #ModalBooking .btn-fefault:hover, #ModalBookingNotify .btn-fefault:hover {background:#e1e1e1; color:#666}
 #ModalBooking .btn-fefault .fa, #ModalBookingNotify .btn-fefault .fa {float:left; font-size: 24px;}
 #ModalBooking .btn-success, #ModalBookingNotify .btn-success {
-	background: url('../images/btn_success.png') no-repeat center left;
+	background: url(../images/btn_success.png) no-repeat center left;
     color: #fff; text-shadow:1px 1px 1px #d07b1d;
     font-size: 16px;
     padding: 8px 20px;
@@ -81,7 +74,7 @@
     width: 190px;
 }
 #ModalBooking .btn-success2, #ModalBookingNotify .btn-success2 {
-    background: url('../images/btn_success.png') no-repeat center left;
+    background: url(../images/btn_success.png) no-repeat center left;
     color: #fff;
     text-shadow: 1px 1px 1px #d07b1d;
     font-size: 16px;
@@ -95,7 +88,7 @@
 #ModalBooking .fa-calendar-check {
 	width: 18px; height: 21px;
 	float:left; font-size: 24px;
-	background: url('../images/icons/icon_calendar_check.png') no-repeat center center;
+	background: url(../images/icons/icon_calendar_check.png) no-repeat center center;
 }
 #ModalBooking label {font-weight:normal}
 
@@ -199,7 +192,7 @@
     font-size: 18px;
 }
 .clipboard_check {
-	background:url('../images/icons/clipboard_check.png') no-repeat center center;
+	background:url(../images/icons/clipboard_check.png) no-repeat center center;
 	height:24px; width:18px; vertical-align:middle
 }
 
@@ -388,8 +381,8 @@
 }
 
 #ModalBooking .book_cancel, #ModalBookingNotify .book_cancel {
-    background: url('../images/book_cancel.png') no-repeat center center;
-    width: 265px;
+    background: url(../images/book_cancel.png) no-repeat center center;
+    width: 190px;
     height: 46px;
     border: 0;
     display: inline-block;
@@ -402,39 +395,39 @@
 
 .booking_final .icon_maps{
     width: 35px;  height: 28px; float:left;
-	background:url('../images/icons/icon_maps.png') no-repeat left center;
+	background:url(../images/icons/icon_maps.png) no-repeat left center;
 }
 .booking_final .icon_date{
     width: 35px;  height: 28px; float:left;
-	background:url('../images/icons/icon_date.png') no-repeat left center;
+	background:url(../images/icons/icon_date.png) no-repeat left center;
 }
 .booking_final .icon_clock{
     width: 35px;  height: 28px; float:left;
-	background:url('../images/icons/icon_clock.png') no-repeat left center;
+	background:url(../images/icons/icon_clock.png) no-repeat left center;
 }
 .booking_final .icon_car{
     width: 35px;  height: 28px; float:left;
-	background:url('../images/icons/icon_car.png') no-repeat left center;
+	background:url(../images/icons/icon_car.png) no-repeat left center;
 }
 .booking_final .icon_idcard{
     width: 35px;  height: 28px; float:left;
-	background:url('../images/icons/icon_identity.png') no-repeat left center;
+	background:url(../images/icons/icon_identity.png) no-repeat left center;
 }
 .booking_final .clipboard_check{
     width: 35px;  height: 28px; float:left;
-	background:url('../images/icons/icon_check.png') no-repeat left center;
+	background:url(../images/icons/icon_check.png) no-repeat left center;
 }
 .booking_final .icon_money{
     width: 35px;  height: 28px; float:left;
-	background:url('../images/icons/icon_money.png') no-repeat left center;
+	background:url(../images/icons/icon_money.png) no-repeat left center;
 }
 .booking_final .icon_pay{
     width: 35px;  height: 28px; float:left;
-	background:url('../images/icons/icon_pay.png') no-repeat left center;
+	background:url(../images/icons/icon_pay.png) no-repeat left center;
 }
 .booking_final .icon_note{
     width: 35px;  height: 28px; float:left;
-	background:url('../images/icons/icon_note.png') no-repeat left center;
+	background:url(../images/icons/icon_note.png) no-repeat left center;
 }
 
 .booking_final {font-size:18px; color:#888; letter-spacing: -0.5px;}
@@ -463,7 +456,7 @@
 }
 .booking_final .text {float:right}
 
-.booking_final .booking_close {
+.booking_close {
     width:171px; height:46px; color:#1b3a6a;
     font-size: 20px;
     font-weight: bold;
@@ -490,7 +483,8 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-.input-group>.custom-file, .input-group>.custom-select, .input-group>.form-control, .input-group>.form-control-plaintext {
+.input-group>.custom-file, .input-group>.custom-select,
+.input-group>.form-control, .input-group>.form-control-plaintext {
     position: relative;
     -ms-flex: 1 1 0%;
     flex: 1 1 0%;
@@ -580,4 +574,160 @@
 #scroll-3::-webkit-scrollbar-thumb
 {
     background-color: #f8901f;
+}
+
+@media screen and (max-width: 768px) and (min-width: 601px) {
+	#ModalBooking .main-title, #ModalBookingNotify .main-title{height:auto;}
+	#ModalBooking .step2, #ModalBookingNotify .step2,
+	#ModalBooking .step3, #ModalBookingNotify .step3 {height:134px;}
+	#ModalBooking .arrow-up {bottom: -20px;}
+	
+	#box_calendar .tab_calendar a {width:130px}
+	#box_calendar .tab_service a  { width: 170px; height: 80px;}
+	#box_calendar .calendar_content .hour {width:15.6%}
+	.calendar_nav .fa-chevron-left {
+		position: absolute;
+		left: -14px;
+		padding: 30px 6px;
+	}
+	.calendar_nav .fa-chevron-right {
+		position: absolute;
+		right: -14px;
+		padding: 30px 6px;
+	}
+	
+	#ModalBooking .time_up {height:85px}
+	#ModalBooking .time_up .timer {margin-top: 20px;}
+	#ModalBooking .time_up .text {left:4px;}
+	#ModalBooking .box_input {
+		padding: 10px 15px;
+	}
+	.service_content .service {height:auto;display: flex;}
+	.service_content .service .box_right {position:relative; height:96px; width: 100%;}
+	.service_content .service .box_right img {
+		position:absolute; top:0; left:0; z-index:10;
+	}
+	.service_content .service .box_right .name {
+		text-shadow: 0px 0px 5px #fff;
+	}
+	.service_content .service .box_right .info {
+		position:absolute; top:0px; left:70px; z-index:20;
+	}
+	.service_content .service .box_right .price {
+		position:absolute; top: 10px;
+		right: 0;
+		z-index: 30;
+		margin-right: 5px;
+		height: auto;
+		line-height: 1;
+	}
+	.booking_final .form-group {display:flex}
+	.booking_final { padding: 30px 20px 0px;}
+}
+@media only screen and (max-width: 600px) {
+	#ModalBooking .main-title, #ModalBookingNotify .main-title {
+		height:auto; position: relative;
+	}
+	#ModalBooking .tab, #ModalBookingNotify .tab {height:auto; overflow:hidden}
+	#ModalBooking .box_input {padding:10px}
+	#ModalBooking .tab .item, #ModalBookingNotify .tab .item {position:unset}
+	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {width:130px}
+	
+	#ModalBooking h3.title {font-size:24px}
+	#box_calendar .tab_calendar {padding:0 5px;}
+	#box_calendar .tab_calendar a {width:auto; padding:5px 10px; font-size:15px;}
+	#box_calendar .tab_calendar .name {font-size:15px;}
+	.calendar_nav .fa {padding: 20px 5px;}
+	.calendar_nav .fa-chevron-left {left:-10px;}
+	.calendar_nav .fa-chevron-right {right:-10px;}
+	#box_calendar .calendar_content {padding:0;}
+	#box_calendar .calendar_content .hour {height:60px; width:15%}
+	.calendar_content .name {font-size:16px; padding-top: 0;}
+	.calendar_content .status {font-size:11px}
+	#box_calendar .tab_calendar .title {font-size: 14px; padding: 5px;}
+	
+	.service_content .service {height:auto; margin:5px;}
+	.service_content input {opacity:1; margin-top:10px}
+	.service_content .checkmark {display:none}
+	.service_content .service .container {height:20px;}
+	.service_content .service .box_right {position:relative; height:96px; width: 100%;}
+	.service_content .service .box_right img {
+		position:absolute; top:0; left:0; z-index:10;
+	}
+	.service_content .service .box_right .name {
+		text-shadow: 0px 0px 5px #fff;
+	}
+	.service_content .service .box_right .info {
+		position:absolute; top:10px; left:10px; z-index:20;
+	}
+	.service_content .service .box_right .price {
+		position:absolute; top: 10px;
+		right: 0;
+		z-index: 30;
+		margin-right: 5px;
+		height: auto;
+		line-height: 1;
+	}
+	#ModalBooking .payment a {
+		margin-right: 5px;
+		padding: 5px;
+		margin-bottom: 5px;
+	}
+	.booking_final {  padding: 20px 10px 20px;}
+	.booking_final .col-left {width:100%;}
+	.booking_final .col-right {width:100%;}
+	.booking_final .form-group { display: flex;}
+	
+	.requiement_wrapper { padding: 20px;}
+	.recruitment_content  {padding-right:15px}
+	.scrollbar {margin-bottom: 10px;}
+	.requiement_wrapper .title span {font-size:24px;padding: 5px 15px;}
+	.requiement_wrapper .title { margin-bottom: 30px}
+}
+@media only screen and (max-width: 414px) {
+	.service_content .service { display: flex;}
+	#box_calendar .tab_calendar a {padding:5px}
+}
+@media only screen and (max-width: 375px) {
+	.service_content .service { display: block;}
+	#box_calendar .payment, #box_calendar .box-note { padding:0 15px}
+	#box_calendar .tab_service a {padding:5px 0}
+}
+@media only screen and (max-width: 320px) {
+	#ModalBooking h3.title { font-size: 20px; }
+	#box_calendar .tab_calendar a {
+		width: 100%;
+		padding: 5px 10px;
+		font-size: 15px;
+		border-radius: 0;
+		margin-bottom: 1px;
+	}
+	.box_notify .btn-success {width:190px !important}
+	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
+		width: 110px;
+	}
+	#ModalBooking .btn-success, #ModalBookingNotify .btn-success {
+		width: 160px; padding: 8px 10px;
+	}
+	#ModalBooking .btn-success2, #ModalBookingNotify .btn-success2 {
+		padding: 8px 0px; width:190px
+	}
+	#ModalBooking .step_back {width:190px; padding: 6px 15px; margin-bottom: 5px;}
+	.calendar_nav .fa-chevron-left {
+		left: -10px;
+		top: 80px;
+	}
+	.calendar_nav .fa-chevron-right {
+		right: -10px;
+		top: 80px;
+	}
+	.service_content .service .box_right .info {top:0; left:0}
+	.service_content .service .box_right .hashtag a {padding:5px}
+	.service_content .service .box_right .price {font-size:30px;}
+	
+	.requiement_wrapper { padding: 20px 10px;}
+	#ModalBooking .tab .heading {font-size: 25px;}
+	.recruitment_content {padding-right:10px }
+	.requiement_wrapper .title span {font-size:21px; padding: 5px 15px;}
+	.requiement_wrapper .title {margin-bottom: 35px;}
 }
