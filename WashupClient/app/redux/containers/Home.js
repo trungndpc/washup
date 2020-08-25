@@ -142,8 +142,8 @@ class Home extends React.Component {
                   <div className="input-search input-icons">
                     <form name="frm_search" method="POST" action="#">
                       <i className="fa icon_phone icon" />
-                      <input defaultValue="0972797184" ref={e => this.phoneInputRef = e} type="number" className="form-control input-field search_phone" placeholder="Nhập số điện thoại" />
-                      <div onClick={this.booking} className="btn btn-search">ĐẶT LỊCH NGAY</div>
+                      <input ref={e => this.phoneInputRef = e} type="number" className="form-control input-field search_phone" placeholder="Nhập số điện thoại" />
+                      <div onClick={this.booking} className="btn-search">ĐẶT LỊCH NGAY</div>
                     </form>
                   </div>
                 </div>
@@ -175,7 +175,7 @@ class Home extends React.Component {
                       <div className="item">Rửa xe hơi nước <span className="price">350k</span></div>
                       <div className="item">Tẩy ố kính <span className="price">700k</span></div>
                       <div className="item">Tẩy ố sơn <span className="price">800k</span></div>
-                      <div className="item btn-more text-center">Xem thêm dịch vụ khác</div>
+                      <div className="item btn-more text-center">Xem thêm</div>
                     </div>
                     <button  onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button>
                   </div>
@@ -456,7 +456,7 @@ class Home extends React.Component {
               </div>
               <div className="col-md-6 col-xs-12"><div className="content text-center">
                 <div><img src={require('../../resources/images/nhuong_quyen.png')} className="text-center img-responsive" /></div>
-                <div className="text">Sự kết nối giữa nhà nhượng quyền và thương hiệu là tác nhân chính ảnh hưởng đến sự thành công hay thất bải của mọi dự án nhượng quyền</div>
+                <div className="text">Với nhu cầu thị trường lớn cộng với vốn đầu tư ban đầu ở mức trung bình. Ngành chăm sóc & bán lẻ phụ kiện cho xe hoàn toàn có thể mang lại lợi nhuận ổn định và lâu dài.</div>
                 <div><a href="#" className="btn btn-readmore">XEM THÊM</a></div>
               </div></div>
             </div>
@@ -476,7 +476,7 @@ class Home extends React.Component {
                   <div className="clearfix form-group contact">
                     <i className="fa fa-map-marker icon" />
                     <div className="text">
-                      <h4>Công ty CP-DV Chăm sóc xe &amp; Phụ kiện chính hiệu Wash-Up</h4>
+                      <h4>Công ty Cổ phần thương mại dịch vụ WASHUP</h4>
                       <div>L4.01, khu I, tòa nhà Prince Residence,<br />
                       19-21 Nguyễn Văn Trỗi, P12, Q. Phú Nhuận, TP.HCM</div>
                     </div>
@@ -499,10 +499,6 @@ class Home extends React.Component {
                   <div className="form-group">Kết nối với chúng tôi</div>
                   <div className="social form-group">
                     <a href="#" className="icon_fb"><img src={require('../../resources/images/icons/icon_fb.png')} /></a>
-                    <a href="#" className="icon_instagram"><img src={require('../../resources/images/icons/icon_instagram.png')} /></a>
-                    <a href="#" className="icon_youtube"><img src={require('../../resources/images/icons/icon_youtube.png')} /></a>
-                    <a href="#" className="icon_twitter"><img src={require('../../resources/images/icons/icon_twitter.png')} /></a>
-                    <a href="#" className="icon_zalo"><img src={require('../../resources/images/icons/icon_zalo.png')} /></a>
                   </div>
                   <div className="form-group">
                     Trải nghiệm đặt lịch nhanh chóng và nhiều tiện ích khác với ứng dụng Wash-Up

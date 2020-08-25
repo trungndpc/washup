@@ -175,7 +175,7 @@ class BookingStep1Modal extends Component {
                                 </div>
                                 <hr />
                                 <div className="form-group row text-center">
-                                    <button onClick={this.close} type="button" className="btn btn-fefault" data-dismiss="modal"><i className="fa fa-angle-left" /> QUAY LẠI</button>
+                                    <button onClick={this.close} type="button" className="btn btn-fefault m-btn-prev" data-dismiss="modal"><i className="fa fa-angle-left" /> QUAY LẠI</button>
                                     <button onClick={this.next} type="button" className="btn btn-success"><i className="fa fa-calendar-check" /> CHỌN GIỜ RỬA</button>
                                 </div>
                             </div>

@@ -1,0 +1,27 @@
+
+*:focus {
+    outline: 0 !important;
+}
+
+.m-btn-prev {
+    line-height: 25px;
+    padding: 6px 15px !important;
+    margin-right: 30px;
+}
+
+
+.btn-search {
+    padding-left: 45px !important;
+    cursor: pointer;
+}
+
+.btn-search:hover {opacity:0.8}
+
+.btn-success2 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+
+.btn-success2:hover {
+    opacity:0.8
+}
