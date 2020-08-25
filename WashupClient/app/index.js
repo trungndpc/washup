@@ -16,6 +16,7 @@ import './resources/css/swiper-bundle.min.css'
 import './resources/css/style.css'
 import './resources/css/style.responsive.css'
 import './resources/css/modal.css'
+import './resources/css/mstyle.css'
 
 import './resources/js/jquery-1.11.2.min.js'
 import './resources/js/jquery-ui.js'

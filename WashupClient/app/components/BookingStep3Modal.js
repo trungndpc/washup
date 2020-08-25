@@ -174,7 +174,7 @@ class BookingStep3Modal extends Component {
                                     <hr />
                                     {this.state.errorMsg &&  <div style={{textAlign: 'center', color: 'red', paddingBottom: '30px'}}>{this.state.errorMsg}</div> }
                                     <div className="form-group row text-center">
-                                        <button onClick={this.prev} type="button" className="btn btn-fefault step_back"><i className="fa fa-angle-left" /> QUAY LẠI</button>
+                                        <button onClick={this.prev} type="button" className="btn btn-fefault step_back m-btn-prev"><i className="fa fa-angle-left" /> QUAY LẠI</button>
                                         <button onClick={this.next} type="button" className="btn btn-success2"><i className="fa fa-check-circle" /> HOÀN TẤT - ĐẶT LỊCH</button>
                                     </div>
                                 </div>
