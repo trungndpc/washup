@@ -10,7 +10,11 @@ import * as appActions from '../actions/app'
 import { withRouter, Switch, Route } from 'react-router-dom'
 import NotFoundPage from '../../components/NotFoundPage'
 import Header from '../../components/Header'
-import Home from '../containers/Home';
+import Dashboard from '../containers/Dashboard';
+import BookingDetail from '../containers/BookingDetail';
+import Footer from '../../components/Footer'
+import Booking from './Booking'
+
 class App extends React.Component {
   render() {
     //DEBUG
@@ -22,9 +26,12 @@ class App extends React.Component {
         <div>
           <Header history={this.props.history} />
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/booking" component={Booking} />
+            <Route exact path="/booking/:id" component={BookingDetail} />
             <Route path="/*" component={NotFoundPage} />
           </Switch>
+          {/* <Footer /> */}
         </div>
       </div>
     )

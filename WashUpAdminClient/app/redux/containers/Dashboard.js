@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../actions/app'
 
-class Home extends React.Component {
+class Dashboard extends React.Component {
   constructor(props) {
     super(props)
 
@@ -22,10 +22,6 @@ class Home extends React.Component {
 
     return (
       <div>
-        {/* End Header Top Area */}
-        {/* Mobile Menu start */}
-        
-
         <div className="notika-status-area">
           <div className="container">
             <div className="row">
@@ -64,8 +60,6 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-        {/* End Status area*/}
-        {/* Start Sale Statistic area*/}
         <div className="sale-statistic-area">
           <div className="container">
             <div className="row">
@@ -119,18 +113,6 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-        <div className="footer-copyright-area">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div className="footer-copy-right">
-                  <p>Copyright © 2018 
-                    . All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     )
   }
@@ -151,4 +133,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home)
+)(Dashboard)
