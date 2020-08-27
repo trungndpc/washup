@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TimeUtils from '../utils/TimeUtils';
 
+
 class BookingStep4Modal extends Component {
 
     constructor(props) {
@@ -34,8 +35,7 @@ class BookingStep4Modal extends Component {
                         <div className="modal-content">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
                                 <div className="main-title">
-                                    <div className="tab">
-                                    </div>
+                                    <h3 className="confirm-title">Thông Tin Đặt Lịch</h3>
                                 </div>
                                 <div className="clearfix line">&nbsp;</div>
                                  {isLoading &&  <div style={{textAlign: 'center', padding: '30px'}}>

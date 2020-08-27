@@ -7,6 +7,7 @@
     line-height: 25px;
     padding: 6px 15px !important;
     margin-right: 30px;
+    color: #333 !important;
 }
 
 
@@ -24,4 +25,35 @@
 
 .btn-success2:hover {
     opacity:0.8
+}
+
+.two-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.confirm-title {
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+#site-nq .img {
+    height: 250px;
+}
+@media (min-width: 992px) {
+    #site-nq .img {
+        height: 430px !important;
+    }
+}
+
+#membership_slider .item {
+    border-radius: 20px;
+}
+
+#membership_slider .item  img {
+    border-radius: 18px;
 }

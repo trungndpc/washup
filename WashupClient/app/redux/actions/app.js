@@ -13,8 +13,11 @@ export function getScheduleToday() {
   return  {type: type.APP.GET_SCHEDULE_TODAY_ASYNC}
 }
 
-export function getServices() {
-  return {type: type.APP.GET_SERVICE_ASYNC }
+export function getServices(transportId) {
+  return {
+    type: type.APP.GET_SERVICE_ASYNC,
+    transportId: transportId
+  }
 }
 
 export function booking(data) {
