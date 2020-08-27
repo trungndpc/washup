@@ -4,7 +4,7 @@ import AlertUtils from '../../utils/AlertUtils';
 const initialState = {
   models: {},
   schedules: {},
-  services: [],
+  services: {},
   inforBooking: {},
   isLoadingBooking: false,
   confirmBooking: null
@@ -19,21 +19,29 @@ export default function app(state = initialState, action) {
       break
     }
     case type.APP.GET_SCHEDULE_TODAY_END: {
-      let resp = action.payload;
-      resp.data.sort(function (a, b) {
-        return a["time"] - b["time"];
-      });
-      newState.schedules[1] = resp.data;
+      console.log("GET_SCHEDULE_TODAY_END")
+      let today = [];
+      let tomorow = action.tomorow;
+      let schedules = { ...newState.schedules }
+      schedules[1] = today;
+      schedules[2] = tomorow;
+      newState.schedules = schedules;
       break;
     }
     case type.APP.GET_SERVICE_END: {
-      let resp = action.payload;
-      newState.services = resp.data;
+      let transportId = action.transportId;
+      let serviceId = action.serviceId;
+      let services = { ...newState.services };
+      let serviceByTrans = services[transportId] ? { ...services[transportId] } : {}
+      serviceByTrans[serviceId] = action.data;
+      services[transportId] = serviceByTrans
+      newState.services = services;
       break;
     }
     case type.APP.PUT_INFO_BOOKING: {
       let data = action.data;
       newState.inforBooking = data;
+      newState.confirmBooking = null;
       break;
     }
     case type.APP.BOOKING_START: {

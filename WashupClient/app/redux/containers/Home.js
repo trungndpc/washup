@@ -10,6 +10,7 @@ import AlertUtils from '../../utils/AlertUtils';
 import { Model } from '../../constants/Constants';
 import NewsList from '../../components/NewsList';
 import Footer from '../../components/Footer';
+import PriceUtils from '../../utils/PriceUtils'
 
 class Home extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class Home extends React.Component {
       isStep2: false,
       isStep3: false,
       isStep4: false,
+      tabServiceId: 1
     }
     this.booking = this.booking.bind(this);
     this.onCloseStep1Modal = this.onCloseStep1Modal.bind(this);
@@ -32,16 +34,14 @@ class Home extends React.Component {
     this.prevStep2 = this.prevStep2.bind(this);
     this.onCloseBooking = this.onCloseBooking.bind(this);
     this.formatPhone = this.formatPhone.bind(this);
+    this.changeTabService = this.changeTabService.bind(this);
 
   }
-
-  componentDidMount() {
-  }
-
 
   componentDidMount() {
     window.initOwlCarousel();
     window.initSwiper();
+    this.props.appActions.getServiceByServiceGroupId(this.state.tabServiceId);
   }
 
 
@@ -110,7 +110,18 @@ class Home extends React.Component {
     }
   }
 
+  changeTabService(tabServiceId) {
+    this.setState({
+      tabServiceId: tabServiceId
+    })
+    this.props.appActions.getServiceByServiceGroupId(tabServiceId);
+  }
+
   render() {
+    let serviceTraOTO = this.props.app.services[Model.OTO]
+    const otoService = (serviceTraOTO && serviceTraOTO[this.state.tabServiceId]) ? serviceTraOTO[this.state.tabServiceId] : []
+    let serviceTraXEMAY = this.props.app.services[Model.XEMAY]
+    const xeMayService = (serviceTraXEMAY && serviceTraXEMAY[this.state.tabServiceId]) ? serviceTraXEMAY[this.state.tabServiceId] : []
     return (
       <div>
         <div id="advertisement" className="hidden-xs">
@@ -176,9 +187,9 @@ class Home extends React.Component {
                 <h3 className="title col-md-2 col-xs-12 pull-left">Dịch vụ</h3>
                 <div className="col-md-8 col-xs-12 text-center">
                   <ul className="service_menu">
-                    <li><a href="#" className="active">Vệ sinh cơ bản</a></li>
-                    <li><a href="#">Làm đẹp</a></li>
-                    <li><a href="#">Bảo dưỡng nhanh</a></li>
+                    <li onClick={() => {this.changeTabService(1)}}><a href="javascript:void(0)" className={this.state.tabServiceId == 1 ? 'active' : ''}>Vệ sinh cơ bản</a></li>
+                    <li onClick={() => {this.changeTabService(3)}}><a href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>Làm đẹp</a></li>
+                    <li onClick={() => {this.changeTabService(2)}}><a href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>Bảo dưỡng nhanh</a></li>
                   </ul>
                 </div>
                 <div className="col-md-2 text-right"><div className="row">
@@ -191,9 +202,12 @@ class Home extends React.Component {
                   <div className="col col-sm-6 col-xs-12">
                     <div className="form-group">
                       <img src={require('../../resources/images/oto.png')} className="img-responsive img_service" />
-                      <div className="item">Rửa xe hơi nước <span className="price">350k</span></div>
-                      <div className="item">Tẩy ố kính <span className="price">700k</span></div>
-                      <div className="item">Tẩy ố sơn <span className="price">800k</span></div>
+                      {otoService && otoService.slice(0,3).map((item, index) => {
+                        return (
+                        <div key={item["id"]} className="item">{item["name"]}<span className="price">{PriceUtils.toThousand(item["price"])}</span></div>
+                        )
+                      })}
+
                       <div className="item btn-more text-center">Xem thêm</div>
                     </div>
                     <button onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button>
@@ -201,9 +215,11 @@ class Home extends React.Component {
                   <div className="col col-sm-6 col-xs-12">
                     <div className="form-group">
                       <img src={require('../../resources/images/xemay.png')} className="img-responsive img_service" />
-                      <div className="item">Rửa siêu sạch <span className="price">2.000k</span></div>
-                      <div className="item">Lột keo, đánh bóng xe máy <span className="price">350k</span></div>
-                      <div className="item">Phủ Ceramic 9H <span className="price">1.500k</span></div>
+                      {xeMayService && xeMayService.slice(0,3).map((item, index) => {
+                        return (
+                          <div key={item["id"]} className="item">{item["name"]}<span className="price">{PriceUtils.toThousand(item["price"])}</span></div>
+                        )
+                      })}
                       <div className="space" />
                     </div>
                     <button onClick={this.bookingXemayService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button>

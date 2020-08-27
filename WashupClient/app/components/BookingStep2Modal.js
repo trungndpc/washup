@@ -52,8 +52,8 @@ class BookingStep2Modal extends Component {
             timestampEndDay = TimeUtils.getEndDay(TimeUtils.getDayAfterTomorrow());
         }
         this.setState({
-            "tabDate": tabDateId,
-            "timestampEndDay": timestampEndDay
+            tabDate: tabDateId,
+            timestampEndDay: timestampEndDay
         })
     }
 
@@ -64,14 +64,7 @@ class BookingStep2Modal extends Component {
 
 
     render() {
-        const inforBooking = this.props.app.inforBooking;
-        const schedules = (this.props.app.schedules && this.props.app.schedules[1]) ? this.props.app.schedules[1] : [];
-        var listSchedules = [];
-        schedules.forEach(function (item) {
-            if ((item["time"] * 1000) <= this.state.timestampEndDay && (item["time"] * 1000) >= TimeUtils.getBeforDay(this.state.timestampEndDay)) {
-                listSchedules.push(item)
-            }
-        }.bind(this))
+        var listSchedules = (this.props.app.schedules && this.props.app.schedules[this.state.tabDate]) ? this.props.app.schedules[this.state.tabDate] : [];
         return (
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>

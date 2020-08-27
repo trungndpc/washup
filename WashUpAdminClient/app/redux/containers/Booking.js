@@ -69,6 +69,7 @@ class Booking extends React.Component {
                                                     <th>Schedule</th>
                                                     <th>Price</th>
                                                     <th>Status</th>
+                                                    <th>Created</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -83,6 +84,7 @@ class Booking extends React.Component {
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
                                                             <td>{item["totalPrice"]}</td>
                                                             <td>{item["status"]}</td>
+                                                            <td>{TimeUtils.diffTime(item["createdOn"])}</td>
                                                             <td><button onClick={() => {this.onClickDetail(item["id"])}} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-next"></i></button></td>
                                                         </tr>
                                                     )

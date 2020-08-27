@@ -57,3 +57,17 @@
 #membership_slider .item  img {
     border-radius: 18px;
 }
+
+
+#site-service .top_services .search input {
+    text-indent: 10px !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .m-main-tile .pc {
+        display: none !important;
+    }
+    .m-main-tile .mobile  {
+        display: block !important;
+    }
+}

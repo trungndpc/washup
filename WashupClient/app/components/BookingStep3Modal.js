@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import HeaderBookingModal from '../components/HeaderBookingModal';
+import PriceUtils from '../utils/PriceUtils';
 
 
 class BookingStep3Modal extends Component {
@@ -20,7 +21,7 @@ class BookingStep3Modal extends Component {
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
         let inforBooking = {...this.props.app.inforBooking}
-        this.props.appActions.getServices(inforBooking["transportId"]);
+        this.props.appActions.getServices(inforBooking["transportId"], 1);
     }
 
 
@@ -52,6 +53,8 @@ class BookingStep3Modal extends Component {
         this.setState({
             tabServiceId: tabServiceId,
         })
+        let inforBooking = {...this.props.app.inforBooking}
+        this.props.appActions.getServices(inforBooking["transportId"], tabServiceId);
     }
 
     selectServiceId(serviceId) {
@@ -70,7 +73,9 @@ class BookingStep3Modal extends Component {
 
 
     render() {
-        const services = this.props.app.services
+        let inforBooking = {...this.props.app.inforBooking}
+        let serviceByTrans =  this.props.app.services[inforBooking["transportId"]]
+        const services = (serviceByTrans && serviceByTrans[this.state.tabServiceId]) ? serviceByTrans[this.state.tabServiceId] : []
         return (
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
@@ -91,16 +96,16 @@ class BookingStep3Modal extends Component {
                                                     <a onClick={() => this.selectTabService(1)} href="javascript:void(0)" className={this.state.tabServiceId == 1 ? 'active' : ''}>
                                                         <div className="title">Vệ sinh cơ bản</div>
                                                     </a>
-                                                    <a onClick={() => this.selectTabService(2)} href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>
+                                                    <a onClick={() => this.selectTabService(3)} href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>
                                                         <div className="title">Làm đẹp</div>
                                                     </a>
-                                                    <a onClick={() => this.selectTabService(3)} href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>
+                                                    <a onClick={() => this.selectTabService(2)} href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>
                                                         <div className="title">Bảo dưỡng nhanh</div>
                                                     </a>
                                                 </div>
                                                 <div className="calendar_content">
                                                     <div className="service_content scrollbar" id="scroll-3">
-                                                        {this.state.tabServiceId == 1 ?  
+                                                        {(services) ?  
                                                             <div className="force-overflow">
                                                             { services.map((item) => {
                                                                 return (
@@ -109,17 +114,12 @@ class BookingStep3Modal extends Component {
                                                                             <input type="radio" name="service_type" checked={this.state.serviceId == item["id"]} />
                                                                             <span className="checkmark" />
                                                                         </label>
-                                                                        <div className="box_select box_right pull-left col-md-11">
+                                                                        <div className={this.state.serviceId == item["id"] ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
                                                                             <img src={require('../resources/images/service_img1.png')} className="pull-left" />
                                                                             <div className="info pull-left">
                                                                                 <div className="name">{item["name"]}</div>
-                                                                                <div className="hashtag">
-                                                                                    <a href="#">Rửa xe</a>
-                                                                                    <a href="#">Vệ sinh</a>
-                                                                                    <a href="#">Thay nhớt</a>
-                                                                                </div>
                                                                             </div>
-                                                                            <div className="price pull-right">{item["price"] / 1000 + "K"}</div>
+                                                                            <div className="price pull-right">{PriceUtils.toThousand(item["price"])}</div>
                                                                         </div>
                                                                     </div>
                                                                 )

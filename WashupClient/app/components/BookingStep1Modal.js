@@ -106,7 +106,7 @@ class BookingStep1Modal extends Component {
         const listModel = (this.props.app.models && this.props.app.models[this.state.transportId]) ? this.props.app.models[this.state.transportId] : []
         return (
             <div>
-            <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block', paddingRight: '15px' }}>
+            <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block'}}>
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                         <div className="modal-body">
@@ -149,7 +149,7 @@ class BookingStep1Modal extends Component {
                                     <div className="col-md-4 col-xs-12">
                                         <select ref={e => this.modelInputRef = e} name="car_type" id="car_type" className="form-control">
                                             {listModel && listModel.map((item) => {
-                                                return <option value={item["id"]}>{item["brandName"] + "-" + item["mode"]}</option>
+                                                return <option value={item["id"]}>{item["name"]}</option>
                                             })}
                                         </select>
                                     </div>

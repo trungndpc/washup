@@ -13,13 +13,20 @@ function* requestGetListBookingByDateAsync(action) {
   yield put({ type: type.APP.GET_LIST_BOOKING_END, payload: data })
 }
 
-function* requestGetBookingDetailById(id) {
-  yield put({ type: type.APP.GET_BOOKING_DETAIL_END, payload: id })
+function* requestGetBookingDetailById(action) {
+  const resp = yield call(getBookingDetail, action.id);
+  yield put({ type: type.APP.GET_BOOKING_DETAIL_END, payload: resp.data })
 }
 
 function getListBookingByDate(datetime) {
   return new Promise((resolve, reject) => {
-    // APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/order-by-date?date=` + datetime, resolve, reject);
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/all`, resolve, reject);
+  });
+}
+
+
+function getBookingDetail(id) {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/` + id, resolve, reject);
   });
 }

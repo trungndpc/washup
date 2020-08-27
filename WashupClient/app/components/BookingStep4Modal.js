@@ -35,7 +35,7 @@ class BookingStep4Modal extends Component {
                         <div className="modal-content">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
                                 <div className="main-title">
-                                    <h3 className="confirm-title">Thông Tin Đặt Lịch</h3>
+                                    <h3 className="confirm-title">THÔNG TIN ĐẶT LỊCH</h3>
                                 </div>
                                 <div className="clearfix line">&nbsp;</div>
                                  {isLoading &&  <div style={{textAlign: 'center', padding: '30px'}}>
