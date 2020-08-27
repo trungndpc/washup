@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../actions/app'
+import TimeUtils from '../../utils/TimeUtils'
 
 class Booking extends React.Component {
     constructor(props) {
@@ -10,11 +11,17 @@ class Booking extends React.Component {
     }
 
     componentDidMount() {
+        this.props.appActions.getListBookingByDate(1598111100)
+    }
+
+    onClickDetail(id) {
+        this.props.history.push('/booking/' + id);
     }
 
 
 
     render() {
+        const bookings = this.props.app.bookings;
         //DEBUG
         return (
             <div>
@@ -51,78 +58,36 @@ class Booking extends React.Component {
                         <div className="row">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div className="normal-table-list mg-t-30">
-                                    <div className="basic-tb-hd">
-                                        <h2>Striped rows</h2>
-                                        <p>Add Classes (<code>.table-striped</code>) to any table row within the tbody</p>
-                                    </div>
                                     <div className="bsc-tbl-st">
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
-                                                    <th>Nickname</th>
+                                                    <th>Name</th>
+                                                    <th>Phone</th>
+                                                    <th>Address</th>
+                                                    <th>Schedule</th>
+                                                    <th>Price</th>
+                                                    <th>Status</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Alexandra</td>
-                                                    <td>Christopher</td>
-                                                    <td>@makinton</td>
-                                                    <td>Ducky</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Madeleine</td>
-                                                    <td>Hollaway</td>
-                                                    <td>@hollway</td>
-                                                    <td>Cheese</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Sebastian</td>
-                                                    <td>Johnston</td>
-                                                    <td>@sebastian</td>
-                                                    <td>Jaycee</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>Mitchell</td>
-                                                    <td>Christin</td>
-                                                    <td>@mitchell4u</td>
-                                                    <td>AdskiDeAnus</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>5</td>
-                                                    <td>Elizabeth</td>
-                                                    <td>Belkitt</td>
-                                                    <td>@belkitt</td>
-                                                    <td>Goat</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>6</td>
-                                                    <td>Benjamin</td>
-                                                    <td>Parnell</td>
-                                                    <td>@wayne234</td>
-                                                    <td>Pokie</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>7</td>
-                                                    <td>Katherine</td>
-                                                    <td>Buckland</td>
-                                                    <td>@anitabelle</td>
-                                                    <td>Wokie</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>8</td>
-                                                    <td>Nicholas</td>
-                                                    <td>Walmart</td>
-                                                    <td>@mwalmart</td>
-                                                    <td>Spike</td>
-                                                </tr>
+                                                {bookings && bookings.map((item, index) => {
+                                                    return (
+                                                        <tr key={item["id"]}>
+                                                            <td>{index + 1}</td>
+                                                            <td>{item["fullName"]}</td>
+                                                            <td>{item["phone"]}</td>
+                                                            <td>{item["pickUpAddress"]}</td>
+                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
+                                                            <td>{item["totalPrice"]}</td>
+                                                            <td>{item["status"]}</td>
+                                                            <td><button onClick={() => {this.onClickDetail(item["id"])}} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-next"></i></button></td>
+                                                        </tr>
+                                                    )
+                                                })}
+
                                             </tbody>
                                         </table>
                                     </div>

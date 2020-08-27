@@ -2,7 +2,28 @@ import React, { Component } from 'react'
 
 class Nav extends Component {
 
+
+    constructor(props) {
+        super(props)
+        this.onClickDashboadTab = this.onClickDashboadTab.bind(this);
+        this.onClickCustomer = this.onClickCustomer.bind(this);
+        this.onClickBookingTab = this.onClickBookingTab.bind(this);
+    }
+
+    onClickDashboadTab() {
+        this.props.history.push('/')
+    }
+
+    onClickBookingTab() {
+        this.props.history.push('/booking')
+    }
+
+    onClickCustomer() {
+        this.props.history.push("/customer")
+    }
+
     render() {
+        const path = window.location.pathname.split("/")[1];
         return (
             <div>
                 <div className="mobile-menu-area">
@@ -132,11 +153,11 @@ class Nav extends Component {
                                 <div className="tab-content custom-menu-content">
                                     <div id="Home" className="tab-pane in active notika-tab-menu-bg animated flipInX">
                                         <ul className="notika-main-menu-dropdown">
-                                            <li><a href="index.html">Dashboard</a>
+                                            <li style={"" == path ? {fontWeight: '600'} : {fontWeight: '400'}} onClick={this.onClickDashboadTab} ><a href="javascript:void(0)">Dashboard</a>
                                             </li>
-                                            <li><a href="index-2.html">Booking</a>
+                                            <li style={"booking" == path ? {fontWeight: '600'} : {fontWeight: '400'}} onClick={this.onClickBookingTab}><a href="javascript:void(0)">Booking</a>
                                             </li>
-                                            <li><a href="index-3.html">Customer</a>
+                                            <li style={"customer" == path ? {fontWeight: '600'} : {fontWeight: '400'}} onClick={this.onClickCustomer}><a href="javascript:void(0)">Customer</a>
                                             </li>
                                         </ul>
                                     </div>

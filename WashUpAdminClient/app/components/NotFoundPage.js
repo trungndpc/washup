@@ -8,8 +8,7 @@ class NotFoundPage extends React.Component {
   render() {
     return (
       <div>
-        <h4>404 Page Not Found</h4>
-        <Link to="/"> Go back to homepage </Link>
+        <h4 style={{textAlign: 'center', padding: '50px'}}>404 Page Not Found</h4>
       </div>
     )
   }

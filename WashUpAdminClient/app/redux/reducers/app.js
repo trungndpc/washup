@@ -1,22 +1,26 @@
 import * as type from '../actions/action-types'
 
 const initialState = {
-  user: [],
-  isLoading: false
+  bookings: []
 }
 
 export default function app(state = initialState, action) {
   let newState = Object.assign({}, state)
   switch (action.type) {
-    case type.APP.GET_LIST_ITEM_START: {
-      newState.isLoading = true
-      newState.user = []
+    case type.APP.GET_LIST_BOOKING_END: {
+      const resp = action.payload;
+      newState.bookings = resp.data
       break
     }
-    case type.APP.GET_LIST_ITEM_END: {
-      newState.user = action.payload
-      newState.isLoading = false
-      break
+    case type.APP.GET_BOOKING_DETAIL_END: {
+      const payload = action.payload;
+      newState.booking = null;
+      newState.bookings.forEach((booking) => {
+        if (booking["id"] == payload.id) {
+          newState.booking = booking;
+        }
+      })
+      break;
     }
     default:
       return state

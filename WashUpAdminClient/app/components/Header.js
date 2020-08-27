@@ -40,7 +40,7 @@ class Header extends Component {
             </div>
           </div>
         </div>
-        <Nav />
+        <Nav {...this.props}/>
       </div>
     )
   }
