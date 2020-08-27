@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import TimeUtils from '../utils/TimeUtils';
+import HeaderBookingModal from '../components/HeaderBookingModal';
+
 
 class BookingStep3Modal extends Component {
 
@@ -18,7 +19,8 @@ class BookingStep3Modal extends Component {
         body.className = "modal-open"
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
-        this.props.appActions.getServices();
+        let inforBooking = {...this.props.app.inforBooking}
+        this.props.appActions.getServices(inforBooking["transportId"]);
     }
 
 
@@ -69,33 +71,13 @@ class BookingStep3Modal extends Component {
 
     render() {
         const services = this.props.app.services
-        const inforBooking = this.props.app.inforBooking;
-        const timeSechedule = inforBooking["timeSchedule"] * 1000;
         return (
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
-                                <div className="main-title">
-                                    <div className="tab">
-                                        <div className="item col-md-3 col-xs-12 open">
-                                            Số điện thoại:<div className="info">{inforBooking["phone"]}</div>
-                                        </div>
-                                        <div className="item col-md-3 col-xs-12 active">
-                                            Địa chỉ nhận xe: <div className="info">{inforBooking["address"]}</div>
-                                        </div>
-                                        <div className="item col-md-3 col-xs-12 active">
-                                            Khung giờ: <div className="info">{TimeUtils.getDayOfWeek(timeSechedule)}<br />{TimeUtils.formatDate(timeSechedule)}</div>
-                                            <div className="arrow-up" />
-                                        </div>
-                                        <div className="item col-md-3 col-xs-12"><div className="time_up">
-                                            <div className="text">Thời gian giữ chỗ</div>
-                                            <div className="timer">{TimeUtils.timeSchedule(timeSechedule / 1000)}</div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <HeaderBookingModal {...this.props} step={3}/>
                                 <div className="clearfix line">&nbsp;</div>
                                 <div className="box_input">
                                     <h3 className="title">CHỌN DỊCH VỤ &amp; THANH TOÁN</h3>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Model} from '../constants/Constants'; 
-import TimeUtils from '../utils/TimeUtils';
+import HeaderBookingModal from '../components/HeaderBookingModal';
 
 class BookingStep1Modal extends Component {
     
@@ -54,6 +54,7 @@ class BookingStep1Modal extends Component {
         let fullname =  this.fullNameInputRef.value;
         let model = this.modelInputRef.value;
         let license = this.licensePlateInputRef.value;
+        let vehicleName = this.vehicleNameInputRef.value;
         if (!inforBooking["phone"] && this.phoneInputRef) {
             inforBooking["phone"] = this.phoneInputRef.value;
         }
@@ -62,6 +63,7 @@ class BookingStep1Modal extends Component {
         inforBooking["model"] = model;
         inforBooking["licensePlate"] = license;
         inforBooking["transportId"] = this.state.transportId;
+        inforBooking["vehicleName"] = vehicleName;
         return inforBooking;
     }
 
@@ -86,6 +88,11 @@ class BookingStep1Modal extends Component {
             return false;
         }
 
+        if (!data["vehicleName"]) {
+            this.setState({"errorMsg": "Vui lòng nhập tên xe"})
+            return false;
+        }
+
         if (!data["licensePlate"]) {
             this.setState({"errorMsg": "Vui lòng biển số"})
             return false;
@@ -96,7 +103,6 @@ class BookingStep1Modal extends Component {
 
     render() {
         const inforBooking = this.props.app.inforBooking;
-        const phone = (this.props.app.inforBooking && this.props.app.inforBooking.phone) ? this.props.app.inforBooking.phone : "" 
         const listModel = (this.props.app.models && this.props.app.models[this.state.transportId]) ? this.props.app.models[this.state.transportId] : []
         return (
             <div>
@@ -105,26 +111,7 @@ class BookingStep1Modal extends Component {
                     <div className="modal-content">
                         <div className="modal-body">
                             <form name="frm_booking" method="POST" action="#">
-                            <div className="main-title">
-                                <div className="tab">
-                                    <div className="item col-md-3 col-xs-12 active">
-                                            Số điện thoại:<div className="info">{phone && phone}</div>
-                                        <div className="arrow-up" />
-                                    </div>
-                                    <div className={inforBooking["address"] ? "item col-md-3 col-xs-12 open" : "item col-md-3 col-xs-12 "}>Địa chỉ nhận xe: <div className="info">{inforBooking["address"]}</div></div>
-                                    <div className= {inforBooking["timeSchedule"] ? "item col-md-3 col-xs-12 open" : "item col-md-3 col-xs-12"}>
-                                            Khung giờ: <div className="info">{TimeUtils.getDayOfWeek(inforBooking["timeSchedule"])}<br />
-                                            {inforBooking["timeSchedule"] && TimeUtils.formatDate(inforBooking["timeSchedule"] * 1000)}
-                                            </div>
-                                    </div>
-                                    { inforBooking["timeSchedule"] && <div className={inforBooking["timeSchedule"] ? "item col-md-3 col-xs-12 open" : "item col-md-3 col-xs-12"}><div className="time_up">
-                                            <div className="text">Thời gian giữ chỗ</div>
-                                            <div className="timer">{TimeUtils.timeSchedule(inforBooking["timeSchedule"] / 1000)}</div>
-                                        </div>
-                                    </div>
-                                    }
-                                </div>
-                            </div>
+                            <HeaderBookingModal {...this.props} step={1} />
                             <div className="clearfix line">&nbsp;</div>
                             <div className="box_input">
                                 <div className="form-group row">&nbsp;</div>
@@ -165,6 +152,12 @@ class BookingStep1Modal extends Component {
                                                 return <option value={item["id"]}>{item["brandName"] + "-" + item["mode"]}</option>
                                             })}
                                         </select>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <div className="col-md-3 col-xs-12">Tên xe:</div>
+                                    <div className="col-md-4 col-xs-12">
+                                        <input ref={e => this.vehicleNameInputRef = e} defaultValue={inforBooking && inforBooking["vehicleName"]} type="text" name="vehicleName" placeholder="SH Mode 300I" className="form-control" />
                                     </div>
                                 </div>
                                 <div className="form-group row">

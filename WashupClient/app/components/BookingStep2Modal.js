@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TimeUtils from '../utils/TimeUtils'
+import HeaderBookingModal from '../components/HeaderBookingModal';
 
 class BookingStep2Modal extends Component {
 
@@ -77,28 +78,7 @@ class BookingStep2Modal extends Component {
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
-                                <div className="main-title">
-                                    <div className="tab">
-                                        <div className="item col-md-3 col-xs-12 open">
-                                            Số điện thoại:<div className="info">{inforBooking["phone"]}</div>
-                                        </div>
-                                        <div className="item col-md-3 col-xs-12 active">
-                                            Địa chỉ nhận xe: <div className="info">{inforBooking["address"]}</div>
-                                            <div className="arrow-up" />
-                                        </div>
-                                        <div className={inforBooking["timeSchedule"] ? "item col-md-3 col-xs-12 open" : "item col-md-3 col-xs-12"}>
-                                            Khung giờ: <div className="info">{TimeUtils.getDayOfWeek(inforBooking["timeSchedule"])}<br />
-                                                {inforBooking["timeSchedule"] && TimeUtils.formatDate(inforBooking["timeSchedule"] * 1000)}
-                                            </div>
-                                        </div>
-                                        {inforBooking["timeSchedule"] && <div className={inforBooking["timeSchedule"] ? "item col-md-3 col-xs-12 open" : "item col-md-3 col-xs-12"}><div className="time_up">
-                                            <div className="text">Thời gian giữ chỗ</div>
-                                            <div className="timer">{TimeUtils.timeSchedule(inforBooking["timeSchedule"] / 1000)}</div>
-                                        </div>
-                                        </div>
-                                        }
-                                    </div>
-                                </div>
+                                <HeaderBookingModal {...this.props} step={2} />
                                 <div className="clearfix line">&nbsp;</div>
                                 <div className="box_input">
                                     <h3 className="title">CHỌN NGÀY/GIỜ RỬA XE</h3>
@@ -147,10 +127,6 @@ class BookingStep2Modal extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* <div className="calendar_nav">
-                                            <div className="button"><i className="fa fa-chevron-left" /></div>
-                                            <div className="button"><i className="fa fa-chevron-right" /></div>
-                                        </div> */}
                                     </div>
                                     <hr />
                                     <div className="form-group row text-center">
