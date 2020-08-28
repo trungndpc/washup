@@ -731,3 +731,10 @@
 	.requiement_wrapper .title span {font-size:21px; padding: 5px 15px;}
 	.requiement_wrapper .title {margin-bottom: 35px;}
 }
+
+@media only screen and (max-width: 360px) {
+	#ModalBooking .box_input { padding: 10px 5px;}
+	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {width:110px;}
+	#ModalBooking .btn-success2, #ModalBookingNotify .btn-success2 {width: 190px;}
+	.requiement_wrapper .title span {font-size: 23px;}
+}

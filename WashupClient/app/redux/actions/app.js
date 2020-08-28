@@ -41,3 +41,9 @@ export function getServiceByServiceGroupId(groupId) {
     groupId: groupId
   }
 }
+
+export function getAccessoriesTop() {
+  return {
+    type: type.APP.GET_ACCESSORIES_ASYNC
+  }
+}

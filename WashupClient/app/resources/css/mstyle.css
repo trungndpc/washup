@@ -71,3 +71,11 @@
         display: block !important;
     }
 }
+
+#product_slider .item .price, #product_list .item .price {
+    margin-bottom: 15px !important;
+}
+
+.price  {
+    font-style: normal;
+}

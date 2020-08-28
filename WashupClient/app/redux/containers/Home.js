@@ -11,6 +11,7 @@ import { Model } from '../../constants/Constants';
 import NewsList from '../../components/NewsList';
 import Footer from '../../components/Footer';
 import PriceUtils from '../../utils/PriceUtils'
+import AccessoriesList from '../../components/AccessoriesList';
 
 class Home extends React.Component {
   constructor(props) {
@@ -187,9 +188,9 @@ class Home extends React.Component {
                 <h3 className="title col-md-2 col-xs-12 pull-left">Dịch vụ</h3>
                 <div className="col-md-8 col-xs-12 text-center">
                   <ul className="service_menu">
-                    <li onClick={() => {this.changeTabService(1)}}><a href="javascript:void(0)" className={this.state.tabServiceId == 1 ? 'active' : ''}>Vệ sinh cơ bản</a></li>
-                    <li onClick={() => {this.changeTabService(3)}}><a href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>Làm đẹp</a></li>
-                    <li onClick={() => {this.changeTabService(2)}}><a href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>Bảo dưỡng nhanh</a></li>
+                    <li onClick={() => {this.changeTabService(1)}}><a onClick={() => {this.changeTabService(1)}} href="javascript:void(0)" className={this.state.tabServiceId == 1 ? 'active' : ''}>Vệ sinh cơ bản</a></li>
+                    <li onClick={() => {this.changeTabService(3)}}><a onClick={() => {this.changeTabService(1)}} href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>Làm đẹp</a></li>
+                    <li onClick={() => {this.changeTabService(2)}}><a onClick={() => {this.changeTabService(1)}} href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>Bảo dưỡng nhanh</a></li>
                   </ul>
                 </div>
                 <div className="col-md-2 text-right"><div className="row">
@@ -321,155 +322,7 @@ class Home extends React.Component {
             </div>
           </div></div>
         </div>
-        <div id="site-product">
-          <div className="container"><div className="row">
-            <div className="panel_header pd-lr20">
-              <h3 className="title col-md-5 pull-left">Phụ kiện cho xe</h3>
-              <div className="pull-right">
-                <a href="#" className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></a>
-              </div>
-            </div>
-            <div id="product_list">
-              <div className="swiper-container swiper-container-initialized swiper-container-horizontal">
-                <div className="swiper-wrapper" style={{ transform: 'translate3d(-1190px, 0px, 0px)', transition: 'all 0ms ease 0s' }}><div className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={2} style={{ width: '178.333px', marginRight: '20px' }}>
-                  <img src={require('../../resources/images/phukien3.png')} className="img-responsive" />
-                  <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                  <div className="price">650K</div>
-                  <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                  <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                </div><div className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={3} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien4.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div><div className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={4} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien5.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div><div className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={5} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien6.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div><div className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={6} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien1.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div><div className="item swiper-slide swiper-slide-duplicate swiper-slide-prev" data-swiper-slide-index={7} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien2.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div>
-                  <div className="item swiper-slide swiper-slide-active" data-swiper-slide-index={0} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien1.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div>
-                  <div className="item swiper-slide swiper-slide-next" data-swiper-slide-index={1} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien2.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div>
-                  <div className="item swiper-slide" data-swiper-slide-index={2} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien3.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div>
-                  <div className="item swiper-slide" data-swiper-slide-index={3} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien4.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div>
-                  <div className="item swiper-slide" data-swiper-slide-index={4} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien5.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div>
-                  <div className="item swiper-slide" data-swiper-slide-index={5} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien6.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div>
-                  <div className="item swiper-slide" data-swiper-slide-index={6} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien1.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div>
-                  <div className="item swiper-slide swiper-slide-duplicate-prev" data-swiper-slide-index={7} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien2.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div>
-                  <div className="item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index={0} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien1.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div><div className="item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index={1} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien2.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div><div className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={2} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien3.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div><div className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={3} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien4.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div><div className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={4} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien5.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div><div className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={5} style={{ width: '178.333px', marginRight: '20px' }}>
-                    <img src={require('../../resources/images/phukien6.png')} className="img-responsive" />
-                    <div className="name">Bơm 2 xylanh - MODEL ATJ 1166 (CƠ)</div>
-                    <div className="price">650K</div>
-                    <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                    <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                  </div></div>
-                {/* Add Pagination */}
-                <div className="swiper-pagination" />
-                {/* Add Arrows */}
-                <div className="swiper-button-next" tabIndex={0} role="button" aria-label="Next slide" />
-                <div className="swiper-button-prev" tabIndex={0} role="button" aria-label="Previous slide" />
-                <span className="swiper-notification" aria-live="assertive" aria-atomic="true" /></div>
-            </div>
-          </div></div>
-        </div>
+        <AccessoriesList {...this.props}/>
         <NewsList />
         <div id="site-nq">
           <div className="container"><div className="row">

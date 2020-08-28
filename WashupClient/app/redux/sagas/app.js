@@ -9,6 +9,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_SERVICE_ASYNC, requestGetServiceAsync)
   yield takeLatest(type.APP.BOOKING_ASYNC, requestBookingAsync)
   yield takeLatest(type.APP.GET_HOME_SERVICE_ASYNC, requestServiceHomeAsync)
+  yield takeLatest(type.APP.GET_ACCESSORIES_ASYNC, requestGetAccessorisAsync)
 }
 
 function* requestGetModelAsync() {
@@ -41,6 +42,12 @@ function* requestBookingAsync(action) {
   yield put({ type: type.APP.BOOKING_END, payload: resp })
 }
 
+function* requestGetAccessorisAsync() {
+  const resp = yield call(getAccessories);
+  yield put({ type: type.APP.GET_ACCESSORIES_END, payload: resp.data })
+
+}
+
 function getModels() {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/model-series/all`, resolve, reject);
@@ -65,6 +72,12 @@ function getServices(transportId, serviceId) {
   });
 }
 
+function getAccessories() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/accessories/top`, resolve, reject);
+  });
+}
+
 function booking(data) {
   const body = {
     "phone": data["phone"],
@@ -74,8 +87,10 @@ function booking(data) {
     "licensePlate": data["licensePlate"],
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
-    "modelId": data["model"],
-    "serviceIds": [data["serviceId"]]
+    "modelId": "ff80818174157d0b0174158822160007",
+    "serviceIds": [data["serviceId"]],
+    "vehicleName" : data["vehicleName"],
+    "modelSeriesId" : data["model"]
   }
 
   return new Promise((resolve, reject) => {

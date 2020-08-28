@@ -7,7 +7,8 @@ const initialState = {
   services: {},
   inforBooking: {},
   isLoadingBooking: false,
-  confirmBooking: null
+  confirmBooking: null,
+  topAccessories: []
 }
 
 export default function app(state = initialState, action) {
@@ -19,8 +20,7 @@ export default function app(state = initialState, action) {
       break
     }
     case type.APP.GET_SCHEDULE_TODAY_END: {
-      console.log("GET_SCHEDULE_TODAY_END")
-      let today = [];
+      let today = action.today;
       let tomorow = action.tomorow;
       let schedules = { ...newState.schedules }
       schedules[1] = today;
@@ -56,6 +56,10 @@ export default function app(state = initialState, action) {
         newState.inforBooking = null;
       }
       break;
+    }
+    case type.APP.GET_ACCESSORIES_END: {
+        newState.topAccessories = action.payload;
+        break;
     }
     default:
       return state

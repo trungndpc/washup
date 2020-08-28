@@ -230,7 +230,7 @@ a:hover {text-decoration:none; color:#1b3868}
 .serives_list .item:hover{background:#f1f1f1;}
 .serives_list .space{line-height:47px; height:47px;}
 .serives_list .item .price{
-	color:#ff6c00; font-weight:bold;font-style:italic;float:right;text-transform:uppercase;font-size:18px;
+	color:#ff6c00; font-weight:bold;font-style:normal;float:right;text-transform:uppercase;font-size:18px;
 }
 .serives_list .btn-more{
 	border:#ff6c00 1px solid; border-radius:4px;
@@ -374,7 +374,7 @@ a:hover {text-decoration:none; color:#1b3868}
 #product_slider .item img, #product_list .item img {height:240px; width:100%; object-fit:contain}
 #product_slider .item .name, #product_list .item .name {display:block; height: 25px; white-space: nowrap; overflow: hidden;}
 #product_slider .item .price, #product_list .item .price {
-	font-size:20px; color:red;font-weight:bold; font-style: italic; margin-bottom:35px;}
+	font-size:20px; color:red;font-weight:bold; font-style: normal; margin-bottom:35px;}
 #product_slider .item .btn_buy, #product_list .item .btn_buy {
 	background: rgba(0,187,255,1);
 	background: -moz-linear-gradient(top, rgba(0,187,255,1) 0%, rgba(0,123,255,1) 100%);
