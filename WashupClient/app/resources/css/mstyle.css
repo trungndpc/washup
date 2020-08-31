@@ -79,3 +79,12 @@
 .price  {
     font-style: normal;
 }
+
+.close-modal {
+    color: black;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    font-size: 20px;
+    cursor: pointer;
+}

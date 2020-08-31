@@ -3,6 +3,7 @@ import AlertUtils from '../../utils/AlertUtils';
 
 const initialState = {
   models: {},
+  brands: [],
   schedules: {},
   services: {},
   inforBooking: {},
@@ -17,6 +18,10 @@ export default function app(state = initialState, action) {
     case type.APP.GET_MODELS_END: {
       let resp = action.payload;
       newState.models = classifyModels(resp.data);
+      break
+    }
+    case type.APP.GET_BRAND_END: {
+      newState.brands = action.payload;
       break
     }
     case type.APP.GET_SCHEDULE_TODAY_END: {

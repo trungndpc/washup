@@ -13,12 +13,17 @@ class Footer extends Component {
                                     <a href="#"><img src={require('../resources/images/logo/logo-washup-small.png')} height={50} /></a>
                                 </div>
                                 <div className="clearfix form-group contact">
-                                    <i className="fa fa-map-marker icon" />
                                     <div className="text">
-                                        <h4>Công ty Cổ phần thương mại dịch vụ WASHUP</h4>
-                                        <div>L4.01, khu I, tòa nhà Prince Residence,<br />
-                                            19-21 Nguyễn Văn Trỗi, P12, Q. Phú Nhuận, TP.HCM
-                                    </div>
+                                        <div>
+                                            <i className="fa fa-building icon" />
+                                            <h4 style={{paddingLeft: '20px'}}>CÔNG TY CỔ PHẦN THƯƠNG MẠI DỊCH VỤ WASHUP</h4>
+                                        </div>
+                                        <div>
+                                            <i className="fa fa-map-marker icon" />
+                                            <div style={{paddingLeft: '20px'}}>L4.01, khu I, tòa nhà Prince Residence,<br />
+                                                19-21 Nguyễn Văn Trỗi, P12, Q. Phú Nhuận, TP.HCM</div>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div className="clearfix form-group mail">

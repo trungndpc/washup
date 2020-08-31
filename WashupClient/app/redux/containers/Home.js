@@ -12,6 +12,7 @@ import NewsList from '../../components/NewsList';
 import Footer from '../../components/Footer';
 import PriceUtils from '../../utils/PriceUtils'
 import AccessoriesList from '../../components/AccessoriesList';
+import Header from '../../components/Header';
 
 class Home extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Home extends React.Component {
       tabServiceId: 1
     }
     this.booking = this.booking.bind(this);
-    this.onCloseStep1Modal = this.onCloseStep1Modal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
     this.bookingOTOService = this.bookingOTOService.bind(this);
     this.bookingXemayService = this.bookingXemayService.bind(this);
     this.nextStep2 = this.nextStep2.bind(this);
@@ -56,13 +57,11 @@ class Home extends React.Component {
   }
 
   bookingOTOService() {
-    this.props.appActions.putInforBooking({ "transportId": Model.OTO })
-    this.setState({ isStep1: true })
+    window.open('https://www.messenger.com/t/washupvietnamofficial', '_blank');
   }
 
   bookingXemayService() {
-    this.props.appActions.putInforBooking({ "transportId": Model.XEMAY })
-    this.setState({ isStep1: true })
+    window.open('https://www.messenger.com/t/washupvietnamofficial', '_blank');
   }
 
   nextStep2() {
@@ -87,7 +86,7 @@ class Home extends React.Component {
     this.setState({ isStep1: false, isStep2: true, isStep3: false, isStep4: false });
   }
 
-  onCloseStep1Modal() {
+  onCloseModal() {
     this.setState({ isStep1: false, isStep2: false, isStep3: false, isStep4: false });
   }
 
@@ -125,44 +124,7 @@ class Home extends React.Component {
     const xeMayService = (serviceTraXEMAY && serviceTraXEMAY[this.state.tabServiceId]) ? serviceTraXEMAY[this.state.tabServiceId] : []
     return (
       <div>
-        <div id="advertisement" className="hidden-xs">
-          <img src={require('../../resources/images/advertisement.png')} className="img-responsive" />
-        </div>
-        <div className="clearfix" />
-        <nav id="topmenu" className="navbar">
-          <div className="container"><div className="row nav_inner">
-            <div className="topleft text-right hidden-xs"><a href="#">
-              <i className="fa icon icon_link">&nbsp;</i> <span>Nhượng quyền</span></a>
-            </div>
-            <div className="menu">
-              <div className="logo">
-                <div className="topnav-centered">
-                  <a href="index.html">
-                    <img src={require('../../resources/images/logo/logo-washup.png')} className="img-responsive" />
-                  </a>
-                </div>
-              </div>
-              <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
-                <i className="fa fa-bars" />
-              </button>
-              <div id="main-menu" className="topnav navbar collapse navbar-collapse">
-                <a href="#">Dịch vụ</a>
-                <a href="#">Lốp xe &amp; Phụ kiện</a>
-                <a href="#">Kinh nghiệm chăm sóc xe</a>
-                <div className="topnav-right">
-                  <a href="#">Tuyển dụng</a>
-                  <a href="#">Liên hệ</a>
-                  <a href="#"><i className="fa icon_user" /></a>
-                  <a href="#" className="language"><i className="fa icon_global" /> VN</a>
-                </div>
-              </div>
-            </div>
-            <div className="topright text-left hidden-xs"><a href="#">
-              <i className="fa icon icon_map">&nbsp;</i> <span>Hệ thống cửa hàng</span></a>
-            </div>
-          </div></div>
-        </nav>
-        <div id="site-banner" />
+        <Header />
         <div id="site-service">
           <div className="top_services">
             <div className="container"><div className="row inner">
@@ -211,7 +173,7 @@ class Home extends React.Component {
 
                       <div className="item btn-more text-center">Xem thêm</div>
                     </div>
-                    <button onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button>
+                    <button onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngày</button>
                   </div>
                   <div className="col col-sm-6 col-xs-12">
                     <div className="form-group">
@@ -223,7 +185,7 @@ class Home extends React.Component {
                       })}
                       <div className="space" />
                     </div>
-                    <button onClick={this.bookingXemayService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button>
+                    <button onClick={this.bookingXemayService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngày</button>
                   </div>
                   <div className="clearfix" />
                 </div>
@@ -324,7 +286,7 @@ class Home extends React.Component {
         </div>
         <AccessoriesList {...this.props}/>
         <NewsList />
-        <div id="site-nq">
+        {/* <div id="site-nq">
           <div className="container"><div className="row">
             <div className="panel_body">
               <div className="col-md-6 col-xs-12 img">
@@ -337,11 +299,11 @@ class Home extends React.Component {
               </div></div>
             </div>
           </div></div>
-        </div>
+        </div> */}
         <Footer />
-        {this.state.isStep1 && <BookingStep1Modal {...this.props} onNext={this.nextStep2} onClose={this.onCloseStep1Modal} />}
-        {this.state.isStep2 && <BookingStep2Modal {...this.props} onPrev={this.prevStep1} onNext={this.nextStep3} />}
-        {this.state.isStep3 && <BookingStep3Modal {...this.props} onPrev={this.prevStep2} onNext={this.nextStep4} />}
+        {this.state.isStep1 && <BookingStep1Modal {...this.props} onNext={this.nextStep2} onClose={this.onCloseModal} />}
+        {this.state.isStep2 && <BookingStep2Modal {...this.props} onPrev={this.prevStep1} onClose={this.onCloseModal} onNext={this.nextStep3} />}
+        {this.state.isStep3 && <BookingStep3Modal {...this.props} onPrev={this.prevStep2} onClose={this.onCloseModal} onNext={this.nextStep4} />}
         {this.state.isStep4 && <BookingStep4Modal {...this.props} onClose={this.onCloseBooking} />}
       </div>
     )

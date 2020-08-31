@@ -21,6 +21,7 @@ class BookingStep1Modal extends Component {
         var body = document.getElementsByTagName('body')[0];
         body.className = "modal-open"
         this.props.appActions.getModels()
+        this.props.appActions.getBrands()
     }
 
     onChangeTransportation(e) {
@@ -103,6 +104,7 @@ class BookingStep1Modal extends Component {
 
     render() {
         const inforBooking = this.props.app.inforBooking;
+        const brands = this.props.app.brands;
         const listModel = (this.props.app.models && this.props.app.models[this.state.transportId]) ? this.props.app.models[this.state.transportId] : []
         return (
             <div>
@@ -111,7 +113,7 @@ class BookingStep1Modal extends Component {
                     <div className="modal-content">
                         <div className="modal-body">
                             <form name="frm_booking" method="POST" action="#">
-                            <HeaderBookingModal {...this.props} step={1} />
+                            <HeaderBookingModal {...this.props} onClose={this.close} step={1} />
                             <div className="clearfix line">&nbsp;</div>
                             <div className="box_input">
                                 <div className="form-group row">&nbsp;</div>
@@ -145,11 +147,21 @@ class BookingStep1Modal extends Component {
                                     </div>
                                 </div>
                                 <div className="form-group row">
+                                    <div className="col-md-3 col-xs-12">Hãng xe:</div>
+                                    <div className="col-md-4 col-xs-12">
+                                        <select ref={e => this.brandInputRef = e} name="car_brand" id="brand_type" className="form-control">
+                                            {brands && brands.map((item) => {
+                                                return <option value={item["id"]}>{item["brandName"]}</option>
+                                            })}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
                                     <div className="col-md-3 col-xs-12">Dòng xe:</div>
                                     <div className="col-md-4 col-xs-12">
                                         <select ref={e => this.modelInputRef = e} name="car_type" id="car_type" className="form-control">
                                             {listModel && listModel.map((item) => {
-                                                return <option value={item["id"]}>{item["name"]}</option>
+                                                return <option value={item["id"]}>{item["seriesName"]}</option>
                                             })}
                                         </select>
                                     </div>

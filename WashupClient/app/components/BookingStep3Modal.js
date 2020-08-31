@@ -13,6 +13,7 @@ class BookingStep3Modal extends Component {
             methodPaymentId: 1,
             errorMsg: null
         }
+        this.close = this.close.bind(this)
     }
 
     componentWillMount() {
@@ -71,6 +72,15 @@ class BookingStep3Modal extends Component {
         })
     } 
 
+    close() {
+        var body = document.getElementsByTagName('body')[0];
+        body.className = ""
+        if (this.props.onClose) {
+            this.props.onClose();
+        }
+    }
+
+
 
     render() {
         let inforBooking = {...this.props.app.inforBooking}
@@ -82,7 +92,7 @@ class BookingStep3Modal extends Component {
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
-                                <HeaderBookingModal {...this.props} step={3}/>
+                                <HeaderBookingModal {...this.props}  onClose={this.close} step={3}/>
                                 <div className="clearfix line">&nbsp;</div>
                                 <div className="box_input">
                                     <h3 className="title">CHỌN DỊCH VỤ &amp; THANH TOÁN</h3>

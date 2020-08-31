@@ -6,12 +6,20 @@ class HeaderBookingModal extends Component {
 
     constructor(props) {
         super(props);
+        this.onClose = this.onClose.bind(this)
+    }
+
+    onClose() {
+        if (this.props.onClose) {
+            this.props.onClose();
+        }
     }
 
     render() {
         const inforBooking = this.props.app.inforBooking;
         return (
             <div className="main-title m-main-tile">
+                <i onClick={this.onClose} className="fa fa-times close-modal" />
                 <div className="tab pc">
                         <div className="item col-md-3 col-xs-12 active">
                             Số điện thoại:<div className="info">{inforBooking["phone"] && inforBooking["phone"]}</div>

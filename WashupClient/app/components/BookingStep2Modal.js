@@ -15,6 +15,7 @@ class BookingStep2Modal extends Component {
         }
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
+        this.close = this.close.bind(this);
     }
 
     componentWillMount() {
@@ -61,6 +62,14 @@ class BookingStep2Modal extends Component {
         this.setState({ timeScheduleSelected: time })
     }
 
+    close() {
+        var body = document.getElementsByTagName('body')[0];
+        body.className = ""
+        if (this.props.onClose) {
+            this.props.onClose();
+        }
+    }
+
 
 
     render() {
@@ -71,7 +80,7 @@ class BookingStep2Modal extends Component {
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
-                                <HeaderBookingModal {...this.props} step={2} />
+                                <HeaderBookingModal {...this.props} onClose={this.close} step={2} />
                                 <div className="clearfix line">&nbsp;</div>
                                 <div className="box_input">
                                     <h3 className="title">CHỌN NGÀY/GIỜ RỬA XE</h3>

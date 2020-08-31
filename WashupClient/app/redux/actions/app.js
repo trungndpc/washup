@@ -47,3 +47,9 @@ export function getAccessoriesTop() {
     type: type.APP.GET_ACCESSORIES_ASYNC
   }
 }
+
+export function getBrands() {
+  return {
+    type : type.APP.GET_BRAND_ASYNC
+  }
+}

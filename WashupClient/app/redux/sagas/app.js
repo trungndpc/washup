@@ -10,6 +10,7 @@ export default function* app() {
   yield takeLatest(type.APP.BOOKING_ASYNC, requestBookingAsync)
   yield takeLatest(type.APP.GET_HOME_SERVICE_ASYNC, requestServiceHomeAsync)
   yield takeLatest(type.APP.GET_ACCESSORIES_ASYNC, requestGetAccessorisAsync)
+  yield takeLatest(type.APP.GET_BRAND_ASYNC, requestGetBrandAsync)
 }
 
 function* requestGetModelAsync() {
@@ -45,12 +46,22 @@ function* requestBookingAsync(action) {
 function* requestGetAccessorisAsync() {
   const resp = yield call(getAccessories);
   yield put({ type: type.APP.GET_ACCESSORIES_END, payload: resp.data })
+}
 
+function* requestGetBrandAsync() {
+  const resp = yield call(getBrands);
+  yield put({type: type.APP.GET_BRAND_END, payload: resp.data})
 }
 
 function getModels() {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/model-series/all`, resolve, reject);
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brand-series/all`, resolve, reject);
+  });
+}
+
+function getBrands() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brands/all`, resolve, reject);
   });
 }
 
