@@ -53,7 +53,8 @@ class BookingStep1Modal extends Component {
     getFormData(inforBooking) {
         let address = this.addressInputRef.value;
         let fullname =  this.fullNameInputRef.value;
-        let model = this.modelInputRef.value;
+        let brandId = this.brandInputRef.value;
+        let brandSeriesId = this.brandSeriesInputRef.value;
         let license = this.licensePlateInputRef.value;
         let vehicleName = this.vehicleNameInputRef.value;
         if (!inforBooking["phone"] && this.phoneInputRef) {
@@ -61,7 +62,8 @@ class BookingStep1Modal extends Component {
         }
         inforBooking["address"] = address;
         inforBooking["fullname"] = fullname;
-        inforBooking["model"] = model;
+        inforBooking["brandSeriesId"] = brandSeriesId;
+        inforBooking["brandId"] = brandId;
         inforBooking["licensePlate"] = license;
         inforBooking["transportId"] = this.state.transportId;
         inforBooking["vehicleName"] = vehicleName;
@@ -84,7 +86,12 @@ class BookingStep1Modal extends Component {
             return false;
         }
 
-        if (!data["model"]) {
+        if (!data["brandId"]) {
+            this.setState({"errorMsg": "Vui lòng nhập hãng xe"})
+            return false;
+        }
+
+        if (!data["brandSeriesId"]) {
             this.setState({"errorMsg": "Vui lòng nhập dòng xe"})
             return false;
         }
@@ -159,7 +166,7 @@ class BookingStep1Modal extends Component {
                                 <div className="form-group row">
                                     <div className="col-md-3 col-xs-12">Dòng xe:</div>
                                     <div className="col-md-4 col-xs-12">
-                                        <select ref={e => this.modelInputRef = e} name="car_type" id="car_type" className="form-control">
+                                        <select ref={e => this.brandSeriesInputRef = e} name="car_type" id="car_type" className="form-control">
                                             {listModel && listModel.map((item) => {
                                                 return <option value={item["id"]}>{item["seriesName"]}</option>
                                             })}

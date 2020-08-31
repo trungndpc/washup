@@ -23,10 +23,9 @@ class AccessoriesList extends Component {
                         <div className="swiper-container swiper-container-initialized swiper-container-horizontal">
                             <div className="swiper-wrapper" style={{ transform: 'translate3d(-1190px, 0px, 0px)', transition: 'all 0ms ease 0s' }}>
                                 {listAccesories && listAccesories.map((item, index) => {
-                                    let linkImg = "./static/images/" +  (item["imgUrl"].replace("/accessories/", ""));
                                     return (
                                         <div key={item["id"]} className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={2} style={{ width: '178.333px', marginRight: '20px' }}>
-                                            <img src={linkImg} className="img-responsive" />
+                                            <img src={item["imgUrl"]} className="img-responsive" />
                                                 <div className="name">{item["name"]}</div>
                                                 <div className="price">{PriceUtils.toThousand(item["price"])}</div>
                                             <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
@@ -37,11 +36,12 @@ class AccessoriesList extends Component {
 
                             </div>
                             {/* Add Pagination */}
-                            <div className="swiper-pagination" />
+                            {/* <div className="swiper-pagination" /> */}
                             {/* Add Arrows */}
-                            <div className="swiper-button-next" tabIndex={0} role="button" aria-label="Next slide" />
-                            <div className="swiper-button-prev" tabIndex={0} role="button" aria-label="Previous slide" />
-                            <span className="swiper-notification" aria-live="assertive" aria-atomic="true" /></div>
+                            {/* <div className="swiper-button-next" tabIndex={0} role="button" aria-label="Next slide" />
+                            <div className="swiper-button-prev" tabIndex={0} role="button" aria-label="Previous slide" /> */}
+                            <span className="swiper-notification" aria-live="assertive" aria-atomic="true" />
+                        </div>
                     </div>
                 </div></div>
             </div>

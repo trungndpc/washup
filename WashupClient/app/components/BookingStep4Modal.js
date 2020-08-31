@@ -71,7 +71,7 @@ class BookingStep4Modal extends Component {
                                             <i className="fa icon_car" />
                                             <div className="info pull-left">
                                                 <div className="title">LOẠI XE</div>
-                                            <div className="text">{confirmBooking["model"].brandName}</div>
+                                            <div className="text">{confirmBooking["brand"].brandName + " - " + confirmBooking["brandSeries"].seriesName}</div>
                                             </div>
                                         </div>
                                         <div className="form-group col-right pull-right">

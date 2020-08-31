@@ -21,7 +21,8 @@ function* requestGetModelAsync() {
 function* requestGetScheduleTodayAsync() {
   const today = yield call(getScheduleToday);
   const tomorow = yield call(getScheduleTomorow);
-  yield put({ type: type.APP.GET_SCHEDULE_TODAY_END, today: today.data, tomorow: tomorow.data })
+  const overTomorow = yield call(getScheduleOverTomorrow)
+  yield put({ type: type.APP.GET_SCHEDULE_TODAY_END, today: today.data, tomorow: tomorow.data, overTomorow: overTomorow.data })
 }
 
 function* requestGetServiceAsync(action) {
@@ -71,6 +72,12 @@ function getScheduleTomorow() {
   });
 }
 
+function getScheduleOverTomorrow() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/schedules/overtomorrow`, resolve, reject);
+  });
+}
+
 function getScheduleToday() {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/schedules/today`, resolve, reject);
@@ -98,10 +105,10 @@ function booking(data) {
     "licensePlate": data["licensePlate"],
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
-    "modelId": "ff80818174157d0b0174158822160007",
+    "brandId": data["brandId"],
+    "brandSeriesId" : data["brandSeriesId"],
     "serviceIds": [data["serviceId"]],
-    "vehicleName" : data["vehicleName"],
-    "modelSeriesId" : data["model"]
+    "vehicleName" : data["vehicleName"]
   }
 
   return new Promise((resolve, reject) => {

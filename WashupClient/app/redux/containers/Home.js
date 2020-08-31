@@ -42,13 +42,16 @@ class Home extends React.Component {
 
   componentDidMount() {
     window.initOwlCarousel();
-    window.initSwiper();
     this.props.appActions.getServiceByServiceGroupId(this.state.tabServiceId);
   }
 
 
   booking() {
     if (this.phoneInputRef && this.phoneInputRef.value) {
+      if(this.phoneInputRef.value.match(/\d/g).length < 10) {
+      AlertUtils.showWarning("Vui lòng nhập đủ số điện thoại")
+        return;
+      }
       this.props.appActions.putInforBooking({ "phone": this.phoneInputRef.value })
       this.setState({ isStep1: true })
     } else {
@@ -150,9 +153,9 @@ class Home extends React.Component {
                 <h3 className="title col-md-2 col-xs-12 pull-left">Dịch vụ</h3>
                 <div className="col-md-8 col-xs-12 text-center">
                   <ul className="service_menu">
-                    <li onClick={() => {this.changeTabService(1)}}><a onClick={() => {this.changeTabService(1)}} href="javascript:void(0)" className={this.state.tabServiceId == 1 ? 'active' : ''}>Vệ sinh cơ bản</a></li>
-                    <li onClick={() => {this.changeTabService(3)}}><a onClick={() => {this.changeTabService(1)}} href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>Làm đẹp</a></li>
-                    <li onClick={() => {this.changeTabService(2)}}><a onClick={() => {this.changeTabService(1)}} href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>Bảo dưỡng nhanh</a></li>
+                    <li onClick={() => { this.changeTabService(1) }}><a onClick={() => { this.changeTabService(1) }} href="javascript:void(0)" className={this.state.tabServiceId == 1 ? 'active' : ''}>Vệ sinh cơ bản</a></li>
+                    <li onClick={() => { this.changeTabService(3) }}><a onClick={() => { this.changeTabService(1) }} href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>Làm đẹp</a></li>
+                    <li onClick={() => { this.changeTabService(2) }}><a onClick={() => { this.changeTabService(1) }} href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>Bảo dưỡng nhanh</a></li>
                   </ul>
                 </div>
                 <div className="col-md-2 text-right"><div className="row">
@@ -165,9 +168,14 @@ class Home extends React.Component {
                   <div className="col col-sm-6 col-xs-12">
                     <div className="form-group">
                       <img src={require('../../resources/images/oto.png')} className="img-responsive img_service" />
-                      {otoService && otoService.slice(0,3).map((item, index) => {
+                      {otoService && otoService.slice(0, 3).map((item, index) => {
                         return (
-                        <div key={item["id"]} className="item">{item["name"]}<span className="price">{PriceUtils.toThousand(item["price"])}</span></div>
+                          <div key={item["id"]} className="item">{item["name"]}
+                            {item["price"] == 0 && <span style={{ float: 'right', color: '#ff6c00', fontWeight: '600' }}>Liên hệ</span>}
+                            {item["price"] > 0 &&
+                              <span className="price">{PriceUtils.toThousand(item["price"])}</span>
+                            }
+                          </div>
                         )
                       })}
 
@@ -178,9 +186,14 @@ class Home extends React.Component {
                   <div className="col col-sm-6 col-xs-12">
                     <div className="form-group">
                       <img src={require('../../resources/images/xemay.png')} className="img-responsive img_service" />
-                      {xeMayService && xeMayService.slice(0,3).map((item, index) => {
+                      {xeMayService && xeMayService.slice(0, 3).map((item, index) => {
                         return (
-                          <div key={item["id"]} className="item">{item["name"]}<span className="price">{PriceUtils.toThousand(item["price"])}</span></div>
+                          <div key={item["id"]} className="item">{item["name"]}
+                            {item["price"] == 0 && <span style={{ float: 'right', color: '#ff6c00', fontWeight: '600' }}>Liên hệ</span>}
+                            {item["price"] > 0 &&
+                              <span className="price">{PriceUtils.toThousand(item["price"])}</span>
+                            }
+                          </div>
                         )
                       })}
                       <div className="space" />
@@ -284,7 +297,7 @@ class Home extends React.Component {
             </div>
           </div></div>
         </div>
-        <AccessoriesList {...this.props}/>
+        <AccessoriesList {...this.props} />
         <NewsList />
         {/* <div id="site-nq">
           <div className="container"><div className="row">

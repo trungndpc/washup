@@ -27,9 +27,11 @@ export default function app(state = initialState, action) {
     case type.APP.GET_SCHEDULE_TODAY_END: {
       let today = action.today;
       let tomorow = action.tomorow;
+      let overTomorow = action.overTomorow;
       let schedules = { ...newState.schedules }
       schedules[1] = today;
       schedules[2] = tomorow;
+      schedules[3] = overTomorow;
       newState.schedules = schedules;
       break;
     }

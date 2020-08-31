@@ -16,9 +16,11 @@ class App extends React.Component {
     
     return (
       <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/*" component={NotFoundPage} />
-          <Alert stack={{ limit: 3 }} />
+          <div>
+            <Route exact path="/" component={Home} />
+            <Route path="/*" component={NotFoundPage} />
+            <Alert stack={{ limit: 3 }} />
+          </div>
       </Switch>
     )
   }

@@ -22,7 +22,6 @@ import './resources/js/jquery-1.11.2.min.js'
 import './resources/js/jquery-ui.js'
 import './resources/js/bootstrap.min.js'
 import './resources/owl-carousel/owl.carousel.js'
-import './resources/js/swiper-bundle.min.js'
 import './resources/js/main.js'
 
 import 'react-s-alert/dist/s-alert-default.css';
