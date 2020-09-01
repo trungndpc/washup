@@ -4166,4 +4166,13 @@ a:hover {text-decoration:none; color:#1b3868}
 .price  {
     font-style: normal;
 }
+
+.close-modal {
+    color: black;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    font-size: 20px;
+    cursor: pointer;
+}
 /*# sourceMappingURL=main-1.0.0.css.map*/

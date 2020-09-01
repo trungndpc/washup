@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
+
 
 class Header extends Component {
 
@@ -17,9 +19,9 @@ class Header extends Component {
             <div className="menu">
               <div className="logo">
                 <div className="topnav-centered">
-                  <a href="index.html">
+                  <Link to={"/"}>
                     <img src={require('../resources/images/logo/logo-washup.png')} className="img-responsive" />
-                  </a>
+                  </Link>
                 </div>
               </div>
               <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
@@ -27,7 +29,7 @@ class Header extends Component {
               </button>
               <div id="main-menu" className="topnav navbar collapse navbar-collapse">
                 <a href="#">Dịch vụ</a>
-                <a href="#">Lốp xe &amp; Phụ kiện</a>
+                <Link to={"/phu-kien"}>Lốp xe &amp; Phụ kiện</Link>
                 <a href="#">Kinh nghiệm chăm sóc xe</a>
                 <div className="topnav-right">
                   <a href="#">Tuyển dụng</a>
@@ -37,12 +39,11 @@ class Header extends Component {
                 </div>
               </div>
             </div>
-            <div className="topright text-left hidden-xs"><a href="#">
-              <i className="fa icon icon_map">&nbsp;</i> <span>Hệ thống cửa hàng</span></a>
+            <div className="topright text-left hidden-xs">
+              <a href="#"><i className="fa icon icon_map">&nbsp;</i> <span>Hệ thống cửa hàng</span></a>
             </div>
           </div></div>
         </nav>
-        <div id="site-banner" />
       </div>
     )
   }

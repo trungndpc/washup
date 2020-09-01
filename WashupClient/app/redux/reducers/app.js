@@ -9,7 +9,8 @@ const initialState = {
   inforBooking: {},
   isLoadingBooking: false,
   confirmBooking: null,
-  topAccessories: []
+  topAccessories: [],
+  accessories: []
 }
 
 export default function app(state = initialState, action) {
@@ -67,6 +68,10 @@ export default function app(state = initialState, action) {
     case type.APP.GET_ACCESSORIES_END: {
         newState.topAccessories = action.payload;
         break;
+    }
+    case type.APP.GET_SLICE_ACCESSORIES_END: {
+      newState.accessories = action.payload;
+      break;
     }
     default:
       return state

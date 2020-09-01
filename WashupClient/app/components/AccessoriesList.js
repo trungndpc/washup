@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PriceUtils from '../utils/PriceUtils'
+import { Link } from "react-router-dom";
+
 
 class AccessoriesList extends Component {
 
@@ -16,7 +18,7 @@ class AccessoriesList extends Component {
                     <div className="panel_header pd-lr20">
                         <h3 className="title col-md-5 pull-left">Phụ kiện cho xe</h3>
                         <div className="pull-right">
-                            <a href="#" className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></a>
+                            <Link className="view_more" to={"/phu-kien"}>Xem tất cả <i className="fa fa-chevron-right" /> </Link>
                         </div>
                     </div>
                     <div id="product_list">

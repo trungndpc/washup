@@ -10,6 +10,9 @@ import * as appActions from '../actions/app'
 import { withRouter, Switch, Route } from 'react-router-dom'
 import Home from './Home'
 import NotFoundPage from '../../components/NotFoundPage'
+import Accessories from './Accessories';
+import Service from './Service';
+
 import Alert from 'react-s-alert';
 class App extends React.Component {
   render() {
@@ -18,7 +21,9 @@ class App extends React.Component {
       <Switch>
           <div>
             <Route exact path="/" component={Home} />
-            <Route path="/*" component={NotFoundPage} />
+            <Route exact path="/phu-kien" component={Accessories} />
+            <Route exact path="/dich-vu" component={Service} />
+            {/* <Route path="/*" component={NotFoundPage} /> */}
             <Alert stack={{ limit: 3 }} />
           </div>
       </Switch>

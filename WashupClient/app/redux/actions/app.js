@@ -10,7 +10,7 @@ export function getModels() {
 }
 
 export function getScheduleToday() {
-  return  {type: type.APP.GET_SCHEDULE_TODAY_ASYNC}
+  return { type: type.APP.GET_SCHEDULE_TODAY_ASYNC }
 }
 
 export function getServices(transportId, serviceId) {
@@ -23,7 +23,7 @@ export function getServices(transportId, serviceId) {
 
 export function booking(data) {
   return {
-    type : type.APP.BOOKING_ASYNC,
+    type: type.APP.BOOKING_ASYNC,
     data: data
   }
 }
@@ -48,8 +48,12 @@ export function getAccessoriesTop() {
   }
 }
 
+export function getAccessories() {
+  return { type: type.APP.GET_SLICE_ACCESSORIES_ASYNC }
+}
+
 export function getBrands() {
   return {
-    type : type.APP.GET_BRAND_ASYNC
+    type: type.APP.GET_BRAND_ASYNC
   }
 }

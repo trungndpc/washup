@@ -11,6 +11,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_HOME_SERVICE_ASYNC, requestServiceHomeAsync)
   yield takeLatest(type.APP.GET_ACCESSORIES_ASYNC, requestGetAccessorisAsync)
   yield takeLatest(type.APP.GET_BRAND_ASYNC, requestGetBrandAsync)
+  yield takeLatest(type.APP.GET_SLICE_ACCESSORIES_ASYNC, requestGetSliceAccessoriesAsync)
 }
 
 function* requestGetModelAsync() {
@@ -54,6 +55,11 @@ function* requestGetBrandAsync() {
   yield put({type: type.APP.GET_BRAND_END, payload: resp.data})
 }
 
+function* requestGetSliceAccessoriesAsync() {
+  const  resp = yield call(getSliceAccessories);
+  yield put({type: type.APP.GET_SLICE_ACCESSORIES_END, payload: resp.data})
+}
+
 function getModels() {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brand-series/all`, resolve, reject);
@@ -93,6 +99,12 @@ function getServices(transportId, serviceId) {
 function getAccessories() {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/accessories/top`, resolve, reject);
+  });
+}
+
+function getSliceAccessories() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/accessories/all`, resolve, reject);
   });
 }
 
