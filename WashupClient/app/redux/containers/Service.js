@@ -16,6 +16,7 @@ class Service extends React.Component {
             tabServiceId: 1
 
         }
+        this.changeTabService = this.changeTabService.bind(this);
 
     }
 
@@ -24,6 +25,13 @@ class Service extends React.Component {
     }
 
     componentDidMount() {
+    }
+
+    changeTabService(tabServiceId) {
+        this.setState({
+            tabServiceId: tabServiceId
+        })
+        this.props.appActions.getServiceByServiceGroupId(tabServiceId);
     }
 
 
@@ -41,9 +49,10 @@ class Service extends React.Component {
                         <div className="service-inner row">
                             <div className="servie-top" />
                             <div className="service_menu text-center">
-                                <ul><li><a href="#" className="active">Vệ sinh cơ bản</a></li>
-                                    <li><a href="#">Làm đẹp</a></li>
-                                    <li><a href="#">Bảo dưỡng nhanh</a></li>
+                                <ul>
+                                    <li onClick={() => { this.changeTabService(1) }}><a href="javascript:void(0)" className={this.state.tabServiceId == 1 ? 'active' : ''}>Vệ sinh cơ bản</a></li>
+                                    <li onClick={() => { this.changeTabService(3) }}><a href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>Làm đẹp</a></li>
+                                    <li onClick={() => { this.changeTabService(2) }}><a href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>Bảo dưỡng nhanh</a></li>
                                 </ul>
                             </div>
                             <div className="service_list serives_list">
@@ -52,12 +61,12 @@ class Service extends React.Component {
                                     <div className="content">
                                         {otoService && otoService.map((item, index) => {
                                             return (
-                                                <div className="col-md-3 col-sm-6 col-xs-12 item">
+                                                <div key={item["id"]} className="col-md-3 col-sm-6 col-xs-12 item">
 
                                                     <div className="inner">
-                                                        <div className="img" style={{ background: 'url("' + item["imgUrl"] +'")' }} />
+                                                        <div className="img" style={{ backgroundImage: 'url("' + item["imgUrl"] + '")' }} />
                                                         <h2 className="title text-center">{item["name"]}</h2>
-                                                        <div className="price text-center">650K</div>
+                                                        <div className="price text-center">{PriceUtils.toThousand(item["price"])}</div>
                                                         <div className="button">
                                                             <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
                                                         <div className="clearfix" />
@@ -72,56 +81,33 @@ class Service extends React.Component {
                                 <div className="col-sm-12 service_car">
                                     <div className="header text-center"><img src={require("../../resources/images/service_title_xemay.jpg")} className="img-responsive" /></div>
                                     <div className="content">
-                                        <div className="col-md-3 col-sm-6 col-xs-12 item">
-                                            <div className="inner">
-                                                <div className="img" style={{ background: 'url("images/news1.png")' }} />
-                                                <h2 className="title text-center">Rửa xe ngoài ô tô 4 chỗ</h2>
-                                                <div className="price text-center">650K</div>
-                                                <div className="button">
-                                                    <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
-                                                <div className="clearfix" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3 col-sm-6 col-xs-12 item">
-                                            <div className="inner">
-                                                <div className="img" style={{ background: 'url("images/news1.png")' }} />
-                                                <h2 className="title text-center">Rửa xe ngoài ô tô 4 chỗ</h2>
-                                                <div className="price text-center">650K</div>
-                                                <div className="button">
-                                                    <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
-                                                <div className="clearfix" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3 col-sm-6 col-xs-12 item">
-                                            <div className="inner">
-                                                <div className="img" style={{ background: 'url("images/news1.png")' }} />
-                                                <h2 className="title text-center">Rửa xe ngoài ô tô 4 chỗ</h2>
-                                                <div className="price text-center">650K</div>
-                                                <div className="button">
-                                                    <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
-                                                <div className="clearfix" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-3 col-sm-6 col-xs-12 item">
-                                            <div className="inner">
-                                                <div className="img" style={{ background: 'url("images/news1.png")' }} />
-                                                <h2 className="title text-center">Rửa xe ngoài ô tô 4 chỗ</h2>
-                                                <div className="price text-center">650K</div>
-                                                <div className="button">
-                                                    <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
-                                                <div className="clearfix" />
-                                            </div>
-                                        </div>
+                                        {xeMayService && xeMayService.map((item, index) => {
+                                            return (
+                                                <div key={item["id"]} className="col-md-3 col-sm-6 col-xs-12 item">
+                                                    <div className="inner">
+                                                        <div className="img" style={{ backgroundImage: 'url("' + item["imgUrl"] + '")' }} />
+                                                        <h2 className="title text-center">{item["name"]}</h2>
+                                                        <div className="price text-center">{PriceUtils.toThousand(item["price"])}</div>
+                                                        <div className="button">
+                                                            <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
+                                                        <div className="clearfix" />
+                                                    </div>
+                                                </div>
+                                            )
+                                        })}
+
+
                                     </div>
                                 </div>
                                 <div className="clearfix" />
-                                <div className="col-xs-12">
-                                    <div style={{ padding: '0 15px' }}>
-                                        <MembershipList />
-                                    </div>
-                                </div>
-                                <div className="clearfix" />
+
                             </div>
+                            <div style={{ backgroundColor: '#fff' }} className="col-xs-12">
+                                <div style={{ padding: '0 15px' }}>
+                                    <MembershipList />
+                                </div>
+                            </div>
+                            <div className="clearfix" />
                             <div className="panel_footer"><div className="space" /></div>
                         </div>
                     </div></div>

@@ -88,3 +88,9 @@
     font-size: 20px;
     cursor: pointer;
 }
+
+#site-footer {
+    background: #fff;
+    padding: 35px 0;
+    border-top: #ff6c00 3px solid;
+}
