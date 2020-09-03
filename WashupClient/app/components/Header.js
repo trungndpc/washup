@@ -28,7 +28,7 @@ class Header extends Component {
                 <i className="fa fa-bars" />
               </button>
               <div id="main-menu" className="topnav navbar collapse navbar-collapse">
-                <a href="#">Dịch vụ</a>
+                <Link to={"/dich-vu"}>Dịch vụ</Link>
                 <Link to={"/phu-kien"}>Lốp xe &amp; Phụ kiện</Link>
                 <a href="#">Kinh nghiệm chăm sóc xe</a>
                 <div className="topnav-right">
