@@ -7,6 +7,7 @@ import Footer from '../../components/Footer';
 import PriceUtils from '../../utils/PriceUtils';
 import { Model } from '../../constants/Constants'
 import MembershipList from '../../components/MembershipList';
+import OwlCarousel from 'react-owl-carousel2';
 
 
 class Service extends React.Component {
@@ -40,6 +41,23 @@ class Service extends React.Component {
         const otoService = (serviceTraOTO && serviceTraOTO[this.state.tabServiceId]) ? serviceTraOTO[this.state.tabServiceId] : []
         let serviceTraXEMAY = this.props.app.services[Model.XEMAY]
         const xeMayService = (serviceTraXEMAY && serviceTraXEMAY[this.state.tabServiceId]) ? serviceTraXEMAY[this.state.tabServiceId] : []
+
+        const options = {
+            items: 4,
+            loop: true,
+            autoPlay: true,
+            slideSpeed: 5000,
+            stopOnHover: true,
+            nav: true,
+            margin: 30,
+            responsiveClass: true,
+            responsive: {
+                0: { items: 1, nav: true },
+                600: { items: 2, nav: true },
+                1000: { items: 4, nav: true, loop: false }
+            }
+        };
+
         return (
             <div>
                 <Header />
@@ -58,25 +76,21 @@ class Service extends React.Component {
                             <div className="service_list serives_list">
                                 <div className="col-sm-12 service_car">
                                     <div className="header text-center"><img src={require("../../resources/images/service_title_oto.jpg")} className="img-responsive" /></div>
-                                    <div className="content">
+                                    {otoService && otoService.length > 0 && <OwlCarousel options={options}>
                                         {otoService && otoService.map((item, index) => {
                                             return (
-                                                <div key={item["id"]} className="col-md-3 col-sm-6 col-xs-12 item">
-
-                                                    <div className="inner">
-                                                        <div className="img" style={{ backgroundImage: 'url("' + item["imgUrl"] + '")' }} />
-                                                        <h2 className="title text-center">{item["name"]}</h2>
-                                                        <div className="price text-center">{PriceUtils.toThousand(item["price"])}</div>
-                                                        <div className="button">
-                                                            <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
-                                                        <div className="clearfix" />
-                                                    </div>
+                                                <div className="item">
+                                                    <div className="img" style={{ backgroundImage: 'url("' + item["imgUrl"] + '")' }} />
+                                                    <h2 className="title text-center">{item["name"]}</h2>
+                                                    <div className="price text-center">{PriceUtils.toThousand(item["price"])}</div>
+                                                    <div className="button">
+                                                        <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
+                                                    <div className="clearfix" />
                                                 </div>
                                             )
                                         })}
-
-
-                                    </div>
+                                    </OwlCarousel>
+                                    }
                                 </div>
                                 <div className="col-sm-12 service_car">
                                     <div className="header text-center"><img src={require("../../resources/images/service_title_xemay.jpg")} className="img-responsive" /></div>
@@ -104,7 +118,7 @@ class Service extends React.Component {
                             </div>
                             <div style={{ backgroundColor: '#fff' }} className="col-xs-12">
                                 <div style={{ padding: '0 15px' }}>
-                                    <MembershipList />
+                                    {/* <MembershipList /> */}
                                 </div>
                             </div>
                             <div className="clearfix" />

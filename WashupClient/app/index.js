@@ -28,10 +28,7 @@ import './resources/js/main.js'
 
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-
-
-
-
+import './resources/owl-carousel/style.css'
 
 const store = configureStore()
 
