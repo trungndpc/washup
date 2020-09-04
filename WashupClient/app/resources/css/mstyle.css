@@ -81,7 +81,7 @@
 }
 
 .close-modal {
-    color: black;
+    color: #fff;
     position: absolute;
     right: 10px;
     top: 6px;
@@ -100,10 +100,19 @@
     overflow: hidden;
     background: url('../images/bg_blue.jpg') no-repeat center center;
     background-size: cover;
-    padding-top: 45px;
+    padding-top: 25px;
 }
 
 #site-activy .title  {
     margin: 20px 0px;
     color: #fff;
 }
+
+#site-activy .panel_header {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.form-control {
+    height: 38px !important;
+} 

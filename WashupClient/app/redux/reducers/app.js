@@ -10,7 +10,7 @@ const initialState = {
   isLoadingBooking: false,
   confirmBooking: null,
   topAccessories: [],
-  accessories: [],
+  accessories: {},
   activities: []
 }
 

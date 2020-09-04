@@ -56,8 +56,8 @@ function* requestGetBrandAsync() {
   yield put({type: type.APP.GET_BRAND_END, payload: resp.data})
 }
 
-function* requestGetSliceAccessoriesAsync() {
-  const  resp = yield call(getSliceAccessories);
+function* requestGetSliceAccessoriesAsync(action) {
+  const  resp = yield call(getSliceAccessories, action.pageNumber, action.pageSize);
   yield put({type: type.APP.GET_SLICE_ACCESSORIES_END, payload: resp.data})
 }
 
@@ -108,9 +108,9 @@ function getAccessories() {
   });
 }
 
-function getSliceAccessories() {
+function getSliceAccessories(pageNumber, pageSize) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/accessories/all`, resolve, reject);
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/accessories/all?page=${pageNumber}&pageSize=${pageSize}`, resolve, reject);
   });
 }
 

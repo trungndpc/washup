@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Model} from '../constants/Constants'; 
 import HeaderBookingModal from '../components/HeaderBookingModal';
+import Select from 'react-select'
 
 class BookingStep1Modal extends Component {
     
@@ -53,7 +54,7 @@ class BookingStep1Modal extends Component {
     getFormData(inforBooking) {
         let address = this.addressInputRef.value;
         let fullname =  this.fullNameInputRef.value;
-        let brandId = this.brandInputRef.value;
+        let brandId = this.brandInputRef.select.state.selectValue[0].value;
         let brandSeriesId = this.brandSeriesInputRef.value;
         let license = this.licensePlateInputRef.value;
         let vehicleName = this.vehicleNameInputRef.value;
@@ -113,6 +114,13 @@ class BookingStep1Modal extends Component {
         const inforBooking = this.props.app.inforBooking;
         const brands = this.props.app.brands;
         const listModel = (this.props.app.models && this.props.app.models[this.state.transportId]) ? this.props.app.models[this.state.transportId] : []
+        const brandOptions = [];
+        if (brands) {
+            brands.forEach(item => {
+                brandOptions.push({value: item["id"], label: item["brandName"]})
+            });
+        }
+        
         return (
             <div>
             <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block'}}>
@@ -156,11 +164,7 @@ class BookingStep1Modal extends Component {
                                 <div className="form-group row">
                                     <div className="col-md-3 col-xs-12">Hãng xe:</div>
                                     <div className="col-md-4 col-xs-12">
-                                        <select ref={e => this.brandInputRef = e} name="car_brand" id="brand_type" className="form-control">
-                                            {brands && brands.map((item) => {
-                                                return <option value={item["id"]}>{item["brandName"]}</option>
-                                            })}
-                                        </select>
+                                        <Select options={brandOptions} ref={e => this.brandInputRef = e} name="car_brand" id="brand_type"/>
                                     </div>
                                 </div>
                                 <div className="form-group row">

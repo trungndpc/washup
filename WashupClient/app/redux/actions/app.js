@@ -48,8 +48,8 @@ export function getAccessoriesTop() {
   }
 }
 
-export function getAccessories() {
-  return { type: type.APP.GET_SLICE_ACCESSORIES_ASYNC }
+export function getAccessories(pageNumber, pageSize) {
+  return { type: type.APP.GET_SLICE_ACCESSORIES_ASYNC, pageNumber: pageNumber, pageSize: pageSize }
 }
 
 export function getBrands() {

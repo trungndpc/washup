@@ -29,7 +29,7 @@ class MembershipList extends Component {
 
         return (
             <div className="clearfix membership">
-                <h3 className="title"><span>Các gói thẻ membership</span></h3>
+                <h3 className="title"><span style={{fontWeight:'600', fontStyle: 'normal'}}>Deal Hot!!!</span></h3>
                 <div className="box">
                     <OwlCarousel id="membership_slider" className="owl-carousel owl-theme" options={options} >
                         <div className="item">

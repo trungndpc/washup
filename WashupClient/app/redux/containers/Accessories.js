@@ -5,24 +5,34 @@ import * as appActions from '../actions/app'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import PriceUtils from '../../utils/PriceUtils';
+import Pagination from 'antd/es/pagination'
 
 
 class Accessories extends React.Component {
     constructor(props) {
         super(props)
-
+        this.state = {
+            pageNumber: 0
+        }
+        this.changePageNumber = this.changePageNumber.bind(this);
     }
 
     componentWillMount() {
-        this.props.appActions.getAccessories();
+        this.props.appActions.getAccessories(this.state.pageNumber, 10);
     }
 
     componentDidMount() {
     }
 
+    changePageNumber(pageNumber, pageSize) {
+        this.setState({pageNumber, pageNumber})
+        this.props.appActions.getAccessories(pageNumber, 10);
+    }
+
 
     render() {
-        const listAccessories = this.props.app.accessories ? this.props.app.accessories : [];
+        const accessories = this.props.app.accessories && this.props.app.accessories;
+        const listAccessories = (this.props.app.accessories && this.props.app.accessories.accessories) ? this.props.app.accessories.accessories : [];
         return (
             <div>
                 <Header />
@@ -108,30 +118,10 @@ class Accessories extends React.Component {
 
 
                                 </div>
-                                <nav aria-label="Page navigation" className="text-center">
-                                    <ul className="pagination">
-                                        <li className="page-item">
-                                            <a className="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true"><i className="fa fa-chevron-left" /></span>
-                                                <span className="sr-only">Previous</span>
-                                            </a>
-                                        </li>
-                                        <li className="page-item cur_page"><a className="page-link" href="#">1</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">4</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">5</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">6</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">7</a></li>
-                                        <li className="page-item"><a className="page-link" href="#">8</a></li>
-                                        <li className="page-item">
-                                            <a className="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true"><i className="fa fa-chevron-right" /></span>
-                                                <span className="sr-only">Next</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                <div style={{padding: '30px'}}  className="text-center">
+                                { accessories && <Pagination defaultCurrent={accessories.page} pageSize={10} total={accessories["totalPage"]*10}  onChange={this.changePageNumber} /> }
+                                </div>
+                              
                             </div>
                             <div className="panel_footer"><div className="space" /></div>
                         </div>

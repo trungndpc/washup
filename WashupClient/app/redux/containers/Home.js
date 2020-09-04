@@ -41,11 +41,19 @@ class Home extends React.Component {
     this.onCloseBooking = this.onCloseBooking.bind(this);
     this.formatPhone = this.formatPhone.bind(this);
     this.changeTabService = this.changeTabService.bind(this);
+    this._handleKeyDown = this._handleKeyDown.bind(this)
 
   }
 
   componentDidMount() {
     this.props.appActions.getServiceByServiceGroupId(this.state.tabServiceId);
+  }
+
+  _handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      this.booking();
+    }
+    return;
   }
 
 
@@ -140,11 +148,11 @@ class Home extends React.Component {
                 <div className="col-sm-6 col-xs-12 text-center">
                   <h3 className="title">Rửa xe tận nhà</h3>
                   <div className="input-search input-icons">
-                    <form name="frm_search" method="POST" action="#">
+                    {/* <form name="frm_search"  onKeyDown={this._handleKeyDown}  > */}
                       <i className="fa icon_phone icon" />
-                      <input onChange={this.formatPhone} ref={e => this.phoneInputRef = e} type="tel" pattern="[0-9]{4}.[0-9]{3}.[0-9]{3}" className="form-control input-field search_phone" placeholder="Nhập số điện thoại" />
+                      <input onKeyDown={this._handleKeyDown}  onChange={this.formatPhone} ref={e => this.phoneInputRef = e} type="tel" pattern="[0-9]{4}.[0-9]{3}.[0-9]{3}" className="form-control input-field search_phone" placeholder="Nhập số điện thoại" />
                       <div onClick={this.booking} className="btn-search">ĐẶT LỊCH NGAY</div>
-                    </form>
+                    {/* </form> */}
                   </div>
                 </div>
               </div>
