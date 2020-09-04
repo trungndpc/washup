@@ -45,16 +45,16 @@ class Service extends React.Component {
         const options = {
             items: 4,
             loop: true,
-            autoPlay: true,
-            slideSpeed: 5000,
-            stopOnHover: true,
-            nav: true,
+            // autoPlay: true,
+            // slideSpeed: 5000,
+            // stopOnHover: true,
+            // nav: true,
             margin: 30,
             responsiveClass: true,
             responsive: {
-                0: { items: 1, nav: true },
-                600: { items: 2, nav: true },
-                1000: { items: 4, nav: true, loop: false }
+                0: { items: 1 },
+                600: { items: 2 },
+                1000: { items: 4, loop: false }
             }
         };
 
@@ -82,7 +82,13 @@ class Service extends React.Component {
                                                 <div className="item">
                                                     <div className="img" style={{ backgroundImage: 'url("' + item["imgUrl"] + '")' }} />
                                                     <h2 className="title text-center">{item["name"]}</h2>
-                                                    <div className="price text-center">{PriceUtils.toThousand(item["price"])}</div>
+                                                    <div className="price text-center">
+                                                        {item["price"] == 0 && <span style={{ fontWeight: '600', fontSize: '15px' }}>Liên hệ</span>}
+                                                        {item["price"] > 0 &&
+                                                            <span className="price">{PriceUtils.toThousand(item["price"])}</span>
+                                                        }
+                                                    </div>
+
                                                     <div className="button">
                                                         <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
                                                     <div className="clearfix" />
@@ -94,31 +100,35 @@ class Service extends React.Component {
                                 </div>
                                 <div className="col-sm-12 service_car">
                                     <div className="header text-center"><img src={require("../../resources/images/service_title_xemay.jpg")} className="img-responsive" /></div>
-                                    <div className="content">
-                                        {xeMayService && xeMayService.map((item, index) => {
-                                            return (
-                                                <div key={item["id"]} className="col-md-3 col-sm-6 col-xs-12 item">
-                                                    <div className="inner">
+                                    {xeMayService && xeMayService.length > 0 && <OwlCarousel options={options} >
+                                        {
+                                            xeMayService.map((item, index) => {
+                                                return (
+                                                    <div key={item["id"]} className="item">
                                                         <div className="img" style={{ backgroundImage: 'url("' + item["imgUrl"] + '")' }} />
                                                         <h2 className="title text-center">{item["name"]}</h2>
-                                                        <div className="price text-center">{PriceUtils.toThousand(item["price"])}</div>
+                                                        <div className="price text-center">
+                                                            {item["price"] == 0 && <span style={{ fontWeight: '600', fontSize: '15px' }}>Liên hệ</span>}
+                                                            {item["price"] > 0 &&
+                                                                <span className="price">{PriceUtils.toThousand(item["price"])}</span>
+                                                            }
+                                                        </div>
                                                         <div className="button">
                                                             <button className="btn btn-block btn-primary"><i className="fa fa-calendar-check" /> Đặt lịch ngay</button></div>
                                                         <div className="clearfix" />
                                                     </div>
-                                                </div>
-                                            )
-                                        })}
+                                                )
+                                            })
+                                        }
+                                    </OwlCarousel>}
 
-
-                                    </div>
                                 </div>
                                 <div className="clearfix" />
 
                             </div>
                             <div style={{ backgroundColor: '#fff' }} className="col-xs-12">
                                 <div style={{ padding: '0 15px' }}>
-                                    {/* <MembershipList /> */}
+                                    <MembershipList />
                                 </div>
                             </div>
                             <div className="clearfix" />

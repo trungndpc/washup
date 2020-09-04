@@ -12,6 +12,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_ACCESSORIES_ASYNC, requestGetAccessorisAsync)
   yield takeLatest(type.APP.GET_BRAND_ASYNC, requestGetBrandAsync)
   yield takeLatest(type.APP.GET_SLICE_ACCESSORIES_ASYNC, requestGetSliceAccessoriesAsync)
+  yield takeLatest(type.APP.GET_ACTIVITY_TOP_ASYNC, requestGetActivityAsync)
 }
 
 function* requestGetModelAsync() {
@@ -60,6 +61,11 @@ function* requestGetSliceAccessoriesAsync() {
   yield put({type: type.APP.GET_SLICE_ACCESSORIES_END, payload: resp.data})
 }
 
+function* requestGetActivityAsync() {
+  const resp = yield call(getActivityTop);
+  yield put({type: type.APP.GET_ACTIVITY_TOP_END, payload: resp.data})
+}
+
 function getModels() {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brand-series/all`, resolve, reject);
@@ -105,6 +111,12 @@ function getAccessories() {
 function getSliceAccessories() {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/accessories/all`, resolve, reject);
+  });
+}
+
+function getActivityTop() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/activities/top`, resolve, reject);
   });
 }
 

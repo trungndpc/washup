@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PriceUtils from '../utils/PriceUtils'
 import { Link } from "react-router-dom";
+import OwlCarousel from 'react-owl-carousel2';
+
 
 
 class MembershipList extends Component {
@@ -9,15 +11,27 @@ class MembershipList extends Component {
     }
 
     componentDidMount() {
-        window.initOwlCarousel();
+        // window.initOwlCarousel();
     }
 
     render() {
+        const options = {
+            items: 4,
+            loop: true,
+            margin: 30,
+            responsiveClass: true,
+            responsive: {
+                0: { items: 1 },
+                600: { items: 2 },
+                1000: { items: 4, loop: false }
+            }
+        };
+
         return (
             <div className="clearfix membership">
                 <h3 className="title"><span>Các gói thẻ membership</span></h3>
                 <div className="box">
-                    <div id="membership_slider" className="owl-carousel owl-theme">
+                    <OwlCarousel id="membership_slider" className="owl-carousel owl-theme" options={options} >
                         <div className="item">
                             <img src={require('../resources/images/the-thanh-vien/ttv32.jpg')} className="img-responsive" />
                             <div className="price">
@@ -102,7 +116,8 @@ class MembershipList extends Component {
                                 <div className="col-md-6 col-xs-6 text-right"><span className="price_new">1.403K</span></div>
                             </div>
                         </div>
-                    </div></div>
+                    </OwlCarousel>
+                </div>
             </div>
         )
     }

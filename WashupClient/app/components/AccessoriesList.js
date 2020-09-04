@@ -11,7 +11,6 @@ class AccessoriesList extends Component {
 
     render() {
         const listAccesories = this.props.app.topAccessories;
-        console.log(listAccesories)
         return (
             <div id="site-product">
                 <div className="container"><div className="row">

@@ -94,3 +94,16 @@
     padding: 35px 0;
     border-top: #ff6c00 3px solid;
 }
+
+#site-activy {
+    height: 555px;
+    overflow: hidden;
+    background: url('../images/bg_blue.jpg') no-repeat center center;
+    background-size: cover;
+    padding-top: 45px;
+}
+
+#site-activy .title  {
+    margin: 20px 0px;
+    color: #fff;
+}

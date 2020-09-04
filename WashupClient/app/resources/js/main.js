@@ -6,12 +6,12 @@ window.initOwlCarousel = function () {
 			autoPlay: true,
 			slideSpeed: 5000,
 			stopOnHover: true,
-			nav: true,
+			// nav: true,
 			margin: 30,
 			responsiveClass: true,
 			responsive: {
-				0: { items: 1, nav: true },
-				600: { items: 2, nav: true },
+				0: { items: 1 },
+				600: { items: 2 },
 				1000: { items: 4, nav: true, loop: false }
 			}
 		});

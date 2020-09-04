@@ -10,7 +10,8 @@ const initialState = {
   isLoadingBooking: false,
   confirmBooking: null,
   topAccessories: [],
-  accessories: []
+  accessories: [],
+  activities: []
 }
 
 export default function app(state = initialState, action) {
@@ -71,6 +72,10 @@ export default function app(state = initialState, action) {
     }
     case type.APP.GET_SLICE_ACCESSORIES_END: {
       newState.accessories = action.payload;
+      break;
+    }
+    case type.APP.GET_ACTIVITY_TOP_END: {
+      newState.activities = action.payload;
       break;
     }
     default:

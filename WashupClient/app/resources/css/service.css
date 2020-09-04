@@ -72,11 +72,34 @@
 }
 #service-wrapper .service_list .item .button {padding:15px;border-top:#f1f1f1 1px solid;}
 #service-wrapper .service_list .item .title {
-    padding: 10px 0;
+    padding: 10px;
 	margin:0px;
     color: #1b396a;
     font-size: 16px;
     font-weight: bold;
-	text-transform:uppercase;
+    text-transform:uppercase;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
+
+#service-wrapper .serives_list .item {
+    border-radius: 5px;
+    box-shadow: 0 3px 16px #ddd;
+}
+
+#service-wrapper .panel_footer {
+    background: #fff;
+    height: 25px;
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    right: 0;
+    border-radius: 0 0 8px 8px;
+    -webkit-box-shadow: 0 10px 10px -6px #ccc;
+    -moz-box-shadow: 0 10px 10px -6px #ccc;
+    box-shadow: 0 12px 20px -5px #ccc;
+    border-bottom: 1px solid #e8e7e7;
+}
+
 

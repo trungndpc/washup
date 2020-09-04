@@ -14,6 +14,7 @@ import PriceUtils from '../../utils/PriceUtils'
 import AccessoriesList from '../../components/AccessoriesList';
 import Header from '../../components/Header';
 import MembershipList from '../../components/MembershipList';
+import DailyActivitiesList from '../../components/DailyActivitiesList';
 import { Link } from "react-router-dom";
 
 
@@ -213,6 +214,7 @@ class Home extends React.Component {
         </div>
         <AccessoriesList {...this.props} />
         <NewsList />
+        <DailyActivitiesList {...this.props}  />
         {/* <div id="site-nq">
           <div className="container"><div className="row">
             <div className="panel_body">

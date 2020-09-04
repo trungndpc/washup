@@ -57,3 +57,9 @@ export function getBrands() {
     type: type.APP.GET_BRAND_ASYNC
   }
 }
+
+export function getActivityTop() {
+  return {
+    type: type.APP.GET_ACTIVITY_TOP_ASYNC
+  }
+}
