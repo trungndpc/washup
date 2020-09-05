@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
+import LoginModal from './LoginModal';
 
 
 class Header extends Component {
@@ -44,6 +45,8 @@ class Header extends Component {
             </div>
           </div></div>
         </nav>
+        <LoginModal/>
+        <div class="modal-backdrop fade in"></div>
       </div>
     )
   }

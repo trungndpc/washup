@@ -193,7 +193,7 @@ class Home extends React.Component {
 
                       <div className="item btn-more text-center">Xem thêm</div>
                     </div>
-                    <button onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngày</button>
+                    <button onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngay</button>
                   </div>
                   <div className="col col-sm-6 col-xs-12">
                     <div className="form-group">
@@ -210,7 +210,7 @@ class Home extends React.Component {
                       })}
                       <div className="space" />
                     </div>
-                    <button onClick={this.bookingXemayService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngày</button>
+                    <button onClick={this.bookingXemayService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngay</button>
                   </div>
                   <div className="clearfix" />
                 </div>
