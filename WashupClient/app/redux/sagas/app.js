@@ -131,7 +131,7 @@ function booking(data) {
     "paymentMethod": data["paymentMethod"],
     "brandId": data["brandId"],
     "brandSeriesId" : data["brandSeriesId"],
-    "serviceIds": [data["serviceId"]],
+    "serviceIds": data["serviceIds"],
     "vehicleName" : data["vehicleName"]
   }
 

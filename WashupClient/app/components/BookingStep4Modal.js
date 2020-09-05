@@ -118,7 +118,7 @@ class BookingStep4Modal extends Component {
                                 }
                                 <hr />
                                 <div className="form-group text-center">
-                                    <button onClick={this.close} type="button" className="btn btn-success back_home">TRỞ VỀ TRANG  CHỦ</button>
+                                    <button onClick={this.close} type="button" className="btn btn-success back_home">VỀ TRANG  CHỦ</button>
                                     {/* <button type="button" className="btn btn-default book_cancel">ĐỔI LỊCH/HỦY LỊCH</button> */}
                                 </div>
                                 <div className="clearfix" />

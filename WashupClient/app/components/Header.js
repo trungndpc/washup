@@ -35,7 +35,7 @@ class Header extends Component {
                   <a href="#">Tuyển dụng</a>
                   <a href="#">Liên hệ</a>
                   <a href="#"><i className="fa icon_user" /></a>
-                  <a href="#" className="language"><i className="fa icon_global" /> VN</a>
+                  {/* <a href="#" className="language"><i className="fa icon_global" /> VN</a> */}
                 </div>
               </div>
             </div>

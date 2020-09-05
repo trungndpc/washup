@@ -9,7 +9,7 @@ class BookingStep3Modal extends Component {
         super(props);
         this.state = {
             tabServiceId : 1,
-            serviceId: null,
+            serviceIds : [],
             methodPaymentId: 1,
             errorMsg: null
         }
@@ -38,7 +38,7 @@ class BookingStep3Modal extends Component {
             this.setState({errorMsg: 'Vui lòng chọn một dịch vụ'})
             return false;
         }
-        inforBooking["serviceId"] = this.state.serviceId;
+        inforBooking["serviceIds"] = this.state.serviceIds;
         inforBooking["paymentMethod"] = this.state.methodPaymentId;
         if (this.noteInputRef && this.noteInputRef.value) {
         inforBooking["note"] = this.noteInputRef.value;
@@ -62,7 +62,16 @@ class BookingStep3Modal extends Component {
         this.setState({
             serviceId: serviceId,
             errorMsg: null
-
+        })
+        let serviceIds = [...this.state.serviceIds]
+        let isChecked = serviceIds.indexOf(serviceId) >= 0;
+        if (isChecked) {
+            serviceIds.pop(serviceId);
+        }else{
+            serviceIds.push(serviceId);
+        }
+        this.setState({
+            serviceIds: serviceIds
         })
     }
 
@@ -79,7 +88,6 @@ class BookingStep3Modal extends Component {
             this.props.onClose();
         }
     }
-
 
 
     render() {
@@ -118,13 +126,14 @@ class BookingStep3Modal extends Component {
                                                         {(services) ?  
                                                             <div className="force-overflow">
                                                             { services.map((item) => {
+                                                                let isChecked = this.state.serviceIds.indexOf(item["id"]) >= 0
                                                                 return (
                                                                     <div key={item["id"]} onClick={e => this.selectServiceId(item["id"])} className="service">
                                                                         <label className="container col-md-1 pull-left">
-                                                                            <input type="radio" name="service_type" checked={this.state.serviceId == item["id"]} />
+                                                                            <input type="checkbox" name="service_type" checked={isChecked} />
                                                                             <span className="checkmark" />
                                                                         </label>
-                                                                        <div className={this.state.serviceId == item["id"] ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
+                                                                        <div className={isChecked ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
                                                                             <img src={require('../resources/images/service_img1.png')} className="pull-left" />
                                                                             <div className="info pull-left">
                                                                                 <div className="name">{item["name"]}</div>
@@ -147,7 +156,7 @@ class BookingStep3Modal extends Component {
                                                         {(this.state.methodPaymentId == 2 || this.state.methodPaymentId == 3 ) && <div style={{textAlign: 'center', color: 'red'}}>Phương thức chưa được support</div>}
                                                         <div className="col-md-3 text-left">Chọn hình thức thanh toán:</div>
                                                         <div className="col-md-9">
-                                                            <a href="javascript:void(0)" onClick={e => this.selectMethodPayment(1)} className={this.state.methodPaymentId == 1 ? 'active' : ''}><i className="fa fa-money" /> Thanh toán trực tiếp</a>
+                                                            <a href="javascript:void(0)" onClick={e => this.selectMethodPayment(1)} className={this.state.methodPaymentId == 1 ? 'active' : ''}><i className="fa fa-money" />Tiền mặt</a>
                                                             <a href="javascript:void(0)" onClick={e => this.selectMethodPayment(2)} className={this.state.methodPaymentId == 2 ? 'active' : ''}><i className="fa fa-credit-card" /> Thẻ ngân hàng</a>
                                                             <a href="javascript:void(0)" onClick={e => this.selectMethodPayment(3)} className={this.state.methodPaymentId == 3 ? 'active' : ''}><i className="fa fa-credit-card" /> Ví điện tử</a>
                                                         </div>
