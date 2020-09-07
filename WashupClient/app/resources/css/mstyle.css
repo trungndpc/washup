@@ -116,3 +116,30 @@
 .form-control {
     height: 38px !important;
 } 
+
+.main-title h3.title {
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+}
+
+.login-box {
+    padding: 30px;
+}
+
+.login-box .txt {
+    font-size: 18px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.booking-list-modal .active {
+    background-color: #d9d9d9;
+}
+
+.booking-list-modal table tr {
+    cursor: pointer;
+}
+
+.booking-list-modal table tr:hover td{
+    background-color: #d9d9d9;
+}
