@@ -52,14 +52,22 @@ export function getAccessories(pageNumber, pageSize) {
   return { type: type.APP.GET_SLICE_ACCESSORIES_ASYNC, pageNumber: pageNumber, pageSize: pageSize }
 }
 
-export function getBrands() {
+export function getBrands(transportId) {
   return {
-    type: type.APP.GET_BRAND_ASYNC
+    type: type.APP.GET_BRAND_ASYNC,
+    transportId: transportId
   }
 }
 
 export function getActivityTop() {
   return {
     type: type.APP.GET_ACTIVITY_TOP_ASYNC
+  }
+}
+
+export function getOil(brandSeriesId) {
+  return {
+    type : type.APP.GET_OIL_ASYNC,
+    brandSeriesId: brandSeriesId
   }
 }

@@ -13,6 +13,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_BRAND_ASYNC, requestGetBrandAsync)
   yield takeLatest(type.APP.GET_SLICE_ACCESSORIES_ASYNC, requestGetSliceAccessoriesAsync)
   yield takeLatest(type.APP.GET_ACTIVITY_TOP_ASYNC, requestGetActivityAsync)
+  yield takeLatest(type.APP.GET_OIL_ASYNC, requestGetOilAsync)
 }
 
 function* requestGetModelAsync() {
@@ -51,19 +52,24 @@ function* requestGetAccessorisAsync() {
   yield put({ type: type.APP.GET_ACCESSORIES_END, payload: resp.data })
 }
 
-function* requestGetBrandAsync() {
-  const resp = yield call(getBrands);
-  yield put({type: type.APP.GET_BRAND_END, payload: resp.data})
+function* requestGetBrandAsync(action) {
+  const resp = yield call(getBrands, action.transportId);
+  yield put({ type: type.APP.GET_BRAND_END, payload: resp.data })
 }
 
 function* requestGetSliceAccessoriesAsync(action) {
-  const  resp = yield call(getSliceAccessories, action.pageNumber, action.pageSize);
-  yield put({type: type.APP.GET_SLICE_ACCESSORIES_END, payload: resp.data})
+  const resp = yield call(getSliceAccessories, action.pageNumber, action.pageSize);
+  yield put({ type: type.APP.GET_SLICE_ACCESSORIES_END, payload: resp.data })
 }
 
 function* requestGetActivityAsync() {
   const resp = yield call(getActivityTop);
-  yield put({type: type.APP.GET_ACTIVITY_TOP_END, payload: resp.data})
+  yield put({ type: type.APP.GET_ACTIVITY_TOP_END, payload: resp.data })
+}
+
+function* requestGetOilAsync(action) {
+  const resp = yield call(getOil, action.brandSeriesId);
+  yield put({ type: type.APP.GET_OIL_END, payload: resp.data })
 }
 
 function getModels() {
@@ -72,9 +78,9 @@ function getModels() {
   });
 }
 
-function getBrands() {
+function getBrands(transportId) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brands/all`, resolve, reject);
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brands/all?category=` + transportId, resolve, reject);
   });
 }
 
@@ -120,6 +126,12 @@ function getActivityTop() {
   });
 }
 
+function getOil(brandSeriesId) {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/oils/all`, resolve, reject);
+  });
+}
+
 function booking(data) {
   const body = {
     "phone": data["phone"],
@@ -130,9 +142,13 @@ function booking(data) {
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
     "brandId": data["brandId"],
-    "brandSeriesId" : data["brandSeriesId"],
+    "brandSeriesId": data["brandSeriesId"],
     "serviceIds": data["serviceIds"],
-    "vehicleName" : data["vehicleName"]
+    "vehicleName": data["vehicleName"],
+  }
+
+  if (data["oilIds"]) {
+    body["oilIds"] = data["oilIds"]
   }
 
   return new Promise((resolve, reject) => {

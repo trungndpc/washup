@@ -22,7 +22,7 @@ class BookingStep1Modal extends Component {
         var body = document.getElementsByTagName('body')[0];
         body.className = "modal-open"
         this.props.appActions.getModels()
-        this.props.appActions.getBrands()
+        this.props.appActions.getBrands(this.state.transportId)
     }
 
     onChangeTransportation(e) {
@@ -30,6 +30,7 @@ class BookingStep1Modal extends Component {
         this.setState({
             transportId: transportId
         })
+        this.props.appActions.getBrands(transportId)
     }   
 
     close() {

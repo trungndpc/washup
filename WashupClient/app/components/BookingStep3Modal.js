@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import HeaderBookingModal from '../components/HeaderBookingModal';
 import PriceUtils from '../utils/PriceUtils';
+import Select from 'react-select'
 
-
+const THAY_NHOT = "ff808181741c1c93017420bb81b7000c";
 class BookingStep3Modal extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            tabServiceId : 1,
-            serviceIds : [],
+            tabServiceId: 1,
+            serviceIds: [],
             methodPaymentId: 1,
             errorMsg: null
         }
@@ -21,7 +22,7 @@ class BookingStep3Modal extends Component {
         body.className = "modal-open"
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
-        let inforBooking = {...this.props.app.inforBooking}
+        let inforBooking = { ...this.props.app.inforBooking }
         this.props.appActions.getServices(inforBooking["transportId"], 1);
     }
 
@@ -33,15 +34,20 @@ class BookingStep3Modal extends Component {
     }
 
     next() {
-        let inforBooking = {...this.props.app.inforBooking}
-        if(!this.state.serviceId) {
-            this.setState({errorMsg: 'Vui lòng chọn một dịch vụ'})
+        let inforBooking = { ...this.props.app.inforBooking }
+        if (!this.state.serviceId) {
+            this.setState({ errorMsg: 'Vui lòng chọn một dịch vụ' })
             return false;
+        }
+        if (this.oilInputRef) {
+            let oilId = this.oilInputRef.select.state.selectValue[0].value;
+            inforBooking["oilIds"] = [oilId];
         }
         inforBooking["serviceIds"] = this.state.serviceIds;
         inforBooking["paymentMethod"] = this.state.methodPaymentId;
+        
         if (this.noteInputRef && this.noteInputRef.value) {
-        inforBooking["note"] = this.noteInputRef.value;
+            inforBooking["note"] = this.noteInputRef.value;
         }
         this.props.appActions.putInforBooking(inforBooking);
         this.props.appActions.booking(inforBooking);
@@ -54,7 +60,7 @@ class BookingStep3Modal extends Component {
         this.setState({
             tabServiceId: tabServiceId,
         })
-        let inforBooking = {...this.props.app.inforBooking}
+        let inforBooking = { ...this.props.app.inforBooking }
         this.props.appActions.getServices(inforBooking["transportId"], tabServiceId);
     }
 
@@ -67,19 +73,23 @@ class BookingStep3Modal extends Component {
         let isChecked = serviceIds.indexOf(serviceId) >= 0;
         if (isChecked) {
             serviceIds.pop(serviceId);
-        }else{
+        } else {
             serviceIds.push(serviceId);
         }
         this.setState({
             serviceIds: serviceIds
         })
+        if (serviceId == THAY_NHOT) {
+            let inforBooking = { ...this.props.app.inforBooking }
+            this.props.appActions.getOil(inforBooking["brandSeriesId"]);
+        }
     }
 
     selectMethodPayment(methodId) {
         this.setState({
             methodPaymentId: methodId
         })
-    } 
+    }
 
     close() {
         var body = document.getElementsByTagName('body')[0];
@@ -91,16 +101,24 @@ class BookingStep3Modal extends Component {
 
 
     render() {
-        let inforBooking = {...this.props.app.inforBooking}
-        let serviceByTrans =  this.props.app.services[inforBooking["transportId"]]
+        let inforBooking = { ...this.props.app.inforBooking }
+        let serviceByTrans = this.props.app.services[inforBooking["transportId"]]
         const services = (serviceByTrans && serviceByTrans[this.state.tabServiceId]) ? serviceByTrans[this.state.tabServiceId] : []
+        const isThayNhot = this.state.serviceIds.includes(THAY_NHOT);
+        const oils = (isThayNhot && this.props.app.oils) ? this.props.app.oils : []
+        const optionOils = [];
+        if (oils) {
+            oils.forEach(item => {
+                optionOils.push({ value: item["id"], label: item["name"] })
+            });
+        }
         return (
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-lg">
                         <div className="modal-content">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
-                                <HeaderBookingModal {...this.props}  onClose={this.close} step={3}/>
+                                <HeaderBookingModal {...this.props} onClose={this.close} step={3} />
                                 <div className="clearfix line">&nbsp;</div>
                                 <div className="box_input">
                                     <h3 className="title">CHỌN DỊCH VỤ &amp; THANH TOÁN</h3>
@@ -123,37 +141,48 @@ class BookingStep3Modal extends Component {
                                                 </div>
                                                 <div className="calendar_content">
                                                     <div className="service_content scrollbar" id="scroll-3">
-                                                        {(services) ?  
+                                                        {(services) ?
                                                             <div className="force-overflow">
-                                                            { services.map((item) => {
-                                                                let isChecked = this.state.serviceIds.indexOf(item["id"]) >= 0
-                                                                return (
-                                                                    <div key={item["id"]} onClick={e => this.selectServiceId(item["id"])} className="service">
-                                                                        <label className="container col-md-1 pull-left">
-                                                                            <input type="checkbox" name="service_type" checked={isChecked} />
-                                                                            <span className="checkmark" />
-                                                                        </label>
-                                                                        <div className={isChecked ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
-                                                                            <img src={require('../resources/images/service_img1.png')} className="pull-left" />
-                                                                            <div className="info pull-left">
-                                                                                <div className="name">{item["name"]}</div>
+                                                                {services.map((item) => {
+                                                                    let isChecked = this.state.serviceIds.indexOf(item["id"]) >= 0
+                                                                    return (
+                                                                        <div key={item["id"]} onClick={e => this.selectServiceId(item["id"])} className="service">
+                                                                            <label className="container col-md-1 pull-left">
+                                                                                <input type="checkbox" name="service_type" checked={isChecked} />
+                                                                                <span className="checkmark" />
+                                                                            </label>
+                                                                            <div className={isChecked ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
+                                                                                <img src={require('../resources/images/service_img1.png')} className="pull-left" />
+                                                                                <div className="info pull-left">
+                                                                                    <div className="name">{item["name"]}</div>
+                                                                                </div>
+                                                                                <div className="price pull-right">{PriceUtils.toThousand(item["price"])}</div>
                                                                             </div>
-                                                                            <div className="price pull-right">{PriceUtils.toThousand(item["price"])}</div>
                                                                         </div>
-                                                                    </div>
-                                                                )
-                                                            })}
-                                                            <div className="clearfix" />
+                                                                    )
+                                                                })}
+                                                                <div className="clearfix" />
+                                                            </div>
+                                                            :
+                                                            <div style={{ textAlign: 'center', paddingTop: '30pxs' }}>
+                                                                Dịch vụ chưa được hỗ trợ
                                                         </div>
-                                                        : 
-                                                        <div style={{textAlign: 'center', paddingTop: '30pxs'}}>
-                                                            Dịch vụ chưa được hỗ trợ
-                                                        </div> 
                                                         }
                                                     </div>
                                                     <hr />
+                                                    {isThayNhot &&
+                                                        <div className="form-group row">
+                                                            <div className="col-md-3 text-left">Chọn loại nhớt:</div>
+                                                            <div className="col-md-4">
+                                                                <Select placeholder="Vui lòng chọn thương hiệu" options={optionOils} />
+                                                            </div>
+                                                            <div className="col-md-5">
+                                                                <Select placeholder="" options={optionOils} ref={e => this.oilInputRef = e} />
+                                                            </div>
+                                                        </div>
+                                                    }
                                                     <div className="payment form-group row">
-                                                        {(this.state.methodPaymentId == 2 || this.state.methodPaymentId == 3 ) && <div style={{textAlign: 'center', color: 'red'}}>Phương thức chưa được support</div>}
+                                                        {(this.state.methodPaymentId == 2 || this.state.methodPaymentId == 3) && <div style={{ textAlign: 'center', color: 'red' }}>Phương thức chưa được support</div>}
                                                         <div className="col-md-3 text-left">Chọn hình thức thanh toán:</div>
                                                         <div className="col-md-9">
                                                             <a href="javascript:void(0)" onClick={e => this.selectMethodPayment(1)} className={this.state.methodPaymentId == 1 ? 'active' : ''}><i className="fa fa-money" />Tiền mặt</a>
@@ -173,7 +202,7 @@ class BookingStep3Modal extends Component {
                                         </div>
                                     </div>
                                     <hr />
-                                    {this.state.errorMsg &&  <div style={{textAlign: 'center', color: 'red', paddingBottom: '30px'}}>{this.state.errorMsg}</div> }
+                                    {this.state.errorMsg && <div style={{ textAlign: 'center', color: 'red', paddingBottom: '30px' }}>{this.state.errorMsg}</div>}
                                     <div className="form-group row text-center">
                                         <button onClick={this.prev} type="button" className="btn btn-fefault step_back m-btn-prev"><i className="fa fa-angle-left" /> QUAY LẠI</button>
                                         <button onClick={this.next} type="button" className="btn btn-success2"><i className="fa fa-check-circle" /> HOÀN TẤT - ĐẶT LỊCH</button>

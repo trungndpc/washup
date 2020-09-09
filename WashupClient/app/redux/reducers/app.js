@@ -11,7 +11,8 @@ const initialState = {
   confirmBooking: null,
   topAccessories: [],
   accessories: {},
-  activities: []
+  activities: [],
+  oils: []
 }
 
 export default function app(state = initialState, action) {
@@ -76,6 +77,10 @@ export default function app(state = initialState, action) {
     }
     case type.APP.GET_ACTIVITY_TOP_END: {
       newState.activities = action.payload;
+      break;
+    }
+    case type.APP.GET_OIL_END: {
+      newState.oils = action.payload;
       break;
     }
     default:
