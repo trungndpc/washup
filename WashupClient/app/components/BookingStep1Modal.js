@@ -12,10 +12,12 @@ class BookingStep1Modal extends Component {
         const inforBooking = this.props.app.inforBooking;
         this.state = {
             transportId: (inforBooking && inforBooking["transportId"]) ? inforBooking["transportId"] :  Model.OTO,
-            errorMsg: null
+            errorMsg: null,
+            brandInput: null
         }
         this.onChangeTransportation = this.onChangeTransportation.bind(this)
         this.getFormData = this.getFormData.bind(this);
+        this.onChangeBrandInput = this.onChangeBrandInput.bind(this)
     }
   
     componentWillMount() {
@@ -111,15 +113,23 @@ class BookingStep1Modal extends Component {
         return true;
     }
 
+    onChangeBrandInput(value) {
+        this.setState({
+            brandInput : value
+        })
+    }
+
     render() {
         const inforBooking = this.props.app.inforBooking;
         const brands = this.props.app.brands;
         const listModel = (this.props.app.models && this.props.app.models[this.state.transportId]) ? this.props.app.models[this.state.transportId] : []
         const brandOptions = [];
+        var defaultBrandInput = null;
         if (brands) {
             brands.forEach(item => {
                 brandOptions.push({value: item["id"], label: item["brandName"]})
             });
+            defaultBrandInput = this.state.brandInput ? this.state.brandInput : brandOptions[0]
         }
         
         return (
@@ -165,7 +175,7 @@ class BookingStep1Modal extends Component {
                                 <div className="form-group row">
                                     <div className="col-md-3 col-xs-12">Hãng xe:</div>
                                     <div className="col-md-4 col-xs-12">
-                                        <Select options={brandOptions} ref={e => this.brandInputRef = e} name="car_brand" id="brand_type"/>
+                                        <Select value={defaultBrandInput} onChange={this.onChangeBrandInput} options={brandOptions} ref={e => this.brandInputRef = e} name="car_brand" id="brand_type"/>
                                     </div>
                                 </div>
                                 <div className="form-group row">

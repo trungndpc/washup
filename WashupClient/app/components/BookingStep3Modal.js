@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import HeaderBookingModal from '../components/HeaderBookingModal';
 import PriceUtils from '../utils/PriceUtils';
 import Select from 'react-select'
+import { OIL_BRAND } from '../constants/Constants'
 
 const THAY_NHOT = "ff808181741c1c93017420bb81b7000c";
 class BookingStep3Modal extends Component {
@@ -12,9 +13,13 @@ class BookingStep3Modal extends Component {
             tabServiceId: 1,
             serviceIds: [],
             methodPaymentId: 1,
-            errorMsg: null
+            errorMsg: null,
+            brandOil: { value: OIL_BRAND["CASTROL"], label: "CASTROL" },
+            oil: null
         }
         this.close = this.close.bind(this)
+        this.onChangeBrandOils = this.onChangeBrandOils.bind(this);
+        this.onChangeOil = this.onChangeOil.bind(this)
     }
 
     componentWillMount() {
@@ -35,7 +40,7 @@ class BookingStep3Modal extends Component {
 
     next() {
         let inforBooking = { ...this.props.app.inforBooking }
-        if (!this.state.serviceId) {
+        if (this.state.serviceIds.length == 0) {
             this.setState({ errorMsg: 'Vui lòng chọn một dịch vụ' })
             return false;
         }
@@ -45,7 +50,7 @@ class BookingStep3Modal extends Component {
         }
         inforBooking["serviceIds"] = this.state.serviceIds;
         inforBooking["paymentMethod"] = this.state.methodPaymentId;
-        
+
         if (this.noteInputRef && this.noteInputRef.value) {
             inforBooking["note"] = this.noteInputRef.value;
         }
@@ -64,6 +69,14 @@ class BookingStep3Modal extends Component {
         this.props.appActions.getServices(inforBooking["transportId"], tabServiceId);
     }
 
+    removeElement(array, elem) {
+        var index = array.indexOf(elem);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+        return array;
+    }
+
     selectServiceId(serviceId) {
         this.setState({
             serviceId: serviceId,
@@ -72,7 +85,7 @@ class BookingStep3Modal extends Component {
         let serviceIds = [...this.state.serviceIds]
         let isChecked = serviceIds.indexOf(serviceId) >= 0;
         if (isChecked) {
-            serviceIds.pop(serviceId);
+            serviceIds = this.removeElement(serviceIds, serviceId)
         } else {
             serviceIds.push(serviceId);
         }
@@ -99,6 +112,14 @@ class BookingStep3Modal extends Component {
         }
     }
 
+    onChangeBrandOils(value) {
+        this.setState({ brandOil: value, oil: null })
+    }
+
+
+    onChangeOil(value) {
+        this.setState({ oil: value })
+    }
 
     render() {
         let inforBooking = { ...this.props.app.inforBooking }
@@ -107,10 +128,19 @@ class BookingStep3Modal extends Component {
         const isThayNhot = this.state.serviceIds.includes(THAY_NHOT);
         const oils = (isThayNhot && this.props.app.oils) ? this.props.app.oils : []
         const optionOils = [];
+        var defaultOil = null
         if (oils) {
             oils.forEach(item => {
-                optionOils.push({ value: item["id"], label: item["name"] })
+                if (item["manufacturer"] == this.state.brandOil.value) {
+                    optionOils.push({ value: item["id"], label: item["name"] })
+                }
             });
+            defaultOil = this.state.oil ? this.state.oil : optionOils[0];
+        }
+
+        const optionsBrandOils = [];
+        for (const key in OIL_BRAND) {
+            optionsBrandOils.push({ value: OIL_BRAND[key], label: key })
         }
         return (
             <div>
@@ -144,11 +174,16 @@ class BookingStep3Modal extends Component {
                                                         {(services) ?
                                                             <div className="force-overflow">
                                                                 {services.map((item) => {
+                                                                    
                                                                     let isChecked = this.state.serviceIds.indexOf(item["id"]) >= 0
                                                                     return (
-                                                                        <div key={item["id"]} onClick={e => this.selectServiceId(item["id"])} className="service">
+                                                                        <div key={item["id"]} onClick={function(e) {
+                                                                            e.preventDefault(); 
+                                                                            e.stopPropagation(); 
+                                                                            this.selectServiceId(item["id"])
+                                                                        }.bind(this)} className="service">
                                                                             <label className="container col-md-1 pull-left">
-                                                                                <input type="checkbox" name="service_type" checked={isChecked} />
+                                                                                <input type="checkbox" checked={isChecked} />
                                                                                 <span className="checkmark" />
                                                                             </label>
                                                                             <div className={isChecked ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
@@ -174,10 +209,10 @@ class BookingStep3Modal extends Component {
                                                         <div className="form-group row">
                                                             <div className="col-md-3 text-left">Chọn loại nhớt:</div>
                                                             <div className="col-md-4">
-                                                                <Select placeholder="Vui lòng chọn thương hiệu" options={optionOils} />
+                                                                <Select value={this.state.brandOil} onChange={this.onChangeBrandOils} options={optionsBrandOils} />
                                                             </div>
                                                             <div className="col-md-5">
-                                                                <Select placeholder="" options={optionOils} ref={e => this.oilInputRef = e} />
+                                                                <Select value={defaultOil} onChange={this.onChangeOil} options={optionOils} ref={e => this.oilInputRef = e} />
                                                             </div>
                                                         </div>
                                                     }
