@@ -59,7 +59,7 @@ class Home extends React.Component {
 
   booking() {
     if (this.phoneInputRef && this.phoneInputRef.value) {
-      if(this.phoneInputRef.value.match(/\d/g).length < 10) {
+      if(this.phoneInputRef.value.match(/\d/g).length < 10 || this.phoneInputRef.value.match(/\d/g).length > 10) {
       AlertUtils.showWarning("Vui lòng nhập đủ số điện thoại")
         return;
       }

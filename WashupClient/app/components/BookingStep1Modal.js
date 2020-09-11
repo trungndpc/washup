@@ -100,10 +100,10 @@ class BookingStep1Modal extends Component {
             return false;
         }
 
-        if (!data["vehicleName"]) {
-            this.setState({"errorMsg": "Vui lòng nhập tên xe"})
-            return false;
-        }
+        // if (!data["vehicleName"]) {
+        //     this.setState({"errorMsg": "Vui lòng nhập tên xe"})
+        //     return false;
+        // }
 
         if (!data["licensePlate"]) {
             this.setState({"errorMsg": "Vui lòng biển số"})

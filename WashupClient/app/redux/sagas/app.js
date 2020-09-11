@@ -80,7 +80,7 @@ function getModels() {
 
 function getBrands(transportId) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brands/all?category=` + transportId, resolve, reject);
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brands?category=` + transportId, resolve, reject);
   });
 }
 
