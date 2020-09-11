@@ -17,6 +17,11 @@ export default function app(state = initialState, action) {
       newState.booking = payload;
       break;
     }
+    case type.APP.GET_ORDERS_BY_STATUS_END: {
+      const payload = action.payload;
+      newState.orderByStatus = payload;
+      break;
+    }
     default:
       return state
   }

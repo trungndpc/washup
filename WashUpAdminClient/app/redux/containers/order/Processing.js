@@ -1,27 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as appActions from '../actions/app'
-import TimeUtils from '../../utils/TimeUtils'
+import * as appActions from '../../actions/app'
+import TimeUtils from '../../../utils/TimeUtils'
 
-class Booking extends React.Component {
+class Processing extends React.Component {
     constructor(props) {
         super(props)
-
     }
 
     componentDidMount() {
-        this.props.appActions.getListBookingByDate(1598111100)
+        this.props.appActions.getOrdersByStatus(3, 0, 10)
     }
 
     onClickDetail(id) {
-        this.props.history.push('/booking/' + id);
+        this.props.history.push('/order/' + id);
     }
 
 
 
     render() {
-        const bookings = this.props.app.bookings;
+        const bookings = this.props.app.orderByStatus && this.props.app.orderByStatus.storeOrders;
         //DEBUG
         return (
             <div>
@@ -37,7 +36,7 @@ class Booking extends React.Component {
                                                     <i className="notika-icon notika-windows" />
                                                 </div>
                                                 <div className="breadcomb-ctn">
-                                                    <h2>Booking</h2>
+                                                    <h2>Đang xử lý</h2>
                                                     <p>26/08/2020</p>
                                                 </div>
                                             </div>
@@ -118,4 +117,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Booking)
+)(Processing)

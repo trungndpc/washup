@@ -63,7 +63,7 @@ export default class APIUtils {
     fetch(url, {
       method: 'post',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
       body: formData
     })

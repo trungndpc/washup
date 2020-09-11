@@ -20,6 +20,7 @@ import './resources/css/style.css'
 import './resources/css/waves.min.css'
 import './resources/css/notika-custom-icon.css'
 import './resources/css/button.css'
+import './resources/css/mstyle.css';
 
 
 

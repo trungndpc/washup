@@ -12,8 +12,6 @@ class Dashboard extends React.Component {
   componentDidMount() {
   }
 
-
-
   render() {
     //DEBUG
     if (process.env.NODE_ENV === 'development') {

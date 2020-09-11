@@ -13,7 +13,14 @@ import Header from '../../components/Header'
 import Dashboard from '../containers/Dashboard';
 import BookingDetail from '../containers/BookingDetail';
 import Footer from '../../components/Footer'
-import Booking from './Booking'
+import Pending from '../containers/order/Pending'
+import Confirmed from '../containers/order/Confirmed'
+import Processing from '../containers/order/Processing'
+import Success from '../containers/order/Success'
+import Canceled from '../containers/order/Canceled'
+
+
+import Order from './Order'
 
 class App extends React.Component {
   render() {
@@ -27,8 +34,13 @@ class App extends React.Component {
           <Header history={this.props.history} />
           <Switch>
             <Route exact path="/" component={Dashboard} />
-            <Route exact path="/booking" component={Booking} />
-            <Route exact path="/booking/:id" component={BookingDetail} />
+            <Route exact path="/order" component={Order} />
+            <Route exact path="/order/pending" component={Pending} />
+            <Route exact path="/order/confirmed" component={Confirmed} />
+            <Route exact path="/order/processing" component={Processing} />
+            <Route exact path="/order/canceled" component={Canceled} />
+            <Route exact path="/order/success" component={Success} />
+            <Route exact path="/order/:id" component={BookingDetail} />
             <Route path="/*" component={NotFoundPage} />
           </Switch>
           {/* <Footer /> */}
