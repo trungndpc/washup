@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../actions/app'
 import TimeUtils from '../../utils/TimeUtils'
+import Assignment from '../../components/Assignment'
 
 class BookingDetail extends React.Component {
     constructor(props) {
@@ -26,9 +27,7 @@ class BookingDetail extends React.Component {
 
 
     render() {
-        const booking = this.props.app.booking;
-        console.log(booking)
-        //DEBUG
+        const booking = this.props.app.booking && this.props.app.booking;
         return (
             <div>
                 {!booking && <div style={{ textAlign: 'center', fontSize: '40px', fontWeight: '600' }} >ID INVALID</div>}
@@ -62,11 +61,35 @@ class BookingDetail extends React.Component {
                         </div>
                     </div>
 
+                    <div className="assignment-emp">
+                        <div className="container">
+                            <Assignment {...this.props} />
+                        </div>
+                    </div>
+
                     <div className="invoice-area">
                         <div className="container">
                             <div className="row">
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div className="invoice-wrap">
+                                        <div className="invoice-hds-pro">
+                                            <div className="row">
+                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div className="invoice-cmp-ds" style={{ textAlign: 'center' }}>
+                                                        <div className="comp-tl">
+                                                            <h2>{booking["fullName"]}</h2>
+                                                            <p>{booking["pickUpAddress"]}</p>
+                                                        </div>
+                                                        <div className="cmp-ph-em">
+                                                            <span>{booking["brand"] && booking["brand"]["brandName"]} [{booking["brandSeries"] && booking["brandSeries"]["seriesName"]}] -  {booking["vehicleName"]} - {booking["licensePlate"]}  </span>
+                                                            {/* <span>Car: {booking["model"].brandName} </span> */}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         <div className="row">
                                             <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                 <div className="invoice-hs">
@@ -77,7 +100,7 @@ class BookingDetail extends React.Component {
                                             <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                 <div className="invoice-hs date-inv sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
                                                     <span>Schedule</span>
-                                                    <h2>{TimeUtils.timeSchedule(booking["timeSchedule"])   + " - " + TimeUtils.toString(booking["timeSchedule"] * 1000)}</h2>
+                                                    <h2>{TimeUtils.timeSchedule(booking["timeSchedule"]) + " - " + TimeUtils.toString(booking["timeSchedule"] * 1000)}</h2>
                                                 </div>
                                             </div>
                                             <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
@@ -93,22 +116,7 @@ class BookingDetail extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="invoice-hds-pro">
-                                            <div className="row">
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div className="invoice-cmp-ds" style={{ textAlign: 'center' }}>
-                                                        <div className="comp-tl">
-                                                            <h2>{booking["fullName"]}</h2>
-                                                            <p>{booking["pickUpAddress"]}</p>
-                                                        </div>
-                                                        <div className="cmp-ph-em">
-                                                            <span>License Plate: {booking["licensePlate"]}</span>
-                                                            <span>Car: {booking["model"].brandName} </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div className="row">
 
 
@@ -120,6 +128,8 @@ class BookingDetail extends React.Component {
                                                                 <th>#</th>
                                                                 <th>Service</th>
                                                                 <th>Quantity</th>
+                                                                <th>Description</th>
+                                                                <th>Price</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>

@@ -114,8 +114,16 @@
 }
 
 .form-control {
-    height: 38px !important;
+    /* height: 38px !important; */
 } 
+
+.tr__value-container {
+    position: initial !important;
+}
+
+.tr__indicators  {
+    height: 34px !important;
+}
 
 .main-title h3.title {
     margin-top: 20px !important;

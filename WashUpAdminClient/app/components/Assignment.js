@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Select from 'react-select'
 
 class Assignment extends Component {
 
@@ -18,7 +19,7 @@ class Assignment extends Component {
                                     </div>
                                     <div className="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                                         <div className="nk-int-st">
-                                            <input type="text" className="form-control input-sm" placeholder="Nguyễn Văn A" />
+                                            <Select placeholder="Chọn nhân viên" options={[]}/>
                                         </div>
                                     </div>
                                 </div>
