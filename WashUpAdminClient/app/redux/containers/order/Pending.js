@@ -3,12 +3,17 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/app'
 import TimeUtils from '../../../utils/TimeUtils'
+import Pagination from 'antd/es/pagination'
 
 class Pending extends React.Component {
     constructor(props) {
         super(props)
         this.onCLickApproved = this.onCLickApproved.bind(this);
         this.onCLickReject = this.onCLickReject.bind(this);
+        this.state = {
+            pageNumber: 1
+        }
+        this.changePageNumber = this.changePageNumber.bind(this);
     }
 
     componentDidMount() {
@@ -27,9 +32,15 @@ class Pending extends React.Component {
         this.props.appActions.updateStatus(id, 1, 4);
     }
 
+    changePageNumber(pageNumber, pageSize) {
+        this.setState({pageNumber, pageNumber})
+        this.props.appActions.getOrdersByStatus(1, pageNumber - 1, 10)
+    }
+
 
     render() {
-        const bookings = this.props.app.orderByStatus && this.props.app.orderByStatus.storeOrders;
+        const orderByStatus = this.props.app.orderByStatus;
+        const bookings = orderByStatus && orderByStatus.storeOrders;
         //DEBUG
         return (
             <div>
@@ -87,14 +98,14 @@ class Pending extends React.Component {
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td>{item["pickUpAddress"]}</td>
-                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
+                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
                                                             <td>{TimeUtils.diffTime(item["createdOn"])}</td>
-                                                            <td style={{width: '120px'}}>
-                                                                <div style={{display: 'inline-block', marginRight: '10px'}}>
-                                                                <button onClick={() => {this.onCLickApproved(item["id"])}} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-checked"></i></button>
+                                                            <td style={{ width: '120px' }}>
+                                                                <div style={{ display: 'inline-block', marginRight: '10px' }}>
+                                                                    <button onClick={() => { this.onCLickApproved(item["id"]) }} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-checked"></i></button>
                                                                 </div>
-                                                                <div style={{display: 'inline-block'}}>
-                                                                <button onClick={() => {this.onCLickReject(item["id"])}} className="btn btn-lightblue  btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-close"></i></button>
+                                                                <div style={{ display: 'inline-block' }}>
+                                                                    <button onClick={() => { this.onCLickReject(item["id"]) }} className="btn btn-lightblue  btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-close"></i></button>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -105,6 +116,7 @@ class Pending extends React.Component {
                                         </table>
                                     </div>
                                 </div>
+                                {orderByStatus && <div style={{ textAlign: 'center', padding: '30px' }}> <Pagination defaultCurrent={orderByStatus.page} pageSize={10} onChange={this.changePageNumber} total={orderByStatus["totalPage"] * 10} /> </div>}
                             </div>
                         </div>
                     </div>

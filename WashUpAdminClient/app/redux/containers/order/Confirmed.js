@@ -3,11 +3,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/app'
 import TimeUtils from '../../../utils/TimeUtils'
-import Assignment from '../../../components/Assignment'
+import PriceUtils from '../../../utils/PriceUtils'
+import Pagination from 'antd/es/pagination'
 
 class Confirmed extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            pageNumber: 1
+        }
+        this.changePageNumber = this.changePageNumber.bind(this);
     }
 
     componentDidMount() {
@@ -18,10 +23,16 @@ class Confirmed extends React.Component {
         this.props.history.push('/order/' + id);
     }
 
+    changePageNumber(pageNumber, pageSize) {
+        this.setState({pageNumber, pageNumber})
+        this.props.appActions.getOrdersByStatus(2, pageNumber - 1, 10)
+    }
+
 
 
     render() {
-        const bookings = this.props.app.orderByStatus && this.props.app.orderByStatus.storeOrders;
+        const orderByStatus = this.props.app.orderByStatus;
+        const bookings = orderByStatus && orderByStatus.storeOrders;
         //DEBUG
         return (
             <div>
@@ -65,11 +76,9 @@ class Confirmed extends React.Component {
                                                     <th>#</th>
                                                     <th>Tên</th>
                                                     <th>SDT</th>
-                                                    <th>Địa chỉ</th>
-                                                    <th>Lịch</th>
+                                                    <th>Trạng thái</th>
                                                     <th>Giá</th>
-                                                    {/* <th>Status</th> */}
-                                                    <th>Created</th>
+                                                    <th>Ngày tạo</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -80,10 +89,8 @@ class Confirmed extends React.Component {
                                                             <td>{index + 1}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
-                                                            <td>{item["pickUpAddress"]}</td>
-                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
-                                                            <td>{item["totalPrice"]}</td>
-                                                            {/* <td>{item["status"]}</td> */}
+                                                            <td>{!item["user"] ? <span style={{color: '#fff', backgroundColor: '#FFC107', padding: '3px 5px' }}>Chưa phân công</span> : <span style={{color: '#fff', backgroundColor: '#8BC34A',padding: '3px 5px' }}>Chờ chấp nhận</span>}</td>
+                                                            <td>{PriceUtils.toThousand(item["totalPrice"])}</td>
                                                             <td>{TimeUtils.diffTime(item["createdOn"])}</td>
                                                             <td><button onClick={() => {this.onClickDetail(item["id"])}} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-next"></i></button></td>
                                                         </tr>
@@ -94,6 +101,7 @@ class Confirmed extends React.Component {
                                         </table>
                                     </div>
                                 </div>
+                                {orderByStatus && <div style={{ textAlign: 'center', padding: '30px' }}> <Pagination defaultCurrent={orderByStatus.page} pageSize={10} onChange={this.changePageNumber} total={orderByStatus["totalPage"] * 10} /> </div>}
                             </div>
                         </div>
                     </div>

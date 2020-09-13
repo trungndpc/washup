@@ -22,6 +22,8 @@ import './resources/css/waves.min.css'
 import './resources/css/notika-custom-icon.css'
 import './resources/css/button.css'
 import './resources/css/mstyle.css';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 
 const store = configureStore()

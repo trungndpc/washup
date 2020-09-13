@@ -18,6 +18,8 @@ import Confirmed from '../containers/order/Confirmed'
 import Processing from '../containers/order/Processing'
 import Success from '../containers/order/Success'
 import Canceled from '../containers/order/Canceled'
+import Task from '../containers/Task';
+import Alert from 'react-s-alert';
 
 
 import Order from './Order'
@@ -35,6 +37,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/order" component={Order} />
+            <Route exact path="/task" component={Task} />
             <Route exact path="/order/pending" component={Pending} />
             <Route exact path="/order/confirmed" component={Confirmed} />
             <Route exact path="/order/processing" component={Processing} />
@@ -45,6 +48,7 @@ class App extends React.Component {
           </Switch>
           {/* <Footer /> */}
         </div>
+        <Alert stack={{ limit: 3 }} />
       </div>
     )
   }

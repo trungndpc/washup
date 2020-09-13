@@ -3,10 +3,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/app'
 import TimeUtils from '../../../utils/TimeUtils'
+import Pagination from 'antd/es/pagination'
+
 
 class Processing extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            pageNumber: 1
+        }
+        this.changePageNumber = this.changePageNumber.bind(this);
     }
 
     componentDidMount() {
@@ -17,10 +23,16 @@ class Processing extends React.Component {
         this.props.history.push('/order/' + id);
     }
 
+    changePageNumber(pageNumber, pageSize) {
+        this.setState({pageNumber, pageNumber})
+        this.props.appActions.getOrdersByStatus(3, pageNumber - 1, 10)
+    }
+
 
 
     render() {
-        const bookings = this.props.app.orderByStatus && this.props.app.orderByStatus.storeOrders;
+        const orderByStatus = this.props.app.orderByStatus;
+        const bookings = orderByStatus && orderByStatus.storeOrders;
         //DEBUG
         return (
             <div>
@@ -62,29 +74,25 @@ class Processing extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Phone</th>
-                                                    <th>Address</th>
-                                                    <th>Schedule</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
-                                                    <th>Created</th>
-                                                    <th></th>
+                                                    <th>Tên</th>
+                                                    <th>SDT</th>
+                                                    <th>Nhân viên</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Lịch đặt</th>
+                                                    <th>Ngày tạo</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {bookings && bookings.map((item, index) => {
                                                     return (
-                                                        <tr key={item["id"]}>
+                                                        <tr onClick={() => {this.onClickDetail(item["id"])}}  key={item["id"]}>
                                                             <td>{index + 1}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
+                                                            <td>Nguyễn Đình Trung</td>
                                                             <td>{item["pickUpAddress"]}</td>
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
-                                                            <td>{item["totalPrice"]}</td>
-                                                            <td>{item["status"]}</td>
                                                             <td>{TimeUtils.diffTime(item["createdOn"])}</td>
-                                                            <td><button onClick={() => {this.onClickDetail(item["id"])}} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-next"></i></button></td>
                                                         </tr>
                                                     )
                                                 })}
@@ -93,6 +101,7 @@ class Processing extends React.Component {
                                         </table>
                                     </div>
                                 </div>
+                                {orderByStatus && <div style={{ textAlign: 'center', padding: '30px' }}> <Pagination defaultCurrent={orderByStatus.page} pageSize={10} onChange={this.changePageNumber} total={orderByStatus["totalPage"] * 10} /> </div>}
                             </div>
                         </div>
                     </div>
