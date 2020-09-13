@@ -4,11 +4,20 @@ import { bindActionCreators } from 'redux'
 import * as appActions from '../actions/app'
 import TimeUtils from '../../utils/TimeUtils'
 import Assignment from '../../components/Assignment'
+import AddService from '../../components/AddService'
+import PriceUtils from '../../utils/PriceUtils'
+import * as Order from '../../constants/order';
 
 class BookingDetail extends React.Component {
     constructor(props) {
         super(props)
         this.getBookingIdFromParams = this.getBookingIdFromParams.bind(this);
+        this.state = {
+            isEditService: false
+        }
+        this.onClickEditService = this.onClickEditService.bind(this)
+        this.onClickExitEditing = this.onClickExitEditing.bind(this)
+        this.onClickSave = this.onClickSave.bind(this);
     }
 
     async componentDidMount() {
@@ -24,10 +33,34 @@ class BookingDetail extends React.Component {
         this.setState({ bookingId: params.id })
     }
 
+    onClickEditService() {
+        this.setState({
+            isEditService: true
+        })
+    }
 
+    onClickExitEditing() {
+        this.setState({
+            isEditService: false
+        })
+    }
+
+    onClickSave() {
+        this.setState({
+            isEditService: false
+        })
+    }
 
     render() {
         const booking = this.props.app.booking && this.props.app.booking;
+        const statusId = booking && booking["status"]
+        var listServicesId;
+        if (booking && booking["services"]) {
+            listServicesId = []
+            booking["services"].forEach((item) => {
+                listServicesId.push(item["id"])
+            })
+        }
         return (
             <div>
                 {!booking && <div style={{ textAlign: 'center', fontSize: '40px', fontWeight: '600' }} >ID INVALID</div>}
@@ -50,8 +83,20 @@ class BookingDetail extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+
                                                 <div className="breadcomb-report">
-                                                    <button data-toggle="tooltip" data-placement="left" title className="btn waves-effect" data-original-title="Download Report"><i className="notika-icon notika-sent" /></button>
+                                                    {this.state.isEditService &&
+                                                        <div>
+                                                            <button onClick={this.onClickSave} className="btn btn-success notika-btn-success waves-effect">Lưu</button>
+                                                            <button onClick={this.onClickExitEditing} style={{ color: '#333', marginLeft: '30px' }} className="btn btn-default notika-btn-default waves-effect">Thoát</button>
+                                                        </div>
+                                                    }
+
+                                                    {statusId == Order.Status.COMPLETED.value && !this.state.isEditService &&
+                                                        <button style={{ marginRight: '30px' }} onClick={this.onClickEditService} className="btn btn-lightgreen lightgreen-icon-notika btn-reco-mg btn-button-mg waves-effect">
+                                                            <i className="notika-icon notika-menus" />
+                                                        </button>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -61,99 +106,122 @@ class BookingDetail extends React.Component {
                         </div>
                     </div>
 
-                    <div className="assignment-emp">
-                        <div className="container">
-                            <Assignment {...this.props} />
-                        </div>
-                    </div>
+                    {!this.state.isEditService &&
+                        <div>
 
-                    <div className="invoice-area">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div className="invoice-wrap">
-                                        <div className="invoice-hds-pro">
-                                            <div className="row">
-                                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                    <div className="invoice-cmp-ds" style={{ textAlign: 'center' }}>
-                                                        <div className="comp-tl">
-                                                            <h2>{booking["fullName"]}</h2>
-                                                            <p>{booking["pickUpAddress"]}</p>
+                            {!booking["user"] &&
+                                <div className="assignment-emp">
+                                    <div className="container">
+                                        <Assignment orderId={this.state.bookingId} {...this.props} />
+                                    </div>
+                                </div>
+                            }
+
+                            <div className="invoice-area">
+                                <div className="container">
+                                    <div className="row">
+                                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div className="invoice-wrap">
+                                                <div className="invoice-hds-pro">
+                                                    <div className="row">
+                                                        <div className="col-lg-12col-md-12 col-sm-12 col-xs-12">
+                                                            <div className="invoice-cmp-ds">
+                                                                <div className="invoice-frm">
+                                                                    <span>Khách hàng</span>
+                                                                </div>
+                                                                <div className="comp-tl">
+                                                                    <h2><i className="notika-icon notika-support"></i> {booking["fullName"]}</h2>
+                                                                    <p><i className="notika-icon notika-map"></i> {booking["pickUpAddress"]}</p>
+                                                                </div>
+                                                                <div className="cmp-ph-em">
+                                                                    <span>Phương tiện: </span> <span style={{ color: '#31708f' }}> {booking["brand"] && booking["brand"]["brandName"]} [{booking["brandSeries"] && booking["brandSeries"]["seriesName"]}] -  {booking["vehicleName"]} - {booking["licensePlate"]}</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div className="cmp-ph-em">
-                                                            <span>{booking["brand"] && booking["brand"]["brandName"]} [{booking["brandSeries"] && booking["brandSeries"]["seriesName"]}] -  {booking["vehicleName"]} - {booking["licensePlate"]}  </span>
-                                                            {/* <span>Car: {booking["model"].brandName} </span> */}
+                                                        {booking["user"] &&
+                                                            <div style={{ marginTop: '30px' }} className="col-lg-12col-md-12 col-sm-12 col-xs-12">
+                                                                <div className="invoice-cmp-ds">
+                                                                    <div className="invoice-frm">
+                                                                        <span>Nhân viên</span>
+                                                                    </div>
+                                                                    <div className="comp-tl">
+                                                                        <h2><i className="notika-icon notika-support"></i> Nguyễn Đình Trung  [CHƯA CHẤP NHẬN]</h2>
+                                                                        <p><i className="notika-icon notika-map"></i> 0972797184</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div className="row">
+                                                    <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                        <div className="invoice-hs">
+                                                            <span>Số điện thoại</span>
+                                                            <h2>{booking["phone"]}</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                        <div className="invoice-hs date-inv sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+                                                            <span>Lịch hẹn</span>
+                                                            <h2>{TimeUtils.timeSchedule(booking["timeSchedule"]) + " - " + TimeUtils.toString(booking["timeSchedule"] * 1000)}</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                        <div className="invoice-hs wt-inv sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+                                                            <span>Giá</span>
+                                                            <h2>{PriceUtils.toThousand(booking["totalPrice"])}</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                                        <div className="invoice-hs gdt-inv sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+                                                            <span>Trạng thái</span>
+                                                            <h2>{Order.findStatus(booking["status"]).toString}</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="row">
+                                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div className="invoice-sp">
+                                                            <table className="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Service</th>
+                                                                        <th>Quantity</th>
+                                                                        <th>Description</th>
+                                                                        <th>Price</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {booking["services"] && booking["services"].map((item, index) => {
+                                                                        return (
+                                                                            <tr key={item["id"]}>
+                                                                                <td>{index + 1}</td>
+                                                                                <td>{item["name"]}</td>
+                                                                                <td>1</td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                            </tr>
+                                                                        )
+                                                                    })}
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                        <div className="row">
-                                            <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                <div className="invoice-hs">
-                                                    <span>Phone</span>
-                                                    <h2>{booking["phone"]}</h2>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                <div className="invoice-hs date-inv sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
-                                                    <span>Schedule</span>
-                                                    <h2>{TimeUtils.timeSchedule(booking["timeSchedule"]) + " - " + TimeUtils.toString(booking["timeSchedule"] * 1000)}</h2>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                <div className="invoice-hs wt-inv sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
-                                                    <span>Price</span>
-                                                    <h2>{booking["totalPrice"]}</h2>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                                <div className="invoice-hs gdt-inv sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
-                                                    <span>Status</span>
-                                                    <h2>{booking["status"]}</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="row">
-
-
-                                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div className="invoice-sp">
-                                                    <table className="table table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>Service</th>
-                                                                <th>Quantity</th>
-                                                                <th>Description</th>
-                                                                <th>Price</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {booking["services"] && booking["services"].map((item, index) => {
-                                                                return (
-                                                                    <tr key={item["id"]}>
-                                                                        <td>{index + 1}</td>
-                                                                        <td>{item["name"]}</td>
-                                                                        <td>1</td>
-                                                                    </tr>
-                                                                )
-                                                            })}
-
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                    {this.state.isEditService && listServicesId &&
+                        <div className="container">
+                            <AddService ref={(e) => this.updateOrderFormRef = e} timeSchedule={booking["timeSchedule"]} listCurrentServices={listServicesId} transportId={booking["brandSeries"]["category"]} {...this.props} />
+                        </div>}
                 </div>
                 }
 

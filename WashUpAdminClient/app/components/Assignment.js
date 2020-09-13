@@ -3,7 +3,33 @@ import Select from 'react-select'
 
 class Assignment extends Component {
 
+    constructor(props) {
+        super(props)
+        this.onClickOKAssignEmployee = this.onClickOKAssignEmployee.bind(this)
+    }
+
+    componentDidMount() {
+        this.props.appActions.getEmployee();
+    }
+
+    onClickOKAssignEmployee() {
+        if (!this.employeeInputRef.select.state.selectValue[0]) {
+            console.log("Vui lòng chọn nhân viên")
+        } else {
+            let employeeId = this.employeeInputRef.select.state.selectValue[0].value;
+            this.props.appActions.assignEmployee(this.props.orderId, employeeId)
+        }
+    }
+
     render() {
+        const employees = this.props.app.employees;
+        const optionsEmp = [];
+        if (employees) {
+            employees.forEach(element => {
+                optionsEmp.push({ label: element["fullName"], value: element["id"] })
+            });
+        }
+
         return (
             <div className="row">
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -19,7 +45,7 @@ class Assignment extends Component {
                                     </div>
                                     <div className="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                                         <div className="nk-int-st">
-                                            <Select placeholder="Chọn nhân viên" options={[]}/>
+                                            <Select ref={e => this.employeeInputRef = e} classNamePrefix="tr" placeholder="Chọn nhân viên" options={optionsEmp} />
                                         </div>
                                     </div>
                                 </div>
@@ -44,7 +70,7 @@ class Assignment extends Component {
                                 <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                                 </div>
                                 <div className="col-lg-8 col-md-7 col-sm-7 col-xs-12">
-                                    <button className="btn btn-success notika-btn-success waves-effect">Đồng Ý</button>
+                                    <button onClick={this.onClickOKAssignEmployee} className="btn btn-success notika-btn-success waves-effect">Đồng Ý</button>
                                 </div>
                             </div>
                         </div>

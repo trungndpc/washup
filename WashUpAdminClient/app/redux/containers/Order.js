@@ -3,11 +3,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as appActions from '../actions/app'
 import TimeUtils from '../../utils/TimeUtils'
+import * as OrderConstant from '../../constants/order';
+import Pagination from 'antd/es/pagination'
 
 class Order extends React.Component {
     constructor(props) {
         super(props)
-
+        this.changePageNumber = this.changePageNumber.bind(this);
+        this.state = {
+            pageNumber: 1
+        }
     }
 
     componentDidMount() {
@@ -18,10 +23,15 @@ class Order extends React.Component {
         this.props.history.push('/order/' + id);
     }
 
+    changePageNumber(pageNumber, pageSize) {
+        this.setState({pageNumber, pageNumber})
+        this.props.appActions.getListBookingByDate(1598111100, pageNumber - 1, 10)
+    }
 
 
     render() {
-        const bookings = this.props.app.bookings && this.props.app.bookings.storeOrders;
+        const pageOrder = this.props.app.bookings;
+        const bookings = pageOrder && pageOrder.storeOrders;
         //DEBUG
         return (
             <div>
@@ -59,41 +69,51 @@ class Order extends React.Component {
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div className="normal-table-list mg-t-30">
                                     <div className="bsc-tbl-st">
-                                        <table className="table table-striped">
+                                        <table className="table table-striped table-overview">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Phone</th>
-                                                    <th>Address</th>
-                                                    <th>Schedule</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
-                                                    <th>Created</th>
+                                                    <th>Tên</th>
+                                                    <th>SDT</th>
+                                                    <th>Lịch đặt</th>
+                                                    <th>Giá</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Ngày tạo</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {bookings && bookings.map((item, index) => {
+                                                    var orderStatus = OrderConstant.findStatus(item["status"]);
+                                                    var spanElement = <span style={{ color: '#fff', backgroundColor: '#00c292', padding: '3px 5px' }}>
+                                                        {orderStatus.toString}
+                                                    </span>
+                                                    if (orderStatus.value == OrderConstant.Status.CANCELED.value) {
+                                                        spanElement = <span style={{ color: '#fff', backgroundColor: 'red', padding: '3px 5px' }}>
+                                                            {orderStatus.toString}
+                                                        </span>
+                                                    } else if (orderStatus.value == OrderConstant.Status.COMPLETED.value) {
+                                                        spanElement = <span style={{ color: '#fff', backgroundColor: '#03A9F4', padding: '3px 5px' }}>
+                                                            {orderStatus.toString}
+                                                        </span>
+                                                    }
                                                     return (
-                                                        <tr key={item["id"]}>
+                                                        <tr onClick={() => { this.onClickDetail(item["id"]) }} key={item["id"]}>
                                                             <td>{index + 1}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
-                                                            <td>{item["pickUpAddress"]}</td>
-                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
+                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
                                                             <td>{item["totalPrice"]}</td>
-                                                            <td>{item["status"]}</td>
+                                                            <td>{spanElement}</td>
                                                             <td>{TimeUtils.diffTime(item["createdOn"])}</td>
-                                                            <td><button onClick={() => {this.onClickDetail(item["id"])}} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-next"></i></button></td>
                                                         </tr>
                                                     )
                                                 })}
-
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+                                {pageOrder && <div style={{textAlign: 'center', padding: '30px'}}> <Pagination defaultCurrent={pageOrder.page} pageSize={10} onChange={this.changePageNumber} total={pageOrder["totalPage"] * 10} /> </div>}
                             </div>
                         </div>
                     </div>

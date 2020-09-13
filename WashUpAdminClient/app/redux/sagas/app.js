@@ -7,6 +7,10 @@ export default function* app() {
   yield takeLatest(type.APP.GET_BOOKING_DETAIL_ASYNC, requestGetBookingDetailById)
   yield takeLatest(type.APP.GET_ORDERS_BY_STATUS_ASYNC, requestOrderByStatus)
   yield takeLatest(type.APP.UPDATE_STATUS_ASYNC, requestUpdateStatusAsync)
+  yield takeLatest(type.APP.GET_EMPLOYES_ASYNC, requestGetEmployeeAsync)
+  yield takeLatest(type.APP.ASSIGN_EMPLOYEE_ASYNC, requestAssignEmployeeAsync)
+  yield takeLatest(type.APP.GET_SERVICE_ASYNC, requestGetServiceAsync)
+  yield takeLatest(type.APP.GET_SCHEDULE_ASYNC, requestGetScheduleAsync)
 }
 
 function* requestGetListBookingByDateAsync(action) {
@@ -21,14 +25,39 @@ function* requestGetBookingDetailById(action) {
 
 function* requestOrderByStatus(action) {
   const resp = yield call(getOrderByStatus, action.status, action.page, action.pageSize)
-  yield put({type: type.APP.GET_ORDERS_BY_STATUS_END, payload: resp.data})
+  yield put({ type: type.APP.GET_ORDERS_BY_STATUS_END, payload: resp.data })
 }
 
 function* requestUpdateStatusAsync(action) {
   const resp = yield call(postUpdateStatus, action.id, action.status);
   const respLoadData = yield call(getOrderByStatus, action.currentStatus, 0, 10)
-  yield put({type: type.APP.GET_ORDERS_BY_STATUS_END, payload: respLoadData.data})
-  
+  yield put({ type: type.APP.GET_ORDERS_BY_STATUS_END, payload: respLoadData.data })
+
+}
+
+function* requestAssignEmployeeAsync(action) {
+  const resp = yield call(postAssignEmployee, action.orderId, action.employeeId);
+  if (!resp.errorCode) {
+    const resp = yield call(getBookingDetail, action.orderId);
+    yield put({ type: type.APP.GET_BOOKING_DETAIL_END, payload: resp.data })
+  }
+}
+
+function* requestGetEmployeeAsync() {
+  const resp = yield call(getEmployee);
+  yield put({ type: type.APP.GET_EMPLOYES_END, payload: resp.data })
+}
+
+function* requestGetServiceAsync(action) {
+  const resp = yield call(getServices, action.transportId, action.groupServiceId)
+  yield put({ type: type.APP.GET_SERVICE_END, payload: resp.data })
+}
+
+function* requestGetScheduleAsync() {
+  const today = yield call(getScheduleToday);
+  const tomorow = yield call(getScheduleTomorow);
+  const overTomorow = yield call(getScheduleOverTomorrow)
+  yield put({ type: type.APP.GET_SCHEDULE_END, today: today.data, tomorow: tomorow.data, overTomorow: overTomorow.data })
 }
 
 function getListBookingByDate(datetime, page, pageSize) {
@@ -54,10 +83,51 @@ function postUpdateStatus(id, status) {
   const body = {
     "storeOrderId": id,
     "status": status,
-    
+
   }
 
   return new Promise((resolve, reject) => {
     APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/update-status`, JSON.stringify(body), resolve, reject);
+  });
+}
+
+function getEmployee() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/users/user-by-permission?permission=1`, resolve, reject);
+  });
+}
+
+function postAssignEmployee(orderId, employeeId) {
+  const body = {
+    "storeOrderId": orderId,
+    "userId": employeeId,
+  }
+
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/assign-employee`, JSON.stringify(body), resolve, reject);
+  });
+}
+
+function getServices(transportId, groupServiceId) {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?category=` + transportId + `&type=` + groupServiceId, resolve, reject);
+  });
+}
+
+function getScheduleTomorow() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/schedules/tomorrow`, resolve, reject);
+  });
+}
+
+function getScheduleOverTomorrow() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/schedules/overtomorrow`, resolve, reject);
+  });
+}
+
+function getScheduleToday() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/schedules/today`, resolve, reject);
   });
 }

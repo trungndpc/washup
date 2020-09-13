@@ -21,6 +21,7 @@
   "author": "MinhNVC",
   "dependencies": {
     "@babel/preset-env": "^7.1.0",
+    "antd": "3.10.0",
     "moment": "^2.27.0",
     "react": "16.5.2",
     "react-dom": "16.5.2",

@@ -36,3 +36,32 @@ export function updateStatus(id, currentStatus, status) {
     currentStatus: currentStatus
   }
 }
+
+export function getEmployee() {
+  return {
+    type: type.APP.GET_EMPLOYES_ASYNC,
+   
+  }
+}
+
+export function assignEmployee(orderId, employeeId) {
+  return {
+    type: type.APP.ASSIGN_EMPLOYEE_ASYNC,
+    orderId: orderId,
+    employeeId: employeeId
+  }
+}
+
+export function getServices(transportId, groupServiceId) {
+  return {
+    type: type.APP.GET_SERVICE_ASYNC,
+    transportId: transportId,
+    groupServiceId: groupServiceId
+  }
+}
+
+export function getSchedule() {
+  return {
+    type: type.APP.GET_SCHEDULE_ASYNC
+  }
+}

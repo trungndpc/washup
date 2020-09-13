@@ -7,6 +7,7 @@ import configureStore from './redux/store/configure-store'
 import App from './redux/containers/App'
 import { BrowserRouter } from 'react-router-dom'
 
+import 'antd/dist/antd.css'
 import './resources/css/bootstrap.min.css'
 import './resources/css/font-awesome.min.css'
 import './resources/css/meanmenu.min.css'
@@ -21,7 +22,6 @@ import './resources/css/waves.min.css'
 import './resources/css/notika-custom-icon.css'
 import './resources/css/button.css'
 import './resources/css/mstyle.css';
-
 
 
 const store = configureStore()

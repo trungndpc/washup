@@ -1,7 +1,10 @@
 import * as type from '../actions/action-types'
 
 const initialState = {
-  bookings: []
+  bookings: [],
+  employees: [],
+  services: [],
+  schedules: {},
 }
 
 export default function app(state = initialState, action) {
@@ -20,6 +23,27 @@ export default function app(state = initialState, action) {
     case type.APP.GET_ORDERS_BY_STATUS_END: {
       const payload = action.payload;
       newState.orderByStatus = payload;
+      break;
+    }
+    case type.APP.GET_EMPLOYES_END: {
+      const payload = action.payload;
+      newState.employees = payload;
+      break;
+    }
+    case type.APP.GET_SERVICE_END: {
+      const payload = action.payload;
+      newState.services = payload;
+      break;
+    }
+    case type.APP.GET_SCHEDULE_END: {
+      let today = action.today;
+      let tomorow = action.tomorow;
+      let overTomorow = action.overTomorow;
+      let schedules = { ...newState.schedules }
+      schedules[1] = today;
+      schedules[2] = tomorow;
+      schedules[3] = overTomorow;
+      newState.schedules = schedules;
       break;
     }
     default:

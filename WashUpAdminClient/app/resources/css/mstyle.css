@@ -5,3 +5,29 @@
 .assignment-emp {
     margin-bottom: 30px;
 }
+
+.tr__control {
+    border-top-width: 0px !important;
+    border-left-width: 0px !important;
+    border-right-width: 0px !important;
+    border-radius: 0px !important;
+}
+
+.contact-img img{
+    width: 60px;
+    height: 60px;
+}
+
+.invoice-sp table {
+    position: relative;
+}
+
+.btn-edit-service {
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+
+.table-overview tbody tr {
+    cursor: pointer;
+}
