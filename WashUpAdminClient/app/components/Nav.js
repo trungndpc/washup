@@ -127,6 +127,8 @@ class Nav extends Component {
                                     </li>
                                     <li className={path== "user" ? "active" : ""}><Link to="/user"><i className="notika-icon notika-edit" /> User</Link>
                                     </li>
+                                    <li className={path== "task" ? "active" : ""}><Link to="/task"><i className="notika-icon notika-edit" /> Task</Link>
+                                    </li>
                                 </ul>
                                 <div className="tab-content custom-menu-content">
                                     <div  className={`tab-pane notika-tab-menu-bg animated flipInX ${path== "" ? "active" : ""}`}>
@@ -145,6 +147,11 @@ class Nav extends Component {
                                         </ul>
                                     </div>
                                     <div  className={`tab-pane notika-tab-menu-bg animated flipInX ${path== "user" ? "active" : ""}`}>
+                                        <ul className="notika-main-menu-dropdown">
+                                            <li><a href="inbox.html"></a></li>
+                                        </ul>
+                                    </div>
+                                    <div  className={`tab-pane notika-tab-menu-bg animated flipInX ${path== "task" ? "active" : ""}`}>
                                         <ul className="notika-main-menu-dropdown">
                                             <li><a href="inbox.html"></a></li>
                                         </ul>

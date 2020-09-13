@@ -18,6 +18,7 @@ class BookingDetail extends React.Component {
         this.onClickEditService = this.onClickEditService.bind(this)
         this.onClickExitEditing = this.onClickExitEditing.bind(this)
         this.onClickSave = this.onClickSave.bind(this);
+        this.onClickAcceptOrder = this.onClickAcceptOrder.bind(this);
     }
 
     async componentDidMount() {
@@ -49,6 +50,10 @@ class BookingDetail extends React.Component {
         this.setState({
             isEditService: false
         })
+    }
+
+    onClickAcceptOrder(id, currentStatus) {
+        this.props.appActions.updateStatus(id, currentStatus, Order.Status.PROCESSING.value);
     }
 
     render() {
@@ -93,9 +98,12 @@ class BookingDetail extends React.Component {
                                                     }
 
                                                     {statusId == Order.Status.COMPLETED.value && !this.state.isEditService &&
-                                                        <button style={{ marginRight: '30px' }} onClick={this.onClickEditService} className="btn btn-lightgreen lightgreen-icon-notika btn-reco-mg btn-button-mg waves-effect">
-                                                            <i className="notika-icon notika-menus" />
+                                                        <button style={{ marginRight: '30px' }} onClick={this.onClickEditService} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
+                                                            Cập nhật đơn hàng
                                                         </button>
+                                                    }
+                                                    {statusId == Order.Status.CONFIRMED.value && !this.state.isEditService && booking["user"] && 
+                                                      <button onClick={() => {this.onClickAcceptOrder(booking["id"], booking["status"])}} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect ">Tiếp nhận đơn hàng</button>
                                                     }
                                                 </div>
                                             </div>

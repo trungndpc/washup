@@ -1,6 +1,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
 import * as type from '../actions/action-types'
 import APIUtils from '../../utils/APIUtils'
+import AlertUtils from '../../utils/AlertUtils'
 
 export default function* app() {
   yield takeLatest(type.APP.GET_LIST_BOOKING_ASYNC, requestGetListBookingByDateAsync)
@@ -30,14 +31,17 @@ function* requestOrderByStatus(action) {
 
 function* requestUpdateStatusAsync(action) {
   const resp = yield call(postUpdateStatus, action.id, action.status);
+  AlertUtils.showSuccess("Cập nhật trạng thái đơn hàng thành công")
   const respLoadData = yield call(getOrderByStatus, action.currentStatus, 0, 10)
+  const respDetailOrder = yield call(getBookingDetail, action.id);
   yield put({ type: type.APP.GET_ORDERS_BY_STATUS_END, payload: respLoadData.data })
-
+  yield put({ type: type.APP.GET_BOOKING_DETAIL_END, payload: respDetailOrder.data })
 }
 
 function* requestAssignEmployeeAsync(action) {
   const resp = yield call(postAssignEmployee, action.orderId, action.employeeId);
   if (!resp.errorCode) {
+    AlertUtils.showSuccess("Phân công nhân viên thành công,...")
     const resp = yield call(getBookingDetail, action.orderId);
     yield put({ type: type.APP.GET_BOOKING_DETAIL_END, payload: resp.data })
   }
