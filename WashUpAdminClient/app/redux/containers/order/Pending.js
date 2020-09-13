@@ -71,13 +71,11 @@ class Pending extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Phone</th>
-                                                    <th>Address</th>
-                                                    <th>Schedule</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
-                                                    <th>Created</th>
+                                                    <th>Tên</th>
+                                                    <th>SDT</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Lịch</th>
+                                                    <th>Ngày tạo</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -90,8 +88,6 @@ class Pending extends React.Component {
                                                             <td>{item["phone"]}</td>
                                                             <td>{item["pickUpAddress"]}</td>
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
-                                                            <td>{item["totalPrice"]}</td>
-                                                            <td>{item["status"]}</td>
                                                             <td>{TimeUtils.diffTime(item["createdOn"])}</td>
                                                             <td style={{width: '120px'}}>
                                                                 <div style={{display: 'inline-block', marginRight: '10px'}}>

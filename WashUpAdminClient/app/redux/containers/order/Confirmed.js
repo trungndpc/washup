@@ -63,11 +63,11 @@ class Confirmed extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Phone</th>
-                                                    <th>Address</th>
-                                                    <th>Schedule</th>
-                                                    <th>Price</th>
+                                                    <th>Tên</th>
+                                                    <th>SDT</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Lịch</th>
+                                                    <th>Giá</th>
                                                     {/* <th>Status</th> */}
                                                     <th>Created</th>
                                                     <th></th>

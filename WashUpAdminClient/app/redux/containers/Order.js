@@ -5,6 +5,7 @@ import * as appActions from '../actions/app'
 import TimeUtils from '../../utils/TimeUtils'
 import * as OrderConstant from '../../constants/order';
 import Pagination from 'antd/es/pagination'
+import PriceUtils from '../../utils/PriceUtils'
 
 class Order extends React.Component {
     constructor(props) {
@@ -103,7 +104,7 @@ class Order extends React.Component {
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
-                                                            <td>{item["totalPrice"]}</td>
+                                                            <td>{item["totalPrice"] == 0 ? "Cập nhật" : PriceUtils.toThousand(item["totalPrice"])}</td>
                                                             <td>{spanElement}</td>
                                                             <td>{TimeUtils.diffTime(item["createdOn"])}</td>
                                                         </tr>
