@@ -46,6 +46,10 @@ export default function app(state = initialState, action) {
       newState.schedules = schedules;
       break;
     }
+    case type.APP.GET_ORDER_BY_USER_ASSIGNED_END: {
+      newState.orderByUser = action.payload;
+      break;
+    }
     default:
       return state
   }

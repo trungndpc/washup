@@ -21,6 +21,10 @@ export const Status = {
         value: 3,
         toString: "Thành công"
     },
+    ERROR: {
+        value : 0,
+        toString: "Lỗi"
+    }
 }
 
 export function findStatus(id) {
@@ -29,6 +33,7 @@ export function findStatus(id) {
         case 2: return Status.CONFIRMED;
         case 3: return  Status.PROCESSING;
         case 4: return Status.CANCELED;
-        case 5: return Status.COMPLETED
+        case 5: return Status.COMPLETED;
+        default: return Status.ERROR
     }
 }

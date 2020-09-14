@@ -25,7 +25,7 @@ class Order extends React.Component {
     }
 
     changePageNumber(pageNumber, pageSize) {
-        this.setState({pageNumber, pageNumber})
+        this.setState({ pageNumber, pageNumber })
         this.props.appActions.getListBookingByDate(1598111100, pageNumber - 1, 10)
     }
 
@@ -86,16 +86,17 @@ class Order extends React.Component {
                                             <tbody>
                                                 {bookings && bookings.map((item, index) => {
                                                     var orderStatus = OrderConstant.findStatus(item["status"]);
+
                                                     var spanElement = <span style={{ color: '#fff', backgroundColor: '#00c292', padding: '3px 5px' }}>
                                                         {orderStatus.toString}
                                                     </span>
                                                     if (orderStatus.value == OrderConstant.Status.CANCELED.value) {
                                                         spanElement = <span style={{ color: '#fff', backgroundColor: 'red', padding: '3px 5px' }}>
-                                                            {orderStatus.toString}
+                                                            {orderStatus && orderStatus.toString}
                                                         </span>
                                                     } else if (orderStatus.value == OrderConstant.Status.COMPLETED.value) {
                                                         spanElement = <span style={{ color: '#fff', backgroundColor: '#03A9F4', padding: '3px 5px' }}>
-                                                            {orderStatus.toString}
+                                                            {orderStatus && orderStatus.toString}
                                                         </span>
                                                     }
                                                     return (
@@ -114,7 +115,7 @@ class Order extends React.Component {
                                         </table>
                                     </div>
                                 </div>
-                                {pageOrder && <div style={{textAlign: 'center', padding: '30px'}}> <Pagination defaultCurrent={pageOrder.page} pageSize={10} onChange={this.changePageNumber} total={pageOrder["totalPage"] * 10} /> </div>}
+                                {pageOrder && <div style={{ textAlign: 'center', padding: '30px' }}> <Pagination defaultCurrent={pageOrder.page} pageSize={10} onChange={this.changePageNumber} total={pageOrder["totalPage"] * 10} /> </div>}
                             </div>
                         </div>
                     </div>

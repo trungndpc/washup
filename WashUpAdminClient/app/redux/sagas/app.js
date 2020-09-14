@@ -12,6 +12,8 @@ export default function* app() {
   yield takeLatest(type.APP.ASSIGN_EMPLOYEE_ASYNC, requestAssignEmployeeAsync)
   yield takeLatest(type.APP.GET_SERVICE_ASYNC, requestGetServiceAsync)
   yield takeLatest(type.APP.GET_SCHEDULE_ASYNC, requestGetScheduleAsync)
+  yield takeLatest(type.APP.UPDATE_ORDER_ASYNC, requestUpdateOrderAsync)
+  yield takeLatest(type.APP.GET_ORDER_BY_USER_ASSIGNED_ASYNC, requestGetOrderByUserIdAsync)
 }
 
 function* requestGetListBookingByDateAsync(action) {
@@ -47,6 +49,11 @@ function* requestAssignEmployeeAsync(action) {
   }
 }
 
+function* requestGetOrderByUserIdAsync(action) {
+  const resp = yield call(getOrderByUserId, action.userId);
+  yield put({type: type.APP.GET_ORDER_BY_USER_ASSIGNED_END, payload: resp.data})
+}
+
 function* requestGetEmployeeAsync() {
   const resp = yield call(getEmployee);
   yield put({ type: type.APP.GET_EMPLOYES_END, payload: resp.data })
@@ -62,6 +69,13 @@ function* requestGetScheduleAsync() {
   const tomorow = yield call(getScheduleTomorow);
   const overTomorow = yield call(getScheduleOverTomorrow)
   yield put({ type: type.APP.GET_SCHEDULE_END, today: today.data, tomorow: tomorow.data, overTomorow: overTomorow.data })
+}
+
+function* requestUpdateOrderAsync(action) {
+  const resp = yield call(postUpdateOrder, action.id, action.data);
+  AlertUtils.showSuccess("Cập nhật đơn hàng thành công!")
+  const respDetailOrder = yield call(getBookingDetail, action.id);
+  yield put({ type: type.APP.GET_BOOKING_DETAIL_END, payload: respDetailOrder.data })
 }
 
 function getListBookingByDate(datetime, page, pageSize) {
@@ -112,6 +126,20 @@ function postAssignEmployee(orderId, employeeId) {
   });
 }
 
+function postUpdateOrder(orderId, data) {
+  console.log("postUpdateOrder")
+  const body = {
+    "id": orderId,
+    "fullName" : data["fullName"],
+    "pickUpAddress": data["address"],
+    "timeSchedule": data["timeSchedule"],
+    "serviceIds" : data["serviceIds"]
+  }
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/update-order`, JSON.stringify(body), resolve, reject);
+  });
+}
+
 function getServices(transportId, groupServiceId) {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?category=` + transportId + `&type=` + groupServiceId, resolve, reject);
@@ -133,5 +161,11 @@ function getScheduleOverTomorrow() {
 function getScheduleToday() {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/schedules/today`, resolve, reject);
+  });
+}
+
+function getOrderByUserId(userId) {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/assigned-order?userId=${userId}`, resolve, reject);
   });
 }

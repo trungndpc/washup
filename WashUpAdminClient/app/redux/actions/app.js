@@ -65,3 +65,18 @@ export function getSchedule() {
     type: type.APP.GET_SCHEDULE_ASYNC
   }
 }
+
+export function updateOrder(id, data) {
+  return {
+    type: type.APP.UPDATE_ORDER_ASYNC,
+    data: data,
+    id: id
+  }
+}
+
+export function getOrderByAssignedUser(userId) {
+  return {
+    type: type.APP.GET_ORDER_BY_USER_ASSIGNED_ASYNC,
+    userId: userId
+  }
+}

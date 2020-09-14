@@ -50,6 +50,9 @@ class BookingDetail extends React.Component {
         this.setState({
             isEditService: false
         })
+        const booking = this.props.app.booking && this.props.app.booking;
+        const data = this.updateOrderFormRef.getValueUpdate();
+        booking && this.props.appActions.updateOrder(booking["id"], data)
     }
 
     onClickAcceptOrder(id, currentStatus) {

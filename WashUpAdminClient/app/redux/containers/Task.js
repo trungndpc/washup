@@ -17,7 +17,7 @@ class Task extends React.Component {
     }
 
     componentDidMount() {
-        this.props.appActions.getListBookingByDate(1598111100, 0, 10)
+        this.props.appActions.getOrderByAssignedUser("ff80818174792a630174792c0cec0000");
     }
 
     onClickDetail(id) {
@@ -25,14 +25,13 @@ class Task extends React.Component {
     }
 
     changePageNumber(pageNumber, pageSize) {
-        this.setState({pageNumber, pageNumber})
+        this.setState({ pageNumber, pageNumber })
         this.props.appActions.getListBookingByDate(1598111100, pageNumber - 1, 10)
     }
 
 
     render() {
-        const pageOrder = this.props.app.bookings;
-        const bookings = pageOrder && pageOrder.storeOrders;
+        const bookings = this.props.app.orderByUser;
         //DEBUG
         return (
             <div>
@@ -86,6 +85,7 @@ class Task extends React.Component {
                                             <tbody>
                                                 {bookings && bookings.map((item, index) => {
                                                     var orderStatus = OrderConstant.findStatus(item["status"]);
+
                                                     var spanElement = <span style={{ color: '#fff', backgroundColor: '#00c292', padding: '3px 5px' }}>
                                                         {orderStatus.toString}
                                                     </span>
@@ -106,7 +106,7 @@ class Task extends React.Component {
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
                                                             <td>{item["pickUpAddress"]}</td>
                                                             {/* <td>{item["totalPrice"] == 0 ? "Cập nhật" : PriceUtils.toThousand(item["totalPrice"])}</td> */}
-                                                            <td style={{width: '150px'}}>{spanElement}</td>
+                                                            <td style={{ width: '150px' }}>{spanElement}</td>
                                                             <td>{TimeUtils.diffTime(item["createdOn"])}</td>
                                                         </tr>
                                                     )
@@ -115,7 +115,7 @@ class Task extends React.Component {
                                         </table>
                                     </div>
                                 </div>
-                                {pageOrder && <div style={{textAlign: 'center', padding: '30px'}}> <Pagination defaultCurrent={pageOrder.page} pageSize={10} onChange={this.changePageNumber} total={pageOrder["totalPage"] * 10} /> </div>}
+                                {/* {pageOrder && <div style={{textAlign: 'center', padding: '30px'}}> <Pagination defaultCurrent={pageOrder.page} pageSize={10} onChange={this.changePageNumber} total={pageOrder["totalPage"] * 10} /> </div>} */}
                             </div>
                         </div>
                     </div>
