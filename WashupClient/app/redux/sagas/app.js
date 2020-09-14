@@ -29,17 +29,17 @@ function* requestGetScheduleTodayAsync() {
 }
 
 function* requestGetServiceAsync(action) {
-  const resp = yield call(getServices, action.transportId, action.serviceId)
-  yield put({ type: type.APP.GET_SERVICE_END, data: resp.data, transportId: action.transportId, serviceId: action.serviceId })
+  const resp = yield call(getServices, action.transportId, action.bookingTypeId)
+  yield put({ type: type.APP.GET_SERVICE_END, payload: resp.data})
 }
 
 function* requestServiceHomeAsync(action) {
   let serviceId = action.groupId;
-  const respOTO = yield call(getServices, Model.OTO, serviceId);
-  yield put({ type: type.APP.GET_SERVICE_END, data: respOTO.data, transportId: Model.OTO, serviceId: serviceId })
+  const respOTO = yield call(getServicesHOME, Model.OTO, serviceId);
+  yield put({ type: type.APP.GET_HOME_SERVICE_END, data: respOTO.data, transportId: Model.OTO, serviceId: serviceId })
 
-  const respXEMAY = yield call(getServices, Model.XEMAY, serviceId);
-  yield put({ type: type.APP.GET_SERVICE_END, data: respXEMAY.data, transportId: Model.XEMAY, serviceId: serviceId })
+  const respXEMAY = yield call(getServicesHOME, Model.XEMAY, serviceId);
+  yield put({ type: type.APP.GET_HOME_SERVICE_END, data: respXEMAY.data, transportId: Model.XEMAY, serviceId: serviceId })
 }
 function* requestBookingAsync(action) {
   yield put({ type: type.APP.BOOKING_START })
@@ -102,9 +102,15 @@ function getScheduleToday() {
   });
 }
 
-function getServices(transportId, serviceId) {
+function getServices(transportId, bookingTypeId) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?category=` + transportId + `&type=` + serviceId, resolve, reject);
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?category=` + transportId + `&bookingType=` + bookingTypeId, resolve, reject);
+  });
+}
+
+function getServicesHOME(transportId, typeId) {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?category=` + transportId + `&type=` + typeId, resolve, reject);
   });
 }
 

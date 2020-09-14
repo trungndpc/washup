@@ -122,9 +122,7 @@ class BookingStep3Modal extends Component {
     }
 
     render() {
-        let inforBooking = { ...this.props.app.inforBooking }
-        let serviceByTrans = this.props.app.services[inforBooking["transportId"]]
-        const services = (serviceByTrans && serviceByTrans[this.state.tabServiceId]) ? serviceByTrans[this.state.tabServiceId] : []
+        const services = this.props.app.serviceForm;
         const isThayNhot = this.state.serviceIds.includes(THAY_NHOT);
         const oils = (isThayNhot && this.props.app.oils) ? this.props.app.oils : []
         const optionOils = [];
@@ -160,13 +158,13 @@ class BookingStep3Modal extends Component {
                                             <div className="item">
                                                 <div className="tab_calendar">
                                                     <a onClick={() => this.selectTabService(1)} href="javascript:void(0)" className={this.state.tabServiceId == 1 ? 'active' : ''}>
-                                                        <div className="title">Vệ sinh cơ bản</div>
-                                                    </a>
-                                                    <a onClick={() => this.selectTabService(3)} href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>
-                                                        <div className="title">Làm đẹp</div>
+                                                        <div className="title">Cơ bản</div>
                                                     </a>
                                                     <a onClick={() => this.selectTabService(2)} href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>
-                                                        <div className="title">Bảo dưỡng nhanh</div>
+                                                        <div className="title">Nâng cao</div>
+                                                    </a>
+                                                    <a onClick={() => this.selectTabService(3)} href="javascript:void(0)" className={this.state.tabServiceId == 3 ? 'active' : ''}>
+                                                        <div className="title">Combo</div>
                                                     </a>
                                                 </div>
                                                 <div className="calendar_content">

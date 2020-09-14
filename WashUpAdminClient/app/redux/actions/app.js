@@ -74,9 +74,11 @@ export function updateOrder(id, data) {
   }
 }
 
-export function getOrderByAssignedUser(userId) {
+export function getOrderByAssignedUser(userId, page, pageSize) {
   return {
     type: type.APP.GET_ORDER_BY_USER_ASSIGNED_ASYNC,
-    userId: userId
+    userId: userId,
+    page: page,
+    pageSize: pageSize
   }
 }

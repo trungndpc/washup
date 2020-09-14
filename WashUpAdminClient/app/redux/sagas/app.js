@@ -50,7 +50,7 @@ function* requestAssignEmployeeAsync(action) {
 }
 
 function* requestGetOrderByUserIdAsync(action) {
-  const resp = yield call(getOrderByUserId, action.userId);
+  const resp = yield call(getOrderByUserId, action.userId, action.page, action.pageSize);
   yield put({type: type.APP.GET_ORDER_BY_USER_ASSIGNED_END, payload: resp.data})
 }
 
@@ -164,8 +164,8 @@ function getScheduleToday() {
   });
 }
 
-function getOrderByUserId(userId) {
+function getOrderByUserId(userId, page, pageSize) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/assigned-order?userId=${userId}`, resolve, reject);
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/assigned-order?userId=${userId}&page=${page}&pageSize=${pageSize}`, resolve, reject);
   });
 }

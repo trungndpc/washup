@@ -17,7 +17,7 @@ class Task extends React.Component {
     }
 
     componentDidMount() {
-        this.props.appActions.getOrderByAssignedUser("ff80818174792a630174792c0cec0000");
+        this.props.appActions.getOrderByAssignedUser("ff80818174792a630174792c0cec0000", this.state.pageNumber, 10);
     }
 
     onClickDetail(id) {
@@ -26,12 +26,13 @@ class Task extends React.Component {
 
     changePageNumber(pageNumber, pageSize) {
         this.setState({ pageNumber, pageNumber })
-        this.props.appActions.getListBookingByDate(1598111100, pageNumber - 1, 10)
+        this.props.appActions.getOrderByAssignedUser("ff80818174792a630174792c0cec0000", pageNumber - 1, 10);
     }
 
 
     render() {
-        const bookings = this.props.app.orderByUser;
+        const pageOrder = this.props.app.orderByUser;
+        const bookings = pageOrder && pageOrder.storeOrders;
         //DEBUG
         return (
             <div>
@@ -115,7 +116,7 @@ class Task extends React.Component {
                                         </table>
                                     </div>
                                 </div>
-                                {/* {pageOrder && <div style={{textAlign: 'center', padding: '30px'}}> <Pagination defaultCurrent={pageOrder.page} pageSize={10} onChange={this.changePageNumber} total={pageOrder["totalPage"] * 10} /> </div>} */}
+                                {pageOrder && <div style={{textAlign: 'center', padding: '30px'}}> <Pagination defaultCurrent={pageOrder.page} pageSize={10} onChange={this.changePageNumber} total={pageOrder["totalPage"] * 10} /> </div>}
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ const initialState = {
   schedules: {},
   services: {},
   inforBooking: {},
+  serviceForm: [],
   isLoadingBooking: false,
   confirmBooking: null,
   topAccessories: [],
@@ -38,7 +39,7 @@ export default function app(state = initialState, action) {
       newState.schedules = schedules;
       break;
     }
-    case type.APP.GET_SERVICE_END: {
+    case type.APP.GET_HOME_SERVICE_END: {
       let transportId = action.transportId;
       let serviceId = action.serviceId;
       let services = { ...newState.services };
@@ -46,6 +47,10 @@ export default function app(state = initialState, action) {
       serviceByTrans[serviceId] = action.data;
       services[transportId] = serviceByTrans
       newState.services = services;
+      break;
+    }
+    case type.APP.GET_SERVICE_END: {
+      newState.serviceForm = action.payload;
       break;
     }
     case type.APP.PUT_INFO_BOOKING: {
