@@ -170,7 +170,7 @@ class Home extends React.Component {
                     <li onClick={() => { this.changeTabService(2) }}><a onClick={() => { this.changeTabService(1) }} href="javascript:void(0)" className={this.state.tabServiceId == 2 ? 'active' : ''}>Bảo dưỡng nhanh</a></li>
                   </ul>
                 </div>
-                <div className="col-md-2 text-right"><div className="row">
+                <div className="col-md-2 text-right btn_view_more_servie"><div className="row">
                   <Link to={"/dich-vu"} className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></Link>
                 </div></div>
                 <div className="clearfix" />
@@ -222,7 +222,7 @@ class Home extends React.Component {
         </div>
         <AccessoriesList {...this.props} />
         <NewsList />
-        <DailyActivitiesList {...this.props}  />
+        {/* <DailyActivitiesList {...this.props}  /> */}
         {/* <div id="site-nq">
           <div className="container"><div className="row">
             <div className="panel_body">

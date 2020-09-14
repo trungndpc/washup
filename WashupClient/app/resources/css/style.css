@@ -314,7 +314,7 @@ a:hover {text-decoration:none; color:#1b3868}
 }
 #membership_slider .item .price {height:38px; line-height:38px;}
 #membership_slider .item .price_old {
-	text-decoration:line-through; font-size:14px; 
+	text-decoration:line-through; font-size:13px; 
 }
 #membership_slider .item .price_new {
 	font-size:18px; font-weight:bold; color:red;

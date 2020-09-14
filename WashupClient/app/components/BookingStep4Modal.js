@@ -38,11 +38,11 @@ class BookingStep4Modal extends Component {
                                     <h3 className="confirm-title">THÔNG TIN ĐẶT LỊCH</h3>
                                 </div>
                                 <div className="clearfix line">&nbsp;</div>
-                                 {isLoading &&  <div style={{textAlign: 'center', padding: '30px'}}>
+                                {isLoading && <div style={{ textAlign: 'center', padding: '30px' }}>
                                     <img src={require('../resources/images/loading.gif')} />
-                                  </div> }
+                                </div>}
 
-                                { confirmBooking && <div className="booking_final">
+                                {confirmBooking && <div className="booking_final">
                                     <div className="form-group">
                                         <i className="fa icon_maps" />
                                         <div className="info pull-left">
@@ -51,38 +51,33 @@ class BookingStep4Modal extends Component {
                                         </div>
                                     </div>
                                     <div className="clearfix">
-                                        <div className="form-group col-left pull-left">
-                                            <i className="fa icon_date" />
-                                            <div className="info pull-left">
-                                                <div className="title">NGÀY</div>
-                                                <div className="text">{TimeUtils.formatDate(confirmBooking["timeSchedule"] * 1000)}</div>
-                                            </div>
-                                        </div>
                                         <div className="form-group col-right pull-right">
                                             <i className="fa icon_clock" />
                                             <div className="info pull-left">
                                                 <div className="title">GIỜ</div>
-                                                <div className="text">{TimeUtils.timeSchedule(confirmBooking["timeSchedule"])}</div>
+                                                <div className="text">{TimeUtils.formatDate(confirmBooking["timeSchedule"] * 1000)} - {TimeUtils.timeSchedule(confirmBooking["timeSchedule"])}</div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="clearfix">
+
                                         <div className="form-group col-left pull-left">
                                             <i className="fa icon_car" />
                                             <div className="info pull-left">
                                                 <div className="title">LOẠI XE</div>
-                                            <div className="text">{confirmBooking["brand"].brandName + " - " + confirmBooking["brandSeries"].seriesName}</div>
+                                                <div className="text">{confirmBooking["brand"].brandName + " - " + confirmBooking["brandSeries"].seriesName}</div>
                                             </div>
                                         </div>
+
+                                    </div>
+                                    <div className="clearfix">
+
                                         <div className="form-group col-right pull-right">
                                             <i className="fa icon_idcard" />
                                             <div className="info pull-left">
                                                 <div className="title">BIỂN SỐ XE</div>
-                                            <div className="text">{confirmBooking["licensePlate"]}</div>
+                                                <div className="text">{confirmBooking["licensePlate"]}</div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="clearfix">
+
                                         <div className="form-group col-left pull-left">
                                             <i className="fa clipboard_check" />
                                             <div className="info pull-left">
@@ -90,6 +85,11 @@ class BookingStep4Modal extends Component {
                                                 <div className="text">{confirmBooking["services"][0].name}</div>
                                             </div>
                                         </div>
+
+
+                                    </div>
+                                    <div className="clearfix">
+
                                         <div className="form-group col-right pull-right">
                                             <i className="fa icon_money" />
                                             <div className="info pull-left">
@@ -97,8 +97,7 @@ class BookingStep4Modal extends Component {
                                                 <div className="text">{confirmBooking["totalPrice"]}</div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="clearfix">
+
                                         <div className="form-group col-left pull-left">
                                             <i className="fa icon_pay" />
                                             <div className="info pull-left">
@@ -106,7 +105,10 @@ class BookingStep4Modal extends Component {
                                                 <div className="text">Tại nhà</div>
                                             </div>
                                         </div>
-                                        <div className="form-group col-right pull-right">
+
+                                    </div>
+                                    <div className="clearfix">
+                                        <div className="form-group">
                                             <i className="fa icon_note" />
                                             <div className="info pull-left">
                                                 <div className="title">GHI CHÚ</div>
@@ -114,9 +116,8 @@ class BookingStep4Modal extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                                 }
-                                <hr />
                                 <div className="form-group text-center">
                                     <button onClick={this.close} type="button" className="btn btn-success back_home">VỀ TRANG  CHỦ</button>
                                     {/* <button type="button" className="btn btn-default book_cancel">ĐỔI LỊCH/HỦY LỊCH</button> */}

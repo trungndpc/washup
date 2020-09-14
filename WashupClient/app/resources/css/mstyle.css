@@ -70,6 +70,92 @@
     .m-main-tile .mobile  {
         display: block !important;
     }
+
+    .m-main-tile .mobile h4 {
+        margin-bottom: 0 !important;
+        padding: 5px !important;
+    }
+
+    .btn_view_more_servie {
+        display: none !important;
+    }
+
+    .serives_list .col {
+        margin: 10px 0px;
+    }
+
+    .membership {
+        margin: 0px -20px;
+    }
+
+    .membership .text-left .price_old {
+        display: none;
+    }
+
+    #site-news .ls_news .item {
+        margin: 15px;
+    }
+    .service_content .service {
+        height: 40px;
+    }
+
+    .service_content .service .box_right {
+        height: auto;
+    }
+    .service_content .service .box_right .info {
+        top: 0 !important;
+    }
+    
+    .service_content .service .box_right .price {
+        font-size: 20px;
+    }
+    .service_content .service .box_right img {
+        display: none;
+    }
+    .payment  {
+        padding: 15px;
+    }
+
+    .booking_final .title {
+        font-size: 15px;
+    }
+
+    .booking_final .info .address {
+        font-size: 14px;
+    }
+
+    .booking_final .info .text {
+        font-size: 14px;
+    }
+
+    .confirm-title {
+        margin: 0 !important;
+    }
+}
+
+/* .membership .owl-stage-outer {
+    height: 250px !important;
+} */
+
+@media only screen and (min-width: 600px) {
+    .serives_list  {
+        display: flex;
+    }
+    .serives_list .col {
+        position: relative;
+        flex: 1;
+    }
+    .serives_list .col button {
+        position: absolute;
+        bottom: 0;
+        left: 0px;
+        margin-left: 15px;
+        width: calc(100% - 30px);;
+    }
+
+    .serives_list .col .form-group {
+        margin-bottom: 60px;
+    }
 }
 
 #product_slider .item .price, #product_list .item .price {
@@ -150,4 +236,16 @@
 
 .booking-list-modal table tr:hover td{
     background-color: #d9d9d9;
+}
+
+#site-product {
+    height: 520px !important;   
+}
+
+#product_list .owl-stage-outer {
+    width: 100%;
+}
+
+#product_list .item img {
+    height: 190px !important;
 }

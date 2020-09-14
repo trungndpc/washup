@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PriceUtils from '../utils/PriceUtils'
 import { Link } from "react-router-dom";
-
+import OwlCarousel from 'react-owl-carousel2';
 
 class AccessoriesList extends Component {
 
@@ -10,6 +10,17 @@ class AccessoriesList extends Component {
     }
 
     render() {
+        const options = {
+            items: 5,
+            loop: false,
+            margin: 30,
+            responsiveClass: true,
+            responsive: {
+                0: { items: 2, },
+                600: { items: 3 },
+                1000: { items: 5, loop: false }
+            }
+        };
         const listAccesories = this.props.app.topAccessories;
         return (
             <div id="site-product">
@@ -20,32 +31,27 @@ class AccessoriesList extends Component {
                             <Link className="view_more" to={"/phu-kien"}>Xem tất cả <i className="fa fa-chevron-right" /> </Link>
                         </div>
                     </div>
-                    <div id="product_list">
-                        <div className="swiper-container swiper-container-initialized swiper-container-horizontal">
-                            <div className="swiper-wrapper" style={{ transform: 'translate3d(-1190px, 0px, 0px)', transition: 'all 0ms ease 0s' }}>
-                                {listAccesories && listAccesories.map((item, index) => {
-                                    return (
-                                        <div key={item["id"]} className="item swiper-slide swiper-slide-duplicate" data-swiper-slide-index={2} style={{ width: '178.333px', marginRight: '20px' }}>
-                                            <img src={item["imgUrl"]} className="img-responsive" />
-                                                <div className="name">{item["name"]}</div>
-                                                <div className="price">{PriceUtils.toThousand(item["price"])}</div>
-                                            <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
-                                            <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
-                                        </div>
-                                    )
-                                })}
+                    <div >
+                        {listAccesories && listAccesories.length > 0 && 
+                        <OwlCarousel id="product_list"  options={options} >
+                            {listAccesories && listAccesories.map((item, index) => {
+                                return (
+                                    <div key={item["id"]} className="item">
+                                        <img src={item["imgUrl"]} className="img-responsive" />
+                                        <div className="name">{item["name"]}</div>
+                                        <div className="price">{PriceUtils.toThousand(item["price"])}</div>
+                                        <a href="#" className="btn read_more"><i className="fa icon_info" /> Xem chi tiết</a>
+                                        <div className="btn btn-primary btn_buy"><i className="fa fa-cart-plus" /> Mua ngay</div>
+                                    </div>
+                                )
+                            })}
 
-                            </div>
-                            {/* Add Pagination */}
-                            {/* <div className="swiper-pagination" /> */}
-                            {/* Add Arrows */}
-                            {/* <div className="swiper-button-next" tabIndex={0} role="button" aria-label="Next slide" />
-                            <div className="swiper-button-prev" tabIndex={0} role="button" aria-label="Previous slide" /> */}
-                            <span className="swiper-notification" aria-live="assertive" aria-atomic="true" />
-                        </div>
+                        </OwlCarousel>
+                        }
                     </div>
+                    <span className="swiper-notification" aria-live="assertive" aria-atomic="true" />
                 </div></div>
-            </div>
+            </div >
         )
     }
 }
