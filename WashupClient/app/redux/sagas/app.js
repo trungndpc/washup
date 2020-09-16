@@ -147,8 +147,8 @@ function booking(data) {
     "licensePlate": data["licensePlate"],
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
-    "brandId": data["brandId"],
-    "brandSeriesId": data["brandSeriesId"],
+    "brandId": data["brand"].id,
+    "brandSeriesId": data["brandSeries"].id,
     "serviceIds": data["serviceIds"],
     "vehicleName": data["vehicleName"],
   }

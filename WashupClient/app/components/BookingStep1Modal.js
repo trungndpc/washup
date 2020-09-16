@@ -10,10 +10,11 @@ class BookingStep1Modal extends Component {
         this.close = this.close.bind(this);
         this.next = this.next.bind(this);
         const inforBooking = this.props.app.inforBooking;
+        console.log(inforBooking)
         this.state = {
             transportId: (inforBooking && inforBooking["transportId"]) ? inforBooking["transportId"] : Model.OTO,
             errorMsg: null,
-            brandInput: null
+            brandInput: (inforBooking && inforBooking["brand"]) ? { value: inforBooking["brand"], label: inforBooking["brand"]["brandName"] } : null
         }
         this.onChangeTransportation = this.onChangeTransportation.bind(this)
         this.getFormData = this.getFormData.bind(this);
@@ -57,8 +58,8 @@ class BookingStep1Modal extends Component {
     getFormData(inforBooking) {
         let address = this.addressInputRef.value;
         let fullname = this.fullNameInputRef.value;
-        let brandId = this.brandInputRef.select.state.selectValue[0].value;
-        let brandSeriesId = this.brandSeriesInputRef.value;
+        let brand = this.brandInputRef.select.state.selectValue[0].value;
+        let brandSeries = this.brandSeriesInputRef.value;
         let license = this.licensePlateInputRef.value;
         let vehicleName = this.vehicleNameInputRef.value;
         if (!inforBooking["phone"] && this.phoneInputRef) {
@@ -66,8 +67,8 @@ class BookingStep1Modal extends Component {
         }
         inforBooking["address"] = address;
         inforBooking["fullname"] = fullname;
-        inforBooking["brandSeriesId"] = brandSeriesId;
-        inforBooking["brandId"] = brandId;
+        inforBooking["brandSeries"] = JSON.parse(brandSeries);
+        inforBooking["brand"] = brand;
         inforBooking["licensePlate"] = license;
         inforBooking["transportId"] = this.state.transportId;
         inforBooking["vehicleName"] = vehicleName;
@@ -90,20 +91,15 @@ class BookingStep1Modal extends Component {
             return false;
         }
 
-        if (!data["brandId"]) {
+        if (!data["brand"]) {
             this.setState({ "errorMsg": "Vui lòng nhập hãng xe" })
             return false;
         }
 
-        if (!data["brandSeriesId"]) {
+        if (!data["brandSeries"]) {
             this.setState({ "errorMsg": "Vui lòng nhập dòng xe" })
             return false;
         }
-
-        // if (!data["vehicleName"]) {
-        //     this.setState({"errorMsg": "Vui lòng nhập tên xe"})
-        //     return false;
-        // }
 
         if (!data["licensePlate"]) {
             this.setState({ "errorMsg": "Vui lòng biển số" })
@@ -127,7 +123,7 @@ class BookingStep1Modal extends Component {
         var defaultBrandInput = null;
         if (brands) {
             brands.forEach(item => {
-                brandOptions.push({ value: item["id"], label: item["brandName"] })
+                brandOptions.push({ value: item, label: item["brandName"] })
             });
             defaultBrandInput = this.state.brandInput ? this.state.brandInput : brandOptions[0]
         }
@@ -191,7 +187,7 @@ class BookingStep1Modal extends Component {
                                             <div className="col-md-4 col-xs-12">
                                                 <select ref={e => this.brandSeriesInputRef = e} name="car_type" id="car_type" className="form-control">
                                                     {listModel && listModel.map((item) => {
-                                                        return <option value={item["id"]}>{item["seriesName"]}</option>
+                                                        return <option value={JSON.stringify(item)}>{item["seriesName"]}</option>
                                                     })}
                                                 </select>
                                             </div>

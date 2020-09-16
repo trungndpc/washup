@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TimeUtils from '../utils/TimeUtils';
+import PriceUtils from '../utils/PriceUtils';
 
 
 class BookingStep4Modal extends Component {
@@ -7,12 +8,19 @@ class BookingStep4Modal extends Component {
     constructor(props) {
         super(props);
         this.close = this.close.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     componentWillMount() {
         var body = document.getElementsByTagName('body')[0];
         body.className = "modal-open"
 
+    }
+
+    submit() {
+        let inforBooking = { ...this.props.app.inforBooking }
+        this.props.appActions.booking(inforBooking);
+        this.close();
     }
 
 
@@ -27,12 +35,13 @@ class BookingStep4Modal extends Component {
 
     render() {
         const isLoading = this.props.app.isLoadingBooking;
-        const confirmBooking = this.props.app.confirmBooking;
+        const inforBooking = this.props.app.inforBooking;
+        console.log(inforBooking)
         return (
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-lg">
-                        <div className="modal-content">
+                        <div className="modal-content m-final">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
                                 <div className="main-title">
                                     <h3 className="confirm-title">THÔNG TIN ĐẶT LỊCH</h3>
@@ -42,12 +51,12 @@ class BookingStep4Modal extends Component {
                                     <img src={require('../resources/images/loading.gif')} />
                                 </div>}
 
-                                {confirmBooking && <div className="booking_final">
+                                {inforBooking && <div className="booking_final">
                                     <div className="form-group">
                                         <i className="fa icon_maps" />
                                         <div className="info pull-left">
                                             <div className="title">ĐỊA CHỈ NHẬN XE</div>
-                                            <div className="address clearfix">{confirmBooking["pickUpAddress"]}</div>
+                                            <div className="text">{inforBooking["address"]}</div>
                                         </div>
                                     </div>
                                     <div className="clearfix">
@@ -55,15 +64,15 @@ class BookingStep4Modal extends Component {
                                             <i className="fa icon_clock" />
                                             <div className="info pull-left">
                                                 <div className="title">GIỜ</div>
-                                                <div className="text">{TimeUtils.formatDate(confirmBooking["timeSchedule"] * 1000)} - {TimeUtils.timeSchedule(confirmBooking["timeSchedule"])}</div>
+                                                <div className="text">{TimeUtils.formatDate(inforBooking["timeSchedule"] * 1000)} - {TimeUtils.timeSchedule(inforBooking["timeSchedule"])}</div>
                                             </div>
                                         </div>
 
                                         <div className="form-group col-left pull-left">
                                             <i className="fa icon_car" />
                                             <div className="info pull-left">
-                                                <div className="title">LOẠI XE</div>
-                                                <div className="text">{confirmBooking["brand"].brandName + " - " + confirmBooking["brandSeries"].seriesName}</div>
+                                                <div className="title">PHƯƠNG TIỆN</div>
+                                                <div className="text">{`${inforBooking["brand"].brandName} [${inforBooking["brandSeries"].seriesName}] ${inforBooking["vehicleName"] && inforBooking["vehicleName"]}`}</div>
                                             </div>
                                         </div>
 
@@ -74,7 +83,7 @@ class BookingStep4Modal extends Component {
                                             <i className="fa icon_idcard" />
                                             <div className="info pull-left">
                                                 <div className="title">BIỂN SỐ XE</div>
-                                                <div className="text">{confirmBooking["licensePlate"]}</div>
+                                                <div className="text">{inforBooking["licensePlate"]}</div>
                                             </div>
                                         </div>
 
@@ -82,7 +91,7 @@ class BookingStep4Modal extends Component {
                                             <i className="fa clipboard_check" />
                                             <div className="info pull-left">
                                                 <div className="title">DỊCH VỤ</div>
-                                                <div className="text">{confirmBooking["services"][0].name}</div>
+                                                <div className="text">{inforBooking["serviceNames"].join(", ")}</div>
                                             </div>
                                         </div>
 
@@ -94,7 +103,7 @@ class BookingStep4Modal extends Component {
                                             <i className="fa icon_money" />
                                             <div className="info pull-left">
                                                 <div className="title">SỐ TIỀN</div>
-                                                <div className="text">{confirmBooking["totalPrice"]}</div>
+                                                <div className="text">{PriceUtils.toThousand(inforBooking["totalPrice"])}</div>
                                             </div>
                                         </div>
 
@@ -107,19 +116,21 @@ class BookingStep4Modal extends Component {
                                         </div>
 
                                     </div>
-                                    <div className="clearfix">
-                                        <div className="form-group">
-                                            <i className="fa icon_note" />
-                                            <div className="info pull-left">
-                                                <div className="title">GHI CHÚ</div>
-                                                <div className="text">Nhận xe trước 16:30</div>
+                                    {inforBooking["note"] &&
+                                        <div className="clearfix">
+                                            <div className="form-group">
+                                                <i className="fa icon_note" />
+                                                <div className="info pull-left">
+                                                    <div className="title">GHI CHÚ</div>
+                                                    <div className="text">{inforBooking["note"]}</div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                 </div>
                                 }
                                 <div className="form-group text-center">
-                                    <button onClick={this.close} type="button" className="btn btn-success back_home">VỀ TRANG  CHỦ</button>
+                                    <button onClick={this.submit} type="button" className="btn btn-success back_home">XÁC NHẬN</button>
                                     {/* <button type="button" className="btn btn-default book_cancel">ĐỔI LỊCH/HỦY LỊCH</button> */}
                                 </div>
                                 <div className="clearfix" />

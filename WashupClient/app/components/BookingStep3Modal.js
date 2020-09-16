@@ -12,10 +12,12 @@ class BookingStep3Modal extends Component {
         this.state = {
             tabServiceId: 1,
             serviceIds: [],
+            serviceNames: [],
             methodPaymentId: 1,
             errorMsg: null,
             brandOil: { value: OIL_BRAND["CASTROL"], label: "CASTROL" },
-            oil: null
+            oil: null,
+            totalPrice : 0
         }
         this.close = this.close.bind(this)
         this.onChangeBrandOils = this.onChangeBrandOils.bind(this);
@@ -49,13 +51,14 @@ class BookingStep3Modal extends Component {
             inforBooking["oilIds"] = [oilId];
         }
         inforBooking["serviceIds"] = this.state.serviceIds;
+        inforBooking["serviceNames"]  = this.state.serviceNames;
         inforBooking["paymentMethod"] = this.state.methodPaymentId;
 
         if (this.noteInputRef && this.noteInputRef.value) {
             inforBooking["note"] = this.noteInputRef.value;
         }
+        inforBooking["totalPrice"] = this.state.totalPrice;
         this.props.appActions.putInforBooking(inforBooking);
-        this.props.appActions.booking(inforBooking);
         if (this.props.onNext) {
             this.props.onNext();
         }
@@ -77,20 +80,31 @@ class BookingStep3Modal extends Component {
         return array;
     }
 
-    selectServiceId(serviceId) {
+    selectServiceId(item) {
+        let serviceId = item["id"];
+        let price = item["price"];
+        let name = item["name"]
         this.setState({
             serviceId: serviceId,
             errorMsg: null
         })
         let serviceIds = [...this.state.serviceIds]
+        let serviceNames = [...this.state.serviceNames]
+        let currentPrice = this.state.totalPrice
         let isChecked = serviceIds.indexOf(serviceId) >= 0;
         if (isChecked) {
             serviceIds = this.removeElement(serviceIds, serviceId)
+            currentPrice = currentPrice - price;
+            serviceNames = this.removeElement(serviceNames, name)
         } else {
             serviceIds.push(serviceId);
+            currentPrice = currentPrice + price;
+            serviceNames.push(name)
         }
         this.setState({
-            serviceIds: serviceIds
+            serviceIds: serviceIds,
+            totalPrice: currentPrice,
+            serviceNames: serviceNames
         })
         if (serviceId == THAY_NHOT) {
             let inforBooking = { ...this.props.app.inforBooking }
@@ -178,7 +192,7 @@ class BookingStep3Modal extends Component {
                                                                         <div key={item["id"]} onClick={function(e) {
                                                                             e.preventDefault(); 
                                                                             e.stopPropagation(); 
-                                                                            this.selectServiceId(item["id"])
+                                                                            this.selectServiceId(item)
                                                                         }.bind(this)} className="service">
                                                                             <label className="container col-md-1 pull-left">
                                                                                 <input type="checkbox" checked={isChecked} />
