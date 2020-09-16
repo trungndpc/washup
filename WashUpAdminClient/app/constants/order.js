@@ -18,7 +18,7 @@ export const Status = {
         toString: "Đã hủy"
     },
     COMPLETED: {
-        value: 3,
+        value: 5,
         toString: "Thành công"
     },
     ERROR: {

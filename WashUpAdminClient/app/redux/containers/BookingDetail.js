@@ -19,11 +19,22 @@ class BookingDetail extends React.Component {
         this.onClickExitEditing = this.onClickExitEditing.bind(this)
         this.onClickSave = this.onClickSave.bind(this);
         this.onClickAcceptOrder = this.onClickAcceptOrder.bind(this);
+        this.onClickSuceesOrder = this.onClickSuceesOrder.bind(this)
+        this.onClickFailedOrder = this.onClickFailedOrder.bind(this)
     }
 
     async componentDidMount() {
         await this.getBookingIdFromParams();
         this.props.appActions.getBookingById(this.state.bookingId)
+    }
+
+
+    onClickSuceesOrder(id, currentStatus) {
+        this.props.appActions.updateStatus(id, currentStatus, Order.Status.COMPLETED.value);
+    }
+
+    onClickFailedOrder(id, currentStatus) {
+        this.props.appActions.updateStatus(id, currentStatus, Order.Status.CANCELED.value);
     }
 
     getBookingIdFromParams() {
@@ -100,13 +111,19 @@ class BookingDetail extends React.Component {
                                                         </div>
                                                     }
 
-                                                    {statusId == Order.Status.COMPLETED.value && !this.state.isEditService &&
-                                                        <button style={{ marginRight: '30px' }} onClick={this.onClickEditService} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
-                                                            Cập nhật đơn hàng
+                                                    {statusId == Order.Status.PROCESSING.value && !this.state.isEditService &&
+                                                        <div>
+                                                            <button style={{ marginRight: '30px', color: 'black' }} onClick={() => this.onClickFailedOrder(booking["id"], booking["status"])} className="btn btn-default notika-btn-default waves-effect">Đơn hàng thất bại</button>
+                                                            <button style={{ marginRight: '30px' }} onClick={() => this.onClickSuceesOrder(booking["id"], booking["status"])} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
+                                                                Hoàn tất đơn hàng
                                                         </button>
+                                                            <button style={{ marginRight: '30px' }} onClick={this.onClickEditService} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
+                                                                Cập nhật đơn hàng
+                                                        </button>
+                                                        </div>
                                                     }
-                                                    {statusId == Order.Status.CONFIRMED.value && !this.state.isEditService && booking["user"] && 
-                                                      <button onClick={() => {this.onClickAcceptOrder(booking["id"], booking["status"])}} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect ">Tiếp nhận đơn hàng</button>
+                                                    {statusId == Order.Status.CONFIRMED.value && !this.state.isEditService && booking["user"] &&
+                                                        <button onClick={() => { this.onClickAcceptOrder(booking["id"], booking["status"]) }} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect ">Tiếp nhận đơn hàng</button>
                                                     }
                                                 </div>
                                             </div>
