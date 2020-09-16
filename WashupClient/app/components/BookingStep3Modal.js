@@ -136,6 +136,7 @@ class BookingStep3Modal extends Component {
     close() {
         var body = document.getElementsByTagName('body')[0];
         body.className = ""
+        body.style.overflow = ""
         if (this.props.onClose) {
             this.props.onClose();
         }

@@ -1,10 +1,10 @@
 body {
-    margin:0; padding:0;
+    margin:0; padding:0 !important;
     font-family: 'Roboto', Open Sans, sans-serif !important;
     font-size: 13px !important;
     color: #333;
-	background:#f1f1f1;
-	overflow-x:hidden;
+	background:#f1f1f1 !important;
+	overflow-x:hidden !important;
 }
 .clearfix {clear:both}
 a:hover {text-decoration:none; color:#1b3868}
@@ -75,8 +75,8 @@ a:hover {text-decoration:none; color:#1b3868}
     font-family: "Myriad",Open Sans, sans-serif;
     font-size: 12px;
     font-weight: bold;
-    height: 48px;
-    line-height: 48px;
+    height: 52px;
+    line-height: 52px;
 }
 .topnav a:hover {
     background-color: #ddd;
@@ -97,10 +97,14 @@ a:hover {text-decoration:none; color:#1b3868}
 	background: url('../images/icons/icon_global.png') no-repeat center center;
 }
 
+.hidden-xs {
+	/* overflow: hi; */
+}
+
 .topnav-left { margin-left: 35px;}
-.topnav-right {float: right; margin-right: 35px;}
+.topnav-right {float: right;}
 .topleft,.topright{
-	position: absolute;
+	/* position: absolute; */
     top: 0%;
 	z-index:999;
 	height:52px;
@@ -113,6 +117,25 @@ a:hover {text-decoration:none; color:#1b3868}
 	text-transform:uppercase;
 	
 }
+
+.wrapper-col {
+	display: inline-block;
+	background-color: #1b396a;
+}
+
+
+.nav_inner .col {
+	padding: 0 !important;
+}
+#main-menu {
+	padding: 0 !important;
+	height: 52px !important;
+	border-radius: 0;
+}
+.fl-rgt {
+	float: right;
+}
+ 
 .topleft a,.topright a {
 	color:#1b396a;
 	display: block; 
