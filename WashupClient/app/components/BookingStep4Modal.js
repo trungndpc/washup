@@ -9,12 +9,27 @@ class BookingStep4Modal extends Component {
         super(props);
         this.close = this.close.bind(this);
         this.submit = this.submit.bind(this);
+        this.modalRef =  React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentWillMount() {
         var body = document.getElementsByTagName('body')[0];
         body.className = "modal-open"
+    }
 
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    handleClickOutside(event) {
+        if (this.modalRef && !this.modalRef.current.contains(event.target)) {
+            this.close();
+        }
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
     }
 
     submit() {
@@ -36,12 +51,11 @@ class BookingStep4Modal extends Component {
     render() {
         const isLoading = this.props.app.isLoadingBooking;
         const inforBooking = this.props.app.inforBooking;
-        console.log(inforBooking)
         return (
             <div>
-                <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
+                <div  id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-lg">
-                        <div className="modal-content m-final">
+                        <div ref={this.modalRef} className="modal-content m-final">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
                                 <div className="main-title">
                                     <h3 className="confirm-title">THÔNG TIN ĐẶT LỊCH</h3>

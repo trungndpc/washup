@@ -16,12 +16,22 @@ class BookingStep2Modal extends Component {
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
         this.close = this.close.bind(this);
+        this.modalRef =  React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentWillMount() {
         var body = document.getElementsByTagName('body')[0];
         body.className = "modal-open"
         this.props.appActions.getScheduleToday();
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
     prev() {
@@ -62,6 +72,12 @@ class BookingStep2Modal extends Component {
         this.setState({ timeScheduleSelected: time })
     }
 
+    handleClickOutside(event) {
+        if (this.modalRef && !this.modalRef.current.contains(event.target)) {
+            this.close();
+        }
+    }
+
     close() {
         var body = document.getElementsByTagName('body')[0];
         body.className = ""
@@ -78,7 +94,7 @@ class BookingStep2Modal extends Component {
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-lg">
-                        <div className="modal-content">
+                        <div ref={this.modalRef} className="modal-content">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
                                 <HeaderBookingModal {...this.props} onClose={this.close} step={2} />
                                 <div className="clearfix line">&nbsp;</div>

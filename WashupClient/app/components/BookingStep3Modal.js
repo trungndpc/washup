@@ -22,6 +22,8 @@ class BookingStep3Modal extends Component {
         this.close = this.close.bind(this)
         this.onChangeBrandOils = this.onChangeBrandOils.bind(this);
         this.onChangeOil = this.onChangeOil.bind(this)
+        this.modalRef =  React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentWillMount() {
@@ -33,6 +35,13 @@ class BookingStep3Modal extends Component {
         this.props.appActions.getServices(inforBooking["transportId"], 1);
     }
 
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
 
     prev() {
         if (this.props.onPrev) {
@@ -118,6 +127,12 @@ class BookingStep3Modal extends Component {
         })
     }
 
+    handleClickOutside(event) {
+        if (this.modalRef && !this.modalRef.current.contains(event.target)) {
+            this.close();
+        }
+    }
+
     close() {
         var body = document.getElementsByTagName('body')[0];
         body.className = ""
@@ -158,7 +173,7 @@ class BookingStep3Modal extends Component {
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-lg">
-                        <div className="modal-content">
+                        <div ref={this.modalRef} className="modal-content">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
                                 <HeaderBookingModal {...this.props} onClose={this.close} step={3} />
                                 <div className="clearfix line">&nbsp;</div>

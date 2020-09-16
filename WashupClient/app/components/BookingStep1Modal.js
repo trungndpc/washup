@@ -10,7 +10,6 @@ class BookingStep1Modal extends Component {
         this.close = this.close.bind(this);
         this.next = this.next.bind(this);
         const inforBooking = this.props.app.inforBooking;
-        console.log(inforBooking)
         this.state = {
             transportId: (inforBooking && inforBooking["transportId"]) ? inforBooking["transportId"] : Model.OTO,
             errorMsg: null,
@@ -19,6 +18,8 @@ class BookingStep1Modal extends Component {
         this.onChangeTransportation = this.onChangeTransportation.bind(this)
         this.getFormData = this.getFormData.bind(this);
         this.onChangeBrandInput = this.onChangeBrandInput.bind(this)
+        this.modalRef =  React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentWillMount() {
@@ -28,12 +29,26 @@ class BookingStep1Modal extends Component {
         this.props.appActions.getBrands(this.state.transportId)
     }
 
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
     onChangeTransportation(e) {
         var transportId = e.currentTarget.value;
         this.setState({
             transportId: transportId
         })
         this.props.appActions.getBrands(transportId)
+    }
+
+    handleClickOutside(event) {
+        if (this.modalRef && !this.modalRef.current.contains(event.target)) {
+            this.close();
+        }
     }
 
     close() {
@@ -140,7 +155,7 @@ class BookingStep1Modal extends Component {
             <div>
                 <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-lg">
-                        <div className="modal-content">
+                        <div ref={this.modalRef} className="modal-content">
                             <div className="modal-body">
                                 <form name="frm_booking" method="POST" action="#">
                                     <HeaderBookingModal {...this.props} onClose={this.close} step={1} />

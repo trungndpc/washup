@@ -3,6 +3,14 @@
     outline: 0 !important;
 }
 
+.scrollbar {
+    float: none !important;
+}
+
+.modal-open {
+    overflow: hidden !important;
+}
+
 .m-btn-prev {
     line-height: 25px;
     padding: 6px 15px !important;
@@ -188,6 +196,24 @@
         width: 65%;
         text-align: right;
     }
+
+    .booking_final .clearfix {
+        display: flex;
+    }
+
+    .booking_final .clearfix .form-group {
+        flex: 1;
+    }
+
+    .booking_final .clearfix .col-right{
+        padding-right: 20px;
+    }
+
+
+    .booking_final .clearfix .pull-left{
+        padding-left: 38px;
+    }
+
 
     #ModalBooking .form-group {
         position: relative;
