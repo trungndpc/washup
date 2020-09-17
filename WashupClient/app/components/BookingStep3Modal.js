@@ -215,7 +215,7 @@ class BookingStep3Modal extends Component {
                                                                                 <span className="checkmark" />
                                                                             </label>
                                                                             <div className={isChecked ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
-                                                                                <img src={require('../resources/images/service_img1.png')} className="pull-left" />
+                                                                                <img style={{width: '178px', height: '96px'}} src={item["imgUrl"]} className="pull-left" />
                                                                                 <div className="info pull-left">
                                                                                     <div className="name">{item["name"]}</div>
                                                                                 </div>

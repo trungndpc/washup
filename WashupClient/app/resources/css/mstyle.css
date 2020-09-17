@@ -338,3 +338,7 @@
 #product_list .item img {
     height: 190px !important;
 }
+
+a {
+    text-decoration: none !important;
+}

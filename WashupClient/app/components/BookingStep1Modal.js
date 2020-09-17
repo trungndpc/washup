@@ -18,7 +18,7 @@ class BookingStep1Modal extends Component {
         this.onChangeTransportation = this.onChangeTransportation.bind(this)
         this.getFormData = this.getFormData.bind(this);
         this.onChangeBrandInput = this.onChangeBrandInput.bind(this)
-        this.modalRef =  React.createRef();
+        this.modalRef = React.createRef();
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
@@ -30,6 +30,7 @@ class BookingStep1Modal extends Component {
     }
 
     componentDidMount() {
+        this.setState({ openModelClass: "in" })
         document.addEventListener('mousedown', this.handleClickOutside);
     }
 
@@ -144,17 +145,10 @@ class BookingStep1Modal extends Component {
             defaultBrandInput = this.state.brandInput ? this.state.brandInput : brandOptions[0]
         }
 
-        const selectStyle = {
-            control: base => ({
-                ...base,
-                height: 34,
-                minHeight: 34
-            })
-        };
 
         return (
             <div>
-                <div id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
+                <div id="ModalBooking" className={`modal fade  ${this.state.openModelClass}`} role="dialog" style={{ display: 'block' }}>
                     <div className="modal-dialog modal-lg">
                         <div ref={this.modalRef} className="modal-content">
                             <div className="modal-body">
