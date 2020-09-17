@@ -9,7 +9,7 @@ class Header extends Component {
         <div className="header-top-area">
           <div className="container">
             <div className="row">
-              <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <div className="col-lg-4 col-md-4 col-sm-12 col-xs-12 col-logo">
                 <div className="logo-area">
                   <a href="#"><img src="img/logo/logo.png" alt="" /></a>
                 </div>

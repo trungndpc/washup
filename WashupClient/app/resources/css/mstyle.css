@@ -7,6 +7,10 @@
     float: none !important;
 }
 
+.row {
+    margin: 0 !important;
+}
+
 .modal-open {
     overflow: hidden !important;
 }
@@ -49,6 +53,10 @@
     color: #fff;
 }
 
+.modal-body .form-group {
+    margin: 20px 0px !important;
+}
+
 #site-nq .img {
     height: 250px;
 }
@@ -72,6 +80,9 @@
 }
 
 @media only screen and (max-width: 600px) {
+    .container {
+        padding: 0 !important;
+    }
     .m-main-tile .pc {
         display: none !important;
     }
@@ -93,7 +104,7 @@
     }
 
     .membership {
-        margin: 0px -20px;
+        margin: 0px;
     }
 
     .membership .text-left .price_old {
@@ -278,16 +289,16 @@
 }
 
 .form-control {
-    /* height: 38px !important; */
+    height: 38px !important;
 } 
 
-.tr__value-container {
+/* .tr__value-container {
     position: initial !important;
 }
 
 .tr__indicators  {
     height: 34px !important;
-}
+} */
 
 .main-title h3.title {
     margin-top: 20px !important;

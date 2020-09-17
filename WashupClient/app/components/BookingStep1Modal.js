@@ -195,7 +195,7 @@ class BookingStep1Modal extends Component {
                                         <div className="form-group row">
                                             <div className="col-md-3 col-xs-12">Hãng xe:</div>
                                             <div className="col-md-4 col-xs-12">
-                                                <Select classNamePrefix="tr" styles={selectStyle} value={defaultBrandInput} onChange={this.onChangeBrandInput} options={brandOptions} ref={e => this.brandInputRef = e} name="car_brand" id="brand_type" />
+                                                <Select value={defaultBrandInput} onChange={this.onChangeBrandInput} options={brandOptions} ref={e => this.brandInputRef = e} name="car_brand" id="brand_type" />
                                             </div>
                                         </div>
                                         <div className="form-group row">

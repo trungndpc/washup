@@ -175,7 +175,7 @@ class Home extends React.Component {
                 </div></div>
                 <div className="clearfix" />
               </div>
-              <div className="panel_body pd-lr20">
+              <div className="panel_body ">
                 <div className="serives_list row">
                   <div className="col col-sm-6 col-xs-12">
                     <div className="form-group">

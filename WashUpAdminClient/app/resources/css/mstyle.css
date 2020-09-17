@@ -31,3 +31,8 @@
 .table-overview tbody tr {
     cursor: pointer;
 }
+@media only screen and (max-width: 600px) {
+    .col-logo {
+        display: none;
+    }
+}

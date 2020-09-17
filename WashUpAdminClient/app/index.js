@@ -24,6 +24,13 @@ import './resources/css/button.css'
 import './resources/css/mstyle.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+import './resources/css/responsive.css'
+
+import './resources/js/jquery-1.12.4.min.js'
+import './resources/js/jquery.meanmenu.js'
+import './resources/js/autosize.min.js'
+import './resources/js/bootstrap.min'
+import './resources/js/main.js'
 
 
 const store = configureStore()
