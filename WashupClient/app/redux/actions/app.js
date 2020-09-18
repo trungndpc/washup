@@ -67,7 +67,13 @@ export function getActivityTop() {
 
 export function getOil(brandSeriesId) {
   return {
-    type : type.APP.GET_OIL_ASYNC,
+    type: type.APP.GET_OIL_ASYNC,
     brandSeriesId: brandSeriesId
+  }
+}
+
+export function getHomeInfo() {
+  return {
+    type: type.APP.GET_HOME_INFO_ASYNC
   }
 }

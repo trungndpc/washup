@@ -16,6 +16,7 @@ import Header from '../../components/Header';
 import MembershipList from '../../components/MembershipList';
 import DailyActivitiesList from '../../components/DailyActivitiesList';
 import { Link } from "react-router-dom";
+import BookingModal from '../../components/bookings/BookingModal';
 
 
 class Home extends React.Component {
@@ -46,6 +47,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
+    this.props.appActions.getHomeInfo()
     this.props.appActions.getServiceByServiceGroupId(this.state.tabServiceId);
   }
 
@@ -58,16 +60,17 @@ class Home extends React.Component {
 
 
   booking() {
-    if (this.phoneInputRef && this.phoneInputRef.value) {
-      if(this.phoneInputRef.value.match(/\d/g).length < 10 || this.phoneInputRef.value.match(/\d/g).length > 10) {
-      AlertUtils.showWarning("Vui lòng nhập đủ số điện thoại")
-        return;
-      }
-      this.props.appActions.putInforBooking({ "phone": this.phoneInputRef.value })
-      this.setState({ isStep1: true })
-    } else {
-      AlertUtils.showWarning("Vui lòng nhập số điện thoại")
-    }
+    // if (this.phoneInputRef && this.phoneInputRef.value) {
+    //   if(this.phoneInputRef.value.match(/\d/g).length < 10 || this.phoneInputRef.value.match(/\d/g).length > 10) {
+    //   AlertUtils.showWarning("Vui lòng nhập đủ số điện thoại")
+    //     return;
+    //   }
+      // this.props.appActions.putInforBooking({ "phone": this.phoneInputRef.value })
+      this.bookingModalRef && this.bookingModalRef.open();
+      // this.setState({ isStep1: true })
+    // } else {
+    //   AlertUtils.showWarning("Vui lòng nhập số điện thoại")
+    // }
   }
 
   bookingOTOService() {
@@ -148,11 +151,9 @@ class Home extends React.Component {
                 <div className="col-sm-6 col-xs-12 text-center">
                   <h3 className="title">Rửa xe tận nhà</h3>
                   <div className="input-search input-icons">
-                    {/* <form name="frm_search"  onKeyDown={this._handleKeyDown}  > */}
                       <i className="fa icon_phone icon" />
                       <input onKeyDown={this._handleKeyDown}  onChange={this.formatPhone} ref={e => this.phoneInputRef = e} type="tel" pattern="[0-9]{4}.[0-9]{3}.[0-9]{3}" className="form-control input-field search_phone" placeholder="Nhập số điện thoại" />
                       <div onClick={this.booking} className="btn-search">ĐẶT LỊCH NGAY</div>
-                    {/* </form> */}
                   </div>
                 </div>
               </div>
@@ -238,10 +239,7 @@ class Home extends React.Component {
           </div></div>
         </div> */}
         <Footer />
-        {this.state.isStep1 && <BookingStep1Modal {...this.props} onNext={this.nextStep2} onClose={this.onCloseModal} />}
-        {this.state.isStep2 && <BookingStep2Modal {...this.props} onPrev={this.prevStep1} onClose={this.onCloseModal} onNext={this.nextStep3} />}
-        {this.state.isStep3 && <BookingStep3Modal {...this.props} onPrev={this.prevStep2} onClose={this.onCloseModal} onNext={this.nextStep4} />}
-        {this.state.isStep4 && <BookingStep4Modal {...this.props} onClose={this.onCloseBooking} />}
+        <BookingModal ref={e => this.bookingModalRef = e} {...this.props} />
       </div>
     )
   }

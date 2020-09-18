@@ -14,6 +14,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_SLICE_ACCESSORIES_ASYNC, requestGetSliceAccessoriesAsync)
   yield takeLatest(type.APP.GET_ACTIVITY_TOP_ASYNC, requestGetActivityAsync)
   yield takeLatest(type.APP.GET_OIL_ASYNC, requestGetOilAsync)
+  yield takeLatest(type.APP.GET_HOME_INFO_ASYNC, requestGetHomeInfoAsync)
 }
 
 function* requestGetModelAsync() {
@@ -72,6 +73,11 @@ function* requestGetOilAsync(action) {
   yield put({ type: type.APP.GET_OIL_END, payload: resp.data })
 }
 
+function* requestGetHomeInfoAsync() {
+  const resp = yield call(getHomeAsync)
+  yield put({type: type.APP.GET_HOME_INFO_END, payload: resp.data})
+}
+
 function getModels() {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brand-series/all`, resolve, reject);
@@ -123,6 +129,12 @@ function getAccessories() {
 function getSliceAccessories(pageNumber, pageSize) {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/accessories/all?page=${pageNumber}&pageSize=${pageSize}`, resolve, reject);
+  });
+}
+
+function getHomeAsync() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/home`, resolve, reject);
   });
 }
 

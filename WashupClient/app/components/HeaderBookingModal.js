@@ -44,7 +44,7 @@ class HeaderBookingModal extends Component {
                         </div>}
                 </div>
 
-                <div className="tab mobile">
+                <div style={{display: 'none'}} className="tab mobile">
                     <h4 style={{color: '#fff', textAlign: 'center'}}>THÔNG TIN ĐẶT LỊCH</h4>
                 </div>
             </div>
