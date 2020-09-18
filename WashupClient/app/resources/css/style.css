@@ -332,7 +332,8 @@ a:hover {text-decoration:none; color:#1b3868}
 #membership_slider .item { 
 	margin: 0 5px;
     display: grid;
-    box-shadow: 0px 1px 10px 6px #ccc;
+	/* box-shadow: 0px 1px 10px 6px #ccc; */
+	box-shadow: 0px 6px 4px -2px #ccc;
     border-radius: 8px;
 }
 #membership_slider .item .price {height:38px; line-height:38px;}
@@ -344,7 +345,7 @@ a:hover {text-decoration:none; color:#1b3868}
 }
 
 #membership_slider .fa-chevron-right,#membership_slider .fa-chevron-left {font-size:24px}
-#membership_slider .owl-item {
+/* #membership_slider .owl-item {
 	text-align: center;
 	margin-right: 15px !important;
     margin-left: 8px;
@@ -363,7 +364,7 @@ a:hover {text-decoration:none; color:#1b3868}
 	right: 15px;
 	padding-right: 20px;
 }
-	#membership_slider .owl-stage-outer {padding:30px 5px }
+	#membership_slider .owl-stage-outer {padding:30px 5px } */
 
 
 /* PRODUCT LIST */

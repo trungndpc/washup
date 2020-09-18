@@ -45,7 +45,7 @@
 	#membership_slider .item img, #product_slider .item img {width:100%; height:100%; object-fit:cover} 
 	#site-service .panel_footer .space {border-radius:0;}
 	
-	#membership_slider .owl-item {margin-left: 10px;}
+	/* #membership_slider .owl-item {margin-left: 10px;} */
 	#product_slider .owl-item { }
 	#site-nq .panel_body {margin:15px;}
 	#site-nq .content {margin:20px; padding: 0 15px;}

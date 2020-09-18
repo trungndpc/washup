@@ -17,11 +17,11 @@ class MembershipList extends Component {
     render() {
         const options = {
             items: 3,
-            loop: false,
+            loop: true,
             margin: 30,
             responsiveClass: true,
             responsive: {
-                0: { items: 2,  },
+                0: { items: 1, stagePadding: 100},
                 600: { items: 3 },
                 1000: { items: 5, loop: false }
             }

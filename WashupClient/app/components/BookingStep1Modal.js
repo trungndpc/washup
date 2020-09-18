@@ -156,7 +156,6 @@ class BookingStep1Modal extends Component {
                                     <HeaderBookingModal {...this.props} onClose={this.close} step={1} />
                                     <div className="clearfix line">&nbsp;</div>
                                     <div className="box_input">
-                                        <div className="form-group row">&nbsp;</div>
                                         {this.state.errorMsg && <div style={{ textAlign: "center", color: "red" }} className="form-group row">{this.state.errorMsg}</div>}
                                         {!inforBooking["phone"] &&
                                             <div className="form-group row">

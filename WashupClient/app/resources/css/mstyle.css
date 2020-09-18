@@ -342,3 +342,10 @@
 a {
     text-decoration: none !important;
 }
+.membership .box {
+    padding: 20px 0px 10px 0px ;
+}
+
+.membership .box .owl-stage{
+    padding-bottom: 10px ;
+}
