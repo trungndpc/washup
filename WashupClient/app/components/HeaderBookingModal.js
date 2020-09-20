@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import TimeUtils from '../utils/TimeUtils';
-import { BrowserView, MobileView } from 'react-device-detect';
 
 class HeaderBookingModal extends Component {
 
@@ -20,7 +19,8 @@ class HeaderBookingModal extends Component {
         return (
             <div className="main-title m-main-tile">
                 <i onClick={this.onClose} className="fa fa-times close-modal" />
-                <div className="tab pc">
+                {inforBooking &&
+                    <div className="tab pc">
                         <div className="item col-md-3 col-xs-12 active">
                             Số điện thoại:<div className="info">{inforBooking["phone"] && inforBooking["phone"]}</div>
                             {this.props.step == 1 && <div className="arrow-up" />}
@@ -42,10 +42,10 @@ class HeaderBookingModal extends Component {
                             </div>
                             {this.props.step == 4 && <div className="arrow-up" />}
                         </div>}
-                </div>
-
-                <div style={{display: 'none'}} className="tab mobile">
-                    <h4 style={{color: '#fff', textAlign: 'center'}}>THÔNG TIN ĐẶT LỊCH</h4>
+                    </div>
+                }
+                <div style={{ display: 'none' }} className="tab mobile">
+                    <h4 style={{ color: '#fff', textAlign: 'center' }}>THÔNG TIN ĐẶT LỊCH</h4>
                 </div>
             </div>
         )

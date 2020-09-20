@@ -169,8 +169,8 @@
 	position:relative
 }
 .calendar_content .name {
-	font-weight:bold; font-size:20px; 
-	letter-spacing:-1px; display:block;
+	font-size:18px; 
+	letter-spacing: 0px; display:block;
 	color:#1b3a6a; padding-top: 8px;
 }
 .calendar_content .status {
@@ -289,10 +289,10 @@
 }
 .service_content .service .box_right .price {
 	vertical-align: middle;
-    font-size: 34px;
+    font-size: 24px;
     font-weight: 500;
     color: #f7901e;
-    letter-spacing: -2px;
+    letter-spacing: 0px;
     line-height: 96px;
     margin-right: 20px;
 }
@@ -636,14 +636,14 @@
 	#ModalBooking .tab .item, #ModalBookingNotify .tab .item {position:unset}
 	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {width:130px}
 	
-	#ModalBooking h3.title {font-size:24px}
+	#ModalBooking h3.title {font-size:17px}
 	#box_calendar .tab_calendar {padding:0 5px;}
-	#box_calendar .tab_calendar a {width:auto; padding:5px 10px; font-size:15px;}
+	#box_calendar .tab_calendar a {width:auto; padding:5px 10px; font-size:10px;}
 	#box_calendar .tab_calendar .name {font-size:15px;}
 	.calendar_nav .fa {padding: 20px 5px;}
 	.calendar_nav .fa-chevron-left {left:-10px;}
 	.calendar_nav .fa-chevron-right {right:-10px;}
-	#box_calendar .calendar_content {padding:0;}
+	#box_calendar .calendar_content {padding: 5px;}
 	#box_calendar .calendar_content .hour {height:60px; width:15%}
 	.calendar_content .name {font-size:16px; padding-top: 0;}
 	.calendar_content .status {font-size:11px}
@@ -689,7 +689,7 @@
 }
 @media only screen and (max-width: 414px) {
 	.service_content .service { display: flex;}
-	#box_calendar .tab_calendar a {padding:5px}
+	/* #box_calendar .tab_calendar a {padding:5px} */
 }
 @media only screen and (max-width: 375px) {
 	.service_content .service { display: block;}

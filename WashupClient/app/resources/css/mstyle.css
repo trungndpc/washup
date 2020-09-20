@@ -54,7 +54,7 @@
 }
 
 .modal-body .form-group {
-    margin: 20px 0px !important;
+    margin: 10px 0px !important;
 }
 
 #site-nq .img {
@@ -79,7 +79,25 @@
     text-indent: 10px !important;
 }
 
+@media only screen and (max-width: 720px) {
+    #main-menu {
+        clear: both;
+        -moz-transition: height .5s;
+        -ms-transition: height .5s;
+        -o-transition: height .5s;
+        -webkit-transition: height .5s;
+        transition: height .5s;
+        height: 0;
+        overflow: hidden;
+        min-height: auto !important
+    }
+    .sys-store {
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 600px) {
+
     .container {
         padding: 0 !important;
     }
@@ -131,8 +149,25 @@
     .service_content .service .box_right img {
         display: none;
     }
-    .payment  {
-        padding: 15px;
+
+    .service_content.scrollbar {
+        max-height: 200px;
+    }
+
+    .service_content .force-overflow {
+        min-height: auto;
+    }
+
+    .service_content .service .box_right .name {
+        text-shadow: none;
+        font-size: 15px;
+        letter-spacing: normal;
+        font-weight: normal
+    }
+
+    .force-overflow .service .container input {
+        margin-left: 18px;
+        margin-top: 12px;
     }
 
     .booking_final .title {
@@ -348,4 +383,8 @@ a {
 
 .membership .box .owl-stage{
     padding-bottom: 10px ;
+}
+
+.red-req {
+    color: red !important;
 }

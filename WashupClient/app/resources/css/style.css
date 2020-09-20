@@ -107,7 +107,7 @@ a:hover {text-decoration:none; color:#1b3868}
 	/* position: absolute; */
     top: 0%;
 	z-index:999;
-	height:52px;
+	height:53px;
 	width:215px;
 	line-height:52px;
 	color:#1b396a;
@@ -129,7 +129,7 @@ a:hover {text-decoration:none; color:#1b3868}
 }
 #main-menu {
 	padding: 0 !important;
-	height: 52px !important;
+	height: 52px;
 	border-radius: 0;
 }
 .fl-rgt {

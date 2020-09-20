@@ -29,8 +29,6 @@ class StepTWO extends Component {
     }
 
     componentWillMount() {
-        var body = document.getElementsByTagName('body')[0];
-        body.className = "modal-open"
         this.props.appActions.getScheduleToday();
     }
 
@@ -70,6 +68,8 @@ class StepTWO extends Component {
     close() {
         this.setState({ isOpen: false })
         document.removeEventListener('mousedown', this._handleClickOutside);
+        this.props.close && this.props.close()
+
     }
 
     _selectTabDate(tabDateId) {
@@ -167,7 +167,6 @@ class StepTWO extends Component {
                         </div>
                     </div>
                 </div>
-                {this.state.isOpen && <div class={`modal-backdrop fade in`}></div>}
             </div>
         )
     }

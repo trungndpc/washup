@@ -6,6 +6,8 @@ const initialState = {
   brands: {},
   brandSeries: {},
 
+  storeServices : {},
+
   schedules: {},
   services: {},
   inforBooking: {},
@@ -90,6 +92,7 @@ export default function app(state = initialState, action) {
       const data = action.payload;
       newState.brands = data["brands"]
       newState.brandSeries = data["brandSeries"]
+      newState.storeServices = data["services"]
       break;
     }
     default:

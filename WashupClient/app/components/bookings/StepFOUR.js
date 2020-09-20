@@ -7,22 +7,21 @@ class StepFOUR extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            isOpen: true,
+            isFadeIn: true
+        }
         this.close = this.close.bind(this);
         this.submit = this.submit.bind(this);
-        this.modalRef =  React.createRef();
-        this.handleClickOutside = this.handleClickOutside.bind(this);
+        this.prev = this.prev.bind(this)
+        
+        this.modalRef = React.createRef();
+        this._handleClickOutside = this._handleClickOutside.bind(this);
+        document.addEventListener('mousedown', this._handleClickOutside);
     }
 
-    componentWillMount() {
-        var body = document.getElementsByTagName('body')[0];
-        body.className = "modal-open"
-    }
 
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside);
-    }
-
-    handleClickOutside(event) {
+    _handleClickOutside(event) {
         if (this.modalRef && !this.modalRef.current.contains(event.target)) {
             this.close();
         }
@@ -40,21 +39,32 @@ class StepFOUR extends Component {
 
 
     close() {
-        var body = document.getElementsByTagName('body')[0];
-        body.className = ""
-        body.style.overflow = ""
-        if (this.props.onClose) {
-            this.props.onClose();
-        }
+        this.setState({ isFadeIn: false })
+        setTimeout(function () {
+            this.setState({ isOpen: false })
+        }.bind(this), 150)
+        document.removeEventListener('mousedown', this._handleClickOutside);
+        this.props.close && this.props.close()
     }
+
+    prev() {
+        document.removeEventListener('mousedown', this._handleClickOutside);
+        this.setState({
+            isOpen: false
+        })
+        this.props.prev()
+    }
+
 
 
     render() {
         const isLoading = this.props.app.isLoadingBooking;
         const inforBooking = this.props.app.inforBooking;
+
+        const totalPrice = inforBooking["totalPrice"] + ( inforBooking["oilPrice"] ? inforBooking["oilPrice"] : 0 );
         return (
             <div>
-                <div  id="ModalBooking" className="modal fade in" role="dialog" aria-hidden="false" style={{ display: 'block' }}>
+                <div id="ModalBooking" style={{ display: `${this.state.isOpen == true ? 'block' : 'none'}` }} className={`modal fade ${this.state.isFadeIn ? 'in' : ''}`} >
                     <div className="modal-dialog modal-lg">
                         <div ref={this.modalRef} className="modal-content m-final">
                             <div className="modal-body"><form name="frm_booking" method="POST" action="#">
@@ -63,7 +73,7 @@ class StepFOUR extends Component {
                                 </div>
                                 <div className="clearfix line">&nbsp;</div>
                                 {isLoading && <div style={{ textAlign: 'center', padding: '30px' }}>
-                                    <img src={require('../resources/images/loading.gif')} />
+                                    <img src={require('../../resources/images/loading.gif')} />
                                 </div>}
 
                                 {inforBooking && <div className="booking_final">
@@ -78,7 +88,7 @@ class StepFOUR extends Component {
                                         <div className="form-group col-right pull-right">
                                             <i className="fa icon_clock" />
                                             <div className="info pull-left">
-                                                <div className="title">GIỜ</div>
+                                                <div className="title">THỜI GIAN</div>
                                                 <div className="text">{TimeUtils.formatDate(inforBooking["timeSchedule"] * 1000)} - {TimeUtils.timeSchedule(inforBooking["timeSchedule"])}</div>
                                             </div>
                                         </div>
@@ -118,7 +128,7 @@ class StepFOUR extends Component {
                                             <i className="fa icon_money" />
                                             <div className="info pull-left">
                                                 <div className="title">SỐ TIỀN</div>
-                                                <div className="text">{PriceUtils.toThousand(inforBooking["totalPrice"])}</div>
+                                                <div className="text">{PriceUtils.toThousand(totalPrice)}</div>
                                             </div>
                                         </div>
 
@@ -145,15 +155,14 @@ class StepFOUR extends Component {
                                 </div>
                                 }
                                 <div className="form-group text-center">
-                                    <button onClick={this.submit} type="button" className="btn btn-success back_home">XÁC NHẬN</button>
-                                    {/* <button type="button" className="btn btn-default book_cancel">ĐỔI LỊCH/HỦY LỊCH</button> */}
+                                    <button onClick={this.prev} type="button" className="btn btn-fefault step_back m-btn-prev"><i className="fa fa-angle-left" /> QUAY LẠI</button>
+                                    <button onClick={this.submit} type="button" className="btn btn-success back_home">ĐẶT LỊCH</button>
                                 </div>
                                 <div className="clearfix" />
                             </form></div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-backdrop fade in"></div>
             </div>
         )
     }

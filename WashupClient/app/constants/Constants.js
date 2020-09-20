@@ -10,3 +10,15 @@ export const OIL_BRAND = {
     "ANGOMOIL" : 5,
     "LIQUI_MOLY" : 6
 }
+
+export const TYPE_SERVICE = {
+    NOT_DEFINED : 0,
+    VE_SINH_CO_BAN : 1,
+    BAO_DUONG_NHANH : 2,
+    LAM_DEP: 3,
+    COMBO: 4,
+    CO_BAN: 5,
+    NANG_CAO: 6
+}
+
+export const SERVICE_THAY_NHOT =  ["ff808181741c1c93017420bb81b7000c", "ff808181748853bb0174885a13b50003"]

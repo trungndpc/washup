@@ -5,6 +5,20 @@ import BookingManagerModal from './BookingManagerModal';
 
 class Header extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      isShowMobileMenu: false
+    }
+    this.onClickShowMenu = this.onClickShowMenu.bind(this)
+  }
+
+  onClickShowMenu() {
+    this.setState({
+      isShowMobileMenu: !this.state.isShowMobileMenu
+    })
+  }
+
   render() {
     return (
       <div>
@@ -30,24 +44,23 @@ class Header extends Component {
                     </Link>
                   </div>
                 </div>
-                <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                <button onClick={this.onClickShowMenu} type="button" className="navbar-toggle">
                   <i className="fa fa-bars" />
                 </button>
-                <div id="main-menu" className="topnav navbar collapse navbar-collapse">
+                <div id="main-menu" style={{height: `${this.state.isShowMobileMenu ? '220px' : '0px'}`}} className={`topnav navbar collapse navbar-collapse in`}>
                   <Link to={"/dich-vu"}>Dịch vụ</Link>
                   <Link to={"/phu-kien"}>Lốp xe &amp; Phụ kiện</Link>
-                  {/* <a href="#">Kinh nghiệm chăm sóc xe</a> */}
                   <div className="topnav-right">
                     <a href="#">Tuyển dụng</a>
                     <a href="#">Liên hệ</a>
-                    <a href="#"><i className="fa icon_user" /></a>
+                    {/* <a href="#"><i className="fa icon_user" /></a> */}
                   </div>
                 </div>
               </div>
             </div>
             <div className="col col-md-2">
-              <div className= "wrapper-col">
-                <div className="topright text-left hidden-xs">
+              <div className="wrapper-col sys-store">
+                <div className="topright  text-left hidden-xs">
                   <a href="#"><span>Hệ thống store</span><i className="fa icon icon_map">&nbsp;</i> </a>
                 </div>
               </div>

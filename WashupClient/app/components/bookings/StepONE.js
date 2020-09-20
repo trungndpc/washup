@@ -17,7 +17,7 @@ class StepONE extends Component {
             brandInput: (inforBooking && inforBooking["brand"]) ? { value: inforBooking["brand"], label: inforBooking["brand"]["brandName"] } : null
         }
         this.modalRef = React.createRef();
-        
+
         this.close = this.close.bind(this);
         this.next = this.next.bind(this);
         this.open = this.open.bind(this);
@@ -43,19 +43,21 @@ class StepONE extends Component {
             this.setState({ isOpen: false })
         }.bind(this), 150)
         document.removeEventListener('mousedown', this._handleClickOutside);
+        this.props.close && this.props.close()
     }
 
     next() {
-        //close current modal
-        this.setState({
-            isOpen: false
-        })
-        document.removeEventListener('mousedown', this._handleClickOutside);
-
         //Put data
         let inforBooking = { ...this.props.app.inforBooking }
         let data = this.getFormData(inforBooking)
         if (this.isValidData(data)) {
+
+            //close current modal
+            this.setState({
+                isOpen: false
+            })
+            document.removeEventListener('mousedown', this._handleClickOutside);
+
             this.props.appActions.putInforBooking(data)
             if (this.props.ok) {
                 this.props.ok();
@@ -162,77 +164,78 @@ class StepONE extends Component {
                                 <form name="frm_booking" method="POST" action="#">
                                     <HeaderBookingModal {...this.props} onClose={this.close} step={1} />
                                     <div className="clearfix line">&nbsp;</div>
-                                    <div className="box_input">
-                                        {this.state.errorMsg && <div style={{ textAlign: "center", color: "red" }} className="form-group row">{this.state.errorMsg}</div>}
-                                        {!inforBooking["phone"] &&
+                                    {inforBooking &&
+                                        <div className="box_input">
+                                            {this.state.errorMsg && <div style={{ textAlign: "center", color: "red" }} className="form-group row">{this.state.errorMsg}</div>}
+                                            {!inforBooking["phone"] &&
+                                                <div className="form-group row">
+                                                    <div className="col-md-3 col-xs-12">Số điện thoại:</div>
+                                                    <div className="col-md-9 col-xs-12">
+                                                        <input ref={e => this.phoneInputRef = e} type="text" name="number" placeholder="0972797184" className="form-control" />
+                                                    </div>
+                                                </div>}
                                             <div className="form-group row">
-                                                <div className="col-md-3 col-xs-12">Số điện thoại:</div>
+                                                <div className="col-md-3 col-xs-12">Địa chỉ nhận xe: <span className="red-req">*</span></div>
                                                 <div className="col-md-9 col-xs-12">
-                                                    <input ref={e => this.phoneInputRef = e} type="text" name="number" placeholder="0972797184" className="form-control" />
+                                                    <input ref={e => this.addressInputRef = e} defaultValue={inforBooking && inforBooking["address"]} type="text" name="address" placeholder="156 Nguyễn Lương Bằng, P.Tân Phú, Quận 7" className="form-control" />
                                                 </div>
-                                            </div>}
-                                        <div className="form-group row">
-                                            <div className="col-md-3 col-xs-12">Địa chỉ nhận xe:</div>
-                                            <div className="col-md-9 col-xs-12">
-                                                <input ref={e => this.addressInputRef = e} defaultValue={inforBooking && inforBooking["address"]} type="text" name="address" placeholder="156 Nguyễn Lương Bằng, P.Tân Phú, Quận 7" className="form-control" />
+                                            </div>
+                                            <div className="form-group row">
+                                                <div className="col-md-3 col-xs-12">Họ tên khách hàng: <span className="red-req">*</span></div>
+                                                <div className="col-md-9 col-xs-12">
+                                                    <input ref={e => this.fullNameInputRef = e} defaultValue={inforBooking && inforBooking["fullname"]} type="text" name="fullname" placeholder="A. Nguyên" className="form-control" />
+                                                </div>
+                                            </div>
+                                            <div className="form-group row">
+                                                <div className="col-md-3 col-xs-12">Loại xe: </div>
+                                                <div className="col-md-2 col-xs-6">
+                                                    <label><input onChange={this._onChangeVehicleType} type="radio" name="VehicleType" value={Model.OTO} defaultChecked={this.state.transportId == Model.OTO} /> Ô tô <i className="fa fa-car" /></label>
+                                                </div>
+                                                <div className="col-md-2 col-xs-6">
+                                                    <label><input onChange={this._onChangeVehicleType} type="radio" name="VehicleType" value={Model.XEMAY} defaultChecked={this.state.transportId == Model.XEMAY} /> Xe máy <i className="fa fa-motorcycle" /></label>
+                                                </div>
+                                            </div>
+                                            <div className="form-group row">
+                                                <div className="col-md-3 col-xs-12">Hãng xe: </div>
+                                                <div className="col-md-4 col-xs-12">
+                                                    <Select value={_defaultBrand} onChange={this._onChangeBrand} options={brandOptions} ref={e => this.brandInputRef = e} name="car_brand" id="brand_type" />
+                                                </div>
+                                            </div>
+                                            <div className="form-group row">
+                                                <div className="col-md-3 col-xs-12">Dòng xe: </div>
+                                                <div className="col-md-4 col-xs-12">
+                                                    <select ref={e => this.brandSeriesInputRef = e} name="car_type" id="car_type" className="form-control">
+                                                        {brandSeries && brandSeries.map((item) => {
+                                                            return <option value={JSON.stringify(item)}>{item["seriesName"]}</option>
+                                                        })}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className="form-group row">
+                                                <div className="col-md-3 col-xs-12">Tên xe:</div>
+                                                <div className="col-md-4 col-xs-12">
+                                                    <input ref={e => this.vehicleNameInputRef = e} defaultValue={inforBooking && inforBooking["vehicleName"]} type="text" name="vehicleName" placeholder="SH Mode 300I" className="form-control" />
+                                                </div>
+                                            </div>
+                                            <div className="form-group row">
+                                                <div className="col-md-3 col-xs-12">Biển số: <span className="red-req">*</span></div>
+                                                <div className="col-md-4 col-xs-12">
+                                                    <input ref={e => this.licensePlateInputRef = e} defaultValue={inforBooking && inforBooking["licensePlate"]} type="text" name="car_number" placeholder="Nhập biển số (VD: 51F3-92457)" className="form-control" />
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <div className="form-group row text-center">
+                                                <button onClick={this.close} type="button" className="btn btn-fefault m-btn-prev" data-dismiss="modal"><i className="fa fa-angle-left" /> QUAY LẠI</button>
+                                                <button onClick={this.next} type="button" className="btn btn-success"><i className="fa fa-calendar-check" /> CHỌN GIỜ RỬA</button>
                                             </div>
                                         </div>
-                                        <div className="form-group row">
-                                            <div className="col-md-3 col-xs-12">Họ tên khách hàng:</div>
-                                            <div className="col-md-9 col-xs-12">
-                                                <input ref={e => this.fullNameInputRef = e} defaultValue={inforBooking && inforBooking["fullname"]} type="text" name="fullname" placeholder="A. Nguyên" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <div className="col-md-3 col-xs-12">Loại xe:</div>
-                                            <div className="col-md-2 col-xs-6">
-                                                <label><input onChange={this._onChangeVehicleType} type="radio" name="VehicleType" value={Model.OTO} defaultChecked={this.state.transportId == Model.OTO} /> Ô tô <i className="fa fa-car" /></label>
-                                            </div>
-                                            <div className="col-md-2 col-xs-6">
-                                                <label><input onChange={this._onChangeVehicleType} type="radio" name="VehicleType" value={Model.XEMAY} defaultChecked={this.state.transportId == Model.XEMAY} /> Xe máy <i className="fa fa-motorcycle" /></label>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <div className="col-md-3 col-xs-12">Hãng xe:</div>
-                                            <div className="col-md-4 col-xs-12">
-                                                <Select value={_defaultBrand} onChange={this._onChangeBrand} options={brandOptions} ref={e => this.brandInputRef = e} name="car_brand" id="brand_type" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <div className="col-md-3 col-xs-12">Dòng xe:</div>
-                                            <div className="col-md-4 col-xs-12">
-                                                <select ref={e => this.brandSeriesInputRef = e} name="car_type" id="car_type" className="form-control">
-                                                    {brandSeries && brandSeries.map((item) => {
-                                                        return <option value={JSON.stringify(item)}>{item["seriesName"]}</option>
-                                                    })}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <div className="col-md-3 col-xs-12">Tên xe:</div>
-                                            <div className="col-md-4 col-xs-12">
-                                                <input ref={e => this.vehicleNameInputRef = e} defaultValue={inforBooking && inforBooking["vehicleName"]} type="text" name="vehicleName" placeholder="SH Mode 300I" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
-                                            <div className="col-md-3 col-xs-12">Biển số:</div>
-                                            <div className="col-md-4 col-xs-12">
-                                                <input ref={e => this.licensePlateInputRef = e} defaultValue={inforBooking && inforBooking["licensePlate"]} type="text" name="car_number" placeholder="Nhập biển số (VD: 51F3-92457)" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <hr />
-                                        <div className="form-group row text-center">
-                                            <button onClick={this.close} type="button" className="btn btn-fefault m-btn-prev" data-dismiss="modal"><i className="fa fa-angle-left" /> QUAY LẠI</button>
-                                            <button onClick={this.next} type="button" className="btn btn-success"><i className="fa fa-calendar-check" /> CHỌN GIỜ RỬA</button>
-                                        </div>
-                                    </div>
+                                    }
                                     <div className="clearfix" />
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                {this.state.isOpen && <div class={`modal-backdrop fade in`}></div>}
             </div>
         )
     }
