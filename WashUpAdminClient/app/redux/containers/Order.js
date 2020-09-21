@@ -74,7 +74,7 @@ class Order extends React.Component {
                                         <table className="table table-striped table-overview">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>Mã đơn</th>
                                                     <th>Tên</th>
                                                     <th>SDT</th>
                                                     <th>Biển số</th>
@@ -102,7 +102,7 @@ class Order extends React.Component {
                                                         </span>
                                                     }
                                                     return (
-                                                        <tr onClick={() => { this.onClickDetail(item["id"]) }} key={item["id"]}>
+                                                        <tr key={item["id"]}>
                                                             <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>

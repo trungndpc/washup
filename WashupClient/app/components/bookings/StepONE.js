@@ -12,6 +12,7 @@ class StepONE extends Component {
         this.state = {
             isOpen: false,
             isFadeIn: false,
+            placeholderVehicleName : "CX5",
             transportId: (inforBooking && inforBooking["transportId"]) ? inforBooking["transportId"] : Model.OTO,
             errorMsg: null,
             brandInput: (inforBooking && inforBooking["brand"]) ? { value: inforBooking["brand"], label: inforBooking["brand"]["brandName"] } : null
@@ -131,6 +132,11 @@ class StepONE extends Component {
             transportId: transportId
         })
         this.props.appActions.getBrands(transportId)
+        if(transportId == Model.OTO) {
+            this.setState({placeholderVehicleName: "CX5"})
+        }else {
+            this.setState({placeholderVehicleName: "SH Mode 300I"})
+        }
     }
 
     _handleClickOutside(event) {
@@ -214,7 +220,7 @@ class StepONE extends Component {
                                             <div className="form-group row">
                                                 <div className="col-md-3 col-xs-12">Tên xe:</div>
                                                 <div className="col-md-4 col-xs-12">
-                                                    <input ref={e => this.vehicleNameInputRef = e} defaultValue={inforBooking && inforBooking["vehicleName"]} type="text" name="vehicleName" placeholder="SH Mode 300I" className="form-control" />
+                                                    <input ref={e => this.vehicleNameInputRef = e} defaultValue={inforBooking && inforBooking["vehicleName"]} type="text" name="vehicleName" placeholder={this.state.placeholderVehicleName} className="form-control" />
                                                 </div>
                                             </div>
                                             <div className="form-group row">

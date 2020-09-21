@@ -15,13 +15,17 @@ class StepOIL extends Component {
             oil: null,
             brandOilId: 1,
             brandOil: null,
+            valueOils: {}
 
         }
         this.next = this.next.bind(this)
         this.prev = this.prev.bind(this)
         this.oilInputRef = {}
+        this.oilBrandInputRef = {}
         this.onChangeBrandOils = this.onChangeBrandOils.bind(this);
         this._handleClickOutside = this._handleClickOutside.bind(this);
+        this.onChangeValueOils = this.onChangeValueOils.bind(this)
+        this.submitData = this.submitData.bind(this)
     }
 
     _handleClickOutside(event) {
@@ -37,12 +41,19 @@ class StepOIL extends Component {
         let serviceOils = inforBooking["serviceOils"];
 
         let brandOil = {}
+        let valueOils = {}
         serviceOils.forEach((item) => {
-            brandOil[item["id"]] = 2
+            if (item["brandId"]) {
+                brandOil[item["id"]] = item["brandId"];
+            } else {
+                brandOil[item["id"]] = 1;
+            }
+            item["oilId"] && (valueOils[item["id"]] = item["oilId"])
         })
         this.setState({
             serviceOils: serviceOils,
-            brandOil: brandOil
+            brandOil: brandOil,
+            valueOils: valueOils
         })
         document.addEventListener('mousedown', this.__handleClickOutside);
     }
@@ -53,7 +64,14 @@ class StepOIL extends Component {
         this.setState({ brandOil: brandOil })
     }
 
+    onChangeValueOils(id, valueOption) {
+        let valueOil = { ...this.state.valueOils }
+        valueOil[id] = valueOption["value"]
+        this.setState({ valueOils: valueOil })
+    }
+
     prev() {
+        this.submitData()
         document.removeEventListener('mousedown', this._handleClickOutside);
         this.setState({
             isOpen: false
@@ -61,30 +79,44 @@ class StepOIL extends Component {
         this.props.prev()
     }
 
-    next() {
+    submitData() {
+        console.log("submitData")
         let serviceOilIds = [];
         let oilPrice = 0;
         let inforBooking = { ...this.props.app.inforBooking }
         const serviceOils = [...this.state.serviceOils];
+        let newServiceOils = []
         if (serviceOils) {
             serviceOils.forEach(item => {
                 let ref = this.oilInputRef[item["id"]];
+                let brandRef = this.oilBrandInputRef[item["id"]]
                 if (ref) {
                     let optionValue = ref.select.state.selectValue[0];
+                    let optionBrandValue = brandRef.select.state.selectValue[0];
                     if (optionValue) {
+                        let newItem = { ...item }
+                        newItem["oilId"] = optionValue["value"];
+                        newItem["brandId"] = optionBrandValue["value"]
                         serviceOilIds.push(optionValue["value"]);
+                        newServiceOils.push(newItem);
                         oilPrice = oilPrice + optionValue["price"]
-                    }else{
-                        this.setState({errorMsg: 'Vui lòng chọn nhớt'})
+                    } else {
+                        this.setState({ errorMsg: 'Vui lòng chọn nhớt' })
                         return;
                     }
 
                 }
             })
         }
+        inforBooking["serviceOils"] = newServiceOils;
         inforBooking["serviceOilIds"] = serviceOilIds;
         inforBooking["oilPrice"] = oilPrice;
+        console.log(inforBooking)
         this.props.appActions.putInforBooking(inforBooking);
+    }
+
+    next() {
+        this.submitData();
         document.removeEventListener('mousedown', this._handleClickOutside);
         this.props.ok();
     }
@@ -142,19 +174,22 @@ class StepOIL extends Component {
                                 <div id="box_calendar" className="box_input">
                                     <div className="calendar-container">
                                         <div className="calendar-wrapper">
-                                            {this.state.serviceOils && this.state.serviceOils.map((item, index) => {
+                                            {(this.state.valueOils && this.state.serviceOils) && this.state.serviceOils.map((item, index) => {
                                                 let valueBrandId = brandOil[item["id"]];
-                                                let listOptionsOil = lstOilObject[item["id"]];
                                                 let optionBrand = this.findOptionById(optionsBrandOils, valueBrandId)
+
+                                                let listOptionsOil = lstOilObject[item["id"]];
+                                                let valueOilId = this.state.valueOils[item["id"]];
+                                                let optionOil = this.findOptionById(listOptionsOil, valueOilId)
                                                 return (
                                                     <div key={item["id"]} className="item">
                                                         <div className="form-group row">
                                                             <div className="col-md-3 text-left">{item["name"]}</div>
-                                                            <div className="col-md-3">
-                                                                <Select value={optionBrand} onChange={(valueOption) => { this.onChangeBrandOils(item["id"], valueOption) }} options={optionsBrandOils} />
+                                                            <div className="colo col-md-3">
+                                                                <Select value={optionBrand} onChange={(valueOption) => { this.onChangeBrandOils(item["id"], valueOption) }} options={optionsBrandOils} ref={e => this.oilBrandInputRef[item["id"]] = e} />
                                                             </div>
-                                                            <div className="col-md-6">
-                                                                <Select options={listOptionsOil} ref={e => this.oilInputRef[item["id"]] = e} />
+                                                            <div className="colo col-md-6">
+                                                                <Select value={optionOil} onChange={(valueOption) => { this.onChangeValueOils(item["id"], valueOption) }} options={listOptionsOil} ref={e => this.oilInputRef[item["id"]] = e} />
                                                             </div>
                                                         </div>
                                                     </div>

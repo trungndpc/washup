@@ -298,7 +298,7 @@
 }
 .service_content .service .box_right .info {padding:10px}
 .service_content .service .box_right .name {
-	text-transform:uppercase; margin-bottom: 10px;
+	text-transform:uppercase;
 }
 .service_content .service .box_right .hashtag {
 	clear:both
@@ -660,9 +660,9 @@
 	.service_content .service .box_right .name {
 		text-shadow: 0px 0px 5px #fff;
 	}
-	.service_content .service .box_right .info {
+	/* .service_content .service .box_right .info {
 		position:absolute; top:10px; left:10px; z-index:20;
-	}
+	} */
 	.service_content .service .box_right .price {
 		position:absolute; top: 10px;
 		right: 0;

@@ -140,7 +140,16 @@
         height: auto;
     }
     .service_content .service .box_right .info {
-        top: 0 !important;
+        width: 65%;
+        line-height: 38px;
+        padding-left: 10px !important;
+        padding-top: 0 !important;
+        padding-right: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    .colo {
+        margin: 10px 0px;
     }
     
     .service_content .service .box_right .price {
@@ -160,9 +169,18 @@
 
     .service_content .service .box_right .name {
         text-shadow: none;
-        font-size: 15px;
+        font-size: 11px;
         letter-spacing: normal;
-        font-weight: normal
+        font-weight: normal;
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .chonnhot {
+        line-height: 38px !important;
+        padding-right: 5px !important;
     }
 
     .force-overflow .service .container input {

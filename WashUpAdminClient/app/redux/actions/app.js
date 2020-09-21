@@ -28,12 +28,12 @@ export function getBookingById(id) {
   }
 }
 
-export function updateStatus(id, currentStatus, status) {
+export function updateStatus(id, currentStatus, status, operatorNote ) {
   return {
     type: type.APP.UPDATE_STATUS_ASYNC,
     id: id,
     status: status,
-    currentStatus: currentStatus
+    currentStatus: currentStatus,
   }
 }
 

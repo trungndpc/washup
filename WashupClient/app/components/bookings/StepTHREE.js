@@ -8,14 +8,12 @@ class StepTHREE extends Component {
     constructor(props) {
         super(props);
         let inforBooking = { ...this.props.app.inforBooking }
-        console.log("INit.........")
-        console.log(inforBooking)
         this.state = {
             isOpen: false,
             tabServiceId: TYPE_SERVICE.CO_BAN,
             serviceIds: (inforBooking && inforBooking["serviceIds"]) ? inforBooking["serviceIds"] : [],
             serviceNames: [],
-            serviceOils: [],
+            serviceOils: (inforBooking && inforBooking["serviceOils"]) ? inforBooking["serviceOils"] : [],
             methodPaymentId: 1,
             errorMsg: null,
             totalPrice: 0
@@ -34,12 +32,16 @@ class StepTHREE extends Component {
     }
 
     open() {
-        this.setState({ isOpen: true });
+        let inforBooking = { ...this.props.app.inforBooking }
+        this.setState({ 
+            isOpen: true,
+            serviceOils: (inforBooking && inforBooking["serviceOils"]) ? inforBooking["serviceOils"] : [],
+         });
+
         document.addEventListener('mousedown', this._handleClickOutside);
     }
 
     _handleClickOutside(event) {
-        console.log("_handleClickOutside")
         if (this.modalRef && !this.modalRef.current.contains(event.target)) {
             this.close();
         }
@@ -186,7 +188,7 @@ class StepTHREE extends Component {
                                                     <a onClick={() => this.selectTabService(TYPE_SERVICE.NANG_CAO)} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.NANG_CAO ? 'active' : ''}>
                                                         <div className="title">Nâng cao</div>
                                                     </a>
-                                                    <a onClick={() => this.selectTabService(TYPE_SERVICE.COMBO)} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.COMBO ? 'active' : ''}>
+                                                    <a onClick={() => this.selectTabService(TYPE_SERVICE.COMBO_TAINHA)} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.COMBO_TAINHA ? 'active' : ''}>
                                                         <div className="title">Combo</div>
                                                     </a>
                                                 </div>
@@ -212,7 +214,7 @@ class StepTHREE extends Component {
                                                                                 <div className="info pull-left">
                                                                                     <div className="name">{item["name"]}</div>
                                                                                 </div>
-                                                                                {SERVICE_THAY_NHOT.indexOf(item["id"]) >= 0 ? <div className="pull-right">Giá phụ thuộc vào nhớt bạn chọn</div> :
+                                                                                {SERVICE_THAY_NHOT.indexOf(item["id"]) >= 0 ? <div className="pull-right chonnhot">Chọn nhớt</div> :
                                                                                     <div className="price pull-right">{item["price"] == 0 ? "Liên hệ" : PriceUtils.toThousand(item["price"])}</div>}
                                                                             </div>
                                                                         </div>
@@ -228,7 +230,7 @@ class StepTHREE extends Component {
                                                     </div>
                                                     <hr />
                                                     <div className="payment form-group row">
-                                                        {(this.state.methodPaymentId == 2 || this.state.methodPaymentId == 3) && <div style={{ textAlign: 'center', color: 'red' }}>Phương thức chưa được support</div>}
+                                                        {(this.state.methodPaymentId == 2 || this.state.methodPaymentId == 3) && <div style={{ textAlign: 'center', color: 'red' }}>Tính năng đang nâng cấp</div>}
                                                         <div className="col-md-3 text-left">Chọn hình thức thanh toán:</div>
                                                         <div className="col-md-9">
                                                             <a href="javascript:void(0)" onClick={e => this.selectMethodPayment(1)} className={this.state.methodPaymentId == 1 ? 'active' : ''}><i className="fa fa-money" />Tiền mặt</a>
