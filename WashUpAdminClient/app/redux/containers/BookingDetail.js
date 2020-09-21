@@ -7,13 +7,19 @@ import Assignment from '../../components/Assignment'
 import AddService from '../../components/AddService'
 import PriceUtils from '../../utils/PriceUtils'
 import * as Order from '../../constants/order';
+import UpdateStatusModal from './order/UpdateStatusModal'
+import RejectOrderModal from './order/RejectOrderModal'
 
 class BookingDetail extends React.Component {
     constructor(props) {
         super(props)
         this.getBookingIdFromParams = this.getBookingIdFromParams.bind(this);
         this.state = {
-            isEditService: false
+            isEditService: false,
+            isShowFormSSOrder: false,
+            isShowFormCancelOrder: false,
+            id: 0,
+            currentStatus: 0
         }
         this.onClickEditService = this.onClickEditService.bind(this)
         this.onClickExitEditing = this.onClickExitEditing.bind(this)
@@ -21,6 +27,10 @@ class BookingDetail extends React.Component {
         this.onClickAcceptOrder = this.onClickAcceptOrder.bind(this);
         this.onClickSuceesOrder = this.onClickSuceesOrder.bind(this)
         this.onClickFailedOrder = this.onClickFailedOrder.bind(this)
+        this.cancelSSOrderModal = this.cancelSSOrderModal.bind(this)
+        this.cancelRejectOrderModal = this.cancelRejectOrderModal.bind(this)
+        this.okSSOrderModal = this.okSSOrderModal.bind(this)
+        this.okCancelOrderModal = this.okCancelOrderModal.bind(this)
     }
 
     async componentDidMount() {
@@ -30,12 +40,34 @@ class BookingDetail extends React.Component {
 
 
     onClickSuceesOrder(id, currentStatus) {
-        this.props.appActions.updateStatus(id, currentStatus, Order.Status.COMPLETED.value);
+        this.setState({isShowFormSSOrder: true, id: id, currentStatus: currentStatus})
     }
 
     onClickFailedOrder(id, currentStatus) {
-        this.props.appActions.updateStatus(id, currentStatus, Order.Status.CANCELED.value);
+        this.setState({isShowFormCancelOrder: true, id: id, currentStatus: currentStatus})
     }
+
+    cancelSSOrderModal() {
+        this.setState({isShowFormSSOrder: false, id: 0, currentStatus: 0})
+    }
+
+    cancelRejectOrderModal() {
+        this.setState({isShowFormCancelOrder: false, id: 0, currentStatus: 0})
+    }
+
+    okSSOrderModal(note) {
+        console.log(note)
+        this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.COMPLETED.value);
+        this.setState({isShowFormSSOrder: false, id: 0, currentStatus: 0})
+
+    }
+
+    okCancelOrderModal(note) {
+        console.log(note)
+        this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.CANCELED.value);
+        this.setState({isShowFormCancelOrder: false, id: 0, currentStatus: 0})
+    }
+
 
     getBookingIdFromParams() {
         let params = this.props.match.params;
@@ -244,6 +276,8 @@ class BookingDetail extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            {this.state.isShowFormSSOrder && <UpdateStatusModal ok={this.okSSOrderModal} cancel={this.cancelSSOrderModal}/>}
+                            {this.state.isShowFormCancelOrder && <RejectOrderModal ok={this.okCancelOrderModal} cancel={this.cancelRejectOrderModal}/>}
                         </div>
                     }
                     {this.state.isEditService && listServicesId &&

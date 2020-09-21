@@ -4,6 +4,9 @@ import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/app'
 import TimeUtils from '../../../utils/TimeUtils'
 import Pagination from 'antd/es/pagination'
+import UpdateStatusModal from './UpdateStatusModal'
+import RejectOrderModal from './RejectOrderModal'
+
 
 class Pending extends React.Component {
     constructor(props) {
@@ -11,9 +14,15 @@ class Pending extends React.Component {
         this.onCLickApproved = this.onCLickApproved.bind(this);
         this.onCLickReject = this.onCLickReject.bind(this);
         this.state = {
-            pageNumber: 1
+            pageNumber: 1,
+            id: 0,
+            rejectId: 0
         }
         this.changePageNumber = this.changePageNumber.bind(this);
+        this.okModal = this.okModal.bind(this);
+        this.cancelModal = this.cancelModal.bind(this);
+        this.okRejectModal = this.okRejectModal.bind(this);
+        this.cancelRejectModal = this.cancelRejectModal.bind(this);
     }
 
     componentDidMount() {
@@ -25,16 +34,37 @@ class Pending extends React.Component {
     }
 
     onCLickApproved(id) {
-        this.props.appActions.updateStatus(id, 1, 2);
+        this.setState({id: id})
+        // this.props.appActions.updateStatus(id, 1, 2);
     }
 
     onCLickReject(id) {
-        this.props.appActions.updateStatus(id, 1, 4);
+        this.setState({rejectId: id})
+        // this.props.appActions.updateStatus(id, 1, 4);
     }
 
     changePageNumber(pageNumber, pageSize) {
         this.setState({pageNumber, pageNumber})
         this.props.appActions.getOrdersByStatus(1, pageNumber - 1, 10)
+    }
+
+    okRejectModal(note) {
+        this.props.appActions.updateStatus(this.state.rejectId, 1, 4);
+        this.setState({rejectId: 0})
+    }
+
+    cancelRejectModal(note) {
+        this.setState({rejectId: 0})
+    }
+
+    okModal(note) {
+        console.log(note)
+        this.props.appActions.updateStatus(this.state.id, 1, 2);
+        this.setState({id: 0})
+    }
+
+    cancelModal() {
+        this.setState({id: 0})
     }
 
 
@@ -94,7 +124,7 @@ class Pending extends React.Component {
                                                 {bookings && bookings.map((item, index) => {
                                                     return (
                                                         <tr key={item["id"]}>
-                                                            <td>{index + 1}</td>
+                                                            <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td>{item["pickUpAddress"]}</td>
@@ -121,6 +151,8 @@ class Pending extends React.Component {
                         </div>
                     </div>
                 </div>
+                {this.state.id != 0 && <UpdateStatusModal ok={this.okModal} cancel={this.cancelModal} /> }
+                {this.state.rejectId != 0 && <RejectOrderModal ok={this.okRejectModal} cancel={this.cancelRejectModal}  />}
             </div>
         )
     }

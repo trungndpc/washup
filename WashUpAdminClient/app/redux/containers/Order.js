@@ -6,6 +6,7 @@ import TimeUtils from '../../utils/TimeUtils'
 import * as OrderConstant from '../../constants/order';
 import Pagination from 'antd/es/pagination'
 import PriceUtils from '../../utils/PriceUtils'
+import UpdateStatusModal from './order/UpdateStatusModal';
 
 class Order extends React.Component {
     constructor(props) {
@@ -76,6 +77,7 @@ class Order extends React.Component {
                                                     <th>#</th>
                                                     <th>Tên</th>
                                                     <th>SDT</th>
+                                                    <th>Biển số</th>
                                                     <th>Lịch đặt</th>
                                                     <th>Giá</th>
                                                     <th>Trạng thái</th>
@@ -101,9 +103,10 @@ class Order extends React.Component {
                                                     }
                                                     return (
                                                         <tr onClick={() => { this.onClickDetail(item["id"]) }} key={item["id"]}>
-                                                            <td>{index + 1}</td>
+                                                            <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
+                                                            <td>{item["licensePlate"]}</td>
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
                                                             <td>{item["totalPrice"] == 0 ? "Cập nhật" : PriceUtils.toThousand(item["totalPrice"])}</td>
                                                             <td>{spanElement}</td>

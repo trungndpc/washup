@@ -5,14 +5,16 @@ import * as appActions from '../../actions/app'
 import TimeUtils from '../../../utils/TimeUtils'
 import PriceUtils from '../../../utils/PriceUtils'
 import Pagination from 'antd/es/pagination'
-
+import DatePicker from 'react-datepicker'
 class Confirmed extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            pageNumber: 1
+            pageNumber: 1,
+            date: new Date()
         }
         this.changePageNumber = this.changePageNumber.bind(this);
+        this.setStartDate = this.setStartDate.bind(this)
     }
 
     componentDidMount() {
@@ -24,8 +26,13 @@ class Confirmed extends React.Component {
     }
 
     changePageNumber(pageNumber, pageSize) {
-        this.setState({pageNumber, pageNumber})
+        this.setState({ pageNumber, pageNumber })
         this.props.appActions.getOrdersByStatus(2, pageNumber - 1, 10)
+    }
+
+
+    setStartDate(date) {
+        this.setState({date: date})
     }
 
 
@@ -33,6 +40,11 @@ class Confirmed extends React.Component {
     render() {
         const orderByStatus = this.props.app.orderByStatus;
         const bookings = orderByStatus && orderByStatus.storeOrders;
+
+        const CustomInputDate = ({ value, onClick }) => (
+            <button type="button" onClick={onClick} className="btn btn-primary notika-gp-primary waves-effect">{value}</button>
+        );
+
         //DEBUG
         return (
             <div>
@@ -67,6 +79,9 @@ class Confirmed extends React.Component {
                 <div className="normal-table-area">
                     <div className="container">
                         <div className="row">
+                            <div className="col-lg-12" style={{ textAlign: 'right' }}>
+                                <DatePicker selected={this.state.date} onChange={this.setStartDate} customInput={<CustomInputDate />} />
+                            </div>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div className="normal-table-list mg-t-30">
                                     <div className="bsc-tbl-st">
@@ -86,13 +101,13 @@ class Confirmed extends React.Component {
                                                 {bookings && bookings.map((item, index) => {
                                                     return (
                                                         <tr key={item["id"]}>
-                                                            <td>{index + 1}</td>
+                                                            <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
-                                                            <td>{!item["user"] ? <span style={{color: '#fff', backgroundColor: '#FFC107', padding: '3px 5px' }}>Chưa phân công</span> : <span style={{color: '#fff', backgroundColor: '#8BC34A',padding: '3px 5px' }}>Chờ chấp nhận</span>}</td>
+                                                            <td>{!item["user"] ? <span style={{ color: '#fff', backgroundColor: '#FFC107', padding: '3px 5px' }}>Chưa phân công</span> : <span style={{ color: '#fff', backgroundColor: '#8BC34A', padding: '3px 5px' }}>Chờ chấp nhận</span>}</td>
                                                             <td>{PriceUtils.toThousand(item["totalPrice"])}</td>
                                                             <td>{TimeUtils.diffTime(item["createdOn"])}</td>
-                                                            <td><button onClick={() => {this.onClickDetail(item["id"])}} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-next"></i></button></td>
+                                                            <td><button onClick={() => { this.onClickDetail(item["id"]) }} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-next"></i></button></td>
                                                         </tr>
                                                     )
                                                 })}

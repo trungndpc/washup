@@ -31,7 +31,7 @@ import './resources/js/jquery.meanmenu.js'
 import './resources/js/autosize.min.js'
 import './resources/js/bootstrap.min'
 import './resources/js/main.js'
-
+import "react-datepicker/dist/react-datepicker.css";
 
 const store = configureStore()
 

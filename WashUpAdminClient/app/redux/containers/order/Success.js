@@ -82,7 +82,7 @@ class Success extends React.Component {
                                                 {bookings && bookings.map((item, index) => {
                                                     return (
                                                         <tr key={item["id"]}>
-                                                            <td>{index + 1}</td>
+                                                            <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td><span style={{color: '#fff', padding: '3px 5px', backgroundColor: '#00c292'}}>{PriceUtils.toThousand(item["totalPrice"])}</span></td>

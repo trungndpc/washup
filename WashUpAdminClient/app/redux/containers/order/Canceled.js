@@ -83,7 +83,7 @@ class Canceled extends React.Component {
                                                 {bookings && bookings.map((item, index) => {
                                                     return (
                                                         <tr key={item["id"]}>
-                                                            <td>{index + 1}</td>
+                                                            <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td>Quá xa, Liên lạc không được</td>

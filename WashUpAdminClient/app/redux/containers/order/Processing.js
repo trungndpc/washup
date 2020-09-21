@@ -86,7 +86,7 @@ class Processing extends React.Component {
                                                 {bookings && bookings.map((item, index) => {
                                                     return (
                                                         <tr onClick={() => {this.onClickDetail(item["id"])}}  key={item["id"]}>
-                                                            <td>{index + 1}</td>
+                                                            <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td>Nguyễn Đình Trung</td>
