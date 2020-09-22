@@ -30,7 +30,7 @@ function* requestGetScheduleTodayAsync() {
 }
 
 function* requestGetServiceAsync(action) {
-  const resp = yield call(getServices, action.transportId, action.typeId)
+  const resp = yield call(getServices, action.transportId, action.typeId, action.brandSeriesId)
   yield put({ type: type.APP.GET_SERVICE_END, payload: resp.data})
 }
 
@@ -108,9 +108,9 @@ function getScheduleToday() {
   });
 }
 
-function getServices(transportId, typeId) {
+function getServices(transportId, typeId, brandSeriesId) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?categories=` + transportId + `&types=` + typeId, resolve, reject);
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?categories=` + transportId + `&types=` + typeId + `&brandSeriesId=` + brandSeriesId, resolve, reject);
   });
 }
 

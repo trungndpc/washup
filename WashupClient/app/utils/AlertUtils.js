@@ -24,7 +24,7 @@ export default class AlertUtils {
     Alert.error(message, {
       position: 'top-right',
       effect: 'slide',
-      timeout: 4000,
+      timeout: 15000,
       offset: 50
     });
   }

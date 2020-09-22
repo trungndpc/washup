@@ -13,11 +13,12 @@ export function getScheduleToday() {
   return { type: type.APP.GET_SCHEDULE_TODAY_ASYNC }
 }
 
-export function getServices(transportId, typeId) {
+export function getServices(transportId, typeId, brandSeriesId) {
   return {
     type: type.APP.GET_SERVICE_ASYNC,
     transportId: transportId,
-    typeId: typeId
+    typeId: typeId,
+    brandSeriesId: brandSeriesId
   }
 }
 
@@ -29,8 +30,6 @@ export function booking(data) {
 }
 
 export function putInforBooking(data) {
-  console.log("put data")
-  console.log(data)
   return {
     type: type.APP.PUT_INFO_BOOKING,
     data: data

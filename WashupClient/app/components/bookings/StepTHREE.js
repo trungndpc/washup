@@ -28,7 +28,7 @@ class StepTHREE extends Component {
 
     componentWillMount() {
         let inforBooking = { ...this.props.app.inforBooking }
-        this.props.appActions.getServices(inforBooking["transportId"], TYPE_SERVICE.CO_BAN);
+        this.props.appActions.getServices(inforBooking["transportId"], TYPE_SERVICE.CO_BAN, inforBooking["brandSeries"]["id"]);
     }
 
     open() {
@@ -94,7 +94,7 @@ class StepTHREE extends Component {
             tabServiceId: tabServiceId,
         })
         let inforBooking = { ...this.props.app.inforBooking }
-        this.props.appActions.getServices(inforBooking["transportId"], tabServiceId);
+        this.props.appActions.getServices(inforBooking["transportId"], tabServiceId, inforBooking["brandSeries"]["id"]);
     }
 
     removeElement(array, elem) {
@@ -195,7 +195,7 @@ class StepTHREE extends Component {
                                                 <div className="calendar_content">
                                                     <div className="service_content scrollbar" id="scroll-3">
                                                         {(services) ?
-                                                            <div className="force-overflow">
+                                                            <div className="force-overflow-2">
                                                                 {services.map((item) => {
 
                                                                     let isChecked = this.state.serviceIds.indexOf(item["id"]) >= 0

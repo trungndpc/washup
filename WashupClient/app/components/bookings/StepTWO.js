@@ -87,8 +87,10 @@ class StepTWO extends Component {
         })
     }
 
-    _selectSchedule(time) {
-        this.setState({ timeScheduleSelected: time })
+    _selectSchedule(item) {
+        if (item["status"] == 1) {
+            this.setState({ timeScheduleSelected: item["time"] })
+        }
     }
 
     _handleClickOutside(event) {
@@ -143,9 +145,9 @@ class StepTWO extends Component {
                                                             className = className + " active";
                                                         }
                                                         return (
-                                                            <div onClick={() => this._selectSchedule(item["time"])} key={item["time"]} className={className}>
+                                                            <div onClick={() => this._selectSchedule(item)} key={item["time"]} className={className}>
                                                                 <span className="name">{TimeUtils.timeSchedule(item["time"])}</span>
-                                                                <span className="status">Đặt ngay</span><i className="fa" />
+                                                                <span className="status">{item["status"] == 1 ? "Đặt ngay" : "Đã đầy"}</span><i className="fa" />
                                                             </div>
                                                         )
                                                     })}

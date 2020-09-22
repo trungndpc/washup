@@ -6,7 +6,7 @@ const initialState = {
   brands: {},
   brandSeries: {},
 
-  storeServices : {},
+  storeServices: {},
 
   schedules: {},
   services: {},
@@ -65,16 +65,22 @@ export default function app(state = initialState, action) {
     }
     case type.APP.BOOKING_END: {
       newState.isLoadingBooking = false;
-      if (action.payload.data.id) {
-        AlertUtils.showSuccess("Bạn đã booking thành công!")
-        newState.confirmBooking = action.payload.data;
-        newState.inforBooking = null;
+      let payload = action.payload;
+      if (payload.errors && payload.errors[0]) {
+        AlertUtils.showError(payload.errors[0].errorMsg)
+      } else {
+        if (payload.data.id) {
+          AlertUtils.showSuccess("Bạn đã booking thành công!")
+          newState.confirmBooking = payload.data;
+          newState.inforBooking = null;
+        }
       }
+
       break;
     }
     case type.APP.GET_ACCESSORIES_END: {
-        newState.topAccessories = action.payload;
-        break;
+      newState.topAccessories = action.payload;
+      break;
     }
     case type.APP.GET_SLICE_ACCESSORIES_END: {
       newState.accessories = action.payload;
