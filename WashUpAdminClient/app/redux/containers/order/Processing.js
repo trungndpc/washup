@@ -73,7 +73,7 @@ class Processing extends React.Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>Mã đơn</th>
                                                     <th>Tên</th>
                                                     <th>SDT</th>
                                                     <th>Nhân viên</th>
@@ -92,7 +92,7 @@ class Processing extends React.Component {
                                                             <td>Nguyễn Đình Trung</td>
                                                             <td>{item["pickUpAddress"]}</td>
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
-                                                            <td>{TimeUtils.diffTime(item["createdOn"])}</td>
+                                                            <td>{TimeUtils.toFormat(item["createdOn"]* 1000)}</td>
                                                         </tr>
                                                     )
                                                 })}

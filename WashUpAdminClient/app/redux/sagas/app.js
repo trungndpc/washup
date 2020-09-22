@@ -32,7 +32,7 @@ function* requestOrderByStatus(action) {
 }
 
 function* requestUpdateStatusAsync(action) {
-  const resp = yield call(postUpdateStatus, action.id, action.status);
+  const resp = yield call(postUpdateStatus, action.id, action.status, action.note);
   AlertUtils.showSuccess("Cập nhật trạng thái đơn hàng thành công")
   const respLoadData = yield call(getOrderByStatus, action.currentStatus, 0, 10)
   const respDetailOrder = yield call(getBookingDetail, action.id);
@@ -41,7 +41,7 @@ function* requestUpdateStatusAsync(action) {
 }
 
 function* requestAssignEmployeeAsync(action) {
-  const resp = yield call(postAssignEmployee, action.orderId, action.employeeId);
+  const resp = yield call(postAssignEmployee, action.orderId, action.employeeId, action.note);
   if (!resp.errorCode) {
     AlertUtils.showSuccess("Phân công nhân viên thành công,...")
     const resp = yield call(getBookingDetail, action.orderId);
@@ -60,7 +60,7 @@ function* requestGetEmployeeAsync() {
 }
 
 function* requestGetServiceAsync(action) {
-  const resp = yield call(getServices, action.transportId, action.groupServiceId)
+  const resp = yield call(getServices, action.transportId, action.groupServiceId, action.brandSeriesId)
   yield put({ type: type.APP.GET_SERVICE_END, payload: resp.data })
 }
 
@@ -97,11 +97,11 @@ function getOrderByStatus(status, page, pageSize) {
   });
 }
 
-function postUpdateStatus(id, status) {
+function postUpdateStatus(id, status, note) {
   const body = {
     "storeOrderId": id,
     "status": status,
-
+    "operatorNote": note
   }
 
   return new Promise((resolve, reject) => {
@@ -111,14 +111,15 @@ function postUpdateStatus(id, status) {
 
 function getEmployee() {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/users/user-by-permission?permission=1`, resolve, reject);
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/users/user-by-permission?permission=2`, resolve, reject);
   });
 }
 
-function postAssignEmployee(orderId, employeeId) {
+function postAssignEmployee(orderId, employeeId, note ) {
   const body = {
     "storeOrderId": orderId,
     "userId": employeeId,
+    "operatorNote" : note
   }
 
   return new Promise((resolve, reject) => {
@@ -140,9 +141,9 @@ function postUpdateOrder(orderId, data) {
   });
 }
 
-function getServices(transportId, groupServiceId) {
+function getServices(transportId, groupServiceId, brandSeriesId) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?category=` + transportId + `&type=` + groupServiceId, resolve, reject);
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?categories=` + transportId + `&types=` + groupServiceId + `&brandSeriesId=` + brandSeriesId, resolve, reject);
   });
 }
 

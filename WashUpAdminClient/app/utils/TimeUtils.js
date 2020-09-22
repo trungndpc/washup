@@ -33,6 +33,22 @@ class TimeUtils {
     return [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/');
   }
 
+  static toDay(time) {
+    let date = new Date(time) 
+    if (!date) return '';
+    return [date.getDate(), date.getMonth() + 1, date.getFullYear()].join('/');
+  }
+
+  static toTime(time) {
+    let date = new Date(time)
+    if (!date) return '';
+    return date.getHours() + "h:" + date.getMinutes() + "'";
+  }
+
+  static toFormat(time) {
+    return this.toTime(time) + " - " + this.toDay(time)
+  }
+
   static timeSchedule(time) {
     var date = new Date(time * 1000);
     var hours = date.getHours();

@@ -56,15 +56,13 @@ class BookingDetail extends React.Component {
     }
 
     okSSOrderModal(note) {
-        console.log(note)
-        this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.COMPLETED.value);
+        this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.COMPLETED.value, note);
         this.setState({isShowFormSSOrder: false, id: 0, currentStatus: 0})
 
     }
 
     okCancelOrderModal(note) {
-        console.log(note)
-        this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.CANCELED.value);
+        this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.CANCELED.value, note);
         this.setState({isShowFormCancelOrder: false, id: 0, currentStatus: 0})
     }
 
@@ -89,7 +87,7 @@ class BookingDetail extends React.Component {
         })
     }
 
-    onClickSave() {
+    onClickSave(note) {
         this.setState({
             isEditService: false
         })
@@ -205,8 +203,8 @@ class BookingDetail extends React.Component {
                                                                         <span>Nhân viên</span>
                                                                     </div>
                                                                     <div className="comp-tl">
-                                                                        <h2><i className="notika-icon notika-support"></i> Nguyễn Đình Trung  [CHƯA CHẤP NHẬN]</h2>
-                                                                        <p><i className="notika-icon notika-map"></i> 0972797184</p>
+                                                                        <h2><i className="notika-icon notika-support"></i>{booking["user"]["fullName"]}</h2>
+                                                                        <p><i className="notika-icon notika-map"></i> [Dữ liệu chưa có]</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -282,7 +280,7 @@ class BookingDetail extends React.Component {
                     }
                     {this.state.isEditService && listServicesId &&
                         <div className="container">
-                            <AddService ref={(e) => this.updateOrderFormRef = e} timeSchedule={booking["timeSchedule"]} listCurrentServices={listServicesId} transportId={booking["brandSeries"]["category"]} {...this.props} />
+                            <AddService ref={(e) => this.updateOrderFormRef = e} timeSchedule={booking["timeSchedule"]} listCurrentServices={listServicesId} brandSeriesId={booking["brandSeriesId"]} transportId={booking["brandSeries"]["category"]} {...this.props} />
                         </div>}
                 </div>
                 }

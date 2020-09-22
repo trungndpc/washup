@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TimeUtils from '../utils/TimeUtils'
+import {TYPE_SERVICE} from '../constants/Constants'
 
 class AddService extends Component {
 
@@ -8,6 +9,7 @@ class AddService extends Component {
         this.state = {
             tabServiceId: 1,
             tabScheduleId: 1,
+            brandSeriesId: this.props.brandSeriesId,
             listServiceId : this.props.listCurrentServices,
             timeSchedule: this.props.timeSchedule
         }
@@ -19,14 +21,14 @@ class AddService extends Component {
     }
 
     componentDidMount() {
-        this.props.appActions.getServices(this.props.transportId, this.state.tabServiceId);
+        this.props.appActions.getServices(this.props.transportId, this.state.tabServiceId, this.state.brandSeriesId);
         this.props.appActions.getSchedule();
     }
 
 
     onClickTabService(id) {
         this.setState({ tabServiceId: id })
-        this.props.appActions.getServices(this.props.transportId, id);
+        this.props.appActions.getServices(this.props.transportId, id, this.state.brandSeriesId);
     }
 
     onChangeTabSchedule(id) {
@@ -84,7 +86,7 @@ class AddService extends Component {
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div className="form-group ic-cmp-int">
                                         <div className="form-ic-cmp">
-                                            <i className="notika-icon notika-wifi" />
+                                            <i className="notika-icon notika-support" />
                                         </div>
                                         <div className="nk-int-st">
                                             <input type="text" ref={e => this.fullNameInputRef = e} defaultValue={booking["fullName"]} className="form-control input-sm"/>
@@ -94,7 +96,7 @@ class AddService extends Component {
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div className="form-group ic-cmp-int">
                                         <div className="form-ic-cmp">
-                                            <i className="notika-icon notika-wifi" />
+                                            <i className="notika-icon notika-map" />
                                         </div>
                                         <div className="nk-int-st">
                                             <input type="text" ref={e => this.addressInputRef = e} defaultValue={booking["pickUpAddress"]} className="form-control input-sm"  />
@@ -114,9 +116,9 @@ class AddService extends Component {
                             </div>
                             <div className="widget-tabs-list">
                                 <ul className="nav nav-tabs">
-                                    <li className={this.state.tabServiceId == 1 ? "active" : ""}><a onClick={() => this.onClickTabService(1)} data-toggle="tab" href="#home">Vệ sinh cơ bản</a></li>
-                                    <li className={this.state.tabServiceId == 3 ? "active" : ""}><a onClick={() => this.onClickTabService(3)} data-toggle="tab" href="#menu1">Làm đẹp</a></li>
-                                    <li className={this.state.tabServiceId == 2 ? "active" : ""}><a onClick={() => this.onClickTabService(2)} data-toggle="tab" href="#menu2">Bảo dưởng nhanh</a></li>
+                                    <li className={this.state.tabServiceId == TYPE_SERVICE.CO_BAN ? "active" : ""}><a onClick={() => this.onClickTabService(TYPE_SERVICE.CO_BAN)} data-toggle="tab" href="#home">Cơ bản</a></li>
+                                    <li className={this.state.tabServiceId == TYPE_SERVICE.NANG_CAO ? "active" : ""}><a onClick={() => this.onClickTabService(TYPE_SERVICE.NANG_CAO)} data-toggle="tab" href="#menu1">Nâng cao</a></li>
+                                    <li className={this.state.tabServiceId == TYPE_SERVICE.COMBO_TAINHA ? "active" : ""}><a onClick={() => this.onClickTabService(TYPE_SERVICE.COMBO_TAINHA)} data-toggle="tab" href="#menu2">Combo</a></li>
                                 </ul>
                                 <div className="tab-content tab-custom-st">
                                     <div id="home" className="tab-pane fade in active">

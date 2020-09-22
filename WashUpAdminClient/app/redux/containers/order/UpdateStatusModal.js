@@ -40,7 +40,7 @@ class UpdateStatusModal extends React.Component {
                                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div className="form-group">
                                                     <div className="nk-int-st">
-                                                        <textarea ref={e => this.noteRef = e} className="form-control" rows={2} placeholder="Let us type some lorem ipsum...." defaultValue={""} />
+                                                        <textarea ref={e => this.noteRef = e} className="form-control" rows={2} placeholder="Bạn có thể ghi chú thêm tại đây" defaultValue={""} />
                                                     </div>
                                                 </div>
                                             </div>

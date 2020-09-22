@@ -88,7 +88,7 @@ class Confirmed extends React.Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>Mã đơn</th>
                                                     <th>Tên</th>
                                                     <th>SDT</th>
                                                     <th>Trạng thái</th>
@@ -106,7 +106,7 @@ class Confirmed extends React.Component {
                                                             <td>{item["phone"]}</td>
                                                             <td>{!item["user"] ? <span style={{ color: '#fff', backgroundColor: '#FFC107', padding: '3px 5px' }}>Chưa phân công</span> : <span style={{ color: '#fff', backgroundColor: '#8BC34A', padding: '3px 5px' }}>Chờ chấp nhận</span>}</td>
                                                             <td>{PriceUtils.toThousand(item["totalPrice"])}</td>
-                                                            <td>{TimeUtils.diffTime(item["createdOn"])}</td>
+                                                            <td>{TimeUtils.toFormat(item["createdOn"]* 1000)}</td>
                                                             <td><button onClick={() => { this.onClickDetail(item["id"]) }} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-next"></i></button></td>
                                                         </tr>
                                                     )

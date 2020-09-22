@@ -49,7 +49,7 @@ class Pending extends React.Component {
     }
 
     okRejectModal(note) {
-        this.props.appActions.updateStatus(this.state.rejectId, 1, 4);
+        this.props.appActions.updateStatus(this.state.rejectId, 1, 4, note);
         this.setState({rejectId: 0})
     }
 
@@ -59,7 +59,7 @@ class Pending extends React.Component {
 
     okModal(note) {
         console.log(note)
-        this.props.appActions.updateStatus(this.state.id, 1, 2);
+        this.props.appActions.updateStatus(this.state.id, 1, 2, note);
         this.setState({id: 0})
     }
 
@@ -111,7 +111,7 @@ class Pending extends React.Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>Mã đơn</th>
                                                     <th>Tên</th>
                                                     <th>SDT</th>
                                                     <th>Địa chỉ</th>
@@ -129,7 +129,7 @@ class Pending extends React.Component {
                                                             <td>{item["phone"]}</td>
                                                             <td>{item["pickUpAddress"]}</td>
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
-                                                            <td>{TimeUtils.diffTime(item["createdOn"])}</td>
+                                                            <td>{TimeUtils.toFormat(item["createdOn"]* 1000)}</td>
                                                             <td style={{ width: '120px' }}>
                                                                 <div style={{ display: 'inline-block', marginRight: '10px' }}>
                                                                     <button onClick={() => { this.onCLickApproved(item["id"]) }} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-checked"></i></button>

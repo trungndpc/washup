@@ -17,7 +17,8 @@ class Assignment extends Component {
             console.log("Vui lòng chọn nhân viên")
         } else {
             let employeeId = this.employeeInputRef.select.state.selectValue[0].value;
-            this.props.appActions.assignEmployee(this.props.orderId, employeeId)
+            let note = this.noteInputRef && this.noteInputRef.value;
+            this.props.appActions.assignEmployee(this.props.orderId, employeeId, note)
         }
     }
 
@@ -59,7 +60,7 @@ class Assignment extends Component {
                                     </div>
                                     <div className="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                                         <div className="nk-int-st">
-                                            <input type="text" className="form-control input-sm" placeholder="....." />
+                                            <input type="text" ref={e => this.noteInputRef = e} className="form-control input-sm" placeholder="Ghi chú cho nhân viên" />
                                         </div>
                                     </div>
                                 </div>

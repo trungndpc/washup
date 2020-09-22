@@ -110,7 +110,7 @@ class Order extends React.Component {
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
                                                             <td>{item["totalPrice"] == 0 ? "Cập nhật" : PriceUtils.toThousand(item["totalPrice"])}</td>
                                                             <td>{spanElement}</td>
-                                                            <td>{TimeUtils.diffTime(item["createdOn"])}</td>
+                                                            <td>{TimeUtils.toFormat(item["createdOn"]* 1000)}</td>
                                                         </tr>
                                                     )
                                                 })}

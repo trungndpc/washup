@@ -28,6 +28,19 @@ class Canceled extends React.Component {
         this.props.appActions.getOrdersByStatus(4, pageNumber - 1, 10)
     }
 
+    findReason(notes) {
+        let rs = ""
+        if (notes) {
+            notes.forEach(element => {
+                if (element["statusTo"] == 4) {
+                    rs = element["content"]
+                }
+            });
+        }
+        console.log(rs)
+        return rs;
+    }
+
 
     render() {
         const orderByStatus = this.props.app.orderByStatus;
@@ -72,7 +85,7 @@ class Canceled extends React.Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>Mã đơn</th>
                                                     <th>Tên</th>
                                                     <th>SDT</th>
                                                     <th>Lý do</th>
@@ -86,7 +99,7 @@ class Canceled extends React.Component {
                                                             <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
-                                                            <td>Quá xa, Liên lạc không được</td>
+                                                            <td>{this.findReason(item["operatorNotes"])}</td>
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
                                                         </tr>
                                                     )

@@ -34,6 +34,7 @@ export function updateStatus(id, currentStatus, status, operatorNote ) {
     id: id,
     status: status,
     currentStatus: currentStatus,
+    note: operatorNote
   }
 }
 
@@ -44,19 +45,21 @@ export function getEmployee() {
   }
 }
 
-export function assignEmployee(orderId, employeeId) {
+export function assignEmployee(orderId, employeeId, note) {
   return {
     type: type.APP.ASSIGN_EMPLOYEE_ASYNC,
     orderId: orderId,
-    employeeId: employeeId
+    employeeId: employeeId,
+    note : note
   }
 }
 
-export function getServices(transportId, groupServiceId) {
+export function getServices(transportId, groupServiceId, brandSeriesId) {
   return {
     type: type.APP.GET_SERVICE_ASYNC,
     transportId: transportId,
-    groupServiceId: groupServiceId
+    groupServiceId: groupServiceId,
+    brandSeriesId: brandSeriesId
   }
 }
 
@@ -66,11 +69,12 @@ export function getSchedule() {
   }
 }
 
-export function updateOrder(id, data) {
+export function updateOrder(id, data, note) {
   return {
     type: type.APP.UPDATE_ORDER_ASYNC,
     data: data,
-    id: id
+    id: id,
+    note: note
   }
 }
 
