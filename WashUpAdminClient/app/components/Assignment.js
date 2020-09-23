@@ -55,12 +55,12 @@ class Assignment extends Component {
                         <div className="form-example-int form-horizental mg-t-15">
                             <div className="form-group">
                                 <div className="row">
-                                    <div className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    <div style={{marginBottom: '10px'}} className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                                         <label className="hrzn-fm">Ghi chú</label>
                                     </div>
                                     <div className="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                                         <div className="nk-int-st">
-                                            <input type="text" ref={e => this.noteInputRef = e} className="form-control input-sm" placeholder="Ghi chú cho nhân viên" />
+                                            <input  style={{paddingLeft: '10px'}} type="text" ref={e => this.noteInputRef = e} className="form-control input-sm" placeholder="Ghi chú cho nhân viên" />
                                         </div>
                                     </div>
                                 </div>

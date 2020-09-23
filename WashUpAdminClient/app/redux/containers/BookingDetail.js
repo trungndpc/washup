@@ -9,6 +9,7 @@ import PriceUtils from '../../utils/PriceUtils'
 import * as Order from '../../constants/order';
 import UpdateStatusModal from './order/UpdateStatusModal'
 import RejectOrderModal from './order/RejectOrderModal'
+import { Container, Button, Link } from 'react-floating-action-button'
 
 class BookingDetail extends React.Component {
     constructor(props) {
@@ -40,30 +41,30 @@ class BookingDetail extends React.Component {
 
 
     onClickSuceesOrder(id, currentStatus) {
-        this.setState({isShowFormSSOrder: true, id: id, currentStatus: currentStatus})
+        this.setState({ isShowFormSSOrder: true, id: id, currentStatus: currentStatus })
     }
 
     onClickFailedOrder(id, currentStatus) {
-        this.setState({isShowFormCancelOrder: true, id: id, currentStatus: currentStatus})
+        this.setState({ isShowFormCancelOrder: true, id: id, currentStatus: currentStatus })
     }
 
     cancelSSOrderModal() {
-        this.setState({isShowFormSSOrder: false, id: 0, currentStatus: 0})
+        this.setState({ isShowFormSSOrder: false, id: 0, currentStatus: 0 })
     }
 
     cancelRejectOrderModal() {
-        this.setState({isShowFormCancelOrder: false, id: 0, currentStatus: 0})
+        this.setState({ isShowFormCancelOrder: false, id: 0, currentStatus: 0 })
     }
 
     okSSOrderModal(note) {
         this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.COMPLETED.value, note);
-        this.setState({isShowFormSSOrder: false, id: 0, currentStatus: 0})
+        this.setState({ isShowFormSSOrder: false, id: 0, currentStatus: 0 })
 
     }
 
     okCancelOrderModal(note) {
         this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.CANCELED.value, note);
-        this.setState({isShowFormCancelOrder: false, id: 0, currentStatus: 0})
+        this.setState({ isShowFormCancelOrder: false, id: 0, currentStatus: 0 })
     }
 
 
@@ -112,6 +113,20 @@ class BookingDetail extends React.Component {
         }
         return (
             <div>
+                 <Container >
+                            <Link href="#"
+                                tooltip="Create note link"
+                                icon="fa fa-sticky-note" />
+                            <Link href="#"
+                                tooltip="Add user link"
+                                icon="fa fa-user-plus" />
+{/* 
+                            <Button
+                                tooltip="The big plus button!"
+                                icon="fa fa-plus"
+                                rotate={true}
+                                onClick={() => alert('FAB Rocks!')} /> */}
+                        </Container>
                 {!booking && <div style={{ textAlign: 'center', fontSize: '40px', fontWeight: '600' }} >ID INVALID</div>}
                 {booking && <div>
                     <div className="breadcomb-area">
@@ -126,8 +141,8 @@ class BookingDetail extends React.Component {
                                                         <i className="notika-icon notika-windows" />
                                                     </div>
                                                     <div className="breadcomb-ctn">
-                                                        <h2>Booking Detail</h2>
-                                                        <p>#{booking["id"]}</p>
+                                                        <h2>Chi tiết đơn</h2>
+                                                        <p>#{booking["orderNumber"]}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -247,7 +262,6 @@ class BookingDetail extends React.Component {
                                                                     <tr>
                                                                         <th>#</th>
                                                                         <th>Service</th>
-                                                                        <th>Quantity</th>
                                                                         <th>Description</th>
                                                                         <th>Price</th>
                                                                     </tr>
@@ -258,7 +272,6 @@ class BookingDetail extends React.Component {
                                                                             <tr key={item["id"]}>
                                                                                 <td>{index + 1}</td>
                                                                                 <td>{item["name"]}</td>
-                                                                                <td>1</td>
                                                                                 <td></td>
                                                                                 <td></td>
                                                                             </tr>
@@ -274,8 +287,8 @@ class BookingDetail extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {this.state.isShowFormSSOrder && <UpdateStatusModal ok={this.okSSOrderModal} cancel={this.cancelSSOrderModal}/>}
-                            {this.state.isShowFormCancelOrder && <RejectOrderModal ok={this.okCancelOrderModal} cancel={this.cancelRejectOrderModal}/>}
+                            {this.state.isShowFormSSOrder && <UpdateStatusModal ok={this.okSSOrderModal} cancel={this.cancelSSOrderModal} />}
+                            {this.state.isShowFormCancelOrder && <RejectOrderModal ok={this.okCancelOrderModal} cancel={this.cancelRejectOrderModal} />}
                         </div>
                     }
                     {this.state.isEditService && listServicesId &&

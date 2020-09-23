@@ -35,4 +35,32 @@
     .col-logo {
         display: none;
     }
+    .container {
+        width: auto !important;
+    }
+
+    .m_code{
+        min-width: 100px;
+    }
+    .m_name{
+        min-width: 200px;
+    }
+    .m_phone{
+        min-width: 100px;
+    }
+    .m_bienso{
+        min-width: 100px;
+    }
+    .m_schedule{
+        min-width: 100px;
+    }
+    .m_price{
+        min-width: 100px;
+    }
+    .m_status{
+        min-width: 120px;
+    }
+    .m_created_time{
+        min-width: 100px;
+    }
 }

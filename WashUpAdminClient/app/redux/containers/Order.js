@@ -74,14 +74,14 @@ class Order extends React.Component {
                                         <table className="table table-striped table-overview">
                                             <thead>
                                                 <tr>
-                                                    <th>Mã đơn</th>
-                                                    <th>Tên</th>
-                                                    <th>SDT</th>
-                                                    <th>Biển số</th>
-                                                    <th>Lịch đặt</th>
-                                                    <th>Giá</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Ngày tạo</th>
+                                                    <th className="m_code">Mã đơn</th>
+                                                    <th className="m_name">Tên</th>
+                                                    <th className="m_phone">SDT</th>
+                                                    <th className="m_bienso">Biển số</th>
+                                                    <th className="m_schedule">Lịch đặt</th>
+                                                    <th className="m_price">Giá</th>
+                                                    <th className="m_status">Trạng thái</th>
+                                                    <th className="m_created_time">Ngày tạo</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
