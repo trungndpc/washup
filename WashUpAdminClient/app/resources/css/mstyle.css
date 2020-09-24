@@ -63,4 +63,19 @@
     .m_created_time{
         min-width: 100px;
     }
+
+    
+}
+
+.mgrg-10 {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.group-f {
+    display: inline-block;
+}
+
+.swal2-modal {
+    padding: 10px;
 }

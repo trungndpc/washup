@@ -9,7 +9,7 @@ import PriceUtils from '../../utils/PriceUtils'
 import * as Order from '../../constants/order';
 import UpdateStatusModal from './order/UpdateStatusModal'
 import RejectOrderModal from './order/RejectOrderModal'
-import { Container, Button, Link } from 'react-floating-action-button'
+import ButtonWithConfirrm from '../../components/ButtonWithConfirrm'
 
 class BookingDetail extends React.Component {
     constructor(props) {
@@ -26,12 +26,11 @@ class BookingDetail extends React.Component {
         this.onClickExitEditing = this.onClickExitEditing.bind(this)
         this.onClickSave = this.onClickSave.bind(this);
         this.onClickAcceptOrder = this.onClickAcceptOrder.bind(this);
-        this.onClickSuceesOrder = this.onClickSuceesOrder.bind(this)
         this.onClickFailedOrder = this.onClickFailedOrder.bind(this)
         this.cancelSSOrderModal = this.cancelSSOrderModal.bind(this)
-        this.cancelRejectOrderModal = this.cancelRejectOrderModal.bind(this)
-        this.okSSOrderModal = this.okSSOrderModal.bind(this)
-        this.okCancelOrderModal = this.okCancelOrderModal.bind(this)
+        this.click2CloseModal = this.click2CloseModal.bind(this)
+        this.click2Completed = this.click2Completed.bind(this)
+        this.click2NotCompleted = this.click2NotCompleted.bind(this)
     }
 
     async componentDidMount() {
@@ -40,9 +39,6 @@ class BookingDetail extends React.Component {
     }
 
 
-    onClickSuceesOrder(id, currentStatus) {
-        this.setState({ isShowFormSSOrder: true, id: id, currentStatus: currentStatus })
-    }
 
     onClickFailedOrder(id, currentStatus) {
         this.setState({ isShowFormCancelOrder: true, id: id, currentStatus: currentStatus })
@@ -52,17 +48,16 @@ class BookingDetail extends React.Component {
         this.setState({ isShowFormSSOrder: false, id: 0, currentStatus: 0 })
     }
 
-    cancelRejectOrderModal() {
+    click2CloseModal() {
         this.setState({ isShowFormCancelOrder: false, id: 0, currentStatus: 0 })
     }
 
-    okSSOrderModal(note) {
-        this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.COMPLETED.value, note);
-        this.setState({ isShowFormSSOrder: false, id: 0, currentStatus: 0 })
-
+    click2Completed() {
+        const booking = this.props.app.booking;
+        this.props.appActions.updateStatus(booking["id"], booking["status"], Order.Status.COMPLETED.value, "");
     }
 
-    okCancelOrderModal(note) {
+    click2NotCompleted(note) {
         this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.CANCELED.value, note);
         this.setState({ isShowFormCancelOrder: false, id: 0, currentStatus: 0 })
     }
@@ -113,20 +108,6 @@ class BookingDetail extends React.Component {
         }
         return (
             <div>
-                 <Container >
-                            <Link href="#"
-                                tooltip="Create note link"
-                                icon="fa fa-sticky-note" />
-                            <Link href="#"
-                                tooltip="Add user link"
-                                icon="fa fa-user-plus" />
-{/* 
-                            <Button
-                                tooltip="The big plus button!"
-                                icon="fa fa-plus"
-                                rotate={true}
-                                onClick={() => alert('FAB Rocks!')} /> */}
-                        </Container>
                 {!booking && <div style={{ textAlign: 'center', fontSize: '40px', fontWeight: '600' }} >ID INVALID</div>}
                 {booking && <div>
                     <div className="breadcomb-area">
@@ -135,7 +116,7 @@ class BookingDetail extends React.Component {
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div className="breadcomb-list">
                                         <div className="row">
-                                            <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div className="col-lg-6 col-md-6 col-sm-6">
                                                 <div className="breadcomb-wp">
                                                     <div className="breadcomb-icon">
                                                         <i className="notika-icon notika-windows" />
@@ -146,33 +127,86 @@ class BookingDetail extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                                <div className="breadcomb-report">
-                                                    {this.state.isEditService &&
-                                                        <div>
-                                                            <button onClick={this.onClickSave} className="btn btn-success notika-btn-success waves-effect">Lưu</button>
-                                                            <button onClick={this.onClickExitEditing} style={{ color: '#333', marginLeft: '30px' }} className="btn btn-default notika-btn-default waves-effect">Thoát</button>
-                                                        </div>
-                                                    }
 
-                                                    {statusId == Order.Status.PROCESSING.value && !this.state.isEditService &&
-                                                        <div>
-                                                            <button style={{ marginRight: '30px', color: 'black' }} onClick={() => this.onClickFailedOrder(booking["id"], booking["status"])} className="btn btn-default notika-btn-default waves-effect">Đơn hàng thất bại</button>
-                                                            <button style={{ marginRight: '30px' }} onClick={() => this.onClickSuceesOrder(booking["id"], booking["status"])} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
-                                                                Hoàn tất đơn hàng
-                                                        </button>
-                                                            <button style={{ marginRight: '30px' }} onClick={this.onClickEditService} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
-                                                                Cập nhật đơn hàng
-                                                        </button>
-                                                        </div>
-                                                    }
-                                                    {statusId == Order.Status.CONFIRMED.value && !this.state.isEditService && booking["user"] &&
-                                                        <button onClick={() => { this.onClickAcceptOrder(booking["id"], booking["status"]) }} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect ">Tiếp nhận đơn hàng</button>
-                                                    }
+                    <div className="breadcomb-area">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="breadcomb-list">
+                                        {((statusId == Order.Status.CONFIRMED.value || Order.Status.PROCESSING.value || Order.Status.PENDING.value)
+                                            && !this.state.isEditService) &&
+                                            <div className="mgrg-10">
+                                                <button className="btn btn-lightgreen lightgreen-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Cập nhật</button>
+                                            </div>
+                                        }
+
+                                        {statusId != Order.Status.PROCESSING.value &&
+                                            <div className="mgrg-10">
+                                                <button className="btn btn-danger danger-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Hủy đơn</button>
+                                            </div>
+                                        }
+
+                                        {statusId == Order.Status.WAITING_ACCEPT_EMP.value &&
+                                            <div className="group-f">
+                                                <div className="mgrg-10">
+                                                    <button className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i> Không nhận</button>
+                                                </div>
+
+                                                <div className="mgrg-10">
+                                                    <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Chấp nhận</button>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
+
+                                        {statusId == Order.Status.PROCESSING.value && !this.state.isEditService &&
+                                            <div className="group-f">
+                                                <div className="mgrg-10">
+                                                    <button className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i> Không hoàn thành</button>
+                                                </div>
+
+                                                <div className="mgrg-10">
+                                                    <ButtonWithConfirrm ok={this.click2Completed}>
+                                                        <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Hoàn thành</button>
+                                                    </ButtonWithConfirrm>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        {/* <div className="breadcomb-report">
+                                            {this.state.isEditService &&
+                                                <div>
+                                                    <div className="mgrg-10">
+                                                        <button onClick={this.onClickSave} className="btn btn-success notika-btn-success waves-effect">Lưu</button>
+                                                    </div>
+                                                    <div className="mgrg-10">
+                                                        <button onClick={this.onClickExitEditing} style={{ color: '#333', marginLeft: '30px' }} className="btn btn-default notika-btn-default waves-effect">Thoát</button>
+                                                    </div>
+
+                                                </div>
+                                            }
+
+                                            {(statusId == Order.Status.PROCESSING.value || statusId == Order.Status.CONFIRMED.value) && !this.state.isEditService &&
+                                                <div>
+                                                    <button style={{ marginRight: '30px', color: 'black' }} onClick={() => this.onClickFailedOrder(booking["id"], booking["status"])} className="btn btn-default notika-btn-default waves-effect">Đơn hàng thất bại</button>
+                                                    <button style={{ marginRight: '30px' }} onClick={() => this.onClickToSuccessOrder(booking["id"], booking["status"])} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
+                                                        Hoàn tất đơn hàng
+                                                        </button>
+                                                    <button style={{ marginRight: '30px' }} onClick={this.onClickEditService} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
+                                                        Cập nhật đơn hàng
+                                                        </button>
+                                                </div>
+                                            }
+                                            {statusId == Order.Status.CONFIRMED.value && !this.state.isEditService && booking["user"] &&
+                                                <button onClick={() => { this.onClickAcceptOrder(booking["id"], booking["status"]) }} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect ">Tiếp nhận đơn hàng</button>
+                                            }
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -287,8 +321,7 @@ class BookingDetail extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {this.state.isShowFormSSOrder && <UpdateStatusModal ok={this.okSSOrderModal} cancel={this.cancelSSOrderModal} />}
-                            {this.state.isShowFormCancelOrder && <RejectOrderModal ok={this.okCancelOrderModal} cancel={this.cancelRejectOrderModal} />}
+                            {this.state.isShowFormCancelOrder && <RejectOrderModal ok={this.click2NotCompleted} cancel={this.click2CloseModal} />}
                         </div>
                     }
                     {this.state.isEditService && listServicesId &&

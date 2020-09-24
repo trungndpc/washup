@@ -24,6 +24,10 @@ export const Status = {
     ERROR: {
         value : 0,
         toString: "Lỗi"
+    },
+    WAITING_ACCEPT_EMP: {
+        value: 7,
+        toString: "Chờ nhân viên tiếp nhận"
     }
 }
 

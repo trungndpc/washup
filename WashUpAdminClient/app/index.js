@@ -25,6 +25,7 @@ import './resources/css/mstyle.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import './resources/css/responsive.css'
+import './resources/css/sweetalert2.min.css'
 
 import './resources/js/jquery-1.12.4.min.js'
 import './resources/js/jquery.meanmenu.js'
