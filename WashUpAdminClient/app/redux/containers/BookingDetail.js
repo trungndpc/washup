@@ -10,6 +10,7 @@ import * as Order from '../../constants/order';
 import UpdateStatusModal from './order/UpdateStatusModal'
 import RejectOrderModal from './order/RejectOrderModal'
 import ButtonWithConfirrm from '../../components/ButtonWithConfirrm'
+import ButtonWithNoteModal from '../../components/ButtonWithNoteModal'
 
 class BookingDetail extends React.Component {
     constructor(props) {
@@ -22,13 +23,8 @@ class BookingDetail extends React.Component {
             id: 0,
             currentStatus: 0
         }
-        this.onClickEditService = this.onClickEditService.bind(this)
-        this.onClickExitEditing = this.onClickExitEditing.bind(this)
-        this.onClickSave = this.onClickSave.bind(this);
-        this.onClickAcceptOrder = this.onClickAcceptOrder.bind(this);
-        this.onClickFailedOrder = this.onClickFailedOrder.bind(this)
-        this.cancelSSOrderModal = this.cancelSSOrderModal.bind(this)
-        this.click2CloseModal = this.click2CloseModal.bind(this)
+        this.openEdit = this.openEdit.bind(this)
+        this.closeEdit = this.closeEdit.bind(this)
         this.click2Completed = this.click2Completed.bind(this)
         this.click2NotCompleted = this.click2NotCompleted.bind(this)
     }
@@ -38,28 +34,14 @@ class BookingDetail extends React.Component {
         this.props.appActions.getBookingById(this.state.bookingId)
     }
 
-
-
-    onClickFailedOrder(id, currentStatus) {
-        this.setState({ isShowFormCancelOrder: true, id: id, currentStatus: currentStatus })
-    }
-
-    cancelSSOrderModal() {
-        this.setState({ isShowFormSSOrder: false, id: 0, currentStatus: 0 })
-    }
-
-    click2CloseModal() {
-        this.setState({ isShowFormCancelOrder: false, id: 0, currentStatus: 0 })
-    }
-
     click2Completed() {
         const booking = this.props.app.booking;
         this.props.appActions.updateStatus(booking["id"], booking["status"], Order.Status.COMPLETED.value, "");
     }
 
     click2NotCompleted(note) {
-        this.props.appActions.updateStatus(this.state.id, this.state.currentStatus, Order.Status.CANCELED.value, note);
-        this.setState({ isShowFormCancelOrder: false, id: 0, currentStatus: 0 })
+        const booking = this.props.app.booking;
+        this.props.appActions.updateStatus(booking["id"], booking["status"], Order.Status.CANCELED.value, note);
     }
 
 
@@ -71,30 +53,19 @@ class BookingDetail extends React.Component {
         this.setState({ bookingId: params.id })
     }
 
-    onClickEditService() {
+    openEdit() {
         this.setState({
             isEditService: true
         })
     }
 
-    onClickExitEditing() {
+    closeEdit() {
+        console.log("close edit")
         this.setState({
             isEditService: false
         })
     }
 
-    onClickSave(note) {
-        this.setState({
-            isEditService: false
-        })
-        const booking = this.props.app.booking && this.props.app.booking;
-        const data = this.updateOrderFormRef.getValueUpdate();
-        booking && this.props.appActions.updateOrder(booking["id"], data)
-    }
-
-    onClickAcceptOrder(id, currentStatus) {
-        this.props.appActions.updateStatus(id, currentStatus, Order.Status.PROCESSING.value);
-    }
 
     render() {
         const booking = this.props.app.booking && this.props.app.booking;
@@ -134,7 +105,7 @@ class BookingDetail extends React.Component {
                         </div>
                     </div>
 
-
+                    {statusId != Order.Status.COMPLETED.value && statusId != Order.Status.CANCELED.value &&  !this.state.isEditService &&
                     <div className="breadcomb-area">
                         <div className="container">
                             <div className="row">
@@ -143,7 +114,7 @@ class BookingDetail extends React.Component {
                                         {((statusId == Order.Status.CONFIRMED.value || Order.Status.PROCESSING.value || Order.Status.PENDING.value)
                                             && !this.state.isEditService) &&
                                             <div className="mgrg-10">
-                                                <button className="btn btn-lightgreen lightgreen-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Cập nhật</button>
+                                                <button onClick={this.openEdit} className="btn btn-lightgreen lightgreen-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Cập nhật</button>
                                             </div>
                                         }
 
@@ -168,7 +139,9 @@ class BookingDetail extends React.Component {
                                         {statusId == Order.Status.PROCESSING.value && !this.state.isEditService &&
                                             <div className="group-f">
                                                 <div className="mgrg-10">
-                                                    <button className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i> Không hoàn thành</button>
+                                                    <ButtonWithNoteModal ok={this.click2NotCompleted} title={'Ghi chú'} placeholder="Vui lòng cho biết lý do">
+                                                        <button className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i> Không hoàn thành</button>
+                                                    </ButtonWithNoteModal>
                                                 </div>
 
                                                 <div className="mgrg-10">
@@ -178,40 +151,12 @@ class BookingDetail extends React.Component {
                                                 </div>
                                             </div>
                                         }
-
-                                        {/* <div className="breadcomb-report">
-                                            {this.state.isEditService &&
-                                                <div>
-                                                    <div className="mgrg-10">
-                                                        <button onClick={this.onClickSave} className="btn btn-success notika-btn-success waves-effect">Lưu</button>
-                                                    </div>
-                                                    <div className="mgrg-10">
-                                                        <button onClick={this.onClickExitEditing} style={{ color: '#333', marginLeft: '30px' }} className="btn btn-default notika-btn-default waves-effect">Thoát</button>
-                                                    </div>
-
-                                                </div>
-                                            }
-
-                                            {(statusId == Order.Status.PROCESSING.value || statusId == Order.Status.CONFIRMED.value) && !this.state.isEditService &&
-                                                <div>
-                                                    <button style={{ marginRight: '30px', color: 'black' }} onClick={() => this.onClickFailedOrder(booking["id"], booking["status"])} className="btn btn-default notika-btn-default waves-effect">Đơn hàng thất bại</button>
-                                                    <button style={{ marginRight: '30px' }} onClick={() => this.onClickToSuccessOrder(booking["id"], booking["status"])} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
-                                                        Hoàn tất đơn hàng
-                                                        </button>
-                                                    <button style={{ marginRight: '30px' }} onClick={this.onClickEditService} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect">
-                                                        Cập nhật đơn hàng
-                                                        </button>
-                                                </div>
-                                            }
-                                            {statusId == Order.Status.CONFIRMED.value && !this.state.isEditService && booking["user"] &&
-                                                <button onClick={() => { this.onClickAcceptOrder(booking["id"], booking["status"]) }} className="notika-btn-lime btn btn-reco-mg btn-button-mg waves-effect ">Tiếp nhận đơn hàng</button>
-                                            }
-                                        </div> */}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    }
 
                     {!this.state.isEditService &&
                         <div>
@@ -326,7 +271,7 @@ class BookingDetail extends React.Component {
                     }
                     {this.state.isEditService && listServicesId &&
                         <div className="container">
-                            <AddService ref={(e) => this.updateOrderFormRef = e} timeSchedule={booking["timeSchedule"]} listCurrentServices={listServicesId} brandSeriesId={booking["brandSeriesId"]} transportId={booking["brandSeries"]["category"]} {...this.props} />
+                            <AddService no={this.closeEdit} ref={(e) => this.updateOrderFormRef = e} timeSchedule={booking["timeSchedule"]} listCurrentServices={listServicesId} brandSeriesId={booking["brandSeriesId"]} transportId={booking["brandSeries"]["category"]} {...this.props} />
                         </div>}
                 </div>
                 }

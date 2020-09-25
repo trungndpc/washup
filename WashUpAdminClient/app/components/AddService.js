@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import TimeUtils from '../utils/TimeUtils'
-import {TYPE_SERVICE} from '../constants/Constants'
+import { TYPE_SERVICE } from '../constants/Constants'
+import PriceUtils from '../utils/PriceUtils'
+import ButtonWithConfirrm from './ButtonWithConfirrm'
 
 class AddService extends Component {
 
@@ -10,7 +12,7 @@ class AddService extends Component {
             tabServiceId: 1,
             tabScheduleId: 1,
             brandSeriesId: this.props.brandSeriesId,
-            listServiceId : this.props.listCurrentServices,
+            listServiceId: this.props.listCurrentServices,
             timeSchedule: this.props.timeSchedule
         }
         this.onClickTabService = this.onClickTabService.bind(this)
@@ -18,6 +20,8 @@ class AddService extends Component {
         this.onChangeService = this.onChangeService.bind(this)
         this.onChangeTimeSchedule = this.onChangeTimeSchedule.bind(this)
         this.getValueUpdate = this.getValueUpdate.bind(this)
+        this.onBack = this.onBack.bind(this)
+        this.onClickSave = this.onClickSave.bind(this)
     }
 
     componentDidMount() {
@@ -25,6 +29,15 @@ class AddService extends Component {
         this.props.appActions.getSchedule();
     }
 
+    onBack() {
+        this.props.no && this.props.no();
+    }
+
+    onClickSave() {
+        let jsonUpdate = this.getValueUpdate();
+        this.props.appActions.updateOrder(this.props.app.booking["id"], jsonUpdate)
+        this.props.no && this.props.no();
+    }
 
     onClickTabService(id) {
         this.setState({ tabServiceId: id })
@@ -32,15 +45,15 @@ class AddService extends Component {
     }
 
     onChangeTabSchedule(id) {
-        this.setState({tabScheduleId: id})
+        this.setState({ tabScheduleId: id })
     }
 
     getValueUpdate() {
         return {
-            "fullName" : this.fullNameInputRef.value,
-            "address" : this.addressInputRef.value,
-            "serviceIds" : this.state.listServiceId,
-            "timeSchedule" : this.state.timeSchedule
+            "fullName": this.fullNameInputRef.value,
+            "address": this.addressInputRef.value,
+            "serviceIds": this.state.listServiceId,
+            "timeSchedule": this.state.timeSchedule
         }
     }
 
@@ -54,18 +67,18 @@ class AddService extends Component {
 
     onChangeService(id) {
         if (this.state.listServiceId.indexOf(id) >= 0) {
-            let tmpServiceIds= [...this.state.listServiceId];
+            let tmpServiceIds = [...this.state.listServiceId];
             tmpServiceIds = this.removeElement(tmpServiceIds, id);
-            this.setState({listServiceId: tmpServiceIds});
-        }else{
-            let tmpServiceIds= [...this.state.listServiceId];
+            this.setState({ listServiceId: tmpServiceIds });
+        } else {
+            let tmpServiceIds = [...this.state.listServiceId];
             tmpServiceIds.push(id);
-            this.setState({listServiceId: tmpServiceIds});
+            this.setState({ listServiceId: tmpServiceIds });
         }
     }
 
     onChangeTimeSchedule(time) {
-        this.setState({timeSchedule: time})
+        this.setState({ timeSchedule: time })
     }
 
 
@@ -74,8 +87,29 @@ class AddService extends Component {
         const services = this.props.app.services;
         const booking = this.props.app.booking && this.props.app.booking;
         const schedules = this.props.app.schedules && this.props.app.schedules[this.state.tabScheduleId]
+        let device = booking && booking["brand"] && booking["brand"]["brandName"] &&
+            `[${booking["brandSeries"] && booking["brandSeries"]["seriesName"]}] -  ${booking["vehicleName"]} - ${booking["licensePlate"]}`
         return (
             <div>
+                <div className="breadcomb-area" style={{ marginBottom: '0px', marginTop: '10px' }}>
+                    <div className="row">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div className="breadcomb-list">
+                                <div className="group-f">
+                                    <div className="mgrg-10">
+                                        <button onClick={this.onBack} className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i> Quay lại</button>
+                                    </div>
+
+                                    <div className="mgrg-10">
+                                        <ButtonWithConfirrm ok={this.onClickSave}>
+                                            <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Lưu</button>
+                                        </ButtonWithConfirrm>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="row" style={{ marginBottom: '30px' }}>
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div className="form-element-list mg-t-30">
@@ -89,7 +123,17 @@ class AddService extends Component {
                                             <i className="notika-icon notika-support" />
                                         </div>
                                         <div className="nk-int-st">
-                                            <input type="text" ref={e => this.fullNameInputRef = e} defaultValue={booking["fullName"]} className="form-control input-sm"/>
+                                            <input type="text" ref={e => this.fullNameInputRef = e} defaultValue={booking["fullName"]} className="form-control input-sm" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="form-group ic-cmp-int">
+                                        <div className="form-ic-cmp">
+                                            <i className="fa fa-phone" />
+                                        </div>
+                                        <div className="nk-int-st">
+                                            <input type="text" disabled ref={e => this.fullNameInputRef = e} defaultValue={booking["phone"]} className="form-control input-sm" />
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +143,17 @@ class AddService extends Component {
                                             <i className="notika-icon notika-map" />
                                         </div>
                                         <div className="nk-int-st">
-                                            <input type="text" ref={e => this.addressInputRef = e} defaultValue={booking["pickUpAddress"]} className="form-control input-sm"  />
+                                            <input type="text" ref={e => this.addressInputRef = e} defaultValue={booking["pickUpAddress"]} className="form-control input-sm" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="form-group ic-cmp-int">
+                                        <div className="form-ic-cmp">
+                                            <i className="fa fa-car" />
+                                        </div>
+                                        <div className="nk-int-st">
+                                            <input disabled type="text" value={device} className="form-control input-sm" />
                                         </div>
                                     </div>
                                 </div>
@@ -138,9 +192,9 @@ class AddService extends Component {
                                                         return (
                                                             <tr key={item["key"]}>
                                                                 <td>{index + 1}</td>
-                                                                <td><input onChange={(event => {this.onChangeService(item["id"])})} checked={isCheked} type="checkbox" /></td>
+                                                                <td><input onChange={(event => { this.onChangeService(item["id"]) })} checked={isCheked} type="checkbox" /></td>
                                                                 <td>{item["name"]}</td>
-                                                                <td>{item["price"]}</td>
+                                                                <td>{PriceUtils.toThousand(item["price"])}</td>
                                                             </tr>
                                                         )
                                                     })}
@@ -162,9 +216,9 @@ class AddService extends Component {
                             </div>
                             <div className="widget-tabs-list">
                                 <ul className="nav nav-tabs">
-                                    <li className={this.state.tabScheduleId == 1 ? "active" : ""}><a onClick={() => this.onChangeTabSchedule(1)}  href="#hn">Hôm nay</a></li>
-                                    <li className={this.state.tabScheduleId == 2 ? "active" : ""}><a onClick={() => this.onChangeTabSchedule(2)}  href="#nm">Ngày mai</a></li>
-                                    <li className={this.state.tabScheduleId == 3 ? "active" : ""}><a onClick={() => this.onChangeTabSchedule(3)}  href="#nk">Ngày kia</a></li>
+                                    <li className={this.state.tabScheduleId == 1 ? "active" : ""}><a onClick={() => this.onChangeTabSchedule(1)} href="#hn">Hôm nay</a></li>
+                                    <li className={this.state.tabScheduleId == 2 ? "active" : ""}><a onClick={() => this.onChangeTabSchedule(2)} href="#nm">Ngày mai</a></li>
+                                    <li className={this.state.tabScheduleId == 3 ? "active" : ""}><a onClick={() => this.onChangeTabSchedule(3)} href="#nk">Ngày kia</a></li>
                                 </ul>
                                 <div className="tab-content tab-custom-st">
                                     <div id="home" className="tab-pane fade in active">
@@ -184,7 +238,7 @@ class AddService extends Component {
                                                         return (
                                                             <tr key={item["key"]}>
                                                                 <td>{index + 1}</td>
-                                                                <td><input checked={isCheked} onChange={() => this.onChangeTimeSchedule(item["time"])} type="radio" name="schedule"/></td>
+                                                                <td><input checked={isCheked} onChange={() => this.onChangeTimeSchedule(item["time"])} type="radio" name="schedule" /></td>
                                                                 <td>{TimeUtils.timeSchedule(item["time"])}</td>
                                                                 <td>{item["status"] == 1 ? "Còn Trống" : "Đã đầy"}</td>
                                                             </tr>

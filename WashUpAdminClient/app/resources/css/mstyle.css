@@ -64,6 +64,10 @@
         min-width: 100px;
     }
 
+
+    .modal-dialog.modal-large {
+        width: auto !important;
+    }
     
 }
 

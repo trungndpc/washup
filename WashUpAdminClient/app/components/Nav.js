@@ -7,14 +7,22 @@ class Nav extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isMobileShow: false
+            isMobileShow: false,
+            isShowSubMenuOrder: false,
         }
         this.onClickMobile = this.onClickMobile.bind(this)
+        this.onClickOrderMenu = this.onClickOrderMenu.bind(this)
     }
 
     onClickMobile() {
-
         this.setState({ isMobileShow: !this.state.isMobileShow })
+    }
+
+    onClickOrderMenu() {
+        if(this.state.isShowSubMenuOrder) {
+            this.onClickMobile();
+        }
+        this.setState({ isShowSubMenuOrder: !this.state.isShowSubMenuOrder })
     }
 
     render() {
@@ -30,15 +38,15 @@ class Nav extends Component {
                                 <ul className="mobile-menu-nav">
                                     <li><Link to="/">Home</Link>
                                     </li>
-                                    <li><Link to="/order">Order</Link>
-                                        <ul className="collapse dropdown-header-top" style={{ display: 'none' }}>
+                                    <li onClick={this.onClickOrderMenu}><Link to="/order">Order</Link>
+                                        {this.state.isShowSubMenuOrder && <ul style={{display: 'block'}} className="collapse dropdown-header-top">
                                             <li><Link to={"/order"}>Overview</Link></li>
                                             <li><Link to={"/order/pending"}>Pending</Link></li>
                                             <li><Link to={"/order/confirmed"}>Confirmed</Link></li>
                                             <li><Link to={"/order/processing"}>Processing</Link></li>
                                             <li><Link to={"/order/success"}>Success</Link></li>
                                             <li><Link to={"/order/canceled"}>Canceled</Link></li>
-                                        </ul>
+                                        </ul>}
                                         <a className="mean-expand" href="#" style={{ fontSize: '18px' }}>+</a>
                                     </li>
                                     <li><Link to="/user">User</Link>
