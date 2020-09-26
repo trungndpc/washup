@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.props.appActions.getLoginInfo();
+    // this.props.appActions.getLoginInfo();
   }
 
   render() {
