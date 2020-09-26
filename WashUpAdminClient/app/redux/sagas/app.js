@@ -16,6 +16,8 @@ export default function* app() {
   yield takeLatest(type.APP.UPDATE_ORDER_ASYNC, requestUpdateOrderAsync)
   yield takeLatest(type.APP.GET_ORDER_BY_USER_ASSIGNED_ASYNC, requestGetOrderByUserIdAsync)
   yield takeLatest(type.APP.GET_ORDER_BY_STATUS_DATE_ASYNC, requestGetOrderByStatusAndDateAsync)
+  yield takeLatest(type.APP.GET_LOGIN_INFO_ASYNC, requestGetLoginInfoAsync)
+  yield takeLatest(type.APP.LOGIN_ASYNC, requestLoginAsync)
 }
 
 function* requestGetListBookingByDateAsync(action) {
@@ -86,6 +88,15 @@ function* requestGetOrderByStatusAndDateAsync(action) {
   yield put({ type: type.APP.GET_ORDER_BY_STATUS_DATE_END, payload: resp.data })
 }
 
+function* requestGetLoginInfoAsync() {
+  const resp = yield call(getLoginInfo);
+  yield put({ type: type.APP.GET_LOGIN_INFO_END, payload: resp.data })
+}
+
+function* requestLoginAsync(action) {
+  const resp = yield call(login, action.username, action.password);
+  yield put({ type: type.APP.LOGIN_END, payload: resp})
+}
 
 function getListBookingByDate(datetime, page, pageSize) {
   return new Promise((resolve, reject) => {
@@ -108,7 +119,7 @@ function getBookingDetail(id) {
 
 function getOrderByStatus(status, page, pageSize) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/order-by-status?status=${status}&page=${page}&pageSize=${pageSize}`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/order-by-status?status=${status}&page=${page}&pageSize=${pageSize}`, resolve, reject);
   });
 }
 
@@ -183,5 +194,22 @@ function getScheduleToday() {
 function getOrderByUserId(userId, page, pageSize) {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/assigned-order?userId=${userId}&page=${page}&pageSize=${pageSize}`, resolve, reject);
+  });
+}
+
+function getLoginInfo() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/login-info`, resolve, reject);
+  });
+}
+
+function login(username, password) {
+  const body = {
+    "username": username,
+    "password": password,
+    "rememberMe": true
+  }
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/users/login`, JSON.stringify(body), resolve, reject);
   });
 }

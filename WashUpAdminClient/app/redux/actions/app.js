@@ -96,3 +96,17 @@ export function getOrderByStatusAndDate(status, date, page, pageSize) {
     pageSize: pageSize
   }
 }
+
+export function getLoginInfo() {
+  return {
+    type: type.APP.GET_LOGIN_INFO_ASYNC,
+  }
+}
+
+export function login(username, password) {
+  return {
+    type: type.APP.LOGIN_ASYNC,
+    username: username,
+    password: password
+  }
+}

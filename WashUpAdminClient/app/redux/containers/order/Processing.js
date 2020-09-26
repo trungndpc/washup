@@ -77,7 +77,7 @@ class Processing extends React.Component {
                                                     <th className="m_phone">SDT</th>
                                                     <th className="m_name">Nhân viên</th>
                                                     <th className="m_address">Địa chỉ</th>
-                                                    <th className="m_created_time">Ngày tạo</th>
+                                                    <th className="m_created_time">Lịch đặt</th>
                                                     <th>Ngày tạo</th>
                                                 </tr>
                                             </thead>

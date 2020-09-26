@@ -61,6 +61,25 @@ class TimeUtils {
     }
     return hours + ":" + min;
   }
+
+  static getColorScheduleTime(time) {
+    const secondDiff = Math.ceil(Math.abs(time * 1000 - new Date().getTime()) / 1000);
+    if (secondDiff < 600) {
+      return {
+        color: '#F44336'
+      }
+    }
+    if (secondDiff < 69 * 60 * 60) {
+      return {
+        color : '#FF9800'
+      }
+    }
+    if (secondDiff < 69 * 60 * 60 * 4) {
+      return {
+        color : '#2196F3'
+      }
+    }
+   }
 }
 
 export default TimeUtils;

@@ -1,6 +1,7 @@
 import * as type from '../actions/action-types'
 
 const initialState = {
+  isLogin : false,
   bookings: [],
   employees: [],
   services: [],
@@ -49,6 +50,21 @@ export default function app(state = initialState, action) {
       schedules[2] = tomorow;
       schedules[3] = overTomorow;
       newState.schedules = schedules;
+      break;
+    }
+    case type.APP.LOGIN_END: {
+      let payload = action.payload;
+      if (payload["errors"]) {
+        newState.isLogin = false;
+        newState.loginError = "Username hoặc password chưa đúng"
+      }else{
+        newState.isLogin = true;
+        newState.loginError = false
+      }
+      break;
+    }
+    case type.APP.GET_LOGIN_INFO_END: {
+      newState.user = action.payload;
       break;
     }
     case type.APP.GET_ORDER_BY_USER_ASSIGNED_END: {

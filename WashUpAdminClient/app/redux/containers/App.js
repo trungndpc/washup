@@ -28,18 +28,21 @@ import Order from './Order'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      isLogin: false
-    }
   }
+
+  componentDidMount() {
+    this.props.appActions.getLoginInfo();
+  }
+
   render() {
     //DEBUG
     if (process.env.NODE_ENV === 'development') {
       console.log('Render: ', 'App')
     }
+    const isLogin = this.props.app.isLogin;
     return (
       <div className="example-app">
-        {this.state.isLogin &&
+        {isLogin &&
           <div>
             <Header history={this.props.history} />
             <Switch>
@@ -57,7 +60,7 @@ class App extends React.Component {
             {/* <Footer /> */}
           </div>
         }
-        {!this.state.isLogin &&
+        {!isLogin &&
           <Login />
         }
         <Alert stack={{ limit: 3 }} />

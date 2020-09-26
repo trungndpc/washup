@@ -17,7 +17,7 @@ class Task extends React.Component {
     }
 
     componentDidMount() {
-        this.props.appActions.getOrderByAssignedUser("ff80818174792a630174792c0cec0000", this.state.pageNumber, 10);
+        this.props.appActions.getOrderByAssignedUser("ff80818174b127100174b130727b0011", this.state.pageNumber, 10);
     }
 
     onClickDetail(id) {
@@ -26,7 +26,7 @@ class Task extends React.Component {
 
     changePageNumber(pageNumber, pageSize) {
         this.setState({ pageNumber, pageNumber })
-        this.props.appActions.getOrderByAssignedUser("ff80818174792a630174792c0cec0000", pageNumber - 1, 10);
+        this.props.appActions.getOrderByAssignedUser("ff80818174b127100174b130727b0011", pageNumber - 1, 10);
     }
 
 
@@ -73,13 +73,13 @@ class Task extends React.Component {
                                         <table className="table table-striped table-overview">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th>Tên</th>
-                                                    <th>SDT</th>
-                                                    <th>Lịch đặt</th>
-                                                    <th>Địa chỉ</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Ngày tạo</th>
+                                                    <th className="m_code">Mã đơn</th>
+                                                    <th className="m_name">Tên</th>
+                                                    <th className="m_phone">SDT</th>
+                                                    <th className="m_schedule">Lịch đặt</th>
+                                                    <th className="m_address">Địa chỉ</th>
+                                                    <th className="m_status">Trạng thái</th>
+                                                    <th className="m_created_time">Ngày tạo</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -101,7 +101,7 @@ class Task extends React.Component {
                                                     }
                                                     return (
                                                         <tr onClick={() => { this.onClickDetail(item["id"]) }} key={item["id"]}>
-                                                            <td>{index + 1}</td>
+                                                            <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
