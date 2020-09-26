@@ -1,5 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
 import * as type from '../actions/action-types'
+import * as OrderConstant from '../../constants/order'
 import APIUtils from '../../utils/APIUtils'
 import AlertUtils from '../../utils/AlertUtils'
 
@@ -14,6 +15,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_SCHEDULE_ASYNC, requestGetScheduleAsync)
   yield takeLatest(type.APP.UPDATE_ORDER_ASYNC, requestUpdateOrderAsync)
   yield takeLatest(type.APP.GET_ORDER_BY_USER_ASSIGNED_ASYNC, requestGetOrderByUserIdAsync)
+  yield takeLatest(type.APP.GET_ORDER_BY_STATUS_DATE_ASYNC, requestGetOrderByStatusAndDateAsync)
 }
 
 function* requestGetListBookingByDateAsync(action) {
@@ -43,6 +45,7 @@ function* requestUpdateStatusAsync(action) {
 function* requestAssignEmployeeAsync(action) {
   const resp = yield call(postAssignEmployee, action.orderId, action.employeeId, action.note);
   if (!resp.errorCode) {
+    yield call(postUpdateStatus, action.orderId, OrderConstant.Status.EMP_ASSIGNED.value, '')
     AlertUtils.showSuccess("Phân công nhân viên thành công,...")
     const resp = yield call(getBookingDetail, action.orderId);
     yield put({ type: type.APP.GET_BOOKING_DETAIL_END, payload: resp.data })
@@ -51,7 +54,7 @@ function* requestAssignEmployeeAsync(action) {
 
 function* requestGetOrderByUserIdAsync(action) {
   const resp = yield call(getOrderByUserId, action.userId, action.page, action.pageSize);
-  yield put({type: type.APP.GET_ORDER_BY_USER_ASSIGNED_END, payload: resp.data})
+  yield put({ type: type.APP.GET_ORDER_BY_USER_ASSIGNED_END, payload: resp.data })
 }
 
 function* requestGetEmployeeAsync() {
@@ -78,9 +81,21 @@ function* requestUpdateOrderAsync(action) {
   yield put({ type: type.APP.GET_BOOKING_DETAIL_END, payload: respDetailOrder.data })
 }
 
+function* requestGetOrderByStatusAndDateAsync(action) {
+  const resp = yield call(getOrderByStatusAndDate, action.status, action.date, action.page, action.pageSize);
+  yield put({ type: type.APP.GET_ORDER_BY_STATUS_DATE_END, payload: resp.data })
+}
+
+
 function getListBookingByDate(datetime, page, pageSize) {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/all?page=${page}&pageSize=${pageSize}`, resolve, reject);
+  });
+}
+
+function getOrderByStatusAndDate(status, date, page, pageSize) {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/order-by-date-and-status?date=${date}&status=${status}&page=${page}&pageSize=${pageSize}`, resolve, reject);
   });
 }
 
@@ -115,11 +130,11 @@ function getEmployee() {
   });
 }
 
-function postAssignEmployee(orderId, employeeId, note ) {
+function postAssignEmployee(orderId, employeeId, note) {
   const body = {
     "storeOrderId": orderId,
     "userId": employeeId,
-    "operatorNote" : note
+    "operatorNote": note
   }
 
   return new Promise((resolve, reject) => {
@@ -131,10 +146,10 @@ function postUpdateOrder(orderId, data) {
   console.log("postUpdateOrder")
   const body = {
     "id": orderId,
-    "fullName" : data["fullName"],
+    "fullName": data["fullName"],
     "pickUpAddress": data["address"],
     "timeSchedule": data["timeSchedule"],
-    "serviceIds" : data["serviceIds"]
+    "serviceIds": data["serviceIds"]
   }
   return new Promise((resolve, reject) => {
     APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/update-order`, JSON.stringify(body), resolve, reject);

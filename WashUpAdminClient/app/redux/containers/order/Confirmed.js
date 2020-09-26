@@ -6,19 +6,28 @@ import TimeUtils from '../../../utils/TimeUtils'
 import PriceUtils from '../../../utils/PriceUtils'
 import Pagination from 'antd/es/pagination'
 import DatePicker from 'react-datepicker'
+import * as OrderConstant from '../../../constants/order';
+
 class Confirmed extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             pageNumber: 1,
-            date: new Date()
+            date: new Date(),
+            status: OrderConstant.Status.CONFIRMED.value
         }
         this.changePageNumber = this.changePageNumber.bind(this);
-        this.setStartDate = this.setStartDate.bind(this)
+        this.setStartDate = this.setStartDate.bind(this);
+        this.getDateTime = this.getDateTime.bind(this);
+        this.onChangeStatus = this.onChangeStatus.bind(this)
+    }
+
+    getDateTime(date) {
+        return parseInt(new Date(date).getTime() / 1000);
     }
 
     componentDidMount() {
-        this.props.appActions.getOrdersByStatus(2, 0, 10)
+        this.props.appActions.getOrderByStatusAndDate(this.state.status, this.getDateTime(this.state.date), 0, 10)
     }
 
     onClickDetail(id) {
@@ -30,16 +39,21 @@ class Confirmed extends React.Component {
         this.props.appActions.getOrdersByStatus(2, pageNumber - 1, 10)
     }
 
-
     setStartDate(date) {
-        this.setState({date: date})
+        this.setState({ date: date })
+        this.props.appActions.getOrderByStatusAndDate(this.state.status, this.getDateTime(date), 0, 10)
     }
 
-
+    onChangeStatus(event) {
+        let status = event.target.value;
+        this.setState({status: status})
+        this.props.appActions.getOrderByStatusAndDate(status, this.getDateTime(this.state.date), 0, 10)
+    }
 
     render() {
-        const orderByStatus = this.props.app.orderByStatus;
-        const bookings = orderByStatus && orderByStatus.storeOrders;
+        const orderByStausAndDate = this.props.app.orderByStausAndDate;
+        console.log(orderByStausAndDate)
+        const bookings = orderByStausAndDate && orderByStausAndDate.storeOrders;
 
         const CustomInputDate = ({ value, onClick }) => (
             <button type="button" onClick={onClick} className="btn btn-primary notika-gp-primary waves-effect">{value}</button>
@@ -80,6 +94,12 @@ class Confirmed extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12" style={{ textAlign: 'right' }}>
+                                <select onChange={this.onChangeStatus} className="status-select" name="cars" id="cars">
+                                    <option value={OrderConstant.Status.CONFIRMED.value}>Đã xác nhận</option>
+                                    <option value={OrderConstant.Status.EMP_ASSIGNED.value}>Chờ nhân viên chấp nhận</option>
+                                    <option value={OrderConstant.Status.EMP_REJECT.value}>Nhân viên không nhận đơn</option>
+                                    <option value={OrderConstant.Status.EMP_ACCEPTED.value}>Nhân viên đã chấp nhận đơn</option>
+                                </select>
                                 <DatePicker selected={this.state.date} onChange={this.setStartDate} customInput={<CustomInputDate />} />
                             </div>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -88,25 +108,26 @@ class Confirmed extends React.Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Mã đơn</th>
-                                                    <th>Tên</th>
-                                                    <th>SDT</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Giá</th>
-                                                    <th>Ngày tạo</th>
+                                                    <th className="m_code">Mã đơn</th>
+                                                    <th className="m_name">Tên</th>
+                                                    <th className="m_phone">SDT</th>
+                                                    <th className="m_status">Trạng thái</th>
+                                                    <th className="m_price">Giá</th>
+                                                    <th className="m_created_time">Ngày tạo</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {bookings && bookings.map((item, index) => {
+                                                    let objStatus = OrderConstant.findStatus(item["status"]);
                                                     return (
                                                         <tr key={item["id"]}>
                                                             <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
-                                                            <td>{!item["user"] ? <span style={{ color: '#fff', backgroundColor: '#FFC107', padding: '3px 5px' }}>Chưa phân công</span> : <span style={{ color: '#fff', backgroundColor: '#8BC34A', padding: '3px 5px' }}>Chờ chấp nhận</span>}</td>
+                                                            <td><span style={{ padding: '5px 10px', color: '#fff', backgroundColor: objStatus["color"] }}>{objStatus["toString"]}</span></td>
                                                             <td>{PriceUtils.toThousand(item["totalPrice"])}</td>
-                                                            <td>{TimeUtils.toFormat(item["createdOn"]* 1000)}</td>
+                                                            <td>{TimeUtils.toFormat(item["createdOn"] * 1000)}</td>
                                                             <td><button onClick={() => { this.onClickDetail(item["id"]) }} className="btn btn-lightblue lightblue-icon-notika btn-reco-mg btn-button-mg waves-effect"><i className="notika-icon notika-next"></i></button></td>
                                                         </tr>
                                                     )
@@ -116,12 +137,12 @@ class Confirmed extends React.Component {
                                         </table>
                                     </div>
                                 </div>
-                                {orderByStatus && <div style={{ textAlign: 'center', padding: '30px' }}> <Pagination defaultCurrent={orderByStatus.page} pageSize={10} onChange={this.changePageNumber} total={orderByStatus["totalPage"] * 10} /> </div>}
+                                {orderByStausAndDate && <div style={{ textAlign: 'center', padding: '30px' }}> <Pagination defaultCurrent={orderByStausAndDate.page} pageSize={10} onChange={this.changePageNumber} total={orderByStausAndDate["totalPage"] * 10} /> </div>}
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 }

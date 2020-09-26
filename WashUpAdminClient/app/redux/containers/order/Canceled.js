@@ -24,7 +24,7 @@ class Canceled extends React.Component {
     }
 
     changePageNumber(pageNumber, pageSize) {
-        this.setState({pageNumber, pageNumber})
+        this.setState({ pageNumber, pageNumber })
         this.props.appActions.getOrdersByStatus(4, pageNumber - 1, 10)
     }
 
@@ -85,11 +85,11 @@ class Canceled extends React.Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Mã đơn</th>
-                                                    <th>Tên</th>
-                                                    <th>SDT</th>
-                                                    <th>Lý do</th>
-                                                    <th>Lịch</th>
+                                                    <th className="m_code">Mã đơn</th>
+                                                    <th className="m_name">Tên</th>
+                                                    <th className="m_phone">SDT</th>
+                                                    <th className="m_reason">Lý do</th>
+                                                    <th className="m_schedule">Lịch đặt</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -100,7 +100,7 @@ class Canceled extends React.Component {
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td>{this.findReason(item["operatorNotes"])}</td>
-                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
+                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
                                                         </tr>
                                                     )
                                                 })}

@@ -25,6 +25,11 @@ export default function app(state = initialState, action) {
       newState.orderByStatus = payload;
       break;
     }
+    case type.APP.GET_ORDER_BY_STATUS_DATE_END: {
+      const payload = action.payload;
+      newState.orderByStausAndDate = payload;
+      break;
+    }
     case type.APP.GET_EMPLOYES_END: {
       const payload = action.payload;
       newState.employees = payload;

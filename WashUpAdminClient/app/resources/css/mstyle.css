@@ -58,15 +58,22 @@
         min-width: 100px;
     }
     .m_status{
-        min-width: 120px;
+        min-width: 170px;
     }
     .m_created_time{
         min-width: 100px;
     }
 
+    .m_address {
+        min-width: 400px;
+    }
 
     .modal-dialog.modal-large {
         width: auto !important;
+    }
+
+    .m_reason {
+        min-width: 300px;
     }
     
 }
@@ -82,4 +89,13 @@
 
 .swal2-modal {
     padding: 10px;
+}
+
+.status-select {
+    margin-right: 20px;
+    padding: 7px 20px;
+    background-color: #faad14;
+    border: 0px;
+    border-radius: 4px;
+    color: #fff;
 }

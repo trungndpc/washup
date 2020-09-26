@@ -23,7 +23,7 @@ class Success extends React.Component {
         this.props.history.push('/order/' + id);
     }
     changePageNumber(pageNumber, pageSize) {
-        this.setState({pageNumber, pageNumber})
+        this.setState({ pageNumber, pageNumber })
         this.props.appActions.getOrdersByStatus(5, pageNumber - 1, 10)
     }
 
@@ -72,10 +72,10 @@ class Success extends React.Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th>Tên</th>
-                                                    <th>SDT</th>
-                                                    <th>Giá</th>
+                                                    <th className="m_code">Mã đơn</th>
+                                                    <th className="m_name">Tên</th>
+                                                    <th className="m_phone">SDT</th>
+                                                    <th className="m_price">Giá</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -85,7 +85,7 @@ class Success extends React.Component {
                                                             <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
-                                                            <td><span style={{color: '#fff', padding: '3px 5px', backgroundColor: '#00c292'}}>{PriceUtils.toThousand(item["totalPrice"])}</span></td>
+                                                            <td><span style={{ color: '#fff', padding: '3px 5px', backgroundColor: '#00c292' }}>{PriceUtils.toThousand(item["totalPrice"])}</span></td>
                                                         </tr>
                                                     )
                                                 })}

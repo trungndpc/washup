@@ -86,3 +86,13 @@ export function getOrderByAssignedUser(userId, page, pageSize) {
     pageSize: pageSize
   }
 }
+
+export function getOrderByStatusAndDate(status, date, page, pageSize) {
+  return {
+    type: type.APP.GET_ORDER_BY_STATUS_DATE_ASYNC,
+    status: status,
+    date: date,
+    page: page,
+    pageSize: pageSize
+  }
+}

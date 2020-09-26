@@ -7,7 +7,8 @@ export const Status = {
     },
     CONFIRMED: {
         value: 2,
-        toString: "Đã duyệt"
+        toString: "Đã duyệt",
+        color : '#FFC107'
     },
     PROCESSING: {
         value: 3,
@@ -25,10 +26,20 @@ export const Status = {
         value : 0,
         toString: "Lỗi"
     },
-    WAITING_ACCEPT_EMP: {
+    EMP_ASSIGNED: {
+        value: 6,
+        toString: "Đã phân công",
+        color: '#8BC34A'
+    },
+    EMP_ACCEPTED: {
         value: 7,
-        toString: "Chờ nhân viên tiếp nhận"
+        toString: "Nhân viên chấp nhận"
+    },
+    EMP_REJECT: {
+        value: 8,
+        toString: "Nhân viên từ chối"
     }
+
 }
 
 export function findStatus(id) {
@@ -38,6 +49,9 @@ export function findStatus(id) {
         case 3: return  Status.PROCESSING;
         case 4: return Status.CANCELED;
         case 5: return Status.COMPLETED;
+        case 6: return Status.EMP_ASSIGNED;
+        case 7: return Status.EMP_ACCEPTED;
+        case 8: return Status.EMP_REJECT;
         default: return Status.ERROR
     }
 }

@@ -27,6 +27,9 @@ class BookingDetail extends React.Component {
         this.closeEdit = this.closeEdit.bind(this)
         this.click2Completed = this.click2Completed.bind(this)
         this.click2NotCompleted = this.click2NotCompleted.bind(this)
+        this.click2EmpAccept = this.click2EmpAccept.bind(this)
+        this.click2EmpReject = this.click2EmpReject.bind(this)
+        this.click2Stared = this.click2Stared.bind(this)
     }
 
     async componentDidMount() {
@@ -34,9 +37,24 @@ class BookingDetail extends React.Component {
         this.props.appActions.getBookingById(this.state.bookingId)
     }
 
+    click2Stared() {
+        const booking = this.props.app.booking;
+        this.props.appActions.updateStatus(booking["id"], booking["status"], Order.Status.PROCESSING.value, "");
+    }
+
     click2Completed() {
         const booking = this.props.app.booking;
         this.props.appActions.updateStatus(booking["id"], booking["status"], Order.Status.COMPLETED.value, "");
+    }
+
+    click2EmpReject(note) {
+        const booking = this.props.app.booking;
+        this.props.appActions.updateStatus(booking["id"], booking["status"], Order.Status.EMP_REJECT.value, note);
+    }
+
+    click2EmpAccept() {
+        const booking = this.props.app.booking;
+        this.props.appActions.updateStatus(booking["id"], booking["status"], Order.Status.EMP_ACCEPTED.value, "");
     }
 
     click2NotCompleted(note) {
@@ -105,63 +123,81 @@ class BookingDetail extends React.Component {
                         </div>
                     </div>
 
-                    {statusId != Order.Status.COMPLETED.value && statusId != Order.Status.CANCELED.value &&  !this.state.isEditService &&
-                    <div className="breadcomb-area">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div className="breadcomb-list">
-                                        {((statusId == Order.Status.CONFIRMED.value || Order.Status.PROCESSING.value || Order.Status.PENDING.value)
-                                            && !this.state.isEditService) &&
-                                            <div className="mgrg-10">
-                                                <button onClick={this.openEdit} className="btn btn-lightgreen lightgreen-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Cập nhật</button>
-                                            </div>
-                                        }
+                    {statusId != Order.Status.COMPLETED.value && statusId != Order.Status.CANCELED.value && !this.state.isEditService &&
+                        <div className="breadcomb-area">
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div className="breadcomb-list">
 
-                                        {statusId != Order.Status.PROCESSING.value &&
-                                            <div className="mgrg-10">
-                                                <button className="btn btn-danger danger-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Hủy đơn</button>
-                                            </div>
-                                        }
-
-                                        {statusId == Order.Status.WAITING_ACCEPT_EMP.value &&
-                                            <div className="group-f">
-                                                <div className="mgrg-10">
-                                                    <button className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i> Không nhận</button>
-                                                </div>
-
-                                                <div className="mgrg-10">
-                                                    <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Chấp nhận</button>
-                                                </div>
-                                            </div>
-                                        }
-
-                                        {statusId == Order.Status.PROCESSING.value && !this.state.isEditService &&
-                                            <div className="group-f">
+                                            {statusId != Order.Status.PROCESSING.value && statusId != Order.Status.EMP_ASSIGNED.value &&
                                                 <div className="mgrg-10">
                                                     <ButtonWithNoteModal ok={this.click2NotCompleted} title={'Ghi chú'} placeholder="Vui lòng cho biết lý do">
-                                                        <button className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i> Không hoàn thành</button>
+                                                        <button className="btn btn-danger danger-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Hủy đơn</button>
                                                     </ButtonWithNoteModal>
                                                 </div>
+                                            }
 
+
+                                            {((statusId == Order.Status.CONFIRMED.value || Order.Status.PROCESSING.value || Order.Status.PENDING.value)
+                                                && !this.state.isEditService && statusId != Order.Status.EMP_ASSIGNED.value) &&
                                                 <div className="mgrg-10">
-                                                    <ButtonWithConfirrm ok={this.click2Completed}>
-                                                        <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Hoàn thành</button>
+                                                    <button onClick={this.openEdit} className="btn btn-lightgreen lightgreen-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Cập nhật</button>
+                                                </div>
+                                            }
+
+
+
+                                            {statusId == Order.Status.EMP_ASSIGNED.value &&
+                                                <div className="group-f">
+                                                    <div className="mgrg-10">
+                                                        <ButtonWithNoteModal ok={this.click2EmpReject} title={'Ghi chú'} placeholder="Lý do bạn không nhận đơn hàng này">
+                                                            <button className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i> Không nhận</button>
+                                                        </ButtonWithNoteModal>
+                                                    </div>
+
+                                                    <div className="mgrg-10">
+                                                        <ButtonWithConfirrm ok={this.click2EmpAccept}>
+                                                            <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Chấp nhận</button>
+                                                        </ButtonWithConfirrm>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            {statusId == Order.Status.EMP_ACCEPTED.value &&
+                                                <div className="mgrg-10">
+                                                    <ButtonWithConfirrm ok={this.click2Stared}>
+                                                        <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Bắt đầu đi..</button>
                                                     </ButtonWithConfirrm>
                                                 </div>
-                                            </div>
-                                        }
+                                            }
+
+                                            {statusId == Order.Status.PROCESSING.value && !this.state.isEditService &&
+                                                <div className="group-f">
+
+                                                    <div className="mgrg-10">
+                                                        <ButtonWithNoteModal ok={this.click2NotCompleted} title={'Ghi chú'} placeholder="Vui lòng cho biết lý do">
+                                                            <button className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i> Không hoàn thành</button>
+                                                        </ButtonWithNoteModal>
+                                                    </div>
+
+                                                    <div className="mgrg-10">
+                                                        <ButtonWithConfirrm ok={this.click2Completed}>
+                                                            <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Hoàn thành</button>
+                                                        </ButtonWithConfirrm>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     }
 
                     {!this.state.isEditService &&
                         <div>
-
-                            {!booking["user"] &&
+                            {(statusId == Order.Status.CONFIRMED.value || statusId == Order.Status.EMP_REJECT.value) &&
                                 <div className="assignment-emp">
                                     <div className="container">
                                         <Assignment orderId={this.state.bookingId} {...this.props} />

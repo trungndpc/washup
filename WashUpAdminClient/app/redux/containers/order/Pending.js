@@ -111,12 +111,12 @@ class Pending extends React.Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Mã đơn</th>
-                                                    <th>Tên</th>
-                                                    <th>SDT</th>
-                                                    <th>Địa chỉ</th>
-                                                    <th>Lịch</th>
-                                                    <th>Ngày tạo</th>
+                                                    <th className="m_code">Mã đơn</th>
+                                                    <th className="m_name">Tên</th>
+                                                    <th className="m_phone">SDT</th>
+                                                    <th className="m_address">Địa chỉ</th>
+                                                    <th className="m_schedule">Lịch</th>
+                                                    <th className="m_created_time">Ngày tạo</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>

@@ -24,7 +24,7 @@ class Processing extends React.Component {
     }
 
     changePageNumber(pageNumber, pageSize) {
-        this.setState({pageNumber, pageNumber})
+        this.setState({ pageNumber, pageNumber })
         this.props.appActions.getOrdersByStatus(3, pageNumber - 1, 10)
     }
 
@@ -73,26 +73,24 @@ class Processing extends React.Component {
                                         <table className="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Mã đơn</th>
-                                                    <th>Tên</th>
-                                                    <th>SDT</th>
-                                                    <th>Nhân viên</th>
-                                                    <th>Địa chỉ</th>
-                                                    <th>Lịch đặt</th>
+                                                    <th className="m_code">Mã đơn</th>
+                                                    <th className="m_phone">SDT</th>
+                                                    <th className="m_name">Nhân viên</th>
+                                                    <th className="m_address">Địa chỉ</th>
+                                                    <th className="m_created_time">Ngày tạo</th>
                                                     <th>Ngày tạo</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {bookings && bookings.map((item, index) => {
                                                     return (
-                                                        <tr onClick={() => {this.onClickDetail(item["id"])}}  key={item["id"]}>
+                                                        <tr onClick={() => { this.onClickDetail(item["id"]) }} key={item["id"]}>
                                                             <td>{item["orderNumber"]}</td>
-                                                            <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td>Nguyễn Đình Trung</td>
                                                             <td>{item["pickUpAddress"]}</td>
-                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"])   + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
-                                                            <td>{TimeUtils.toFormat(item["createdOn"]* 1000)}</td>
+                                                            <td>{TimeUtils.timeSchedule(item["timeSchedule"]) + " - " + TimeUtils.toString(item["timeSchedule"] * 1000)}</td>
+                                                            <td>{TimeUtils.toFormat(item["createdOn"] * 1000)}</td>
                                                         </tr>
                                                     )
                                                 })}

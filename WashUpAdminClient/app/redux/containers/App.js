@@ -18,6 +18,7 @@ import Confirmed from '../containers/order/Confirmed'
 import Processing from '../containers/order/Processing'
 import Success from '../containers/order/Success'
 import Canceled from '../containers/order/Canceled'
+import Login from '../containers/Login'
 import Task from '../containers/Task';
 import Alert from 'react-s-alert';
 
@@ -25,6 +26,12 @@ import Alert from 'react-s-alert';
 import Order from './Order'
 
 class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLogin: false
+    }
+  }
   render() {
     //DEBUG
     if (process.env.NODE_ENV === 'development') {
@@ -32,22 +39,27 @@ class App extends React.Component {
     }
     return (
       <div className="example-app">
-        <div>
-          <Header history={this.props.history} />
-          <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route exact path="/order" component={Order} />
-            <Route exact path="/task" component={Task} />
-            <Route exact path="/order/pending" component={Pending} />
-            <Route exact path="/order/confirmed" component={Confirmed} />
-            <Route exact path="/order/processing" component={Processing} />
-            <Route exact path="/order/canceled" component={Canceled} />
-            <Route exact path="/order/success" component={Success} />
-            <Route exact path="/order/:id" component={BookingDetail} />
-            <Route path="/*" component={NotFoundPage} />
-          </Switch>
-          {/* <Footer /> */}
-        </div>
+        {this.state.isLogin &&
+          <div>
+            <Header history={this.props.history} />
+            <Switch>
+              <Route exact path="/" component={Dashboard} />
+              <Route exact path="/order" component={Order} />
+              <Route exact path="/task" component={Task} />
+              <Route exact path="/order/pending" component={Pending} />
+              <Route exact path="/order/confirmed" component={Confirmed} />
+              <Route exact path="/order/processing" component={Processing} />
+              <Route exact path="/order/canceled" component={Canceled} />
+              <Route exact path="/order/success" component={Success} />
+              <Route exact path="/order/:id" component={BookingDetail} />
+              <Route path="/*" component={NotFoundPage} />
+            </Switch>
+            {/* <Footer /> */}
+          </div>
+        }
+        {!this.state.isLogin &&
+          <Login />
+        }
         <Alert stack={{ limit: 3 }} />
       </div>
     )
