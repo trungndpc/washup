@@ -100,20 +100,20 @@ function* requestLoginAsync(action) {
 
 function getListBookingByDate(datetime, page, pageSize) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/all?page=${page}&pageSize=${pageSize}`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/all?page=${page}&pageSize=${pageSize}`, resolve, reject);
   });
 }
 
 function getOrderByStatusAndDate(status, date, page, pageSize) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/order-by-date-and-status?date=${date}&status=${status}&page=${page}&pageSize=${pageSize}`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/order-by-date-and-status?date=${date}&status=${status}&page=${page}&pageSize=${pageSize}`, resolve, reject);
   });
 }
 
 
 function getBookingDetail(id) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/` + id, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/` + id, resolve, reject);
   });
 }
 
@@ -131,13 +131,13 @@ function postUpdateStatus(id, status, note) {
   }
 
   return new Promise((resolve, reject) => {
-    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/update-status`, JSON.stringify(body), resolve, reject);
+    APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/update-status`, JSON.stringify(body), resolve, reject);
   });
 }
 
 function getEmployee() {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/users/user-by-permission?permission=2`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/users/user-by-permission?permission=2`, resolve, reject);
   });
 }
 
@@ -149,7 +149,7 @@ function postAssignEmployee(orderId, employeeId, note) {
   }
 
   return new Promise((resolve, reject) => {
-    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/assign-employee`, JSON.stringify(body), resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/assign-employee`, JSON.stringify(body), resolve, reject);
   });
 }
 
@@ -163,37 +163,37 @@ function postUpdateOrder(orderId, data) {
     "serviceIds": data["serviceIds"]
   }
   return new Promise((resolve, reject) => {
-    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/update-order`, JSON.stringify(body), resolve, reject);
+    APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/update-order`, JSON.stringify(body), resolve, reject);
   });
 }
 
 function getServices(transportId, groupServiceId, brandSeriesId) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services?categories=` + transportId + `&types=` + groupServiceId + `&brandSeriesId=` + brandSeriesId, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/services?categories=` + transportId + `&types=` + groupServiceId + `&brandSeriesId=` + brandSeriesId, resolve, reject);
   });
 }
 
 function getScheduleTomorow() {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/schedules/tomorrow`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/schedules/tomorrow`, resolve, reject);
   });
 }
 
 function getScheduleOverTomorrow() {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/schedules/overtomorrow`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/schedules/overtomorrow`, resolve, reject);
   });
 }
 
 function getScheduleToday() {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/schedules/today`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/schedules/today`, resolve, reject);
   });
 }
 
 function getOrderByUserId(userId, page, pageSize) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/orders/assigned-order?userId=${userId}&page=${page}&pageSize=${pageSize}`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/assigned-order?userId=${userId}&page=${page}&pageSize=${pageSize}`, resolve, reject);
   });
 }
 
@@ -203,7 +203,7 @@ function getLoginInfo() {
   });
 }
 
-function login(username, password) {
+function login(username, password) { 
   const body = {
     "username": username,
     "password": password,
