@@ -12,12 +12,14 @@ class Task extends React.Component {
         super(props)
         this.changePageNumber = this.changePageNumber.bind(this);
         this.state = {
-            pageNumber: 1
+            pageNumber: 1,
+            userId: this.props.app.user["id"]
         }
+
     }
 
     componentDidMount() {
-        this.props.appActions.getOrderByAssignedUser("ff80818174b127100174b130727b0011", this.state.pageNumber, 10);
+        this.props.appActions.getOrderByAssignedUser(this.state.userId, this.state.pageNumber, 10);
     }
 
     onClickDetail(id) {
@@ -26,11 +28,12 @@ class Task extends React.Component {
 
     changePageNumber(pageNumber, pageSize) {
         this.setState({ pageNumber, pageNumber })
-        this.props.appActions.getOrderByAssignedUser("ff80818174b127100174b130727b0011", pageNumber - 1, 10);
+        this.props.appActions.getOrderByAssignedUser(this.state.userId, pageNumber - 1, 10);
     }
 
 
     render() {
+        console.log(this.state.userId)
         const pageOrder = this.props.app.orderByUser;
         const bookings = pageOrder && pageOrder.storeOrders;
         //DEBUG

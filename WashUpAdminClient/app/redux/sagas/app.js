@@ -18,6 +18,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_ORDER_BY_STATUS_DATE_ASYNC, requestGetOrderByStatusAndDateAsync)
   yield takeLatest(type.APP.GET_LOGIN_INFO_ASYNC, requestGetLoginInfoAsync)
   yield takeLatest(type.APP.LOGIN_ASYNC, requestLoginAsync)
+  yield takeLatest(type.APP.LOGOUT_ASYNC, requestLogoutAsync)
 }
 
 function* requestGetListBookingByDateAsync(action) {
@@ -98,6 +99,12 @@ function* requestLoginAsync(action) {
   yield put({ type: type.APP.LOGIN_END, payload: resp})
 }
 
+function* requestLogoutAsync() {
+  const resp = yield call(logout)
+  yield put({type: type.APP.LOGOUT_END, payload: resp})
+}
+
+
 function getListBookingByDate(datetime, page, pageSize) {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/all?page=${page}&pageSize=${pageSize}`, resolve, reject);
@@ -149,7 +156,7 @@ function postAssignEmployee(orderId, employeeId, note) {
   }
 
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/assign-employee`, JSON.stringify(body), resolve, reject);
+    APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/assign-employee`, JSON.stringify(body), resolve, reject);
   });
 }
 
@@ -210,6 +217,12 @@ function login(username, password) {
     "rememberMe": true
   }
   return new Promise((resolve, reject) => {
-    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/admin/users/login`, JSON.stringify(body), resolve, reject);
+    APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/users/login`, JSON.stringify(body), resolve, reject);
+  });
+}
+
+function logout() {
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/users/logout`, JSON.stringify({}), resolve, reject);
   });
 }

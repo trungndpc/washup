@@ -40,11 +40,17 @@ class App extends React.Component {
       console.log('Render: ', 'App')
     }
     const isLogin = this.props.app.isLogin;
+    const isCheckLogin = this.props.app.isLoginChecked;
+    if (!isCheckLogin) {
+      return (
+        <div>...</div>
+      )
+    }
     return (
       <div className="example-app">
         {isLogin &&
           <div>
-            <Header history={this.props.history} />
+            <Header {...this.props} history={this.props.history} />
             <Switch>
               <Route exact path="/" component={Dashboard} />
               <Route exact path="/order" component={Order} />

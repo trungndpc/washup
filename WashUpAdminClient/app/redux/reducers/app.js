@@ -1,11 +1,12 @@
 import * as type from '../actions/action-types'
 
 const initialState = {
-  isLogin : true,
+  isLogin : false,
   bookings: [],
   employees: [],
   services: [],
   schedules: {},
+  isLoginChecked: false
 }
 
 export default function app(state = initialState, action) {
@@ -64,12 +65,24 @@ export default function app(state = initialState, action) {
       break;
     }
     case type.APP.GET_LOGIN_INFO_END: {
-
-      // newState.user = action.payload;
+      let resp = action.payload;
+      newState.isLoginChecked = true
+      if (resp && resp.data) {
+        newState.isLogin = true;
+        newState.user = resp.data;
+      }else {
+        newState.isLogin = false;
+        newState.user = null;
+      }
       break;
     }
     case type.APP.GET_ORDER_BY_USER_ASSIGNED_END: {
       newState.orderByUser = action.payload;
+      break;
+    }
+    case type.APP.LOGOUT_END: {
+      newState.isLogin = false;
+      newState.isLoginChecked = true;
       break;
     }
     default:

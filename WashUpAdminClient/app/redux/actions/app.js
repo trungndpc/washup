@@ -110,3 +110,9 @@ export function login(username, password) {
     password: password
   }
 }
+
+export function logout() {
+  return {
+    type: type.APP.LOGOUT_ASYNC
+  }
+}

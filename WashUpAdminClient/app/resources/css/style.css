@@ -228,11 +228,10 @@ body {}
 }
 .header-top-menu .nav.notika-top-nav li .message-dd {
     position: absolute;
+    padding: 10px;
     top: 100%;
-    left: -100px;
-    width: 300px;
+    left: -50px;
     border: none;
-    padding: 20px 0px;
 	z-index:9999;
 }
 .header-top-menu .nav.notika-top-nav li .message-dd .hd-mg-tt h2{
