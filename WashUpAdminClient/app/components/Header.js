@@ -29,10 +29,10 @@ class Header extends Component {
                 <div className="header-top-menu">
                   <ul className="nav navbar-nav notika-top-nav">
                     <li className="nav-item dropdown">
-                      <a style={{fontSize: '12px'}} href="#" data-toggle="dropdown" role="button" aria-expanded="false" className="nav-link dropdown-toggle"><span>{user && user["fullName"]}</span></a>
+                      <a style={{fontSize: '15px'}} href="#" data-toggle="dropdown" role="button" aria-expanded="false" className="nav-link dropdown-toggle"><span>{user && user["fullName"]}</span></a>
                       <div role="menu" className="dropdown-menu message-dd animated zoomIn">
                         <div className="hd-mg-tt">
-                          <a onClick={this.onClickLogout} style={{fontSize: '12px'}}>Đăng xuất</a>
+                          <a onClick={this.onClickLogout} style={{fontSize: '14px'}}>Đăng xuất</a>
                         </div>
                       </div>
                     </li>

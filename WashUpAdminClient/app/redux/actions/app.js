@@ -78,12 +78,14 @@ export function updateOrder(id, data, note) {
   }
 }
 
-export function getOrderByAssignedUser(userId, page, pageSize) {
+export function getOrderByAssignedUser(userId, date, status, page, pageSize) {
   return {
     type: type.APP.GET_ORDER_BY_USER_ASSIGNED_ASYNC,
     userId: userId,
     page: page,
-    pageSize: pageSize
+    pageSize: pageSize,
+    date: date,
+    status: status
   }
 }
 

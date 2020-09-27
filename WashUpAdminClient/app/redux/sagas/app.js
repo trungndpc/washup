@@ -56,7 +56,7 @@ function* requestAssignEmployeeAsync(action) {
 }
 
 function* requestGetOrderByUserIdAsync(action) {
-  const resp = yield call(getOrderByUserId, action.userId, action.page, action.pageSize);
+  const resp = yield call(getOrderByUserId, action.userId, action.date, action.status, action.page, action.pageSize);
   yield put({ type: type.APP.GET_ORDER_BY_USER_ASSIGNED_END, payload: resp.data })
 }
 
@@ -96,12 +96,12 @@ function* requestGetLoginInfoAsync() {
 
 function* requestLoginAsync(action) {
   const resp = yield call(login, action.username, action.password);
-  yield put({ type: type.APP.LOGIN_END, payload: resp})
+  yield put({ type: type.APP.LOGIN_END, payload: resp })
 }
 
 function* requestLogoutAsync() {
   const resp = yield call(logout)
-  yield put({type: type.APP.LOGOUT_END, payload: resp})
+  yield put({ type: type.APP.LOGOUT_END, payload: resp })
 }
 
 
@@ -198,9 +198,9 @@ function getScheduleToday() {
   });
 }
 
-function getOrderByUserId(userId, page, pageSize) {
+function getOrderByUserId(userId, date, status, page, pageSize) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/assigned-order?userId=${userId}&page=${page}&pageSize=${pageSize}`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/assigned-order?userId=${userId}&date=${date}&statuses=${status}&page=${page}&pageSize=${pageSize}`, resolve, reject);
   });
 }
 
@@ -210,7 +210,7 @@ function getLoginInfo() {
   });
 }
 
-function login(username, password) { 
+function login(username, password) {
   const body = {
     "username": username,
     "password": password,

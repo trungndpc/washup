@@ -6,20 +6,32 @@ import TimeUtils from '../../utils/TimeUtils'
 import * as OrderConstant from '../../constants/order';
 import Pagination from 'antd/es/pagination'
 import PriceUtils from '../../utils/PriceUtils'
+import DatePicker from 'react-datepicker'
 
+const LIST_STATUS_EMP = OrderConstant.Status.EMP_ASSIGNED.value + "," + OrderConstant.Status.EMP_ASSIGNED.value
+    + "," + OrderConstant.Status.EMP_REJECT.value + "," + OrderConstant.Status.PROCESSING.value + "," + OrderConstant.Status.COMPLETED.value
+    + "," + OrderConstant.Status.CANCELED.value;
 class Task extends React.Component {
     constructor(props) {
         super(props)
         this.changePageNumber = this.changePageNumber.bind(this);
         this.state = {
+            date: new Date(),
+            status: LIST_STATUS_EMP,
             pageNumber: 1,
             userId: this.props.app.user["id"]
         }
+        this.onSelectStatus = this.onSelectStatus.bind(this)
+        this.setStartDate = this.setStartDate.bind(this)
 
     }
 
+    getDateTime(date) {
+        return parseInt(new Date(date).getTime() / 1000);
+    }
+
     componentDidMount() {
-        this.props.appActions.getOrderByAssignedUser(this.state.userId, this.state.pageNumber, 10);
+        this.props.appActions.getOrderByAssignedUser(this.state.userId, this.getDateTime(this.state.date), this.state.status, this.state.pageNumber - 1, 10);
     }
 
     onClickDetail(id) {
@@ -28,7 +40,18 @@ class Task extends React.Component {
 
     changePageNumber(pageNumber, pageSize) {
         this.setState({ pageNumber, pageNumber })
-        this.props.appActions.getOrderByAssignedUser(this.state.userId, pageNumber - 1, 10);
+        this.props.appActions.getOrderByAssignedUser(this.state.userId, this.getDateTime(this.state.date), this.state.status, pageNumber - 1, 10);
+    }
+
+    onSelectStatus(event) {
+        let status = event.target.value;
+        this.setState({status, status})
+        this.props.appActions.getOrderByAssignedUser(this.state.userId, this.getDateTime(this.state.date), status, this.state.pageNumber - 1, 10);
+    }
+
+    setStartDate(date) {
+        this.setState({ date: date })
+        this.props.appActions.getOrderByAssignedUser(this.state.userId, this.getDateTime(date), this.state.status, this.state.pageNumber - 1, 10);
     }
 
 
@@ -37,6 +60,11 @@ class Task extends React.Component {
         const pageOrder = this.props.app.orderByUser;
         const bookings = pageOrder && pageOrder.storeOrders;
         //DEBUG
+
+        const CustomInputDate = ({ value, onClick }) => (
+            <button type="button" onClick={onClick} className="btn btn-primary notika-gp-primary waves-effect">{value}</button>
+        );
+
         return (
             <div>
                 <div className="breadcomb-area">
@@ -70,6 +98,18 @@ class Task extends React.Component {
                 <div className="normal-table-area">
                     <div className="container">
                         <div className="row">
+                            <div className="col-lg-12" style={{ textAlign: 'right' }}>
+                                <select onChange={this.onSelectStatus} className="status-select" name="cars" id="cars">
+                                    <option value={LIST_STATUS_EMP}>Tất cả</option>
+                                    <option value={OrderConstant.Status.EMP_ASSIGNED.value}>Chờ chấp nhận</option>
+                                    <option value={OrderConstant.Status.EMP_ACCEPTED.value}>Đã Chấp nhận</option>
+                                    <option value={OrderConstant.Status.EMP_REJECT.value}>Đã Từ chối</option>
+                                    <option value={OrderConstant.Status.COMPLETED.value}>Thành công</option>
+                                    <option value={OrderConstant.Status.CANCELED.value}>Thất bại</option>
+                                </select>
+                                <DatePicker selected={this.state.date} onChange={this.setStartDate} customInput={<CustomInputDate />} />
+                            </div>
+
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div className="normal-table-list mg-t-30">
                                     <div className="bsc-tbl-st">
@@ -119,7 +159,7 @@ class Task extends React.Component {
                                         </table>
                                     </div>
                                 </div>
-                                {pageOrder && <div style={{textAlign: 'center', padding: '30px'}}> <Pagination defaultCurrent={pageOrder.page} pageSize={10} onChange={this.changePageNumber} total={pageOrder["totalPage"] * 10} /> </div>}
+                                {pageOrder && <div style={{ textAlign: 'center', padding: '30px' }}> <Pagination defaultCurrent={pageOrder.page} pageSize={10} onChange={this.changePageNumber} total={pageOrder["totalPage"] * 10} /> </div>}
                             </div>
                         </div>
                     </div>

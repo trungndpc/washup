@@ -43,13 +43,13 @@ class Login extends React.Component {
                             <div className="input-group">
                                 <span className="input-group-addon nk-ic-st-pro"><i className="notika-icon notika-support" /></span>
                                 <div className="nk-int-st">
-                                    <input type="text" value={'lequangphu8888'} ref={e => this.usernameInputRef = e} className="form-control" placeholder="Username" />
+                                    <input type="text"  ref={e => this.usernameInputRef = e} className="form-control" placeholder="Username" />
                                 </div>
                             </div>
                             <div className="input-group mg-t-15">
                                 <span className="input-group-addon nk-ic-st-pro"><i className="notika-icon notika-edit" /></span>
                                 <div className="nk-int-st">
-                                    <input type="password" value={'washup@123'} ref={e => this.passwordInputRef = e} className="form-control" placeholder="Password" />
+                                    <input type="password" ref={e => this.passwordInputRef = e} className="form-control" placeholder="Password" />
                                 </div>
                             </div>
                             <div className="fm-checkbox">
