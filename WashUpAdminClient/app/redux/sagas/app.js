@@ -90,7 +90,7 @@ function* requestGetOrderByStatusAndDateAsync(action) {
 
 function* requestGetLoginInfoAsync() {
   const resp = yield call(getLoginInfo);
-  yield put({ type: type.APP.GET_LOGIN_INFO_END, payload: resp.data })
+  yield put({ type: type.APP.GET_LOGIN_INFO_END, payload: resp })
 }
 
 function* requestLoginAsync(action) {
@@ -199,7 +199,7 @@ function getOrderByUserId(userId, page, pageSize) {
 
 function getLoginInfo() {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/login-info`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/users/user-info`, resolve, reject);
   });
 }
 

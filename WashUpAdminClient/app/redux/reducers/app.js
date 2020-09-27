@@ -1,7 +1,7 @@
 import * as type from '../actions/action-types'
 
 const initialState = {
-  isLogin : false,
+  isLogin : true,
   bookings: [],
   employees: [],
   services: [],
@@ -64,7 +64,8 @@ export default function app(state = initialState, action) {
       break;
     }
     case type.APP.GET_LOGIN_INFO_END: {
-      newState.user = action.payload;
+
+      // newState.user = action.payload;
       break;
     }
     case type.APP.GET_ORDER_BY_USER_ASSIGNED_END: {
