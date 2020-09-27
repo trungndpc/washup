@@ -242,6 +242,33 @@ class BookingDetail extends React.Component {
                                                     </div>
                                                 </div>
 
+                                                <div style={{ fontWeight: '600' }}>Ghi chú: </div>
+                                                {booking["operatorNotes"] && <div className="row">
+                                                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div className="invoice-sp">
+                                                            <table className="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Trạng thái</th>
+                                                                        <th>Nội dung</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {booking["operatorNotes"] && booking["operatorNotes"].map((item, index) => {
+                                                                        return (
+                                                                            <tr key={"note:" + index}>
+                                                                                <td>{Order.findStatus(item["statusTo"]).toString}</td>
+                                                                                <td>{item["content"]}</td>
+                                                                            </tr>
+                                                                        )
+                                                                    })}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                }
+
                                                 <div className="row">
                                                     <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                                         <div className="invoice-hs">
@@ -297,6 +324,10 @@ class BookingDetail extends React.Component {
                                                         </div>
                                                     </div>
                                                 </div>
+
+
+
+
                                             </div>
                                         </div>
                                     </div>
