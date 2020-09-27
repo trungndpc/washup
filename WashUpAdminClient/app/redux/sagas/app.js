@@ -96,6 +96,10 @@ function* requestGetLoginInfoAsync() {
 
 function* requestLoginAsync(action) {
   const resp = yield call(login, action.username, action.password);
+  if (!resp["errors"]) {
+    const loginResp = yield call(getLoginInfo);
+    yield put({ type: type.APP.GET_LOGIN_INFO_END, payload: loginResp })
+  }
   yield put({ type: type.APP.LOGIN_END, payload: resp })
 }
 

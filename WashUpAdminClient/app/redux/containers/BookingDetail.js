@@ -249,15 +249,23 @@ class BookingDetail extends React.Component {
                                                             <table className="table table-hover">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>Trạng thái</th>
+                                                                        <th>Đối tượng</th>
                                                                         <th>Nội dung</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     {booking["operatorNotes"] && booking["operatorNotes"].map((item, index) => {
+                                                                        let from = item["statusFrom"]
+                                                                        let to = item["statusTo"]
+                                                                        let target = "Khác"
+                                                                        if (from == 1 && to == 2) {
+                                                                            target = "CRM"
+                                                                        }else if (from == 2 && to == 2) {
+                                                                            target = "Bộ phận phân công nhân viên"
+                                                                        }
                                                                         return (
                                                                             <tr key={"note:" + index}>
-                                                                                <td>{Order.findStatus(item["statusTo"]).toString}</td>
+                                                                                <td>{target}</td>
                                                                                 <td>{item["content"]}</td>
                                                                             </tr>
                                                                         )

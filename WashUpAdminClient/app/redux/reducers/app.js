@@ -82,6 +82,7 @@ export default function app(state = initialState, action) {
     }
     case type.APP.LOGOUT_END: {
       newState.isLogin = false;
+      newState.user = null;
       newState.isLoginChecked = true;
       break;
     }
