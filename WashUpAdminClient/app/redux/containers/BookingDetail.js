@@ -7,10 +7,10 @@ import Assignment from '../../components/Assignment'
 import AddService from '../../components/AddService'
 import PriceUtils from '../../utils/PriceUtils'
 import * as Order from '../../constants/order';
-import UpdateStatusModal from './order/UpdateStatusModal'
 import RejectOrderModal from './order/RejectOrderModal'
 import ButtonWithConfirrm from '../../components/ButtonWithConfirrm'
 import ButtonWithNoteModal from '../../components/ButtonWithNoteModal'
+import * as RoleConstant from '../../constants/Role'
 
 class BookingDetail extends React.Component {
     constructor(props) {
@@ -84,8 +84,22 @@ class BookingDetail extends React.Component {
         })
     }
 
+    _isCancelOrder(role) {
+        return role == RoleConstant.Role.ADMIN || role == RoleConstant.Role.TECHNICIAN || role == RoleConstant.Role.OPERATOR;
+    }
+
+    _isRoleEmp(role) {
+        return role == RoleConstant.Role.TECHNICIAN;
+    }
+
+    _isRoleOperator(role) {
+        return role == RoleConstant.Role.OPERATOR || role == RoleConstant.Role.ADMIN;
+    }
 
     render() {
+        const user = this.props.app.user;
+        const role = RoleConstant.findRole(user["permissions"])
+
         const booking = this.props.app.booking && this.props.app.booking;
         const statusId = booking && booking["status"]
         var listServicesId;
@@ -129,15 +143,14 @@ class BookingDetail extends React.Component {
                                 <div className="row">
                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div className="breadcomb-list">
-
-                                            {statusId != Order.Status.PROCESSING.value && statusId != Order.Status.EMP_ASSIGNED.value &&
+                                            {this._isCancelOrder(role) && statusId != Order.Status.PROCESSING.value
+                                                && statusId != Order.Status.EMP_ASSIGNED.value &&
                                                 <div className="mgrg-10">
                                                     <ButtonWithNoteModal ok={this.click2NotCompleted} title={'Ghi chú'} placeholder="Vui lòng cho biết lý do">
                                                         <button className="btn btn-danger danger-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Hủy đơn</button>
                                                     </ButtonWithNoteModal>
                                                 </div>
                                             }
-
 
                                             {((statusId == Order.Status.CONFIRMED.value || Order.Status.PROCESSING.value || Order.Status.PENDING.value)
                                                 && !this.state.isEditService && statusId != Order.Status.EMP_ASSIGNED.value) &&
@@ -146,9 +159,7 @@ class BookingDetail extends React.Component {
                                                 </div>
                                             }
 
-
-
-                                            {statusId == Order.Status.EMP_ASSIGNED.value &&
+                                            {this._isRoleEmp(role) && statusId == Order.Status.EMP_ASSIGNED.value &&
                                                 <div className="group-f">
                                                     <div className="mgrg-10">
                                                         <ButtonWithNoteModal ok={this.click2EmpReject} title={'Ghi chú'} placeholder="Lý do bạn không nhận đơn hàng này">
@@ -164,7 +175,7 @@ class BookingDetail extends React.Component {
                                                 </div>
                                             }
 
-                                            {statusId == Order.Status.EMP_ACCEPTED.value &&
+                                            {this._isRoleEmp(role) && statusId == Order.Status.EMP_ACCEPTED.value &&
                                                 <div className="mgrg-10">
                                                     <ButtonWithConfirrm ok={this.click2Stared}>
                                                         <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Bắt đầu đi..</button>
@@ -172,7 +183,7 @@ class BookingDetail extends React.Component {
                                                 </div>
                                             }
 
-                                            {statusId == Order.Status.PROCESSING.value && !this.state.isEditService &&
+                                            {this._isRoleEmp(role) && statusId == Order.Status.PROCESSING.value && !this.state.isEditService &&
                                                 <div className="group-f">
 
                                                     <div className="mgrg-10">
@@ -197,7 +208,7 @@ class BookingDetail extends React.Component {
 
                     {!this.state.isEditService &&
                         <div>
-                            {(statusId == Order.Status.CONFIRMED.value || statusId == Order.Status.EMP_REJECT.value) &&
+                            {this._isRoleOperator(role) && (statusId == Order.Status.CONFIRMED.value || statusId == Order.Status.EMP_REJECT.value) &&
                                 <div className="assignment-emp">
                                     <div className="container">
                                         <Assignment orderId={this.state.bookingId} {...this.props} />
@@ -260,7 +271,7 @@ class BookingDetail extends React.Component {
                                                                         let target = "Khác"
                                                                         if (from == 1 && to == 2) {
                                                                             target = "CRM"
-                                                                        }else if (from == 2 && to == 2) {
+                                                                        } else if (from == 2 && to == 2) {
                                                                             target = "Bộ phận phân công nhân viên"
                                                                         }
                                                                         return (
