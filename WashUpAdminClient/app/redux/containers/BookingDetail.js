@@ -21,7 +21,8 @@ class BookingDetail extends React.Component {
             isShowFormSSOrder: false,
             isShowFormCancelOrder: false,
             id: 0,
-            currentStatus: 0
+            currentStatus: 0,
+            isChangeAssignEmp: null
         }
         this.openEdit = this.openEdit.bind(this)
         this.closeEdit = this.closeEdit.bind(this)
@@ -30,6 +31,8 @@ class BookingDetail extends React.Component {
         this.click2EmpAccept = this.click2EmpAccept.bind(this)
         this.click2EmpReject = this.click2EmpReject.bind(this)
         this.click2Stared = this.click2Stared.bind(this)
+        this.onClickChangeAssignEmp = this.onClickChangeAssignEmp.bind(this)
+        this.closeAssignmentForm = this.closeAssignmentForm.bind(this)
     }
 
     async componentDidMount() {
@@ -62,6 +65,12 @@ class BookingDetail extends React.Component {
         this.props.appActions.updateStatus(booking["id"], booking["status"], Order.Status.CANCELED.value, note);
     }
 
+    onClickChangeAssignEmp() {
+        this.setState({
+            isChangeAssignEmp: true
+        })
+    }
+
 
     getBookingIdFromParams() {
         let params = this.props.match.params;
@@ -87,6 +96,9 @@ class BookingDetail extends React.Component {
     _isCancelOrder(role) {
         return role == RoleConstant.Role.ADMIN || role == RoleConstant.Role.TECHNICIAN || role == RoleConstant.Role.OPERATOR;
     }
+    closeAssignmentForm() {
+        this.setState({ isChangeAssignEmp: null })
+    }
 
     _isRoleEmp(role) {
         return role == RoleConstant.Role.TECHNICIAN;
@@ -95,6 +107,7 @@ class BookingDetail extends React.Component {
     _isRoleOperator(role) {
         return role == RoleConstant.Role.OPERATOR || role == RoleConstant.Role.ADMIN;
     }
+
 
     render() {
         const user = this.props.app.user;
@@ -208,10 +221,11 @@ class BookingDetail extends React.Component {
 
                     {!this.state.isEditService &&
                         <div>
+                            {(statusId == Order.Status.CONFIRMED.value || statusId == Order.Status.EMP_REJECT.value || this.state.isChangeAssignEmp) &&
                             {this._isRoleOperator(role) && (statusId == Order.Status.CONFIRMED.value || statusId == Order.Status.EMP_REJECT.value) &&
                                 <div className="assignment-emp">
                                     <div className="container">
-                                        <Assignment orderId={this.state.bookingId} {...this.props} />
+                                        <Assignment close={this.closeAssignmentForm} orderId={this.state.bookingId} {...this.props} />
                                     </div>
                                 </div>
                             }
@@ -237,11 +251,12 @@ class BookingDetail extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {booking["user"] &&
+                                                        {(booking["user"] && !this.state.isChangeAssignEmp) &&
                                                             <div style={{ marginTop: '30px' }} className="col-lg-12col-md-12 col-sm-12 col-xs-12">
                                                                 <div className="invoice-cmp-ds">
-                                                                    <div className="invoice-frm">
-                                                                        <span>Nhân viên</span>
+                                                                    <div style={{ position: 'relative' }} className="invoice-frm">
+                                                                        <button onClick={this.onClickChangeAssignEmp} style={{ position: 'absolute', right: 0, top: 0 }} className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i></button>
+                                                                        <span style={{ color: '#faad14' }}>Nhân viên</span>
                                                                     </div>
                                                                     <div className="comp-tl">
                                                                         <h2><i className="notika-icon notika-support"></i>{booking["user"]["fullName"]}</h2>
@@ -253,7 +268,7 @@ class BookingDetail extends React.Component {
                                                     </div>
                                                 </div>
 
-                                                <div style={{ fontWeight: '600' }}>Ghi chú: </div>
+                                                <div style={{ fontWeight: '600' }}>Ghi chú vấn hạnh: </div>
                                                 {booking["operatorNotes"] && <div className="row">
                                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                         <div className="invoice-sp">
@@ -265,6 +280,7 @@ class BookingDetail extends React.Component {
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    {booking["customerNote"] && <tr key="kh"><td>Khách hàng</td><td>{booking["customerNote"]}</td></tr>}
                                                                     {booking["operatorNotes"] && booking["operatorNotes"].map((item, index) => {
                                                                         let from = item["statusFrom"]
                                                                         let to = item["statusTo"]
@@ -272,7 +288,7 @@ class BookingDetail extends React.Component {
                                                                         if (from == 1 && to == 2) {
                                                                             target = "CRM"
                                                                         } else if (from == 2 && to == 2) {
-                                                                            target = "Bộ phận phân công nhân viên"
+                                                                            target = "Vận hành"
                                                                         }
                                                                         return (
                                                                             <tr key={"note:" + index}>

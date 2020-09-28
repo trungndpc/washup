@@ -155,7 +155,7 @@ function booking(data) {
     "phone": data["phone"],
     "pickUpAddress": data["address"],
     "timeSchedule": data["timeSchedule"],
-    "note": data["note"],
+    "customerNote": data["note"],
     "licensePlate": data["licensePlate"],
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],

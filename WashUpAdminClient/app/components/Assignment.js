@@ -5,6 +5,7 @@ class Assignment extends Component {
 
     constructor(props) {
         super(props)
+        this.close = this.close.bind(this)
         this.onClickOKAssignEmployee = this.onClickOKAssignEmployee.bind(this)
     }
 
@@ -20,9 +21,15 @@ class Assignment extends Component {
             let note = this.noteInputRef && this.noteInputRef.value;
             this.props.appActions.assignEmployee(this.props.orderId, employeeId, note)
         }
+        this.props.close && this.props.close();
+    }
+
+    close() {
+        this.props.close && this.props.close();
     }
 
     render() {
+        const booking = this.props.app.booking && this.props.app.booking;
         const employees = this.props.app.employees;
         const optionsEmp = [];
         if (employees) {
@@ -34,7 +41,8 @@ class Assignment extends Component {
         return (
             <div className="row">
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div className="form-example-wrap mg-t-30">
+                    <div className="mbas form-example-wrap mg-t-30">
+                        {booking["user"] && <div onClick={this.close} className="mbtn-close"><i className="notika-icon notika-close"></i></div>}
                         <div className="cmp-tb-hd cmp-int-hd">
                             <h2>Phân công nhiệm vụ</h2>
                         </div>
@@ -55,12 +63,12 @@ class Assignment extends Component {
                         <div className="form-example-int form-horizental mg-t-15">
                             <div className="form-group">
                                 <div className="row">
-                                    <div style={{marginBottom: '10px'}} className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+                                    <div style={{ marginBottom: '10px' }} className="col-lg-2 col-md-3 col-sm-3 col-xs-12">
                                         <label className="hrzn-fm">Ghi chú</label>
                                     </div>
                                     <div className="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                                         <div className="nk-int-st">
-                                            <input  style={{paddingLeft: '10px'}} type="text" ref={e => this.noteInputRef = e} className="form-control input-sm" placeholder="Ghi chú cho nhân viên" />
+                                            <input style={{ paddingLeft: '10px' }} type="text" ref={e => this.noteInputRef = e} className="form-control input-sm" placeholder="Ghi chú cho nhân viên" />
                                         </div>
                                     </div>
                                 </div>
