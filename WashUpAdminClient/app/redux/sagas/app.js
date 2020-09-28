@@ -155,10 +155,9 @@ function getEmployee() {
 function postAssignEmployee(orderId, employeeId, note) {
   const body = {
     "storeOrderId": orderId,
-    "userId": employeeId,
+    "userIds": [employeeId],
     "operatorNote": note
   }
-
   return new Promise((resolve, reject) => {
     APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/assign-employee`, JSON.stringify(body), resolve, reject);
   });

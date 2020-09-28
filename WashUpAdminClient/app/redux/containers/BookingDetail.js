@@ -221,8 +221,7 @@ class BookingDetail extends React.Component {
 
                     {!this.state.isEditService &&
                         <div>
-                            {(statusId == Order.Status.CONFIRMED.value || statusId == Order.Status.EMP_REJECT.value || this.state.isChangeAssignEmp) &&
-                            {this._isRoleOperator(role) && (statusId == Order.Status.CONFIRMED.value || statusId == Order.Status.EMP_REJECT.value) &&
+                            {this._isRoleOperator(role) && (statusId == Order.Status.CONFIRMED.value || statusId == Order.Status.EMP_REJECT.value || this.state.isChangeAssignEmp) &&
                                 <div className="assignment-emp">
                                     <div className="container">
                                         <Assignment close={this.closeAssignmentForm} orderId={this.state.bookingId} {...this.props} />
@@ -251,17 +250,22 @@ class BookingDetail extends React.Component {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {(booking["user"] && !this.state.isChangeAssignEmp) &&
+                                                        {(booking["users"] && !this.state.isChangeAssignEmp) &&
                                                             <div style={{ marginTop: '30px' }} className="col-lg-12col-md-12 col-sm-12 col-xs-12">
                                                                 <div className="invoice-cmp-ds">
                                                                     <div style={{ position: 'relative' }} className="invoice-frm">
-                                                                        <button onClick={this.onClickChangeAssignEmp} style={{ position: 'absolute', right: 0, top: 0 }} className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i></button>
+                                                                        {this._isRoleOperator(role) && <button onClick={this.onClickChangeAssignEmp} style={{ position: 'absolute', right: 0, top: 0 }} className="btn btn-default btn-icon-notika waves-effect"><i className="notika-icon notika-menus"></i></button>}
                                                                         <span style={{ color: '#faad14' }}>Nhân viên</span>
                                                                     </div>
-                                                                    <div className="comp-tl">
-                                                                        <h2><i className="notika-icon notika-support"></i>{booking["user"]["fullName"]}</h2>
-                                                                        <p><i className="notika-icon notika-map"></i> [Dữ liệu chưa có]</p>
-                                                                    </div>
+                                                                    {booking["users"].map((item, index) => {
+                                                                        return (
+                                                                            <div key={"emp" + index} className="comp-tl">
+                                                                                <h2><i className="notika-icon notika-support"></i>{item["fullName"]}</h2>
+                                                                                <p><i className="notika-icon notika-map"></i> [Dữ liệu chưa có]</p>
+                                                                            </div>
+                                                                        )
+                                                                    })}
+
                                                                 </div>
                                                             </div>
                                                         }
