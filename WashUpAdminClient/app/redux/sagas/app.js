@@ -155,7 +155,7 @@ function getEmployee() {
 function postAssignEmployee(orderId, employeeId, note) {
   const body = {
     "storeOrderId": orderId,
-    "userIds": [employeeId],
+    "userIds": employeeId,
     "operatorNote": note
   }
   return new Promise((resolve, reject) => {

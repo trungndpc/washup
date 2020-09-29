@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import makeAnimated from 'react-select/animated';
 
+const animatedComponents = makeAnimated();
 class Assignment extends Component {
 
     constructor(props) {
@@ -17,9 +19,12 @@ class Assignment extends Component {
         if (!this.employeeInputRef.select.state.selectValue[0]) {
             console.log("Vui lòng chọn nhân viên")
         } else {
-            let employeeId = this.employeeInputRef.select.state.selectValue[0].value;
+            let employeeIds = [];
+            this.employeeInputRef.select.state.selectValue.forEach(function (item) {
+                employeeIds.push(item.value)
+            })
             let note = this.noteInputRef && this.noteInputRef.value;
-            this.props.appActions.assignEmployee(this.props.orderId, employeeId, note)
+            this.props.appActions.assignEmployee(this.props.orderId, employeeIds, note)
         }
         this.props.close && this.props.close();
     }
@@ -28,13 +33,31 @@ class Assignment extends Component {
         this.props.close && this.props.close();
     }
 
+    isChecked(list, id) {
+        let rs = false;
+        if (list) {
+            list.forEach(function (item) {
+                if (item.id == id) {
+                    rs = true;
+                }
+            })
+        }
+        return rs;
+    }
+
     render() {
         const booking = this.props.app.booking && this.props.app.booking;
         const employees = this.props.app.employees;
         const optionsEmp = [];
+        let defaultOption = null;
         if (employees) {
+            defaultOption = []
             employees.forEach(element => {
-                optionsEmp.push({ label: element["fullName"], value: element["id"] })
+                let option = { label: element["fullName"], value: element["id"] };
+                optionsEmp.push(option);
+                if (this.isChecked(booking["users"], element["id"])) {
+                    defaultOption.push(option)
+                }
             });
         }
 
@@ -42,7 +65,7 @@ class Assignment extends Component {
             <div className="row">
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div className="mbas form-example-wrap mg-t-30">
-                        {booking["user"] && <div onClick={this.close} className="mbtn-close"><i className="notika-icon notika-close"></i></div>}
+                        {booking["users"] && <div onClick={this.close} className="mbtn-close"><i className="notika-icon notika-close"></i></div>}
                         <div className="cmp-tb-hd cmp-int-hd">
                             <h2>Phân công nhiệm vụ</h2>
                         </div>
@@ -54,7 +77,7 @@ class Assignment extends Component {
                                     </div>
                                     <div className="col-lg-8 col-md-7 col-sm-7 col-xs-12">
                                         <div className="nk-int-st">
-                                            <Select ref={e => this.employeeInputRef = e} classNamePrefix="tr" placeholder="Chọn nhân viên" options={optionsEmp} />
+                                            {optionsEmp && optionsEmp.length > 0 && <Select components={animatedComponents} defaultValue={defaultOption} isMulti closeMenuOnSelect={false} ref={e => this.employeeInputRef = e} classNamePrefix="tr" placeholder="Chọn nhân viên" options={optionsEmp} />}
                                         </div>
                                     </div>
                                 </div>
