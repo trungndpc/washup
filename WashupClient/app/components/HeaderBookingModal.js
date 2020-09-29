@@ -30,7 +30,7 @@ class HeaderBookingModal extends Component {
                             {this.props.step == 2 && <div className="arrow-up" />}
                         </div>
                         <div className={inforBooking["timeSchedule"] ? "item col-md-3 col-xs-12 open" : "item col-md-3 col-xs-12"}>
-                            Khung giờ: <div className="info">{TimeUtils.getDayOfWeek(inforBooking["timeSchedule"])}<br />
+                            Khung giờ: <div className="info">{TimeUtils.getDayOfWeek(inforBooking["timeSchedule"] * 1000)}<br />
                                 {inforBooking["timeSchedule"] && TimeUtils.formatDate(inforBooking["timeSchedule"] * 1000)}
                                 {this.props.step == 3 && <div className="arrow-up" />}
                             </div>
