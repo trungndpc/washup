@@ -23,6 +23,16 @@ class BookingModal extends Component {
         this.close = this.close.bind(this)
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("shouldComponentUpdate")
+        if (nextProps.isOpenFormBooking) {
+            this.open();
+        }else {
+            this.close()
+        }
+        return this.state != nextState
+    }
+
     open() {
         this.setState({_isOpen: true})
         this.openStepOne()
@@ -79,6 +89,7 @@ class BookingModal extends Component {
 
 
     render() {
+        console.log("render Booking Modal")
         return (
             <div>
                 {(this.state._renderStep == 1 || this.state._renderStep == 2) && <StepONE ok={this.openStepTwo} ref={e => this.stepOneRef = e} close={this.close} {...this.props} />}
@@ -86,7 +97,7 @@ class BookingModal extends Component {
                 {(this.state._renderStep == 2 || this.state._renderStep == 3 || this.state._renderStep == 4 || this.state._renderStep == 5) && <StepTHREE nextOil={this.openStepOil} ok={this.openStepFour} prev={this.openStepTwo} ref={e => this.stepThreeRef = e} close={this.close} {...this.props} />}
                 {this.state._renderStep == 4 && <StepOIL ok={this.openStepFour}  prev={this.openStepThree} {...this.props} />}
                 {this.state._renderStep == 5 && <StepFOUR prev={this.openStepThree}  close={this.close} {...this.props} />}
-                {this.state._isOpen && <div class="modal-backdrop fade in"></div>}
+                {this.state._isOpen && <div className="modal-backdrop fade in"></div>}
             </div>
         )
     }

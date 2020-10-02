@@ -96,6 +96,28 @@
     }
 }
 
+@media only screen and (max-width: 450px) {
+    #site-news a.view_more {
+        display: none;
+    }
+
+    #site-product a.view_more {
+        display: none;
+    }
+
+    #site-product .box {
+        margin-top: 30px;
+    }
+
+    #site-product {
+        padding-top: 30px !important;
+    }
+
+    #membership_slider .item .price_new {
+        font-size: inherit !important;
+    }
+
+}
 @media only screen and (max-width: 600px) {
 
     .container {
@@ -107,12 +129,7 @@
     .m-main-tile .mobile  {
         display: block !important;
     }
-
-    .m-main-tile .mobile h4 {
-        margin-bottom: 0 !important;
-        padding: 5px !important;
-    }
-
+    
     .btn_view_more_servie {
         display: none !important;
     }
@@ -231,6 +248,9 @@
 } */
 
 @media only screen and (min-width: 600px) {
+    .service_content .service > div{
+        display: block;
+    }
     .serives_list  {
         display: flex;
     }
@@ -405,4 +425,25 @@ a {
 
 .red-req {
     color: red !important;
+}
+
+.modal-content {
+    background-color: transparent !important;
+}
+
+.box_input {
+    background-color: #fff !important;
+}
+
+.tbtn .fa {
+    float: left;
+    font-size: 1.4em;
+    margin-right: 10px;
+}
+
+.tbtn {
+    padding-left: 15px;
+    padding-top: 7px;
+    padding-right: 25px;
+    padding-bottom: 7px;
 }

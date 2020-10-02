@@ -17,7 +17,8 @@ const initialState = {
   topAccessories: [],
   accessories: {},
   activities: [],
-  oils: []
+  oils: [],
+  isOpenFormBooking: false
 }
 
 export default function app(state = initialState, action) {
@@ -99,6 +100,20 @@ export default function app(state = initialState, action) {
       newState.brands = data["brands"]
       newState.brandSeries = data["brandSeries"]
       newState.storeServices = data["services"]
+      break;
+    }
+    case type.APP.OPEN_FORM_BOOKING: {
+      newState.isOpenFormBooking = true;
+      newState.step = 1;
+      break;
+    }
+    case type.APP.CLOSE_FORM_BOOKING: {
+      newState.isOpenFormBooking = false;
+      newState.step = 0;
+      break;
+    }
+    case type.APP.CHANGE_STEP_FORM_BOOKING: {
+      newState.step = action.step;
       break;
     }
     default:

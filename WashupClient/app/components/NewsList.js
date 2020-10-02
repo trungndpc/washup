@@ -9,7 +9,7 @@ class NewsList extends Component {
             items: 1,
             loop: false,
             margin: 30,
-            responsiveClass: true,
+            responsiveClass: 'true',
             responsive: {
                 0: { items: 1, },
                 600: { items: 3 },
@@ -18,19 +18,20 @@ class NewsList extends Component {
         };
         return (
             <div id="site-news">
-                <div className="container"><div className="row">
-                    <div className="panel_header pd-lr20">
-                        <h3 className="title col-md-5 pull-left">Kinh nghiệm chăm sóc xe</h3>
-                        {/* <div className="col-md-7 text-right">
-                            <div className="row">
-                                <a href="#" className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></a>
+                <div className="container">
+                    <div className="row">
+                        <div className="panel_header pd-lr20">
+                            <h3 className="title col-md-5 pull-left">Kinh nghiệm chăm sóc xe</h3>
+                            <div className="col-md-7 text-right">
+                                <div className="row">
+                                    <a href="#" className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></a>
+                                </div>
                             </div>
-                        </div> */}
+                            <div className="clearfix" />
+                        </div>
                         <div className="clearfix" />
-                    </div>
                     <div className="panel_body ls_news">
                         <OwlCarousel  options={options} >
-
                             <div className="item">
                                 <div className="inner news">
                                     <div className="img" style={{ backgroundImage: "url(" + require('../resources/images/news/hanh-dong-ton-hai-xe-cung.jpg') + ")" }} />
@@ -54,7 +55,7 @@ class NewsList extends Component {
                                         <div className>
                                             <a className="readmore" href>Xem chi tiết <i className="fa fa-chevron-right" /></a>
                                         </div>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                             <div className="item">
@@ -71,8 +72,8 @@ class NewsList extends Component {
                                 </div>
                             </div>
                         </OwlCarousel>
-                    </div>
-                </div></div>
+                        </div>
+                    </div></div>
             </div>
         )
     }

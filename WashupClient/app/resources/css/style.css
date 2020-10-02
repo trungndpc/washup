@@ -341,7 +341,7 @@ a:hover {text-decoration:none; color:#1b3868}
 	text-decoration:line-through; font-size:13px; 
 }
 #membership_slider .item .price_new {
-	font-size:18px; font-weight:bold; color:red;
+	font-size:16px; font-weight:bold; color:red;
 }
 
 #membership_slider .fa-chevron-right,#membership_slider .fa-chevron-left {font-size:24px}

@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 
 class Footer extends Component {
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return false;
+    }
+
     render() {
+        console.log("render Footer")
         return (
             <div id="site-footer">
                 <div className="container">
@@ -49,7 +54,7 @@ class Footer extends Component {
                                     <a href="#" className="icon_master"><img src={require('../resources/images/mastercard.png')} /></a>
                                     <a href="#" className="icon_napas"><img src={require('../resources/images/napas.png')} /></a>
                                 </div>
-                                <div className>
+                                <div>
                                     <img height={52} src={require('../resources/images/logo/thongbao.png')} />
                                 </div>
                             </div>

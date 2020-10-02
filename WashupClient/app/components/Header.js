@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-import BookingManagerModal from './BookingManagerModal';
 
 
 class Header extends Component {
@@ -19,7 +18,12 @@ class Header extends Component {
     })
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state != nextState;
+  }
+
   render() {
+    console.log("Header render")
     return (
       <div>
         <div id="advertisement" className="hidden-xs">
@@ -53,7 +57,6 @@ class Header extends Component {
                   <div className="topnav-right">
                     <a href="#">Tuyển dụng</a>
                     <a href="#">Liên hệ</a>
-                    {/* <a href="#"><i className="fa icon_user" /></a> */}
                   </div>
                 </div>
               </div>
@@ -67,7 +70,6 @@ class Header extends Component {
             </div>
           </div>
         </nav>
-        {/* <BookingManagerModal/> */}
       </div>
     )
   }

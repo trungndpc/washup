@@ -4,14 +4,12 @@ import { bindActionCreators } from 'redux'
 import * as appActions from '../actions/app'
 import AlertUtils from '../../utils/AlertUtils';
 import { Model, TYPE_SERVICE } from '../../constants/Constants';
-import NewsList from '../../components/NewsList';
 import Footer from '../../components/Footer';
 import PriceUtils from '../../utils/PriceUtils'
-import AccessoriesList from '../../components/AccessoriesList';
 import Header from '../../components/Header';
 import MembershipList from '../../components/MembershipList';
 import { Link } from "react-router-dom";
-import BookingModal from '../../components/bookings/BookingModal';
+import Booking from './Booking'
 
 
 class Home extends React.Component {
@@ -33,6 +31,11 @@ class Home extends React.Component {
     this.props.appActions.getHomeInfo()
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state != nextState || this.props.app.storeServices != nextProps.app.storeServices;
+  }
+
+
   _handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       this.booking();
@@ -47,7 +50,7 @@ class Home extends React.Component {
         return;
       }
       this.props.appActions.putInforBooking({ "phone": this.phoneInputRef.value })
-      this.bookingModalRef && this.bookingModalRef.open();
+      this.props.appActions.openFormBooking();
     } else {
       AlertUtils.showWarning("Vui lòng nhập số điện thoại")
     }
@@ -99,6 +102,7 @@ class Home extends React.Component {
         xemayServices = xemayGroupService[this.state.tabServiceId];
       }
     }
+    console.log("HOME render")
     return (
       <div>
         <Header />
@@ -181,25 +185,8 @@ class Home extends React.Component {
             </div>
           </div></div>
         </div>
-        <AccessoriesList {...this.props} />
-        <NewsList />
-        {/* <DailyActivitiesList {...this.props}  /> */}
-        {/* <div id="site-nq">
-          <div className="container"><div className="row">
-            <div className="panel_body">
-              <div className="col-md-6 col-xs-12 img">
-                <img src={require('../../resources/images/quangcao.jpg')} className="img-responsive" />
-              </div>
-              <div className="col-md-6 col-xs-12"><div className="content text-center">
-                <div><img src={require('../../resources/images/nhuong_quyen.png')} className="text-center img-responsive" /></div>
-                <div className="text">Với nhu cầu thị trường lớn cộng với vốn đầu tư ban đầu ở mức trung bình. Ngành chăm sóc & bán lẻ phụ kiện cho xe hoàn toàn có thể mang lại lợi nhuận ổn định và lâu dài.</div>
-                <div><a href="#" className="btn btn-readmore">XEM THÊM</a></div>
-              </div></div>
-            </div>
-          </div></div>
-        </div> */}
         <Footer />
-        <BookingModal ref={e => this.bookingModalRef = e} {...this.props} />
+        <Booking />
       </div>
     )
   }

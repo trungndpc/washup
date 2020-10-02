@@ -78,3 +78,18 @@ export function getHomeInfo() {
     type: type.APP.GET_HOME_INFO_ASYNC
   }
 }
+
+export  function openFormBooking() {
+  return {type: type.APP.OPEN_FORM_BOOKING}
+}
+
+export function closeFormBooking() {
+  return {type: type.APP.CLOSE_FORM_BOOKING}
+}
+
+export function changeStepFormBooking(step) {
+  return {
+    type: type.APP.CHANGE_STEP_FORM_BOOKING,
+    step: step
+  }
+}

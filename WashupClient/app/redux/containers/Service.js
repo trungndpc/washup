@@ -50,7 +50,7 @@ class Service extends React.Component {
             // stopOnHover: true,
             // nav: true,
             margin: 30,
-            responsiveClass: true,
+            responsiveClass: 'true',
             responsive: {
                 0: { items: 1 },
                 600: { items: 2 },

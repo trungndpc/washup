@@ -16,6 +16,7 @@ class HeaderBookingModal extends Component {
 
     render() {
         const inforBooking = this.props.app.inforBooking;
+        console.log(inforBooking)
         return (
             <div className="main-title m-main-tile">
                 <i onClick={this.onClose} className="fa fa-times close-modal" />

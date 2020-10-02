@@ -7,11 +7,8 @@ import OwlCarousel from 'react-owl-carousel2';
 
 class MembershipList extends Component {
 
-    componentWillMount() {
-    }
-
-    componentDidMount() {
-        // window.initOwlCarousel();
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextState != this.state || nextProps != this.props;
     }
 
     render() {
@@ -19,17 +16,18 @@ class MembershipList extends Component {
             items: 3,
             loop: true,
             margin: 30,
-            responsiveClass: true,
             responsive: {
-                0: { items: 1, stagePadding: 100},
+                0: { items: 1, stagePadding: 100 },
                 600: { items: 3 },
                 1000: { items: 5, loop: false }
             }
         };
 
+        console.log("MembershipList render.........")
+
         return (
             <div className="clearfix membership">
-                <h3 className="title"><span style={{fontWeight:'600', fontStyle: 'normal'}}>Deal Hot!!!</span></h3>
+                <h3 className="title"><span style={{ fontWeight: '600', fontStyle: 'normal' }}>Deal Hot!!!</span></h3>
                 <div className="box">
                     <OwlCarousel id="membership_slider" className="owl-carousel owl-theme" options={options} >
                         <div className="item">

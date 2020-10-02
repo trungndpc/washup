@@ -14,7 +14,7 @@ class AccessoriesList extends Component {
             items: 5,
             loop: true,
             margin: 30,
-            responsiveClass: true,
+            responsiveClass: 'true',
             responsive: {
                 0: { items: 1, stagePadding: 100},
                 600: { items: 3 },
@@ -31,7 +31,7 @@ class AccessoriesList extends Component {
                             <Link className="view_more" to={"/phu-kien"}>Xem tất cả <i className="fa fa-chevron-right" /> </Link>
                         </div>
                     </div>
-                    <div >
+                    <div className="box">
                         {listAccesories && listAccesories.length > 0 && 
                         <OwlCarousel id="product_list"  options={options} >
                             {listAccesories && listAccesories.map((item, index) => {
