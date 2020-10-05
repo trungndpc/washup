@@ -133,7 +133,8 @@ class Home extends React.Component {
                 </div>
                 <div className="col-md-2 text-right btn_view_more_servie"><div className="row">
                   <Link to={"/dich-vu"} className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></Link>
-                </div></div>
+                </div>
+                </div>
                 <div className="clearfix" />
               </div>
               <div className="panel_body ">
@@ -143,7 +144,10 @@ class Home extends React.Component {
                       <img src={require('../../resources/images/oto.png')} className="img-responsive img_service" />
                       {otoServices && otoServices.slice(0, 3).map((item, index) => {
                         return (
-                          <div key={item["id"]} className="item">{item["name"]}
+                          <div key={item["id"]} className="item row">
+                            <p className="name_service">
+                              {item["name"]}
+                            </p>
                             {item["price"] == 0 && <span style={{ float: 'right', color: '#ff6c00', fontWeight: '600' }}>Liên hệ</span>}
                             {item["price"] > 0 &&
                               <span className="price">{PriceUtils.toThousand(item["price"])}</span>
@@ -161,7 +165,10 @@ class Home extends React.Component {
                       <img src={require('../../resources/images/xemay.png')} className="img-responsive img_service" />
                       {xemayServices && xemayServices.slice(0, 3).map((item, index) => {
                         return (
-                          <div key={item["id"]} className="item">{item["name"]}
+                          <div key={item["id"]} className="item">
+                            <p className="name_service">
+                              {item["name"]}
+                            </p>
                             {item["price"] == 0 && <span style={{ float: 'right', color: '#ff6c00', fontWeight: '600' }}>Liên hệ</span>}
                             {item["price"] > 0 &&
                               <span className="price">{PriceUtils.toThousand(item["price"])}</span>
@@ -181,23 +188,6 @@ class Home extends React.Component {
             </div>
           </div></div>
         </div>
-        <AccessoriesList {...this.props} />
-        <NewsList />
-        {/* <DailyActivitiesList {...this.props}  /> */}
-        {/* <div id="site-nq">
-          <div className="container"><div className="row">
-            <div className="panel_body">
-              <div className="col-md-6 col-xs-12 img">
-                <img src={require('../../resources/images/quangcao.jpg')} className="img-responsive" />
-              </div>
-              <div className="col-md-6 col-xs-12"><div className="content text-center">
-                <div><img src={require('../../resources/images/nhuong_quyen.png')} className="text-center img-responsive" /></div>
-                <div className="text">Với nhu cầu thị trường lớn cộng với vốn đầu tư ban đầu ở mức trung bình. Ngành chăm sóc & bán lẻ phụ kiện cho xe hoàn toàn có thể mang lại lợi nhuận ổn định và lâu dài.</div>
-                <div><a href="#" className="btn btn-readmore">XEM THÊM</a></div>
-              </div></div>
-            </div>
-          </div></div>
-        </div> */}
         <Footer />
         <BookingModal ref={e => this.bookingModalRef = e} {...this.props} />
       </div>

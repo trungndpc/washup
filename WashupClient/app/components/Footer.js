@@ -33,7 +33,7 @@ class Footer extends Component {
                                     </div>
                                 </div>
                                 <div className="clearfix form-group hotline">
-                                    <img src={require('../resources/images/hotline.png')} />
+                                    <img src={require('../resources/images/hotline.jpg')} />
                                 </div>
                             </div>
                             <div className="col-sm-4 connect">
@@ -56,9 +56,12 @@ class Footer extends Component {
                             <div className="clearfix" />
                         </div>
                         <div className="copyright">
+                            <div className="col-md-6 col-xs-12">
                             Copyright©2020 Wash-Up, Inc, All Right Reserved
-                            <div className="pull-right">
-                                <a href="#">Điều khoản</a>
+
+                            </div>
+                            <div className="col-md-6 col-xs-12">
+                            <a href="#">Điều khoản</a>
                                 <span>.</span>
                                 <a href="#">Thỏa thuận sử dụng</a>
                             </div>

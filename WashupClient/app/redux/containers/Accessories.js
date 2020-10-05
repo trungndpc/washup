@@ -5,7 +5,7 @@ import * as appActions from '../actions/app'
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import PriceUtils from '../../utils/PriceUtils';
-import Pagination from 'antd/es/pagination'
+// import Pagination from 'antd/es/pagination'
 
 
 class Accessories extends React.Component {
@@ -119,7 +119,7 @@ class Accessories extends React.Component {
 
                                 </div>
                                 <div style={{padding: '30px'}}  className="text-center">
-                                { accessories && <Pagination defaultCurrent={accessories.page} pageSize={10} total={accessories["totalPage"]*10}  onChange={this.changePageNumber} /> }
+                                {/* { accessories && <Pagination defaultCurrent={accessories.page} pageSize={10} total={accessories["totalPage"]*10}  onChange={this.changePageNumber} /> } */}
                                 </div>
                               
                             </div>

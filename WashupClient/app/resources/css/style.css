@@ -160,8 +160,10 @@ a:hover {text-decoration:none; color:#1b3868}
 }
 
 /* SERVICE */
-#site-service {}
 #site-service .top_services .inner{position:relative;}
+#site-service .top_services .title {
+	font-size: x-large;
+}
 #site-service .top_services .search_bottom{
 	position: absolute;
 	width:100%;height:20px;
@@ -181,7 +183,7 @@ a:hover {text-decoration:none; color:#1b3868}
 	text-transform:uppercase;
 	color:#1b396a;
 	font-weight: bold;
-	font-size:22px;
+	font-size:x-large;
 }
 #site-service .top_services .search input{
 	height:36px; line-height:36px;
@@ -223,7 +225,6 @@ a:hover {text-decoration:none; color:#1b3868}
 	box-shadow: 0px 9px 12px rgba(0, 0, 0, 0.2);
 }
 
-.serives_list {}
 .service_menu {margin:0; padding:0;}
 .service_menu li{list-style:none; display:inline-block;}
 .service_menu li a {
@@ -231,7 +232,7 @@ a:hover {text-decoration:none; color:#1b3868}
 	padding: 8px 0;
     border-bottom: 2px solid #fff;
     margin: 0 15px;
-	font-size: 15px;
+	font-size: medium;
     letter-spacing: -0.5px;
 }
 .service_menu li a:hover, .service_menu li a.active {
@@ -246,14 +247,24 @@ a:hover {text-decoration:none; color:#1b3868}
 	font-size:13px;
 }
 
-.serives_list .col {}
 .serives_list .item{
-	line-height:47px;border-bottom:#eceef6 1px solid;
+	border-bottom:#eceef6 1px solid;
+	padding: 15px 0;
 }
 .serives_list .item:hover{background:#f1f1f1;}
 .serives_list .space{line-height:47px; height:47px;}
 .serives_list .item .price{
-	color:#ff6c00; font-weight:bold;font-style:normal;float:right;text-transform:uppercase;font-size:18px;
+	color:#ff6c00; font-weight:bold;font-style:normal;float:right;text-transform:uppercase;font-size:large;
+}
+.serives_list .item .name_service{
+	display: inline-block;
+	line-height: 24px;
+    width: 80%;
+	margin: 0;
+	text-overflow: ellipsis; 
+	overflow: hidden; 
+	white-space: nowrap;
+	font-size: initial;
 }
 .serives_list .btn-more{
 	border:#ff6c00 1px solid; border-radius:4px;
@@ -282,7 +293,9 @@ a:hover {text-decoration:none; color:#1b3868}
 /* MEMBERSHIP SLIDER */
 .membership {clear:both;}
 .membership .title {
-	padding:30px 0 0; margin:0;
+	font-size: large;
+	padding:30px 0 0;
+	margin:0;
 	text-transform:uppercase; color:#F7901E;
 	text-align: center;
     font-style: italic;
@@ -341,7 +354,7 @@ a:hover {text-decoration:none; color:#1b3868}
 	text-decoration:line-through; font-size:13px; 
 }
 #membership_slider .item .price_new {
-	font-size:18px; font-weight:bold; color:red;
+	font-size:large; font-weight:bold; color:red;
 }
 
 #membership_slider .fa-chevron-right,#membership_slider .fa-chevron-left {font-size:24px}

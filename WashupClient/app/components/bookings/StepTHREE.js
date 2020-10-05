@@ -33,10 +33,10 @@ class StepTHREE extends Component {
 
     open() {
         let inforBooking = { ...this.props.app.inforBooking }
-        this.setState({ 
+        this.setState({
             isOpen: true,
             serviceOils: (inforBooking && inforBooking["serviceOils"]) ? inforBooking["serviceOils"] : [],
-         });
+        });
 
         document.addEventListener('mousedown', this._handleClickOutside);
     }
@@ -200,16 +200,12 @@ class StepTHREE extends Component {
 
                                                                     let isChecked = this.state.serviceIds.indexOf(item["id"]) >= 0
                                                                     return (
-                                                                        <div key={item["id"]} onClick={function (e) {
-                                                                            e.preventDefault();
-                                                                            e.stopPropagation();
-                                                                            this.selectServiceId(item)
-                                                                        }.bind(this)} className="service">
+                                                                        <div key={item["id"]} className="service">
                                                                             <label className="container col-md-1 pull-left">
-                                                                                <input type="checkbox" checked={isChecked} />
+                                                                                <input  onClick={function() {this.selectServiceId(item)}.bind(this)} type="checkbox" checked={isChecked} />
                                                                                 <span className="checkmark" />
                                                                             </label>
-                                                                            <div className={isChecked ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
+                                                                            <div onClick={function() {this.selectServiceId(item)}.bind(this)} className={isChecked ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
                                                                                 <img style={{ width: '178px', height: '96px' }} src={item["imgUrl"]} className="pull-left" />
                                                                                 <div className="info pull-left">
                                                                                     <div className="name">{item["name"]}</div>

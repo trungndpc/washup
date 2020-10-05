@@ -28,6 +28,7 @@ class NewsList extends Component {
                         </div> */}
                         <div className="clearfix" />
                     </div>
+                    <div className="clearfix" />
                     <div className="panel_body ls_news">
                         <OwlCarousel  options={options} >
 
