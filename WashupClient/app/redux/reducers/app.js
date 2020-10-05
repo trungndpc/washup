@@ -10,7 +10,17 @@ const initialState = {
 
   schedules: {},
   services: {},
-  inforBooking: {},
+  inforBooking: {
+    address: "lô Z.06, đường số 13, khu chế xuất Tân Thuận, Phường Tân Thuận Đông, Quận 7, Hồ Chí Minh, Việt Nam",
+    brand: { id: "ff808181743a5dfb01743a5f60f40000", brandName: "Toyota", category: 2 },
+    brandSeries: { id: "ff80818174309b680174309e7edd0003", category: 2, seriesName: "Xe 4 chỗ" },
+    fullname: "Nguyễn Đình Trung",
+    licensePlate: "76F3-986412",
+    phone: "4124.141.111",
+    timeSchedule: 1601694000,
+    transportId: 2,
+    vehicleName: "SH Mode 300I",
+  },
   serviceForm: [],
   isLoadingBooking: false,
   confirmBooking: null,
@@ -18,7 +28,8 @@ const initialState = {
   accessories: {},
   activities: [],
   oils: [],
-  isOpenFormBooking: false
+  isOpenFormBooking: true,
+  step: 3
 }
 
 export default function app(state = initialState, action) {

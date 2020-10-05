@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Model } from '../../constants/Constants';
-import HeaderBookingModal from '../../components/HeaderBookingModal';
 import Select from 'react-select'
 import Button from '../Button'
 

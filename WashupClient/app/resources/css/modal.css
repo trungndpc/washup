@@ -78,7 +78,6 @@
     box-shadow: none;
     border-radius: 40px;
     border: 0;
-    width: 196px;
 }
 #ModalBooking .btn-success:hover, #ModalBookingNotify .btn-success:hover {opacity:0.8}
 #ModalBooking .fa-calendar-check {
@@ -313,9 +312,22 @@
 /* Hide the browser's default radio button */
 .service_content input {
   /* position: absolute; */
-  opacity: 0;
   cursor: pointer;
+  height: 16px;
+  width: 16px;
+  margin: 38px 6px;
 }
+
+.service_content .box_right {
+	height: 100%;
+}
+
+.service_content .info {
+	height: 100%;
+	width: calc(100% - 178px - 120px);
+}
+
+
 /* Create a custom radio button */
 .service_content .checkmark {
   /* position: absolute; */
@@ -624,6 +636,15 @@
 	.booking_final { padding: 30px 20px 0px;}
 }
 @media only screen and (max-width: 600px) {
+	.service_content .service { display: flex;}
+	.service_content  .pull-left {
+		padding: 12px 8px;
+	}
+	.service_content input {
+		width: auto;
+		height: auto;
+	    margin: 0 !important;
+	}
 	#ModalBooking .main-title, #ModalBookingNotify .main-title {
 		height:auto; position: relative;
 	}
@@ -687,17 +708,17 @@
 	/* #box_calendar .tab_calendar a {padding:5px} */
 }
 @media only screen and (max-width: 375px) {
-	.service_content .service { display: block;}
-	#box_calendar .payment, #box_calendar .box-note { padding:0 15px}
+	.service_content .service { display: flex;}
+
+	/* #box_calendar .payment, #box_calendar .box-note { padding:0 15px} */
 	#box_calendar .tab_service a {padding:5px 0}
 }
 @media only screen and (max-width: 360px) {
 	#ModalBooking h3.title { font-size: 20px; }
 	#box_calendar .tab_calendar a {
-		width: 100%;
 		padding: 5px 10px;
 		font-size: 15px;
-		border-radius: 0;
+		border-radius: 2;
 		margin-bottom: 1px;
 	}
 	.box_notify .btn-success {width:190px !important}
@@ -708,9 +729,9 @@
 		width: 160px; padding: 8px 10px;
 	}
 	#ModalBooking .btn-success2, #ModalBookingNotify .btn-success2 {
-		padding: 8px 0px; width:190px
+		padding: 8px 0px;
 	}
-	#ModalBooking .step_back {width:190px; padding: 6px 15px; margin-bottom: 5px;}
+	#ModalBooking .step_back { padding: 6px 15px; margin-bottom: 5px;}
 	.calendar_nav .fa-chevron-left {
 		left: -10px;
 		top: 80px;
@@ -732,6 +753,5 @@
 
 @media only screen and (max-width: 360px) {
 	#ModalBooking .box_input { padding: 10px 5px;}
-	#ModalBooking .btn-success2, #ModalBookingNotify .btn-success2 {width: 190px;}
 	.requiement_wrapper .title span {font-size: 23px;}
 }

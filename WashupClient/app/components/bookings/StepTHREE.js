@@ -165,13 +165,12 @@ class StepTHREE extends Component {
                                                 let isChecked = this.state.serviceIds.indexOf(item["id"]) >= 0
                                                 return (
                                                     <div onClick={function (e) {this.selectServiceId(item)}.bind(this)} key={item["id"]} className="service">
-                                                        <div className="col-md-1 pull-left">
+                                                        <div className="col-md-1 col-xs-1 pull-left">
                                                             <input onChange={function() {
                                                                 return false;
                                                             }} checked={isChecked} type="checkbox" />
-                                                            {/* <span className="checkmark" /> */}
                                                         </div>
-                                                        <div  className={isChecked ? 'box_select box_right pull-left col-md-11' : 'box_right pull-left col-md-11'}>
+                                                        <div  className={isChecked ? 'box_select box_right pull-left col-md-11 col-xs-11' : 'box_right pull-left col-md-11 col-xs-11'}>
                                                             <img style={{ width: '178px', height: '96px' }} src={item["imgUrl"]} className="pull-left" />
                                                             <div className="info pull-left">
                                                                 <div className="name">{item["name"]}</div>
