@@ -156,7 +156,7 @@ class Home extends React.Component {
                         )
                       })}
 
-                      <div className="item btn-more text-center">Xem thêm</div>
+                      <div onClick={function() {window.openNotifycation()}} className="item btn-more text-center">Xem thêm</div>
                     </div>
                     <button onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngay</button>
                   </div>

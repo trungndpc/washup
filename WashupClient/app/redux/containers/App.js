@@ -12,7 +12,7 @@ import Home from './Home'
 import NotFoundPage from '../../components/NotFoundPage'
 import Accessories from './Accessories';
 import Service from './Service';
-
+import NotifycationModal from '../../components/NotifycationModal'
 import Alert from 'react-s-alert';
 class App extends React.Component {
   render() {
@@ -25,6 +25,7 @@ class App extends React.Component {
             <Route exact path="/dich-vu" component={Service} />
             {/* <Route path="/*" component={NotFoundPage} /> */}
             <Alert stack={{ limit: 3 }} />
+            <NotifycationModal />
           </div>
       </Switch>
     )

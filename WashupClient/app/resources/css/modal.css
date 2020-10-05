@@ -18,7 +18,7 @@
 #ModalBooking .modal-body, #ModalBookingNotify .modal-body {padding:0}
 #ModalBooking .main-title, #ModalBookingNotify .main-title {
 	background:#1b3a6a; color:#345a90;
-	height:94px; padding: 16px;
+	height:94px; padding: 10px;
 	border-radius: 10px 10px 0 0;
 }
 #ModalBooking .tab, #ModalBookingNotify .tab {margin:0; padding:0; height: 78px;}
@@ -33,7 +33,7 @@
 #ModalBooking .tab .open .info {color:#ffd212; margin: 5px 0; font-size:18px; line-height: 1.2;}
 
 #ModalBooking .tab .title, #ModalBookingNotify .tab .title{
-    color:#ffc11c; font-size: 28px;
+    color:#ffc11c; font-size: large;
     text-align: center; letter-spacing: -0.5px;
 }
 #ModalBooking .tab .heading{
