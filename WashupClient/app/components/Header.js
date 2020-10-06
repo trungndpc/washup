@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
+import MLink from '../components/MLink'
 import BookingManagerModal from './BookingManagerModal';
 
 
@@ -23,13 +24,13 @@ class Header extends Component {
     return (
       <div>
         <div id="advertisement" className="hidden-xs">
-          <img src={require('../resources/images/advertisement.png')} className="img-responsive" />
+          Liên hệ quảng cáo <span>chuoichamsocxe@washup.vn</span>
         </div>
         <div className="clearfix" />
         <nav id="topmenu" className="navbar">
           <div className="row nav_inner">
             <div className="col col-md-2">
-              <div className= "wrapper-col fl-rgt">
+              <div className="wrapper-col fl-rgt">
                 <div className="topleft text-right hidden-xs">
                   <a href="#"><i className="fa icon icon_link">&nbsp;</i> <span>Tư vấn Setup</span></a>
                 </div>
@@ -47,13 +48,12 @@ class Header extends Component {
                 <button onClick={this.onClickShowMenu} type="button" className="navbar-toggle">
                   <i className="fa fa-bars" />
                 </button>
-                <div id="main-menu" style={{height: `${this.state.isShowMobileMenu ? '220px' : '0px'}`}} className={`topnav navbar collapse navbar-collapse in`}>
-                  <Link  to={"/dich-vu"}>Dịch vụ</Link>
-                  <Link to={"/phu-kien"}>Lốp xe &amp; Phụ kiện</Link>
+                <div id="main-menu" style={{ height: `${this.state.isShowMobileMenu ? '220px' : '0px'}` }} className={`topnav navbar collapse navbar-collapse in`}>
+                  <MLink isRelease={false} to={"/dich-vu"}>Dịch vụ</MLink>
+                  <MLink isRelease={false} to={"/phu-kien"}>Lốp xe &amp; Phụ kiện</MLink>
                   <div className="topnav-right">
-                    <a href="#">Tuyển dụng</a>
-                    <a href="#">Liên hệ</a>
-                    {/* <a href="#"><i className="fa icon_user" /></a> */}
+                  <MLink isRelease={false} to={"/#"}>Tuyển dụng</MLink>
+                  <MLink isRelease={false} to={"/#"}>Liên hệ</MLink>
                   </div>
                 </div>
               </div>

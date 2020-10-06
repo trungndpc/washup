@@ -57,7 +57,7 @@ class NotifycationModal extends Component {
                                 <div className="clearfix line">&nbsp;</div>
                                 <div className="box_notify">
                                     <div className="form-group text-center">
-                                        <div>Tính năng sẽ được cập nhật sớm</div>
+                                        <div style={{fontSize: 'larger'}} >Tính năng sẽ được cập nhật sớm</div>
                                         <div className="clearfix"><br /></div>
                                     </div>
                                 </div></div>

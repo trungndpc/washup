@@ -11,6 +11,7 @@ import AccessoriesList from '../../components/AccessoriesList';
 import Header from '../../components/Header';
 import MembershipList from '../../components/MembershipList';
 import { Link } from "react-router-dom";
+import MLink from '../../components/MLink'
 import BookingModal from '../../components/bookings/BookingModal';
 
 
@@ -132,7 +133,7 @@ class Home extends React.Component {
                   </ul>
                 </div>
                 <div className="col-md-2 text-right btn_view_more_servie"><div className="row">
-                  <Link to={"/dich-vu"} className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></Link>
+                  <MLink to={"/dich-vu"} className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></MLink>
                 </div>
                 </div>
                 <div className="clearfix" />
