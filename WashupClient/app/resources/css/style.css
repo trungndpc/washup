@@ -272,7 +272,7 @@ a:hover {text-decoration:none; color:#1b3868}
 	text-overflow: ellipsis; 
 	overflow: hidden; 
 	white-space: nowrap;
-	font-size: initial;
+	font-size: inherit;
 }
 .serives_list .btn-more{
 	border:#ff6c00 1px solid; border-radius:4px;
@@ -281,7 +281,6 @@ a:hover {text-decoration:none; color:#1b3868}
 .serives_list .btn {
 	background: rgba(0,187,255,1);
 	background: -moz-linear-gradient(top, rgba(0,187,255,1) 0%, rgba(0,123,255,1) 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,187,255,1)), color-stop(100%, rgba(0,123,255,1)));
 	background: -webkit-linear-gradient(top, rgba(0,187,255,1) 0%, rgba(0,123,255,1) 100%);
 	background: -o-linear-gradient(top, rgba(0,187,255,1) 0%, rgba(0,123,255,1) 100%);
 	background: -ms-linear-gradient(top, rgba(0,187,255,1) 0%, rgba(0,123,255,1) 100%);
@@ -474,7 +473,7 @@ a:hover {text-decoration:none; color:#1b3868}
 .site-info .icon {float:left; width:20px; padding-right:5px; color:#f7901e}
 .site-info .text {float:left; width: calc(100% - 25px);}
 .site-info h4 {font-size:14px; color:#1b396a;}
-#site-footer .copyright{line-height:40px;padding:#11px;border-top:#e0e7eb 2px solid;}
+#site-footer .copyright{line-height:40px;padding: 11px;border-top:#e0e7eb 2px solid;}
 
 /* SCHEDULE */
 #schedule_now {

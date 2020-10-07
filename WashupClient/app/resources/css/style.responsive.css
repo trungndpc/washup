@@ -27,8 +27,9 @@
 	.topnav a, .topnav-right a { float:none; display:block; text-align:left;}
 	
 	#site-banner {
+		background:url('../images/banners/mobile-banner.png') no-repeat center;
 		height:235px;    
-		background-size: 100%;
+		background-size: 110%;
 		background-position: top;
 	}
 	#site-service .top_services .search .input-search {padding:0;}

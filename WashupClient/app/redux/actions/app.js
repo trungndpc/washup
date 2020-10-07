@@ -78,3 +78,10 @@ export function getHomeInfo() {
     type: type.APP.GET_HOME_INFO_ASYNC
   }
 }
+
+export function getOrderByPhone(phone) {
+  return {
+    type: type.APP.GET_ORDER_BY_PHONE_ASYNC,
+    phone: phone
+  }
+}

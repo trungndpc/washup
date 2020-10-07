@@ -15,6 +15,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_ACTIVITY_TOP_ASYNC, requestGetActivityAsync)
   yield takeLatest(type.APP.GET_OIL_ASYNC, requestGetOilAsync)
   yield takeLatest(type.APP.GET_HOME_INFO_ASYNC, requestGetHomeInfoAsync)
+  yield takeLatest(type.APP.GET_ORDER_BY_PHONE_ASYNC, requestGetOrderByPhoneAsync)
 }
 
 function* requestGetModelAsync() {
@@ -76,6 +77,11 @@ function* requestGetOilAsync(action) {
 function* requestGetHomeInfoAsync() {
   const resp = yield call(getHomeAsync)
   yield put({type: type.APP.GET_HOME_INFO_END, payload: resp.data})
+}
+
+function* requestGetOrderByPhoneAsync(action) {
+  const resp = yield call(getOrderByPhone, action.phone)
+  console.log(resp)
 }
 
 function getModels() {
@@ -147,6 +153,12 @@ function getActivityTop() {
 function getOil(brandSeriesId) {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/oils/all`, resolve, reject);
+  });
+}
+
+function getOrderByPhone(phone) {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/last-order-by-phone?phone=` + phone, resolve, reject);
   });
 }
 

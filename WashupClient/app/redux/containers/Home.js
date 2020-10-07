@@ -19,7 +19,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      tabServiceId: 1
+      tabServiceId: TYPE_SERVICE.CO_BAN
     }
     this.booking = this.booking.bind(this);
     this.bookingOTOService = this.bookingOTOService.bind(this);
@@ -127,9 +127,9 @@ class Home extends React.Component {
                 <h3 className="title col-md-2 col-xs-12 pull-left">Dịch vụ</h3>
                 <div className="col-md-8 col-xs-12 text-center">
                   <ul className="service_menu">
-                    <li onClick={() => { this.changeTabService(TYPE_SERVICE.VE_SINH_CO_BAN) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.VE_SINH_CO_BAN) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.VE_SINH_CO_BAN ? 'active' : ''}>Vệ sinh cơ bản</a></li>
-                    <li onClick={() => { this.changeTabService(TYPE_SERVICE.LAM_DEP) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.LAM_DEP) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.LAM_DEP ? 'active' : ''}>Làm đẹp</a></li>
-                    <li onClick={() => { this.changeTabService(TYPE_SERVICE.BAO_DUONG_NHANH) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.BAO_DUONG_NHANH) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.BAO_DUONG_NHANH ? 'active' : ''}>Bảo dưỡng nhanh</a></li>
+                    <li onClick={() => { this.changeTabService(TYPE_SERVICE.CO_BAN) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.CO_BAN) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.CO_BAN ? 'active' : ''}>Cơ bản</a></li>
+                    <li onClick={() => { this.changeTabService(TYPE_SERVICE.NANG_CAO) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.NANG_CAO) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.NANG_CAO ? 'active' : ''}>Nâng cao</a></li>
+                    <li onClick={() => { this.changeTabService(TYPE_SERVICE.COMBO_TAINHA) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.COMBO_TAINHA) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.COMBO_TAINHA ? 'active' : ''}>Combo</a></li>
                   </ul>
                 </div>
                 <div className="col-md-2 text-right btn_view_more_servie"><div className="row">

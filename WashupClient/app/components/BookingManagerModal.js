@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import LoginModal from './LoginModal'
 import BookingListModal from './BookingListModal'
+import PhoneSearchModal from './PhoneSearchModal'
 
 
 class BookingManagerModal extends Component {
@@ -13,7 +14,8 @@ class BookingManagerModal extends Component {
     render() {
         return (
            <div>
-               <BookingListModal />
+               {/* <BookingListModal /> */}
+               <PhoneSearchModal />
                 <div class="modal-backdrop fade in"></div>
            </div>
         )
