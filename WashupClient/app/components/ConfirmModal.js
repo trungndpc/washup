@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class NotifycationModal extends Component {
+class ConfirmModal extends Component {
 
     constructor(props) {
         super(props);
@@ -13,6 +13,8 @@ class NotifycationModal extends Component {
         this._handleClickOutside = this._handleClickOutside.bind(this)
         window.openNotifycation = this.open;
         this.modalRef = React.createRef();
+        this.ok = this.ok.bind(this);
+        this.notOk = this.notOk.bind(this);
     }
 
     open() {
@@ -27,10 +29,11 @@ class NotifycationModal extends Component {
         document.addEventListener('mousedown', this._handleClickOutside);
     }
 
-    close() {
+    close(isCallParent) {
         this.setState({ isFadeIn: false })
         setTimeout(function () {
             this.setState({ isOpen: false })
+            isCallParent && this.props.notOk && this.props.notOk();
         }.bind(this), 150)
         document.removeEventListener('mousedown', this._handleClickOutside);
         var body = document.getElementsByTagName('body')[0];
@@ -44,30 +47,39 @@ class NotifycationModal extends Component {
         }
     }
 
+    ok() {
+        this.close(false);
+        this.props.ok && this.props.ok();
+    }
+
+    notOk() {
+        this.close(true);
+    }
+
     render() {
         return (
             <div>
-                <div id="ModalBookingNotify" style={{ display: `${this.state.isOpen == true ? 'block' : 'none'}` }} className={`modal fade ${this.state.isFadeIn ? 'in' : ''}`} >
+                <div id="confirmModal" style={{ display: `${this.state.isOpen == true ? 'block' : 'none'}` }} className={`modal fade ${this.state.isFadeIn ? 'in' : ''}`} >
                     <div className="modal-dialog">
                         <div ref={this.modalRef} className="modal-content bgtr">
                             <div className="modal-body bgtr">
                                 <div className="main-title">
-                                    THÔNG BÁO
+                                    Bạn có muốn hủy lịch đã đặt ?
                                 </div>
-                                <div className="clearfix"/>
+                                <div className="clearfix" />
                                 <div className="content_box_notify">
-                                    <div className="form-group text-center mg0">
-                                        <div style={{ fontSize: 'larger' }} >Tính năng sẽ được cập nhật sớm</div>
+                                    <div className="form-group text-center">
+                                        <button onClick={this.notOk} type="button" className="btn btn-success btn-prev-step3">KHÔNG</button>
+                                        <button onClick={this.ok} type="button" className="btn btn-fefault btn-prev-step3">CÓ</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {this.state.isOpen && <div class="modal-backdrop fade in"></div>}
             </div>
         )
     }
 }
 
-export default NotifycationModal
+export default ConfirmModal

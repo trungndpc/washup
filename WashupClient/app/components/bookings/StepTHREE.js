@@ -9,21 +9,21 @@ class StepTHREE extends Component {
         super(props);
         let inforBooking = { ...this.props.app.inforBooking }
         this.state = {
-            isOpen: false,
+            isOpen: true,
             tabServiceId: TYPE_SERVICE.CO_BAN,
             serviceIds: (inforBooking && inforBooking["serviceIds"]) ? inforBooking["serviceIds"] : [],
-            serviceNames: [],
+            serviceNames: (inforBooking && inforBooking["serviceNames"]) ? inforBooking["serviceNames"] : [],
             serviceOils: (inforBooking && inforBooking["serviceOils"]) ? inforBooking["serviceOils"] : [],
             methodPaymentId: 1,
             errorMsg: null,
-            totalPrice: 0
+            totalPrice: (inforBooking && inforBooking["totalPrice"]) ? inforBooking["totalPrice"] : 0,
         }
-        this.open = this.open.bind(this)
         this.close = this.close.bind(this)
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
         this.modalRef = React.createRef();
         this._handleClickOutside = this._handleClickOutside.bind(this);
+        document.addEventListener('mousedown', this._handleClickOutside);
     }
 
     componentWillMount() {
@@ -31,15 +31,6 @@ class StepTHREE extends Component {
         this.props.appActions.getServices(inforBooking["transportId"], TYPE_SERVICE.CO_BAN, inforBooking["brandSeries"]["id"]);
     }
 
-    open() {
-        let inforBooking = { ...this.props.app.inforBooking }
-        this.setState({
-            isOpen: true,
-            serviceOils: (inforBooking && inforBooking["serviceOils"]) ? inforBooking["serviceOils"] : [],
-        });
-
-        document.addEventListener('mousedown', this._handleClickOutside);
-    }
 
     _handleClickOutside(event) {
         if (this.modalRef && !this.modalRef.current.contains(event.target)) {
@@ -227,14 +218,14 @@ class StepTHREE extends Component {
                                                     <hr />
                                                     <div className="payment form-group row">
                                                         {(this.state.methodPaymentId == 2 || this.state.methodPaymentId == 3) && <div style={{ textAlign: 'center', color: 'red' }}>Tính năng đang nâng cấp</div>}
-                                                        <div className="col-md-3 text-left">Chọn hình thức thanh toán:</div>
+                                                        <div className="col-md-3 text-left">Hình thức thanh toán:</div>
                                                         <div className="col-md-9">
                                                             <a href="javascript:void(0)" onClick={e => this.selectMethodPayment(1)} className={this.state.methodPaymentId == 1 ? 'active' : ''}><i className="fa fa-money" />Tiền mặt</a>
                                                             <a href="javascript:void(0)" onClick={e => this.selectMethodPayment(2)} className={this.state.methodPaymentId == 2 ? 'active' : ''}><i className="fa fa-credit-card" /> Thẻ ngân hàng</a>
                                                             <a href="javascript:void(0)" onClick={e => this.selectMethodPayment(3)} className={this.state.methodPaymentId == 3 ? 'active' : ''}><i className="fa fa-credit-card" /> Ví điện tử</a>
                                                         </div>
                                                     </div>
-                                                    <div className="form-group row">
+                                                    <div className="note form-group row ">
                                                         <div className="col-md-3 text-left">Ghi chú:</div>
                                                         <div className="col-md-9">
                                                             <input ref={e => this.noteInputRef = e} type="text" name="notes" className="form-control" />
@@ -247,11 +238,11 @@ class StepTHREE extends Component {
                                     <hr />
                                     {this.state.errorMsg && <div style={{ textAlign: 'center', color: 'red', padding: '5px' }}>{this.state.errorMsg}</div>}
                                     <div className="form-group row text-center">
-                                        <button onClick={this.prev} type="button" className="btn btn-fefault step_back m-btn-prev"><i className="fa fa-angle-left" /> QUAY LẠI</button>
+                                        <button onClick={this.prev} type="button" className="btn btn-fefault btn-prev-step3">QUAY LẠI</button>
                                         {this.state.serviceOils && this.state.serviceOils.length > 0 ?
-                                            <button onClick={this.next} type="button" className="btn btn-success2">CHỌN NHỚT</button>
+                                            <button onClick={this.next} type="button" className="btn btn-success btn-next-step3">CHỌN NHỚT</button>
                                             :
-                                            <button onClick={this.next} type="button" className="btn btn-success2"><i style={{ marginRight: '10px' }} className="fa fa-check-circle" />XÁC NHẬN</button>
+                                            <button onClick={this.next} type="button" className="btn btn-success btn-next-step3"><i className="fa fa-check-circle" />XÁC NHẬN</button>
                                         }
                                     </div>
                                 </div>

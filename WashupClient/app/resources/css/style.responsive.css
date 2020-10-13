@@ -10,7 +10,34 @@
 }
 @media only screen and (max-width: 780px) {
 }
+@media only screen and (min-width: 768px) {
+	
+	.btn-prev-step1, .btn-prev-step2, .btn-prev-step3 {
+		width: 190px;
+		border: none;
+		margin-right: 30px;
+	}
+	.btn-next-step1, .btn-next-step2, .btn-next-step3 {
+		width: 190px;
+	}
+	.btn-next-step2 {
+		margin-top: -5px;
+	}
+	.btn-prev {
+		margin-right: 20px;
+	}
+	.back_home {
+		margin-right: 20px;
+	}
+	.back_home, .step_back {
+		min-width: 150px;
+	}
+}
+
 @media only screen and (max-width: 768px) {
+	#schedule_now {
+		display: none;
+	}
 }
 @media only screen and (max-width: 720px) {
 

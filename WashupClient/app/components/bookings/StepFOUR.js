@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TimeUtils from '../../utils/TimeUtils';
 import PriceUtils from '../../utils/PriceUtils';
+import ConfirmModal from '../ConfirmModal'
 
 
 class StepFOUR extends Component {
@@ -14,10 +15,15 @@ class StepFOUR extends Component {
         this.close = this.close.bind(this);
         this.submit = this.submit.bind(this);
         this.prev = this.prev.bind(this)
-        
+
         this.modalRef = React.createRef();
         this._handleClickOutside = this._handleClickOutside.bind(this);
         document.addEventListener('mousedown', this._handleClickOutside);
+        this.changeBooking = this.changeBooking.bind(this)
+        this.cancelBooking = this.cancelBooking.bind(this)
+        this.updateBooking = this.updateBooking.bind(this)
+        this.clickNotOkBooking = this.clickNotOkBooking.bind(this);
+        this.clickOkCancelBooking = this.clickOkCancelBooking.bind(this);
     }
 
 
@@ -28,7 +34,7 @@ class StepFOUR extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('mousedown', this.handleClickOutside);
+        document.addEventListener('mousedown', this._handleClickOutside);
     }
 
     submit() {
@@ -55,13 +61,37 @@ class StepFOUR extends Component {
         this.props.prev()
     }
 
+    changeBooking() {
+        window.openBookingModal(1);
+        this.props.appActions.changeModeBookingModal(3);
+    }
 
+    cancelBooking() {
+        this.confirmModal.open();
+        this.setState({isOpen: false})
+        document.removeEventListener('mousedown', this._handleClickOutside);
+    }
+
+    clickOkCancelBooking() {
+        let inforBooking = { ...this.props.app.inforBooking }
+        this.props.appActions.cancelBooking(inforBooking["id"]);
+    }
+
+    clickNotOkBooking() {
+        this.setState({isOpen: true})
+        document.addEventListener('mousedown', this._handleClickOutside);
+    }
+
+    updateBooking() {
+        let inforBooking = { ...this.props.app.inforBooking }
+        this.props.appActions.updateOrder(inforBooking);
+    }
 
     render() {
         const isLoading = this.props.app.isLoadingBooking;
         const inforBooking = this.props.app.inforBooking;
 
-        const totalPrice = inforBooking["totalPrice"] + ( inforBooking["oilPrice"] ? inforBooking["oilPrice"] : 0 );
+        const totalPrice = inforBooking["totalPrice"] + (inforBooking["oilPrice"] ? inforBooking["oilPrice"] : 0);
         return (
             <div>
                 <div id="ModalBooking" style={{ display: `${this.state.isOpen == true ? 'block' : 'none'}` }} className={`modal fade ${this.state.isFadeIn ? 'in' : ''}`} >
@@ -154,15 +184,31 @@ class StepFOUR extends Component {
                                     }
                                 </div>
                                 }
-                                <div className="form-group text-center">
-                                    <button onClick={this.prev} type="button" className="btn btn-fefault step_back m-btn-prev"><i className="fa fa-angle-left" /> QUAY LẠI</button>
-                                    <button onClick={this.submit} type="button" className="btn btn-success back_home">ĐẶT LỊCH</button>
-                                </div>
+                                {this.props.app.modeBookingModel == 1 &&
+                                    <div className="form-group text-center">
+                                        <button onClick={this.prev} type="button" className="btn btn-fefault btn-prev-step3">QUAY LẠI</button>
+                                        <button onClick={this.submit} type="button" className="btn btn-success btn-next-step3">ĐẶT LỊCH</button>
+                                    </div>
+                                }
+                                {this.props.app.modeBookingModel == 2 &&
+                                    <div className="form-group text-center">
+                                        <button onClick={this.changeBooking} type="button" className="btn btn-success btn-next-step3 mg10">ĐỔI LỊCH</button>
+                                        <button onClick={this.cancelBooking} type="button" className="btn btn-fefault btn-prev-step3"> HỦY LỊCH</button>
+                                    </div>
+                                }
+                                {this.props.app.modeBookingModel == 3 &&
+                                    <div className="form-group text-center">
+                                        <button onClick={this.prev} type="button" className="btn btn-fefault btn-prev-step3">QUAY LẠI</button>
+                                        <button onClick={this.updateBooking} type="button" className="btn btn-success btn-prev-step3">CẬP NHẬT</button>
+                                    </div>
+                                }
                                 <div className="clearfix" />
-                            </form></div>
+                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <ConfirmModal ok={this.clickOkCancelBooking} notOk={this.clickNotOkBooking} ref={e => this.confirmModal = e} />
             </div>
         )
     }

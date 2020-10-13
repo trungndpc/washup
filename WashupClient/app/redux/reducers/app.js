@@ -17,7 +17,9 @@ const initialState = {
   topAccessories: [],
   accessories: {},
   activities: [],
-  oils: []
+  oils: [],
+  isOpenSearchPhone: false,
+  modeBookingModel: 0,
 }
 
 export default function app(state = initialState, action) {
@@ -78,6 +80,18 @@ export default function app(state = initialState, action) {
 
       break;
     }
+    case type.APP.UPDATE_ORDER_END: {
+      newState.isLoadingBooking = false;
+      let payload = action.payload;
+      if (payload.errors && payload.errors[0]) {
+        AlertUtils.showError(payload.errors[0].errorMsg)
+      } else {
+        AlertUtils.showSuccess("Cập nhật thành công!")
+        newState.confirmBooking = payload.data;
+        newState.inforBooking = null;
+      }
+      break;
+    }
     case type.APP.GET_ACCESSORIES_END: {
       newState.topAccessories = action.payload;
       break;
@@ -99,6 +113,22 @@ export default function app(state = initialState, action) {
       newState.brands = data["brands"]
       newState.brandSeries = data["brandSeries"]
       newState.storeServices = data["services"]
+      break;
+    }
+    case type.APP.CHANGE_STATUS_SEARCH_PHONE_MODAL: {
+      newState.isOpenSearchPhone = action.status;
+      break;
+    }
+    case type.APP.CHANGE_MODE_BOOKING_MODAL: {
+      newState.modeBookingModel = action.mode;
+      break;
+    }
+    case type.APP.GET_ORDER_BY_PHONE_END: {
+      let payload = action.payload;
+      if (payload.error < 0) {
+        let msg = payload.errMsg;
+        newState.findOrderByPhonerErrorMSG = msg;
+      }
       break;
     }
     default:

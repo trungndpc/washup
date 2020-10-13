@@ -30,10 +30,6 @@
 
 .btn-search:hover {opacity:0.8}
 
-.btn-success2 {
-    font-size: 14px !important;
-    font-weight: 600 !important;
-}
 
 .btn-success2:hover {
     opacity:0.8
@@ -51,10 +47,6 @@
     text-align: center;
     text-transform: uppercase;
     color: #fff;
-}
-
-.modal-body .form-group {
-    margin: 10px 0px !important;
 }
 
 #site-nq .img {
@@ -309,7 +301,7 @@
     position: absolute;
     right: 10px;
     top: 6px;
-    font-size: 20px;
+    font-size: 17px;
     cursor: pointer;
 }
 
@@ -401,4 +393,18 @@ a {
 
 .red-req {
     color: red !important;
+}
+
+.error_msg_form_search_phone {
+    padding: 10px;
+    color: red;
+    text-align: center;
+}
+
+.mg10 {
+    margin-right: 20px;
+}
+
+.mg0 {
+    margin: 0 !important;
 }

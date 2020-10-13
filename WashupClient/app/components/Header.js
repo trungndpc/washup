@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import MLink from '../components/MLink'
-import BookingManagerModal from './BookingManagerModal';
+import BookingManagerModal from '../redux/containers/BookingManagerModal';
 
 
 class Header extends Component {
@@ -12,9 +12,17 @@ class Header extends Component {
       isShowMobileMenu: false
     }
     this.onClickShowMenu = this.onClickShowMenu.bind(this)
+    this.openBookedSearch = this.openBookedSearch.bind(this)
   }
 
   onClickShowMenu() {
+    this.setState({
+      isShowMobileMenu: !this.state.isShowMobileMenu
+    })
+  }
+
+  openBookedSearch() {
+    this.props.appActions.changeStatusSearchPhoneModal(true);
     this.setState({
       isShowMobileMenu: !this.state.isShowMobileMenu
     })
@@ -48,12 +56,13 @@ class Header extends Component {
                 <button onClick={this.onClickShowMenu} type="button" className="navbar-toggle">
                   <i className="fa fa-bars" />
                 </button>
-                <div id="main-menu" style={{ height: `${this.state.isShowMobileMenu ? '220px' : '0px'}` }} className={`topnav navbar collapse navbar-collapse in`}>
+                <div id="main-menu" style={{ height: `${this.state.isShowMobileMenu ? '260px' : '0px'}` }} className={`topnav navbar collapse navbar-collapse in`}>
                   <MLink isRelease={false} to={"/dich-vu"}>Dịch vụ</MLink>
                   <MLink isRelease={false} to={"/phu-kien"}>Lốp xe &amp; Phụ kiện</MLink>
                   <div className="topnav-right">
+                  <a onClick={this.openBookedSearch} href="#">Lịch đã đặt</a>
                   <MLink isRelease={false} to={"/#"}>Tuyển dụng</MLink>
-                  <MLink isRelease={false} to={"/#"}>Liên hệ</MLink>
+                  <MLink isRelease={false} to={"/"}>Liên hệ</MLink>
                   </div>
                 </div>
               </div>
@@ -67,7 +76,7 @@ class Header extends Component {
             </div>
           </div>
         </nav>
-        {/* <BookingManagerModal/> */}
+        <BookingManagerModal {...this.props}/>
       </div>
     )
   }

@@ -85,3 +85,31 @@ export function getOrderByPhone(phone) {
     phone: phone
   }
 }
+
+export function changeStatusSearchPhoneModal(status) {
+  return {
+    type : type.APP.CHANGE_STATUS_SEARCH_PHONE_MODAL,
+    status : status
+  }
+}
+
+export function changeModeBookingModal(mode) {
+  return {
+    type: type.APP.CHANGE_MODE_BOOKING_MODAL,
+    mode: mode
+  }
+}
+
+export function cancelBooking(id) {
+  return {
+    type: type.APP.CANCEL_BOOKING_ASYNC,
+    id: id
+  }
+}
+
+export function updateOrder(data) {
+  return {
+    type: type.APP.UPDATE_ORDER_ASYNC,
+    data: data
+  }
+}

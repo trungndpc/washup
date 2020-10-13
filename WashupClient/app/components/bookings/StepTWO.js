@@ -8,24 +8,18 @@ class StepTWO extends Component {
         super(props);
         const inforBooking = this.props.app.inforBooking;
         this.state = {
-            isOpen: false,
+            isOpen: true,
             tabDate: 1,
             timestampEndDay: TimeUtils.getEndDay(TimeUtils.getCurrentDay()),
             timeScheduleSelected: (inforBooking && inforBooking["timeSchedule"]) ? inforBooking["timeSchedule"] : null,
             errorMsg: null
         }
+        document.addEventListener('mousedown', this._handleClickOutside);
         this.modalRef = React.createRef();
-
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
         this.close = this.close.bind(this);
-        this.open = this.open.bind(this);
         this._handleClickOutside = this._handleClickOutside.bind(this);
-    }
-
-    open() {
-        this.setState({ isOpen: true });
-        document.addEventListener('mousedown', this._handleClickOutside);
     }
 
     componentWillMount() {
@@ -159,8 +153,8 @@ class StepTWO extends Component {
                                     </div>
                                     <hr />
                                     <div className="form-group row text-center">
-                                        <button onClick={this.prev} type="button" className="btn btn-fefault m-btn-prev" data-dismiss="modal"><i className="fa fa-angle-left" /> QUAY LẠI</button>
-                                        <button onClick={this.next} type="button" className="btn btn-success"><i className="fa clipboard_check" /> CHỌN DỊCH VỤ</button>
+                                        <button onClick={this.prev} type="button" className="btn btn-fefault btn-prev-step2" data-dismiss="modal">QUAY LẠI</button>
+                                        <button onClick={this.next} type="button" className="btn btn-success btn-next-step2"><i className="fa clipboard_check" />CHỌN DỊCH VỤ</button>
                                     </div>
                                 </div>
                                 <div className="clearfix" />

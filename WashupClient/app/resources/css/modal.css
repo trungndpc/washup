@@ -17,11 +17,15 @@
 {border-radius:12px;}
 #ModalBooking .modal-body, #ModalBookingNotify .modal-body {padding:0}
 #ModalBooking .main-title, #ModalBookingNotify .main-title {
-	background:#1b3a6a; color:#345a90;
-	height:94px; padding: 10px;
+	text-align: center;
+    font-size: x-large;
+    line-height: 94px;
+	color: #ffc11c;
+	background:#1b3a6a;
+	height:94px; 
 	border-radius: 10px 10px 0 0;
 }
-#ModalBooking .tab, #ModalBookingNotify .tab {margin:0; padding:0; height: 78px;}
+#ModalBooking .tab, #ModalBookingNotify .tab {margin:0; padding:0; height: 100%;}
 #ModalBooking .tab .item, #ModalBookingNotify .tab .item {
     text-align:center; font-size:16px;
     letter-spacing:-0.5px; position:relative;
@@ -30,7 +34,7 @@
 #ModalBooking .tab .active,
 #ModalBooking .tab .open {color:#fff}
 #ModalBooking .tab .active .info, 
-#ModalBooking .tab .open .info {color:#ffd212; margin: 5px 0; font-size:18px; line-height: 1.2;}
+#ModalBooking .tab .open .info {color:#ffd212; margin: 5px 0; font-size:initial; line-height: 1.2;}
 
 #ModalBooking .tab .title, #ModalBookingNotify .tab .title{
     color:#ffc11c; font-size: large;
@@ -55,27 +59,25 @@
 #ModalBooking .box_input {
 	padding: 10px 75px;
 }
-#ModalBooking .form-group {}
 #ModalBooking .fa-car, #ModalBooking .fa-motorcycle {
 	color: #1b3a6a;
     font-size: 16px;
     margin-left: 5px;
 }
-#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
+#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault, #confirmModal .btn-fefault {
 	background: #e6e6e6;
     color: #ccc;
     font-size: 16px;
     padding: 8px 15px;
     box-shadow: none;
     border-radius: 40px;
-    width: 190px;
 }
 #ModalBooking .btn-fefault:hover, #ModalBookingNotify .btn-fefault:hover {background:#e1e1e1; color:#666}
 #ModalBooking .btn-fefault .fa, #ModalBookingNotify .btn-fefault .fa {float:left; font-size: 24px;}
 #ModalBooking .btn-success i.fa {
 	margin-right: 5px;
 }
-#ModalBooking .btn-success, #ModalBookingNotify .btn-success {
+#ModalBooking .btn-success, #ModalBookingNotify .btn-success, #confirmModal .btn-success  {
 	background: url(../images/btn_success.png) no-repeat center left;
     color: #fff; text-shadow:1px 1px 1px #d07b1d;
     font-size: 16px;
@@ -120,7 +122,7 @@
 #ModalBooking h3.title { 
 	color: #1b3a6a;
     letter-spacing: -1px;
-    font-size: 28px;
+    font-size: x-large;
     border-left: 3px solid #f8901f;
     padding-left: 10px;
 }
@@ -180,7 +182,7 @@
 	position:relative
 }
 .calendar_content .name {
-	font-size:18px; 
+	font-size:initial; 
 	letter-spacing: 0px; display:block;
 	color:#1b3a6a; padding-top: 8px;
 }
@@ -196,7 +198,7 @@
 .calendar_content .full .status {
 	color: #cacaca;
 }
-.calendar_content .active {border:1px solid #8cc63f !important}
+.calendar_content .active {border:2px solid #8cc63f !important}
 .calendar_content .fa {
 	color:#8cc63f; position:absolute; 
 	top: 5px; right: 5px;
@@ -204,7 +206,7 @@
 }
 .clipboard_check {
 	background:url(../images/icons/clipboard_check.png) no-repeat center center;
-	height:24px; width:18px; vertical-align:middle
+	height:19px; width:17px; vertical-align:middle
 }
 
 .calendar-container {position:relative}
@@ -254,7 +256,7 @@
 }
 #box_calendar .tab_calendar .title {
 	color: #ffd212;
-    font-size: 20px;
+    font-size: 17px;
     text-transform: uppercase;
     padding: 5px 0;
     letter-spacing: -0.5px;
@@ -378,12 +380,14 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-
+#ModalBooking .payment {
+	font-size: medium;
+}
 #ModalBooking .payment a { 
 	float:left; margin-right:5px; 
 	border:1px solid #e7e7e7;
 	border-radius:4px;
-	padding:5px 15px;
+	padding:5px 25px;
 	color:#666;
 }
 #ModalBooking .payment a.active {color:#333; border:1px solid #f7901e !important}
@@ -391,7 +395,12 @@
 	color: #c5c5c5;
     position: relative;
     top: unset;
-    right: unset;
+	right: unset;
+	margin-right: 5px;
+}
+
+#ModalBooking .note {
+	font-size: medium;
 }
 
 #ModalBooking .book_cancel, #ModalBookingNotify .book_cancel {
@@ -727,7 +736,7 @@
 		width: 160px; padding: 8px 10px;
 	}
 
-	#ModalBooking .step_back {width:190px; padding: 6px 15px; margin-bottom: 5px;}
+	#ModalBooking .step_back { padding: 6px 15px; margin-bottom: 5px;}
 	.calendar_nav .fa-chevron-left {
 		left: -10px;
 		top: 80px;
@@ -751,4 +760,29 @@
 	#ModalBooking .box_input { padding: 10px 5px;}
 	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {width:110px;}
 	.requiement_wrapper .title span {font-size: 23px;}
+}
+
+.content_box_notify {
+	padding: 40px 0px;
+	background-color: #fff;
+}
+
+.bgtr {
+	background-color: transparent !important;
+}
+.mrbotton10 {
+	margin-bottom: 10px;
+}
+#confirmModal .modal-body {
+	border-radius: 12px;
+	overflow: hidden;
+	padding: 0 !important;
+}
+
+#confirmModal .main-title {
+	background-color: #1b3868;
+    color: #fff;
+    padding: 30px 0px;
+    text-align: center;
+    font-size: large;
 }

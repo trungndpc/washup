@@ -26,7 +26,8 @@ class Home extends React.Component {
     this.bookingXemayService = this.bookingXemayService.bind(this);
     this.formatPhone = this.formatPhone.bind(this);
     this.changeTabService = this.changeTabService.bind(this);
-    this._handleKeyDown = this._handleKeyDown.bind(this)
+    this._handleKeyDown = this._handleKeyDown.bind(this);
+    this.openSearchBookingbyPhone = this.openSearchBookingbyPhone.bind(this);
 
   }
 
@@ -41,12 +42,18 @@ class Home extends React.Component {
     return;
   }
 
+  
+  openSearchBookingbyPhone() {
+    this.props.appActions.changeStatusSearchPhoneModal(true);
+  }
+
   booking() {
     if (this.phoneInputRef && this.phoneInputRef.value) {
       if (this.phoneInputRef.value.match(/\d/g).length < 10 || this.phoneInputRef.value.match(/\d/g).length > 10) {
         AlertUtils.showWarning("Vui lòng nhập đủ số điện thoại")
         return;
       }
+      this.props.appActions.changeModeBookingModal(1);
       this.props.appActions.putInforBooking({ "phone": this.phoneInputRef.value })
       this.bookingModalRef && this.bookingModalRef.open();
     } else {
@@ -102,7 +109,7 @@ class Home extends React.Component {
     }
     return (
       <div>
-        <Header />
+        <Header {...this.props}/>
         <div id="site-banner" />
         <div id="site-service">
           <div className="top_services">
@@ -157,7 +164,7 @@ class Home extends React.Component {
                         )
                       })}
 
-                      <div onClick={function() {window.openNotifycation()}} className="item btn-more text-center">Xem thêm</div>
+                      <div onClick={function () { window.openNotifycation() }} className="item btn-more text-center">Xem thêm</div>
                     </div>
                     <button onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngay</button>
                   </div>
@@ -190,6 +197,16 @@ class Home extends React.Component {
           </div></div>
         </div>
         <Footer />
+
+        <div id="schedule_now">
+          <a href="javascript:void(0)" title="Đặt lịch rửa xe tận nhà">
+            <div className="orange">
+              <i className="fa fa-calendar" /> <span>RỬA XE TẬN NHÀ</span>
+            </div>
+            <div onClick={this.openSearchBookingbyPhone} className="blue">XEM LẠI LỊCH ĐÃ ĐẶT</div>
+          </a>
+        </div>
+
         <BookingModal ref={e => this.bookingModalRef = e} {...this.props} />
       </div>
     )

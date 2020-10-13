@@ -231,8 +231,8 @@ class StepONE extends Component {
                                             </div>
                                             <hr />
                                             <div className="form-group row text-center">
-                                                <button onClick={this.close} type="button" className="btn btn-fefault m-btn-prev" data-dismiss="modal"><i className="fa fa-angle-left" /> QUAY LẠI</button>
-                                                <button onClick={this.next} type="button" className="btn btn-success"><i className="fa fa-calendar-check" /> CHỌN GIỜ RỬA</button>
+                                                <button onClick={this.close} type="button" className="btn btn-fefault btn-prev-step1" data-dismiss="modal">QUAY LẠI</button>
+                                                <button onClick={this.next} type="button" className="btn btn-success btn-next-step1"><i className="fa fa-calendar-check" /> CHỌN GIỜ RỬA</button>
                                             </div>
                                         </div>
                                     }

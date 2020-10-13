@@ -2,6 +2,7 @@ import { takeLatest, call, put } from 'redux-saga/effects'
 import * as type from '../actions/action-types'
 import APIUtils from '../../utils/APIUtils'
 import { Model } from '../../constants/Constants';
+import AlertUtils from '../../utils/AlertUtils';
 
 export default function* app() {
   yield takeLatest(type.APP.GET_MODELS_ASYNC, requestGetModelAsync)
@@ -16,6 +17,8 @@ export default function* app() {
   yield takeLatest(type.APP.GET_OIL_ASYNC, requestGetOilAsync)
   yield takeLatest(type.APP.GET_HOME_INFO_ASYNC, requestGetHomeInfoAsync)
   yield takeLatest(type.APP.GET_ORDER_BY_PHONE_ASYNC, requestGetOrderByPhoneAsync)
+  yield takeLatest(type.APP.CANCEL_BOOKING_ASYNC, cancelBookingAsync)
+  yield takeLatest(type.APP.UPDATE_ORDER_ASYNC, requestUpdateOrderAsync)
 }
 
 function* requestGetModelAsync() {
@@ -47,6 +50,14 @@ function* requestBookingAsync(action) {
   yield put({ type: type.APP.BOOKING_START })
   const resp = yield call(booking, action.data);
   yield put({ type: type.APP.BOOKING_END, payload: resp })
+}
+
+function* requestUpdateOrderAsync(action) {
+  const resp = yield call(updateOrder, action.data);
+  if (!resp.errors) {
+    window.closeFormModal();
+  }
+  yield put({ type: type.APP.UPDATE_ORDER_END, payload: resp })
 }
 
 function* requestGetAccessorisAsync() {
@@ -81,7 +92,46 @@ function* requestGetHomeInfoAsync() {
 
 function* requestGetOrderByPhoneAsync(action) {
   const resp = yield call(getOrderByPhone, action.phone)
-  console.log(resp)
+  if (resp.errors) {
+    yield put({type: type.APP.GET_ORDER_BY_PHONE_END, payload: {error: -9, errMsg : 'Không tìm thấy lịch đặt'}})
+  }else {
+    let formData = {};
+    let apiData = resp.data;
+    formData["id"] = apiData["id"]
+    formData["phone"] = apiData["phone"];
+    formData["address"] = apiData["pickUpAddress"];
+    formData["fullname"] = apiData["fullName"];
+    formData["note"] = apiData["customerNote"];
+    formData["licensePlate"] = apiData["licensePlate"];
+    formData["vehicleName"] = apiData["vehicleName"];
+    formData["timeSchedule"] = apiData["timeSchedule"];
+    formData["paymentMethod"] = apiData["paymentMethod"];
+    formData["totalPrice"] = apiData["totalPrice"];
+    formData["brandSeries"] = apiData["brandSeries"];
+    formData["brand"] = apiData["brand"];
+    let listServiceIds = [];
+    let listServiceNames = [];
+    let apiServices = apiData["services"];
+    apiServices.forEach(services => {
+      listServiceIds.push(services["id"]);
+      listServiceNames.push(services["name"]);
+    });
+    formData["serviceIds"] = listServiceIds;
+    formData["serviceNames"] = listServiceNames;
+
+    yield put({type: type.APP.CHANGE_STATUS_SEARCH_PHONE_MODAL, status: false});
+    yield put({type: type.APP.PUT_INFO_BOOKING, data: formData});
+    yield put({type: type.APP.CHANGE_MODE_BOOKING_MODAL, mode: 2})
+    window.openBookingModal(4);
+  }
+}
+
+function* cancelBookingAsync(action) {
+  const resp = yield call(cancelBooking, action.id)
+  if (!resp.errors) {
+    window.closeFormModal();
+    AlertUtils.showSuccess("Bạn đã hủy lịch thành công")
+  }
 }
 
 function getModels() {
@@ -162,6 +212,16 @@ function getOrderByPhone(phone) {
   });
 }
 
+function cancelBooking(id) {
+  let body = {
+    id: id
+  }
+  console.log(body)
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/cancel-by-customer`, JSON.stringify(body), resolve, reject);
+  });
+}
+
 function booking(data) {
   const body = {
     "phone": data["phone"],
@@ -186,3 +246,27 @@ function booking(data) {
   });
 }
 
+function updateOrder(data) {
+  const body = {
+    "id": data["id"],
+    "phone": data["phone"],
+    "pickUpAddress": data["address"],
+    "timeSchedule": data["timeSchedule"],
+    "customerNote": data["note"],
+    "licensePlate": data["licensePlate"],
+    "fullName": data["fullname"],
+    "paymentMethod": data["paymentMethod"],
+    "brandId": data["brand"].id,
+    "brandSeriesId": data["brandSeries"].id,
+    "serviceIds": data["serviceIds"],
+    "vehicleName": data["vehicleName"],
+  }
+
+  if (data["oilIds"]) {
+    body["oilIds"] = data["oilIds"]
+  }
+
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/update-order`, JSON.stringify(body), resolve, reject);
+  });
+}

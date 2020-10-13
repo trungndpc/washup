@@ -11,7 +11,7 @@ class MLink extends Component {
 
     render() {
         if (!this.props.isRelease) {
-            return <a className={this.props.className} onClick={function () { window.openNotifycation() }}>{this.props.children}</a>
+            return <a className={this.props.className} href="#" onClick={function () { window.openNotifycation() }}>{this.props.children}</a>
         } else {
             <Link className={this.props.className} to={this.props.to}>{this.props.children}</Link>
         }
