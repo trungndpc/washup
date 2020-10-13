@@ -22,6 +22,7 @@ class MembershipList extends Component {
             responsiveClass: true,
             responsive: {
                 0: { items: 1, stagePadding: 100},
+                320: {items: 2},
                 600: { items: 3 },
                 1000: { items: 5, loop: false }
             }

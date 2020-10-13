@@ -16,7 +16,15 @@
 #ModalBooking .modal-content, #ModalBookingNotify .modal-content
 {border-radius:12px;}
 #ModalBooking .modal-body, #ModalBookingNotify .modal-body {padding:0}
-#ModalBooking .main-title, #ModalBookingNotify .main-title {
+#ModalBooking .main-title {
+	text-align: center;
+    font-size: x-large;
+	color: #ffc11c;
+	background:#1b3a6a;
+	height:94px; 
+	border-radius: 10px 10px 0 0;
+}
+#ModalBookingNotify .main-title {
 	text-align: center;
     font-size: x-large;
     line-height: 94px;
@@ -26,7 +34,16 @@
 	border-radius: 10px 10px 0 0;
 }
 #ModalBooking .tab, #ModalBookingNotify .tab {margin:0; padding:0; height: 100%;}
-#ModalBooking .tab .item, #ModalBookingNotify .tab .item {
+#ModalBooking .tab .item {
+	color: #345a90;
+	padding: 10px;
+	text-align:center; 
+	font-size:medium;
+	letter-spacing:-0.5px; 
+	position:relative;
+    height: 100%;
+}
+#ModalBookingNotify .tab .item {
     text-align:center; font-size:16px;
     letter-spacing:-0.5px; position:relative;
     height: 100%;
@@ -472,7 +489,7 @@
 }
 .booking_final .title {
     float: left;
-    color:#1b3a6a; font-size: 20px;
+    color:#1b3a6a;
     text-transform: uppercase;
     font-weight: 500;
     letter-spacing: -0.5px;
@@ -651,7 +668,7 @@
 	#ModalBooking .main-title, #ModalBookingNotify .main-title {
 		height:auto; position: relative;
 	}
-	#ModalBooking .tab, #ModalBookingNotify .tab {height:auto; overflow:hidden}
+	#ModalBooking .tab, #ModalBookingNotify .tab {height:auto; overflow:hidden; padding: 10px;}
 	#ModalBooking .box_input {padding:10px}
 	#ModalBooking .tab .item, #ModalBookingNotify .tab .item {position:unset}
 	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {width:130px}

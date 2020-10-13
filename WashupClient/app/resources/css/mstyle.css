@@ -7,10 +7,6 @@
     float: none !important;
 }
 
-.row {
-    margin: 0 !important;
-}
-
 .modal-open {
     overflow: hidden !important;
 }
@@ -100,11 +96,6 @@
         display: block !important;
     }
 
-    .m-main-tile .mobile h4 {
-        margin-bottom: 0 !important;
-        padding: 5px !important;
-    }
-
     .btn_view_more_servie {
         display: none !important;
     }
@@ -177,7 +168,6 @@
     }
 
     .booking_final .title {
-        font-size: 15px;
         width: 30%;
     }
 
@@ -186,13 +176,11 @@
     }
 
     .booking_final .info .address {
-        font-size: 14px;
         width: 65%;
         text-align: right;
     }
 
     .booking_final .info .text {
-        font-size: 14px;
         width: 65%;
         text-align: right;
     }
@@ -211,6 +199,8 @@
     }
     .confirm-title {
         margin: 0 !important;
+        padding: 20px;
+        font-size: 18px;
     }
 }
 

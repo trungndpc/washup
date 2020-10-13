@@ -89,6 +89,36 @@
 	}
 }
 @media only screen and (max-width: 600px) {
+	#ModalBooking .payment {
+		font-size: inherit !important;
+	}
+	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
+		margin-right: 30px;
+	}
+	#ModalBooking .note {
+		font-size: inherit;
+	}
+	.booking_final .title {
+		font-size: smaller;
+	}
+
+	.booking_final .info .text {
+		font-size: smaller;
+	}
+
+	#ModalBooking .btn-success, #ModalBookingNotify .btn-success, #confirmModal .btn-success {
+		font-size: medium !important;
+		min-width: 130px;
+
+	}
+
+	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
+		font-size: medium !important;
+		min-width: 130px;
+		border: 0;
+		margin-right: 15px;
+	}
+
 }
 @media only screen and (max-width: 568px) {
 }
@@ -106,6 +136,35 @@
 @media only screen and (max-width: 411px) {
 }
 @media only screen and (max-width: 375px) {
+	.booking_final .title {
+		font-size: small;
+	}
+
+	.booking_final .info .text {
+		font-size: small;
+	}
+
+	#ModalBooking .note {
+		font-size: inherit;
+	}
+	#ModalBooking .payment {
+		font-size: inherit !important;
+	}
+	#ModalBooking .btn-success, #ModalBookingNotify .btn-success, #confirmModal .btn-success {
+		font-size: inherit !important;
+		min-width: 130px;
+
+	}
+
+	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
+		font-size: inherit !important;
+		min-width: 130px;
+		border: 0;
+		margin-right: 15px;
+	}
+	#ModalBooking .btn-success i.fa {
+		display: none;
+	}
 	.panel_header h3.title {
 		font-size: large;
 	}
@@ -126,5 +185,37 @@
 @media only screen and (max-width: 330px) {
 }
 @media only screen and (max-width: 320px) {
+	#site-service .top_services .search .btn-search {
+		padding-left: 22px !important;
+		width: 150px;
+		position: absolute;
+		right: -4px;
+		top: -6px;
+		z-index: 99;
+		background: url(http://localhost:3000/images/btn-search.png) no-repeat center;
+		text-align: center;
+		line-height: 45px;
+		background-size: 150px;
+		color: #fff;
+		font-weight: bold;
+		font-size: small;
+		padding-top: 0px;
+		padding-bottom: 0px;
+		text-shadow: 1px 1px #d87e19;
+
+	}
+	#site-service .top_services .search input {
+		font-size: small;
+		height: 35px !important;
+	}
+	.logo .topnav-centered a {
+		text-align: center;
+		height: inherit;
+		width: inherit;
+	}
+	.logo .topnav-centered a img {
+		width: 240px;
+		max-width: inherit;
+	}
 	
 }
