@@ -2,6 +2,9 @@
 
 }
 @media only screen and (max-width: 1024px) {
+	.hiden-mx {
+		overflow: hidden;
+	}
 
 }
 @media only screen and (max-width: 980px) {
@@ -54,8 +57,16 @@
 	#schedule_now {
 		display: none;
 	}
+
+	.onl-mobile {
+		display: block;
+	}
 }
 @media only screen and (max-width: 768px)  {
+	#ModalBooking .main-title {
+		overflow: hidden; 
+	}
+
 
 	#site-banner {
 		height: 387px;
@@ -94,7 +105,7 @@
 	} */
 	#site-service .top_services .search .input-search {padding:0;}
 	#site-service .top_services .search .btn-search {right:0}
-	#site-service .top_services .search_bottom {border-radius:0;}
+	/* #site-service .top_services .search_bottom {border-radius:0;} */
 	
 	.service_menu {margin: 0 -20px;}
 	.service_menu li {float:left; }
@@ -166,6 +177,12 @@
 @media only screen and (max-width: 563px) {
 }
 @media only screen and (max-width: 549px) {
+	#site-banner {
+		background: url('../images/banners/banner.jpg') no-repeat center;
+		height: 260px;
+		background-size: 123%;
+		background-position: top;
+	}
 }
 @media only screen and (max-width: 534px) {
 }

@@ -37,7 +37,7 @@ class Header extends Component {
         <div className="clearfix" />
         <nav id="topmenu" className="navbar">
           <div className="row nav_inner">
-            <div className="col col-md-2">
+            <div className="col col-md-2 hiden-mx">
               <div className="wrapper-col fl-rgt">
                 <div className="topleft text-right hidden-xs">
                   <a href="#"><i className="fa icon icon_link">&nbsp;</i> <span>Tư vấn Setup</span></a>
@@ -60,14 +60,14 @@ class Header extends Component {
                   <MLink isRelease={false} to={"/dich-vu"}>Dịch vụ</MLink>
                   <MLink isRelease={false} to={"/phu-kien"}>Lốp xe &amp; Phụ kiện</MLink>
                   <div className="topnav-right">
-                  <a onClick={this.openBookedSearch} href="#">Lịch đã đặt</a>
+                  <a className="onl-mobile" onClick={this.openBookedSearch} href="#">Lịch đã đặt</a>
                   <MLink isRelease={false} to={"/#"}>Tuyển dụng</MLink>
                   <MLink isRelease={false} to={"/"}>Liên hệ</MLink>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col col-md-2">
+            <div className="col col-md-2 hiden-mx">
               <div className="wrapper-col sys-store">
                 <div className="topright  text-left hidden-xs">
                   <a href="#"><span>Hệ thống store</span><i className="fa icon icon_map">&nbsp;</i> </a>
