@@ -56,7 +56,7 @@ class Header extends Component {
                 <button onClick={this.onClickShowMenu} type="button" className="navbar-toggle">
                   <i className="fa fa-bars" />
                 </button>
-                <div id="main-menu" style={{ height: `${this.state.isShowMobileMenu ? '260px' : '0px'}` }} className={`topnav navbar collapse navbar-collapse in`}>
+                <div id="main-menu" style={{ height: `${this.state.isShowMobileMenu ? '260px' : ''}` }} className={`topnav navbar collapse navbar-collapse in`}>
                   <MLink isRelease={false} to={"/dich-vu"}>Dịch vụ</MLink>
                   <MLink isRelease={false} to={"/phu-kien"}>Lốp xe &amp; Phụ kiện</MLink>
                   <div className="topnav-right">

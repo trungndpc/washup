@@ -11,7 +11,23 @@
 @media only screen and (max-width: 780px) {
 }
 @media only screen and (min-width: 768px) {
-	
+	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
+		width: 190px !important;
+	}
+
+	#ModalBooking .btn-success, #ModalBookingNotify .btn-success, #confirmModal .btn-success {
+		width: 190px !important;
+	}
+	.service_menu {
+		text-align: right;
+	}
+	#site-service .panel_footer .space {
+		bottom: -20px;
+	}
+	#site-service .top_services .search .hidden-xs {
+		display: block !important;
+	}
+
 	.btn-prev-step1, .btn-prev-step2, .btn-prev-step3 {
 		width: 190px;
 		border: none;
@@ -39,8 +55,25 @@
 		display: none;
 	}
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 768px)  {
 
+	#site-banner {
+		height: 387px;
+		background: url('../images/banners/banner.jpg') no-repeat center;
+		background-size: cover;
+		background-size: 157%;
+	}
+
+	.navbar-toggle {
+		display: block;
+	}
+
+	.navbar-toggle .fa{
+		font-size: x-large;
+	}
+	.hidden-xs {
+		display: none !important;
+	}
 	#topmenu {background:#1b3868}
 	.navbar-toggle { 
 		z-index: 999;
@@ -53,12 +86,12 @@
 	.topnav, .topnav-right {float:none}
 	.topnav a, .topnav-right a { float:none; display:block; text-align:left;}
 	
-	#site-banner {
+	/* #site-banner {
 		background:url('../images/banners/mobile-banner.png') no-repeat center;
 		height:235px;    
 		background-size: 110%;
 		background-position: top;
-	}
+	} */
 	#site-service .top_services .search .input-search {padding:0;}
 	#site-service .top_services .search .btn-search {right:0}
 	#site-service .top_services .search_bottom {border-radius:0;}
@@ -66,7 +99,7 @@
 	.service_menu {margin: 0 -20px;}
 	.service_menu li {float:left; }
 	.service_menu li a {float:left; margin: 0 8px;}
-	.serives_list .space {display:none}
+	/* .serives_list .space {display:none} */
 	
 	.membership .title span {padding:0;}
 	#membership_slider .item, #product_slider .item {display:block}
@@ -78,7 +111,6 @@
 	.copyright div {
 		text-align: center;
 	}
-	.btn {}
 }
 @media only screen and (max-width: 640px) {
 	.serives_list .item .name_service {
@@ -89,6 +121,8 @@
 	}
 }
 @media only screen and (max-width: 600px) {
+	.serives_list .space {display:none}
+
 	#ModalBooking .payment {
 		font-size: inherit !important;
 	}
@@ -117,6 +151,13 @@
 		min-width: 130px;
 		border: 0;
 		margin-right: 15px;
+	}
+
+	#site-banner {
+		background:url('../images/banners/mobile-banner.png') no-repeat center;
+		height:235px;    
+		background-size: 110%;
+		background-position: top;
 	}
 
 }
@@ -145,20 +186,20 @@
 	}
 
 	#ModalBooking .note {
-		font-size: inherit;
+		font-size: inherit !important;
 	}
 	#ModalBooking .payment {
 		font-size: inherit !important;
 	}
 	#ModalBooking .btn-success, #ModalBookingNotify .btn-success, #confirmModal .btn-success {
 		font-size: inherit !important;
-		min-width: 130px;
+		width: 130px;
 
 	}
 
 	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
 		font-size: inherit !important;
-		min-width: 130px;
+		width: 130px;
 		border: 0;
 		margin-right: 15px;
 	}
@@ -185,6 +226,23 @@
 @media only screen and (max-width: 330px) {
 }
 @media only screen and (max-width: 320px) {
+	#ModalBooking .note {
+		font-size: inherit !important;
+	}
+
+	#ModalBooking .btn-success, #ModalBookingNotify .btn-success, #confirmModal .btn-success {
+		font-size: inherit !important;
+		width: 130px;
+
+	}
+
+	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
+		font-size: inherit !important;
+		width: 130px;
+		border: 0;
+		margin-right: 15px;
+	}
+
 	#site-service .top_services .search .btn-search {
 		padding-left: 22px !important;
 		width: 150px;
@@ -192,7 +250,7 @@
 		right: -4px;
 		top: -6px;
 		z-index: 99;
-		background: url(http://localhost:3000/images/btn-search.png) no-repeat center;
+		background: url('../images/btn-search.png') no-repeat center;
 		text-align: center;
 		line-height: 45px;
 		background-size: 150px;

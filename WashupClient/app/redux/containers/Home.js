@@ -42,7 +42,7 @@ class Home extends React.Component {
     return;
   }
 
-  
+
   openSearchBookingbyPhone() {
     this.props.appActions.changeStatusSearchPhoneModal(true);
   }
@@ -109,7 +109,7 @@ class Home extends React.Component {
     }
     return (
       <div>
-        <Header {...this.props}/>
+        <Header {...this.props} />
         <div id="site-banner" />
         <div id="site-service">
           <div className="top_services">
@@ -131,18 +131,24 @@ class Home extends React.Component {
           <div className="container"><div className="row">
             <div className="service">
               <div className="panel_header pd-lr20">
-                <h3 className="title col-md-2 col-xs-12 pull-left">Dịch vụ</h3>
-                <div className="col-md-8 col-xs-12 text-center">
-                  <ul className="service_menu">
-                    <li onClick={() => { this.changeTabService(TYPE_SERVICE.CO_BAN) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.CO_BAN) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.CO_BAN ? 'active' : ''}>Cơ bản</a></li>
-                    <li onClick={() => { this.changeTabService(TYPE_SERVICE.NANG_CAO) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.NANG_CAO) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.NANG_CAO ? 'active' : ''}>Nâng cao</a></li>
-                    <li onClick={() => { this.changeTabService(TYPE_SERVICE.COMBO_TAINHA) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.COMBO_TAINHA) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.COMBO_TAINHA ? 'active' : ''}>Combo</a></li>
-                  </ul>
+                <div className="row">
+                  <h3 className="title col-md-12">Dịch vụ</h3>
                 </div>
-                <div className="col-md-2 text-right btn_view_more_servie"><div className="row">
-                  <MLink to={"/dich-vu"} className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></MLink>
+                <div className="row">
+                  <div className="col-md-8 col-xs-8 text-center">
+                    <ul className="service_menu">
+                      <li onClick={() => { this.changeTabService(TYPE_SERVICE.CO_BAN) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.CO_BAN) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.CO_BAN ? 'active' : ''}>Cơ bản</a></li>
+                      <li onClick={() => { this.changeTabService(TYPE_SERVICE.NANG_CAO) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.NANG_CAO) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.NANG_CAO ? 'active' : ''}>Nâng cao</a></li>
+                      <li onClick={() => { this.changeTabService(TYPE_SERVICE.COMBO_TAINHA) }}><a onClick={() => { this.changeTabService(TYPE_SERVICE.COMBO_TAINHA) }} href="javascript:void(0)" className={this.state.tabServiceId == TYPE_SERVICE.COMBO_TAINHA ? 'active' : ''}>Combo</a></li>
+                    </ul>
+                  </div>
+                  <div className="col-md-4 col-xs-4 text-right btn_view_more_servie">
+                    <div className="row">
+                      <MLink to={"/dich-vu"} className="view_more">Xem tất cả <i className="fa fa-chevron-right" /></MLink>
+                    </div>
+                  </div>
                 </div>
-                </div>
+
                 <div className="clearfix" />
               </div>
               <div className="panel_body ">

@@ -17,6 +17,7 @@
 {border-radius:12px;}
 #ModalBooking .modal-body, #ModalBookingNotify .modal-body {padding:0}
 #ModalBooking .main-title {
+	overflow: hidden;
 	text-align: center;
     font-size: x-large;
 	color: #ffc11c;
@@ -33,7 +34,7 @@
 	height:94px; 
 	border-radius: 10px 10px 0 0;
 }
-#ModalBooking .tab, #ModalBookingNotify .tab {margin:0; padding:0; height: 100%;}
+#ModalBooking .tab, #ModalBookingNotify .tab {margin:0; padding:0; height: 100%; overflow: hidden;}
 #ModalBooking .tab .item {
 	color: #345a90;
 	padding: 10px;
@@ -616,8 +617,7 @@
     background-color: #f8901f;
 }
 
-@media screen and (max-width: 768px) and (min-width: 601px) {
-	#ModalBooking .main-title, #ModalBookingNotify .main-title{height:auto;}
+@media screen and (max-width: 768px) and (min-width: 600px) {
 	#ModalBooking .step2, #ModalBookingNotify .step2,
 	#ModalBooking .step3, #ModalBookingNotify .step3 {height:134px;}
 	#ModalBooking .arrow-up {bottom: -20px;}
@@ -664,11 +664,14 @@
 	.booking_final .form-group {display:flex}
 	.booking_final { padding: 30px 20px 0px;}
 }
-@media only screen and (max-width: 600px) {
-	#ModalBooking .main-title, #ModalBookingNotify .main-title {
-		height:auto; position: relative;
+@media only screen and (max-width: 768px) {
+	.navbar-toggle .fa {
+		font-size: inherit;
 	}
-	#ModalBooking .tab, #ModalBookingNotify .tab {height:auto; overflow:hidden; padding: 10px;}
+	#ModalBooking .main-title, #ModalBookingNotify .main-title {
+		position: relative;
+	}
+	#ModalBooking .tab, #ModalBookingNotify .tab {overflow:hidden;}
 	#ModalBooking .box_input {padding:10px}
 	#ModalBooking .tab .item, #ModalBookingNotify .tab .item {position:unset}
 	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {width:130px}
@@ -717,7 +720,7 @@
 		padding: 5px;
 		margin-bottom: 5px;
 	}
-	.booking_final {  padding: 20px 10px 20px;}
+	.booking_final {  padding: 20px 20px 20px;}
 	.booking_final .col-left {width:100%;}
 	.booking_final .col-right {width:100%;}
 	.booking_final .form-group { display: flex;}
@@ -737,20 +740,22 @@
 	#box_calendar .tab_service a {padding:5px 0}
 }
 @media only screen and (max-width: 320px) {
+	#box_calendar .calendar_content .hour {
+		width: 23%;
+	}
 	#ModalBooking h3.title { font-size: 20px; }
 	#box_calendar .tab_calendar a {
-		width: 100%;
 		padding: 5px 10px;
-		font-size: 15px;
-		border-radius: 0;
+		font-size: inherit;
+		border-radius: 8px 8px 0 0;
 		margin-bottom: 1px;
 	}
 	.box_notify .btn-success {width:190px !important}
 	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
-		width: 110px;
+		width: 130px;
 	}
 	#ModalBooking .btn-success, #ModalBookingNotify .btn-success {
-		width: 160px; padding: 8px 10px;
+		width: 130px; padding: 8px 10px;
 	}
 
 	#ModalBooking .step_back { padding: 6px 15px; margin-bottom: 5px;}
