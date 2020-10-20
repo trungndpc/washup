@@ -517,3 +517,12 @@ a:hover {text-decoration:none; color:#1b3868}
 .onl-mobile {
 	display: none;
 }
+
+#site-activy .panel_header {
+	display: block;
+	overflow: hidden;
+}
+
+#activy_list .item{
+	background:#fff; padding:5px; border-radius: 8px; border: 1px solid #e97e15;
+}

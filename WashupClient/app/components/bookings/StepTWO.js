@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TimeUtils from '../../utils/TimeUtils'
 import HeaderBookingModal from '../../components/HeaderBookingModal';
+import ScheduleModel from '../../redux/reducers/models/ScheduleModel';
 
 class StepTWO extends Component {
 
@@ -9,7 +10,7 @@ class StepTWO extends Component {
         const inforBooking = this.props.app.inforBooking;
         this.state = {
             isOpen: true,
-            tabDate: 1,
+            tabDate: ScheduleModel.TODAY,
             timestampEndDay: TimeUtils.getEndDay(TimeUtils.getCurrentDay()),
             timeScheduleSelected: (inforBooking && inforBooking["timeSchedule"]) ? inforBooking["timeSchedule"] : null,
             errorMsg: null
@@ -36,6 +37,20 @@ class StepTWO extends Component {
         if (this.props.prev) {
             this.props.prev();
         }
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextState == this.state) {
+            if (nextProps.app.inforBooking && nextProps.app.inforBooking["timeSchedule"]) {
+                let tabDay = ScheduleModel.getTabDay(nextProps.app.inforBooking["timeSchedule"]);
+                nextState.tabDate = tabDay;
+            } else if (nextProps.app.schedules != this.props.app.schedules) {
+                if (nextProps.app.schedules[ScheduleModel.TODAY].length == 0) {
+                    nextState.tabDate = ScheduleModel.TOMOROW;
+                }
+            }
+        }
+        return true
     }
 
     next() {
@@ -113,15 +128,15 @@ class StepTWO extends Component {
                                         <div className="calendar-wrapper">
                                             <div className="item">
                                                 <div className="tab_calendar">
-                                                    <a href="javascript:void(0)" onClick={() => { this._selectTabDate(1) }} className={this.state.tabDate == 1 ? "active" : ""}>
+                                                    <a href="javascript:void(0)" onClick={() => { this._selectTabDate(ScheduleModel.TODAY) }} className={this.state.tabDate == 1 ? "active" : ""}>
                                                         <div className="name">HÔM NAY</div>
                                                         <div className="date">{TimeUtils.formatDate(TimeUtils.getCurrentDay())}</div>
                                                     </a>
-                                                    <a href="javascript:void(0)" onClick={() => { this._selectTabDate(2) }} className={this.state.tabDate == 2 ? "active" : ""}>
+                                                    <a href="javascript:void(0)" onClick={() => { this._selectTabDate(ScheduleModel.TOMOROW) }} className={this.state.tabDate == 2 ? "active" : ""}>
                                                         <div className="name"  >NGÀY MAI</div>
                                                         <div className="date">{TimeUtils.formatDate(TimeUtils.getTomorrow())}</div>
                                                     </a>
-                                                    <a href="javascript:void(0)" onClick={() => { this._selectTabDate(3) }} className={this.state.tabDate == 3 ? "active" : ""}>
+                                                    <a href="javascript:void(0)" onClick={() => { this._selectTabDate(ScheduleModel.DAY_AFTER_TOMOROW) }} className={this.state.tabDate == 3 ? "active" : ""}>
                                                         <div className="name" >NGÀY KIA</div>
                                                         <div className="date">{TimeUtils.formatDate(TimeUtils.getDayAfterTomorrow())}</div>
                                                     </a>
@@ -138,12 +153,14 @@ class StepTWO extends Component {
                                                         if (item["time"] == this.state.timeScheduleSelected) {
                                                             className = className + " active";
                                                         }
+
                                                         return (
                                                             <div onClick={() => this._selectSchedule(item)} key={item["time"]} className={className}>
                                                                 <span className="name">{TimeUtils.timeSchedule(item["time"])}</span>
                                                                 <span className="status">{item["status"] == 1 ? "Đặt ngay" : "Đã đầy"}</span><i className="fa" />
                                                             </div>
                                                         )
+
                                                     })}
                                                     {listSchedules && listSchedules.length == 0 && <div style={{ textAlign: 'center' }}>Không có lịch</div>}
                                                     <div className="clearfix" />

@@ -1,5 +1,6 @@
 import * as type from '../actions/action-types'
 import AlertUtils from '../../utils/AlertUtils';
+import ScheduleModel from './models/ScheduleModel';
 
 const initialState = {
   models: {},
@@ -35,9 +36,10 @@ export default function app(state = initialState, action) {
       let tomorow = action.tomorow;
       let overTomorow = action.overTomorow;
       let schedules = { ...newState.schedules }
-      schedules[1] = today;
-      schedules[2] = tomorow;
-      schedules[3] = overTomorow;
+      schedules[ScheduleModel.TODAY] = today;
+      schedules[ScheduleModel.TOMOROW] = tomorow;
+      schedules[ScheduleModel.DAY_AFTER_TOMOROW] = overTomorow;
+      schedules = ScheduleModel.filterRule(schedules);
       newState.schedules = schedules;
       break;
     }

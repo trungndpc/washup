@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Model } from '../../constants/Constants';
 import HeaderBookingModal from '../../components/HeaderBookingModal';
 import Select from 'react-select'
+import NewsList from '../NewsList';
 
 class StepONE extends Component {
 
@@ -9,10 +10,11 @@ class StepONE extends Component {
         super(props);
 
         const inforBooking = this.props.app.inforBooking;
+        console.log(inforBooking)
         this.state = {
             isOpen: false,
             isFadeIn: false,
-            placeholderVehicleName : "CX5",
+            placeholderVehicleName: "CX5",
             transportId: (inforBooking && inforBooking["transportId"]) ? inforBooking["transportId"] : Model.OTO,
             errorMsg: null,
             brandInput: (inforBooking && inforBooking["brand"]) ? { value: inforBooking["brand"], label: inforBooking["brand"]["brandName"] } : null
@@ -26,7 +28,18 @@ class StepONE extends Component {
         this._handleClickOutside = this._handleClickOutside.bind(this);
         this._onChangeBrand = this._onChangeBrand.bind(this)
         this._onChangeVehicleType = this._onChangeVehicleType.bind(this)
+        this._changePlaceHolderVehicleName = this._changePlaceHolderVehicleName.bind(this)
 
+    }
+
+    shouldComponentUpdate(nextProp, nextState) {
+        const nextInforBooking = nextProp.app.inforBooking;
+        const inforBooking = this.props.app.inforBooking;
+        if (nextInforBooking && inforBooking && nextInforBooking.transportId != inforBooking.transportId) {
+            nextState["transportId"] = nextInforBooking.transportId
+            this._changePlaceHolderVehicleName(nextInforBooking.transportId)
+        }
+        return true;
     }
 
 
@@ -131,11 +144,15 @@ class StepONE extends Component {
         this.setState({
             transportId: transportId
         })
-        this.props.appActions.getBrands(transportId)
-        if(transportId == Model.OTO) {
-            this.setState({placeholderVehicleName: "CX5"})
-        }else {
-            this.setState({placeholderVehicleName: "SH Mode 300I"})
+        this.props.appActions.getBrands(transportId);
+        this._changePlaceHolderVehicleName(transportId);
+    }
+
+    _changePlaceHolderVehicleName(transportId) {
+        if (transportId == Model.OTO) {
+            this.setState({ placeholderVehicleName: "CX5" })
+        } else {
+            this.setState({ placeholderVehicleName: "SH Mode 300I" })
         }
     }
 
@@ -147,6 +164,7 @@ class StepONE extends Component {
 
 
     render() {
+        console.log(this.state.transportId)
         const inforBooking = this.props.app.inforBooking;
 
         const brandSeries = (this.props.app.brandSeries && this.props.app.brandSeries[this.state.transportId]) ? this.props.app.brandSeries[this.state.transportId] : []
@@ -175,9 +193,9 @@ class StepONE extends Component {
                                             {this.state.errorMsg && <div style={{ textAlign: "center", color: "red" }} className="form-group row">{this.state.errorMsg}</div>}
                                             {!inforBooking["phone"] &&
                                                 <div className="form-group row">
-                                                    <div className="col-md-3 col-xs-12">Số điện thoại:</div>
+                                                    <div className="col-md-3 col-xs-12">Số điện thoại: <span className="red-req">*</span></div>
                                                     <div className="col-md-9 col-xs-12">
-                                                        <input ref={e => this.phoneInputRef = e} type="text" name="number" placeholder="0972797184" className="form-control" />
+                                                        <input ref={e => this.phoneInputRef = e} type="text" name="number" placeholder="xxxx.xxx.xxx" className="form-control" />
                                                     </div>
                                                 </div>}
                                             <div className="form-group row">
@@ -195,10 +213,10 @@ class StepONE extends Component {
                                             <div className="form-group row">
                                                 <div className="col-md-3 col-xs-12">Loại xe: </div>
                                                 <div className="col-md-2 col-xs-6">
-                                                    <label><input onChange={this._onChangeVehicleType} type="radio" name="VehicleType" value={Model.OTO} defaultChecked={this.state.transportId == Model.OTO} /> Ô tô <i className="fa fa-car" /></label>
+                                                    <label><input onChange={this._onChangeVehicleType} type="radio" name="VehicleType" value={Model.OTO} checked={this.state.transportId == Model.OTO} /> Ô tô <i className="fa fa-car" /></label>
                                                 </div>
                                                 <div className="col-md-2 col-xs-6">
-                                                    <label><input onChange={this._onChangeVehicleType} type="radio" name="VehicleType" value={Model.XEMAY} defaultChecked={this.state.transportId == Model.XEMAY} /> Xe máy <i className="fa fa-motorcycle" /></label>
+                                                    <label><input onChange={this._onChangeVehicleType} type="radio" name="VehicleType" value={Model.XEMAY} checked={this.state.transportId == Model.XEMAY} /> Xe máy <i className="fa fa-motorcycle" /></label>
                                                 </div>
                                             </div>
                                             <div className="form-group row">
@@ -212,7 +230,7 @@ class StepONE extends Component {
                                                 <div className="col-md-4 col-xs-12">
                                                     <select ref={e => this.brandSeriesInputRef = e} name="car_type" id="car_type" className="form-control">
                                                         {brandSeries && brandSeries.map((item) => {
-                                                            return <option value={JSON.stringify(item)}>{item["seriesName"]}</option>
+                                                            return <option key={item["id"]} value={JSON.stringify(item)}>{item["seriesName"]}</option>
                                                         })}
                                                     </select>
                                                 </div>

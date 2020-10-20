@@ -38,10 +38,10 @@ export function updateStatus(id, currentStatus, status, operatorNote ) {
   }
 }
 
-export function getEmployee() {
+export function getEmployee(roleId) {
   return {
     type: type.APP.GET_EMPLOYES_ASYNC,
-   
+    roleId: roleId
   }
 }
 
@@ -116,5 +116,26 @@ export function login(username, password) {
 export function logout() {
   return {
     type: type.APP.LOGOUT_ASYNC
+  }
+}
+
+export function register(user) {
+  return {
+    type: type.APP.REGISTER_ASYNC,
+    data: user
+  }
+}
+
+export function resetPassword( userId) {
+  return {
+    type: type.APP.RESET_PASSWORD_ASYNC,
+    userId: userId
+  }
+}
+
+export function deleteUser(userId) {
+  return {
+    type : type.APP.DELETE_USER_ASYNC,
+    userId: userId
   }
 }

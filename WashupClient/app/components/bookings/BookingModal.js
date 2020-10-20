@@ -105,7 +105,7 @@ class BookingModal extends Component {
                 {this.state._renderStep == 3 && <StepTHREE nextOil={this.openStepOil} ok={this.openStepFour} prev={this.openStepTwo} ref={e => this.stepThreeRef = e} close={this.close} {...this.props} />}
                 {this.state._renderStep == 4 && <StepOIL ok={this.openStepFour} prev={this.openStepThree} {...this.props} />}
                 {this.state._renderStep == 5 && <StepFOUR prev={this.openStepThree} close={this.close} {...this.props} />}
-                {this.state._isOpen && <div class="modal-backdrop fade in"></div>}
+                {this.state._isOpen && <div className="modal-backdrop fade in"></div>}
             </div>
         )
     }

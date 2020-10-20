@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated';
+import {ROLE} from '../constants/Constants'
 
 const animatedComponents = makeAnimated();
 class Assignment extends Component {
@@ -12,7 +13,7 @@ class Assignment extends Component {
     }
 
     componentDidMount() {
-        this.props.appActions.getEmployee();
+        this.props.appActions.getEmployee(ROLE.EMPLOYEE);
     }
 
     onClickOKAssignEmployee() {

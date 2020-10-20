@@ -49,7 +49,7 @@ class Footer extends Component {
                                     <a href="#" className="icon_master"><img src={require('../resources/images/mastercard.png')} /></a>
                                     <a href="#" className="icon_napas"><img src={require('../resources/images/napas.png')} /></a>
                                 </div>
-                                <div className>
+                                <div>
                                     <img height={52} src={require('../resources/images/logo/thongbao.png')} />
                                 </div>
                             </div>
@@ -58,7 +58,6 @@ class Footer extends Component {
                         <div className="copyright">
                             <div className="col-md-6 col-xs-12">
                             Copyright©2020 Wash-Up, Inc, All Right Reserved
-
                             </div>
                             <div className="col-md-6 col-xs-12">
                             <a href="#">Điều khoản</a>

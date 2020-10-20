@@ -4,15 +4,13 @@ import { bindActionCreators } from 'redux'
 import * as appActions from '../actions/app'
 import AlertUtils from '../../utils/AlertUtils';
 import { Model, TYPE_SERVICE } from '../../constants/Constants';
-import NewsList from '../../components/NewsList';
 import Footer from '../../components/Footer';
 import PriceUtils from '../../utils/PriceUtils'
-import AccessoriesList from '../../components/AccessoriesList';
 import Header from '../../components/Header';
 import MembershipList from '../../components/MembershipList';
-import { Link } from "react-router-dom";
 import MLink from '../../components/MLink'
 import BookingModal from '../../components/bookings/BookingModal';
+import DailyActivitiesList from '../../components/DailyActivitiesList';
 
 
 class Home extends React.Component {
@@ -62,11 +60,15 @@ class Home extends React.Component {
   }
 
   bookingOTOService() {
-    window.open('https://www.messenger.com/t/washupvietnamofficial', '_blank');
+    this.props.appActions.changeModeBookingModal(1);
+    this.props.appActions.putInforBooking({ "transportId": Model.OTO})
+    this.bookingModalRef && this.bookingModalRef.open();
   }
 
   bookingXemayService() {
-    window.open('https://www.messenger.com/t/washupvietnamofficial', '_blank');
+    this.props.appActions.changeModeBookingModal(1);
+    this.props.appActions.putInforBooking({ "transportId": Model.XEMAY})
+    this.bookingModalRef && this.bookingModalRef.open();
   }
 
   formatPhone(e) {
@@ -172,7 +174,7 @@ class Home extends React.Component {
 
                       <div onClick={function () { window.openNotifycation() }} className="item btn-more text-center">Xem thêm</div>
                     </div>
-                    <button onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngay</button>
+                    <button onClick={this.bookingOTOService} className="btn btn-block btn-lg btn-primary"><span className="content"><i className="fa fa-calendar-check" /> Đặt lịch ngay</span></button>
                   </div>
                   <div className="col col-sm-6 col-xs-12">
                     <div className="form-group">
@@ -192,7 +194,7 @@ class Home extends React.Component {
                       })}
                       <div className="space" />
                     </div>
-                    <button onClick={this.bookingXemayService} className="btn btn-block btn-lg btn-primary"><i className="fa fa-calendar-check" /> Tư vấn ngay</button>
+                    <button onClick={this.bookingXemayService} className="btn btn-block btn-lg btn-primary"><span className="content"><i className="fa fa-calendar-check" /> Đặt lịch ngay </span></button>
                   </div>
                   <div className="clearfix" />
                 </div>
@@ -202,6 +204,7 @@ class Home extends React.Component {
             </div>
           </div></div>
         </div>
+        <DailyActivitiesList {...this.props}/>
         <Footer />
 
         <div id="schedule_now">

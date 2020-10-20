@@ -695,7 +695,15 @@
 		margin-left: 20px;
 	}
 	.service_content .checkmark {display:none}
-	.service_content .service .container {height:20px;}
+	.service_content .service .container {
+		height:100%;
+		width: 60px;
+		margin: 0 !important;
+	}
+	.service_content .service .box_right {
+		width: calc(100% - 60px) !important;
+	}
+
 	.service_content .service .box_right {position:relative; height:96px; width: 100%;}
 	.service_content .service .box_right img {
 		position:absolute; top:0; left:0; z-index:10;

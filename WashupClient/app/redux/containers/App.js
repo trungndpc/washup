@@ -16,18 +16,19 @@ import NotifycationModal from '../../components/NotifycationModal'
 import Alert from 'react-s-alert';
 class App extends React.Component {
   render() {
-    
+
     return (
-      <Switch>
-          <div>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/phu-kien" component={Accessories} />
-            <Route exact path="/dich-vu" component={Service} />
-            {/* <Route path="/*" component={NotFoundPage} /> */}
-            <Alert stack={{ limit: 3 }} />
-            <NotifycationModal />
-          </div>
-      </Switch>
+      <div>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/phu-kien" component={Accessories} />
+          <Route exact path="/dich-vu" component={Service} />
+          {/* <Route path="/*" component={NotFoundPage} /> */}
+        </Switch>
+        <NotifycationModal />
+        <Alert stack={{ limit: 3 }} />
+      </div>
+
     )
   }
 }

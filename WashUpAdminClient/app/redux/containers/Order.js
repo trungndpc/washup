@@ -15,6 +15,7 @@ class Order extends React.Component {
         this.state = {
             pageNumber: 1
         }
+        this.onClickDetail = this.onClickDetail.bind(this)
     }
 
     componentDidMount() {
@@ -102,7 +103,7 @@ class Order extends React.Component {
                                                         </span>
                                                     }
                                                     return (
-                                                        <tr key={item["id"]}>
+                                                        <tr onClick={() => this.onClickDetail(item["id"])} key={item["id"]}>
                                                             <td>{item["orderNumber"]}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>

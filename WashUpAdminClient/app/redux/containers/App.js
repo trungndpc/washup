@@ -19,7 +19,9 @@ import Processing from '../containers/order/Processing'
 import Success from '../containers/order/Success'
 import Canceled from '../containers/order/Canceled'
 import Login from '../containers/Login'
+import User from '../containers/User';
 import Task from '../containers/Task';
+import RegisterUser from '../containers/RegisterUser'
 import Alert from 'react-s-alert';
 
 
@@ -28,10 +30,16 @@ import Order from './Order'
 class App extends React.Component {
   constructor(props) {
     super(props)
+    this.goTo = this.goTo.bind(this);
+    window.goTo = this.goTo;
   }
 
   componentDidMount() {
     this.props.appActions.getLoginInfo();
+  }
+
+  goTo(path) {
+    this.props.history.push(path);
   }
 
   render() {
@@ -61,6 +69,8 @@ class App extends React.Component {
               <Route exact path="/order/canceled" component={Canceled} />
               <Route exact path="/order/success" component={Success} />
               <Route exact path="/order/:id" component={BookingDetail} />
+              <Route exact path="/user" component={User} />
+              <Route exact path="/user/register" component={RegisterUser} />
               <Route path="/*" component={NotFoundPage} />
             </Switch>
             {/* <Footer /> */}

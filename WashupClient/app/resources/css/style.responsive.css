@@ -12,8 +12,12 @@
 @media only screen and (max-width: 800px) {
 }
 @media only screen and (max-width: 780px) {
+	#site-activy{
+		min-height: 290px !important;
+	}
 }
 @media only screen and (min-width: 768px) {
+	
 	#ModalBooking .btn-fefault, #ModalBookingNotify .btn-fefault {
 		width: 190px !important;
 	}

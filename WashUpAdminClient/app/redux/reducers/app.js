@@ -86,6 +86,9 @@ export default function app(state = initialState, action) {
       newState.isLoginChecked = true;
       break;
     }
+    case type.APP.RESET_PASSWORD_END: {
+      break;
+    }
     default:
       return state
   }

@@ -3,6 +3,7 @@ import * as type from '../actions/action-types'
 import * as OrderConstant from '../../constants/order'
 import APIUtils from '../../utils/APIUtils'
 import AlertUtils from '../../utils/AlertUtils'
+import { register } from '../actions/app'
 
 export default function* app() {
   yield takeLatest(type.APP.GET_LIST_BOOKING_ASYNC, requestGetListBookingByDateAsync)
@@ -19,6 +20,9 @@ export default function* app() {
   yield takeLatest(type.APP.GET_LOGIN_INFO_ASYNC, requestGetLoginInfoAsync)
   yield takeLatest(type.APP.LOGIN_ASYNC, requestLoginAsync)
   yield takeLatest(type.APP.LOGOUT_ASYNC, requestLogoutAsync)
+  yield takeLatest(type.APP.RESET_PASSWORD_ASYNC, requestResetPasswordAsync)
+  yield takeLatest(type.APP.REGISTER_ASYNC, requestRegisterAsync)
+  yield takeLatest(type.APP.DELETE_USER_ASYNC, requestDeleteUserAsync)
 }
 
 function* requestGetListBookingByDateAsync(action) {
@@ -60,8 +64,8 @@ function* requestGetOrderByUserIdAsync(action) {
   yield put({ type: type.APP.GET_ORDER_BY_USER_ASSIGNED_END, payload: resp.data })
 }
 
-function* requestGetEmployeeAsync() {
-  const resp = yield call(getEmployee);
+function* requestGetEmployeeAsync(action) {
+  const resp = yield call(getEmployee, action.roleId);
   yield put({ type: type.APP.GET_EMPLOYES_END, payload: resp.data })
 }
 
@@ -108,6 +112,25 @@ function* requestLogoutAsync() {
   yield put({ type: type.APP.LOGOUT_END, payload: resp })
 }
 
+function* requestResetPasswordAsync(action) {
+  const resp = yield call(resetPassword, action.userId)
+  AlertUtils.showSuccess("Reset mật khẩu thành công")
+  yield put({ type: type.APP.RESET_PASSWORD_END, payload: resp })
+}
+
+function* requestRegisterAsync(action) {
+  const resp = yield call(registerUser, action.data);
+  AlertUtils.showSuccess("Đăng ký nhân viên mới thành công")
+  window.goTo("/user")
+  yield put({ type: type.APP.REGISTER_END, payload: resp });
+}
+
+function* requestDeleteUserAsync(action) {
+  const resp = yield call(deleteUser, action.userId);
+  AlertUtils.showSuccess("Xóa nhân viên thành công")
+  window.goTo("/user");
+  yield put({ type: type.APP.DELETE_USER_END, payload: resp });
+}
 
 function getListBookingByDate(datetime, page, pageSize) {
   return new Promise((resolve, reject) => {
@@ -146,9 +169,9 @@ function postUpdateStatus(id, status, note) {
   });
 }
 
-function getEmployee() {
+function getEmployee(roleId) {
   return new Promise((resolve, reject) => {
-    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/users/user-by-permission?permission=2`, resolve, reject);
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/admin/users/user-by-permission?permission=${roleId}`, resolve, reject);
   });
 }
 
@@ -160,6 +183,37 @@ function postAssignEmployee(orderId, employeeId, note) {
   }
   return new Promise((resolve, reject) => {
     APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/assign-employee`, JSON.stringify(body), resolve, reject);
+  });
+}
+
+function resetPassword(userId) {
+  const body = {
+    userId: userId
+  }
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/users/reset-password`, JSON.stringify(body), resolve, reject);
+  });
+}
+
+function deleteUser(userId) {
+  const body = {
+    userId: userId
+  }
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/users/disable-user`, JSON.stringify(body), resolve, reject);
+  });
+}
+
+function registerUser(data) {
+  const body = {
+    "username": data.username,
+    "password": "washup@123",
+    "fullName": data.name,
+    "email": data.username + "@wash-up.vn",
+    "permissionTypes": [data.roleId]
+  }
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/users`, JSON.stringify(body), resolve, reject);
   });
 }
 

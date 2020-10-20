@@ -13,6 +13,11 @@ class TimeUtils {
     }
     return hours + ":" + min;
   }
+  
+  static getHours(time) {
+    var date = new Date(time * 1000);
+    return date.getHours(); 
+  }
 
   static getCurrentDay() {
     return new Date().getTime();

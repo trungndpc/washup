@@ -23,4 +23,11 @@ export const TYPE_SERVICE = {
     COMBO_TAINHA: 7
 }
 
+export const ROLE = {
+    ADMIN : 1,
+    EMPLOYEE: 2,
+    CRM : 3,
+    OPERATOR: 4
+}
+
 export const SERVICE_THAY_NHOT =  ["ff808181741c1c93017420bb81b7000c", "ff808181748853bb0174885a13b50003"]
