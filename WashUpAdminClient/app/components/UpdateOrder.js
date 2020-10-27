@@ -4,7 +4,7 @@ import { TYPE_SERVICE } from '../constants/Constants'
 import PriceUtils from '../utils/PriceUtils'
 import ButtonWithConfirrm from './ButtonWithConfirrm'
 
-class AddService extends Component {
+class UpdateOrder extends Component {
 
     constructor(props) {
         super(props)
@@ -260,4 +260,4 @@ class AddService extends Component {
     }
 }
 
-export default AddService
+export default UpdateOrder

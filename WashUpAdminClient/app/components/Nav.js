@@ -85,11 +85,12 @@ class Nav extends Component {
                                     <div className={`tab-pane notika-tab-menu-bg animated flipInX ${path == "order" ? "active" : ""}`}>
                                         <ul className="notika-main-menu-dropdown">
                                             <li className={!subPath ? "active" : ""}><Link to={"/order"}>Overview</Link></li>
-                                            {(role == RoleConstant.Role.CRM || role == RoleConstant.Role.ADMIN) && <li className={subPath == "pending" ? "active" : ""}><Link to={"/order/pending"}>Pending</Link></li>}
-                                            {(role == RoleConstant.Role.OPERATOR || role == RoleConstant.Role.ADMIN) && <li className={subPath == "confirmed" ? "active" : ""}><Link to={"/order/confirmed"}>Confirmed</Link></li>}
-                                            {role == RoleConstant.Role.ADMIN && <li className={subPath == "processing" ? "active" : ""}><Link to={"/order/processing"}>Processing</Link></li>}
-                                            {role == RoleConstant.Role.ADMIN && <li className={subPath == "success" ? "active" : ""}><Link to={"/order/success"}>Success</Link></li>}
-                                            {role == RoleConstant.Role.ADMIN && <li className={subPath == "canceled" ? "active" : ""}><Link to={"/order/canceled"}>Canceled</Link></li>}
+                                            {(role == RoleConstant.Role.CRM || role == RoleConstant.Role.ADMIN) && <li className={subPath == "pending" ? "active" : ""}><Link to={"/order/pending"}>Chờ duyệt</Link></li>}
+                                            {(role == RoleConstant.Role.OPERATOR || role == RoleConstant.Role.ADMIN) && <li className={subPath == "confirmed" ? "active" : ""}><Link to={"/order/confirmed"}>Đã duyệt</Link></li>}
+                                            {role == RoleConstant.Role.ADMIN && <li className={subPath == "processing" ? "active" : ""}><Link to={"/order/processing"}>Đang xử lý</Link></li>}
+                                            {role == RoleConstant.Role.ADMIN && <li className={subPath == "success" ? "active" : ""}><Link to={"/order/success"}>Thành công</Link></li>}
+                                            {role == RoleConstant.Role.ADMIN && <li className={subPath == "canceled" ? "active" : ""}><Link to={"/order/canceled"}>Thất bại</Link></li>}
+                                            {role != RoleConstant.Role.TECHNICIAN && <li className={subPath == "create" ? "active" : ""}><Link to={"/order/create"}>Tạo đơn </Link></li>}
                                         </ul>
                                     </div>
                                     <div className={`tab-pane notika-tab-menu-bg animated flipInX ${path == "user" ? "active" : ""}`}>

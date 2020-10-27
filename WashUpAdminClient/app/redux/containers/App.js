@@ -22,6 +22,7 @@ import Login from '../containers/Login'
 import User from '../containers/User';
 import Task from '../containers/Task';
 import RegisterUser from '../containers/RegisterUser'
+import AddOrder from '../containers/order/AddOrder'
 import Alert from 'react-s-alert';
 
 
@@ -68,6 +69,7 @@ class App extends React.Component {
               <Route exact path="/order/processing" component={Processing} />
               <Route exact path="/order/canceled" component={Canceled} />
               <Route exact path="/order/success" component={Success} />
+              <Route exact path="/order/create" component={AddOrder} />
               <Route exact path="/order/:id" component={BookingDetail} />
               <Route exact path="/user" component={User} />
               <Route exact path="/user/register" component={RegisterUser} />
