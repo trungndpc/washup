@@ -23,6 +23,9 @@ export default function* app() {
   yield takeLatest(type.APP.RESET_PASSWORD_ASYNC, requestResetPasswordAsync)
   yield takeLatest(type.APP.REGISTER_ASYNC, requestRegisterAsync)
   yield takeLatest(type.APP.DELETE_USER_ASYNC, requestDeleteUserAsync)
+  yield takeLatest(type.APP.GET_BRAND_ASYNC, requestGetBrandAsync)
+  yield takeLatest(type.APP.GET_BRAND_SERIES_ASYNC, requestBrandSeriesAsync)
+  yield takeLatest(type.APP.GET_OIL_ASYNC, requestGetOilAsync)
 }
 
 function* requestGetListBookingByDateAsync(action) {
@@ -72,6 +75,21 @@ function* requestGetEmployeeAsync(action) {
 function* requestGetServiceAsync(action) {
   const resp = yield call(getServices, action.transportId, action.groupServiceId, action.brandSeriesId)
   yield put({ type: type.APP.GET_SERVICE_END, payload: resp.data })
+}
+
+function* requestGetBrandAsync(action) {
+  const resp = yield call(getBrand, action.cateId)
+  yield put({type: type.APP.GET_BRAND_END, payload: resp.data})
+}
+
+function* requestBrandSeriesAsync() {
+  const resp = yield call(getBrandSeries)
+  yield put({type: type.APP.GET_BRAND_SERIES_END, payload: resp.data})
+}
+
+function* requestGetOilAsync() {
+  const resp = yield call(getOil) 
+  yield put({type: type.APP.GET_OIL_END, payload: resp.data})
 }
 
 function* requestGetScheduleAsync() {
@@ -234,6 +252,24 @@ function postUpdateOrder(orderId, data) {
 function getServices(transportId, groupServiceId, brandSeriesId) {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/services?categories=` + transportId + `&types=` + groupServiceId + `&brandSeriesId=` + brandSeriesId, resolve, reject);
+  });
+}
+
+function getBrand(cateId) {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithCredentials(process.env.DOMAIN + `/api/brands?category=` + cateId, resolve, reject);
+  });
+}
+
+function getBrandSeries() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brand-series/all`, resolve, reject);
+  });
+}
+
+function getOil() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/oils/all`, resolve, reject);
   });
 }
 

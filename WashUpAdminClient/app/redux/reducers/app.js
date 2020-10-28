@@ -89,6 +89,18 @@ export default function app(state = initialState, action) {
     case type.APP.RESET_PASSWORD_END: {
       break;
     }
+    case type.APP.GET_BRAND_END: {
+      newState.brands = action.payload;
+      break;
+    }
+    case type.APP.GET_BRAND_SERIES_END: {
+      newState.brandSeries = action.payload;
+      break;
+    }
+    case type.APP.GET_OIL_END: {
+      newState.oils = action.payload;
+      break;
+    }
     default:
       return state
   }

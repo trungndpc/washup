@@ -6,7 +6,8 @@ import { TYPE_SERVICE } from '../../../constants/Constants'
 import TimeUtils from '../../../utils/TimeUtils'
 import Pagination from 'antd/es/pagination'
 import Select from 'react-select'
-import PriceUtils  from '../../../utils/PriceUtils'
+import PriceUtils from '../../../utils/PriceUtils'
+import SelectOil from '../../../components/form-order/SelectOil';
 
 
 class AddOrder extends React.Component {
@@ -16,22 +17,28 @@ class AddOrder extends React.Component {
             tabScheduleId: 1,
             tabServiceId: TYPE_SERVICE.CO_BAN,
             transportId: 1,
-            brandSeriesId: 0
+            brandSeriesId: 0,
+            brandInput: null
         }
         this.onChangeTabSchedule = this.onChangeTabSchedule.bind(this)
         this.onChangeService = this.onChangeService.bind(this)
         this.onClickTabService = this.onClickTabService.bind(this)
+        this._onChangeBrand = this._onChangeBrand.bind(this)
+        this._onChangeVehicleType = this._onChangeVehicleType.bind(this)
+
     }
 
     componentDidMount() {
         this.props.appActions.getSchedule();
         this.props.appActions.getServices(this.state.transportId, this.state.tabServiceId, this.state.brandSeriesId);
+        this.props.appActions.getBrand(this.state.transportId)
+        this.props.appActions.getBrandSeries()
     }
 
     onChangeTabSchedule(id) {
         this.setState({ tabScheduleId: id })
     }
-    
+
     onClickTabService(id) {
         this.setState({ tabServiceId: id })
         this.props.appActions.getServices(this.state.transportId, id, this.state.brandSeriesId);
@@ -49,13 +56,37 @@ class AddOrder extends React.Component {
         }
     }
 
+    _onChangeBrand(value) {
+        this.setState({
+            brandInput: value
+        })
+    }
+
+    _onChangeVehicleType(e) {
+        var transportId = e.currentTarget.value;
+        this.setState({
+            transportId: transportId
+        })
+        this.props.appActions.getBrand(transportId);
+    }
 
 
 
     render() {
         //DEBUG
+        const brands = this.props.app.brands;
         const services = this.props.app.services;
         const schedules = this.props.app.schedules && this.props.app.schedules[this.state.tabScheduleId]
+        const brandSeries = this.props.app.brandSeries && this.props.app.brandSeries.filter(item => item.category == this.state.transportId);
+
+        var _defaultBrand = null;
+        const brandOptions = [];
+        if (brands) {
+            brands.forEach(item => {
+                brandOptions.push({ value: item, label: item["brandName"] })
+            });
+            _defaultBrand = this.state.brandInput ? this.state.brandInput : brandOptions[0]
+        }
 
         return (
             <div>
@@ -87,7 +118,7 @@ class AddOrder extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="normal-table-area" style={{marginBottom: '70px'}}>
+                <div className="normal-table-area" style={{ marginBottom: '70px' }}>
                     <div className="container">
                         <div className="row" style={{ marginBottom: '30px' }}>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -120,11 +151,11 @@ class AddOrder extends React.Component {
                                                 <div className="col-md-9 line34 ">
                                                     <div className="row vehicle-i">
                                                         <div className="col-md-6">
-                                                            <input name="pt" type="radio" />
+                                                            <input onChange={this._onChangeVehicleType} value={1} checked={this.state.transportId == 1} name="pt" type="radio" />
                                                             <label >Xe máy</label>
                                                         </div>
                                                         <div className="col-md-6">
-                                                            <input name="pt" type="radio" />
+                                                            <input onChange={this._onChangeVehicleType} value={2} checked={this.state.transportId == 2} name="pt" type="radio" />
                                                             <label >Ô tô</label>
                                                         </div>
                                                     </div>
@@ -134,13 +165,17 @@ class AddOrder extends React.Component {
                                             <div className="row">
                                                 <div className="col-md-2 title">Hãng xe: </div>
                                                 <div className="col-md-9">
-                                                    <Select options={[]} className="" name="car_brand" />
+                                                    <Select onChange={this._onChangeBrand} value={_defaultBrand} options={brandOptions} className="" name="car_brand" />
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-2 title">Dòng xe: </div>
                                                 <div className="col-md-9">
-                                                    <Select options={[]} className="" name="car_type" />
+                                                    <select ref={e => this.brandSeriesInputRef = e} name="car_type" className="form-control form-m">
+                                                        {brandSeries && brandSeries.map((item) => {
+                                                            return <option key={item["id"]} value={JSON.stringify(item)}>{item["seriesName"]}</option>
+                                                        })}
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -152,13 +187,6 @@ class AddOrder extends React.Component {
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-2 title">Biển số: </div>
-                                                <div className="col-md-9">
-                                                    <input type="text" className="form-control form-m" />
-
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-md-2 title">Lịch: </div>
                                                 <div className="col-md-9">
                                                     <input type="text" className="form-control form-m" />
 
@@ -217,6 +245,23 @@ class AddOrder extends React.Component {
                         </div>
 
                         <div className="row">
+                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div className="widget-tabs-int">
+                                    <div className="tab-hd">
+                                        <h2>Chọn nhớt</h2>
+                                    </div>
+                                    <div className="widget-tabs-list">
+                                        <div className="row">
+                                            <div className="content-form">
+                                                <SelectOil brandSeriesId={"ff80818174309b680174309d67510000"} {...this.props}>Nhớt máy</SelectOil>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row mgTop30">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div className="widget-tabs-int">
                                     <div className="tab-hd">

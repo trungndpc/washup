@@ -133,12 +133,12 @@
 }
 
 .content-form {
-    padding: 10px;
+    padding: 0 30px;
 }
 
 .content-form .title {
     line-height: 34px;
-    text-align: right;
+    text-align: left;
 }
 
 .line34 {
@@ -151,4 +151,7 @@
 
 .content-form .row {
     padding: 10px 0px;
+}
+.mgTop30 {
+    margin-top: 30px;
 }
