@@ -26,6 +26,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_BRAND_ASYNC, requestGetBrandAsync)
   yield takeLatest(type.APP.GET_BRAND_SERIES_ASYNC, requestBrandSeriesAsync)
   yield takeLatest(type.APP.GET_OIL_ASYNC, requestGetOilAsync)
+  yield takeLatest(type.APP.GET_SERVICES_ALL_ASYNC, requestGetServiceALLAsync)
 }
 
 function* requestGetListBookingByDateAsync(action) {
@@ -90,6 +91,11 @@ function* requestBrandSeriesAsync() {
 function* requestGetOilAsync() {
   const resp = yield call(getOil) 
   yield put({type: type.APP.GET_OIL_END, payload: resp.data})
+}
+
+function* requestGetServiceALLAsync() {
+  const resp = yield call(getServicesALL)
+  yield put({type: type.APP.GET_SERVICES_ALL_END, payload: resp.data})
 }
 
 function* requestGetScheduleAsync() {
@@ -264,6 +270,12 @@ function getBrand(cateId) {
 function getBrandSeries() {
   return new Promise((resolve, reject) => {
     APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/brand-series/all`, resolve, reject);
+  });
+}
+
+function getServicesALL() {
+  return new Promise((resolve, reject) => {
+    APIUtils.getJSONWithoutCredentials(process.env.DOMAIN + `/api/services/all`, resolve, reject);
   });
 }
 

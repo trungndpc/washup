@@ -9,7 +9,7 @@ import Select from 'react-select'
 import PriceUtils from '../../../utils/PriceUtils'
 import SelectOil from '../../../components/form-order/SelectOil';
 
-
+const SERVICE_ID_NHOT = [""];
 class AddOrder extends React.Component {
     constructor(props) {
         super(props)
@@ -18,7 +18,8 @@ class AddOrder extends React.Component {
             tabServiceId: TYPE_SERVICE.CO_BAN,
             transportId: 1,
             brandSeriesId: 0,
-            brandInput: null
+            brandInput: null,
+            listServiceId: []
         }
         this.onChangeTabSchedule = this.onChangeTabSchedule.bind(this)
         this.onChangeService = this.onChangeService.bind(this)
@@ -28,9 +29,13 @@ class AddOrder extends React.Component {
 
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        return true;
+    }
+
     componentDidMount() {
         this.props.appActions.getSchedule();
-        this.props.appActions.getServices(this.state.transportId, this.state.tabServiceId, this.state.brandSeriesId);
+        this.props.appActions.getServicesALL();
         this.props.appActions.getBrand(this.state.transportId)
         this.props.appActions.getBrandSeries()
     }
@@ -74,11 +79,23 @@ class AddOrder extends React.Component {
 
     render() {
         //DEBUG
-        const brands = this.props.app.brands;
-        const services = this.props.app.services;
-        const schedules = this.props.app.schedules && this.props.app.schedules[this.state.tabScheduleId]
-        const brandSeries = this.props.app.brandSeries && this.props.app.brandSeries.filter(item => item.category == this.state.transportId);
+        var transportId = this.state.transportId;
+        var brandSeriesId = this.state.brandSeriesId;
+        var services = this.props.app.servicesALL;
 
+        const brandSeries = this.props.app.brandSeries && this.props.app.brandSeries.filter(item => item.category == transportId);
+        if (brandSeries && brandSeriesId == 0 && brandSeries[0]) {
+            brandSeriesId = brandSeries[0].id;
+        }
+
+        console.log(brandSeriesId)
+        services = services && services.filter(item => item.type == this.state.tabServiceId && item.category == transportId && item.brandSeriesId == brandSeriesId);
+
+        var tabScheduleId = this.state.tabScheduleId;
+        const schedules = this.props.app.schedules && this.props.app.schedules[tabScheduleId]
+
+
+        const brands = this.props.app.brands;
         var _defaultBrand = null;
         const brandOptions = [];
         if (brands) {
@@ -224,11 +241,11 @@ class AddOrder extends React.Component {
                                                         </thead>
                                                         <tbody>
                                                             {services && services.map((item, index) => {
-                                                                // var isCheked = this.state.listServiceId.indexOf(item["id"]) >= 0;
+                                                                var isCheked = this.state.listServiceId.indexOf(item["id"]) >= 0;
                                                                 return (
                                                                     <tr key={item["key"]}>
                                                                         <td>{index + 1}</td>
-                                                                        <td><input onChange={(event => { this.onChangeService(item["id"]) })} type="checkbox" /></td>
+                                                                        <td><input checked={isCheked} onChange={(event => { this.onChangeService(item["id"]) })} type="checkbox" /></td>
                                                                         <td>{item["name"]}</td>
                                                                         <td>{PriceUtils.toThousand(item["price"])}</td>
                                                                     </tr>
@@ -244,6 +261,8 @@ class AddOrder extends React.Component {
                             </div>
                         </div>
 
+
+                        {/* {this.brandSeriesInputRef.value }                        */}
                         <div className="row">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div className="widget-tabs-int">

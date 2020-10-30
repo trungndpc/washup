@@ -158,3 +158,9 @@ export function getOil() {
     type: type.APP.GET_OIL_ASYNC
   }
 }
+
+export function getServicesALL() {
+  return {
+    type: type.APP.GET_SERVICES_ALL_ASYNC
+  }
+}

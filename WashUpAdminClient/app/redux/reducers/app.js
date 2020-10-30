@@ -101,6 +101,10 @@ export default function app(state = initialState, action) {
       newState.oils = action.payload;
       break;
     }
+    case type.APP.GET_SERVICES_ALL_END: {
+      newState.servicesALL = action.payload;
+      break;
+    }
     default:
       return state
   }
