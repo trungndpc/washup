@@ -13,9 +13,12 @@ class SelectOil extends React.Component {
     }
 
     render() {
+        const oilInfo = this.props.data;
+        console.log(oilInfo)
         const all = this.props.app.oils;
         const brandSeriesId = this.props.brandSeriesId;
-        const oilAfterFilter = all && all.filter((item) => item.brandSeries.id == brandSeriesId);
+        console.log(brandSeriesId)
+        const oilAfterFilter = all && all.filter((item) => item.brandSeries.id == brandSeriesId && item.type == oilInfo.type);
         var oilOptions = [];
         oilAfterFilter && oilAfterFilter.forEach(item => {
             oilOptions.push({ value: item, label: item["name"] + " - " + item["currentPrice"]})

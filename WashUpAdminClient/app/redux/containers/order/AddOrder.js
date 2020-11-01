@@ -8,6 +8,7 @@ import Pagination from 'antd/es/pagination'
 import Select from 'react-select'
 import PriceUtils from '../../../utils/PriceUtils'
 import SelectOil from '../../../components/form-order/SelectOil';
+import { maxBy } from 'lodash'
 
 const SERVICE_ID_NHOT = [""];
 class AddOrder extends React.Component {
@@ -26,6 +27,8 @@ class AddOrder extends React.Component {
         this.onClickTabService = this.onClickTabService.bind(this)
         this._onChangeBrand = this._onChangeBrand.bind(this)
         this._onChangeVehicleType = this._onChangeVehicleType.bind(this)
+        this.getListSeletedOil = this.getListSeletedOil.bind(this)
+        this._onSelectBrandSeries = this._onSelectBrandSeries.bind(this)
 
     }
 
@@ -48,6 +51,15 @@ class AddOrder extends React.Component {
         this.setState({ tabServiceId: id })
         this.props.appActions.getServices(this.state.transportId, id, this.state.brandSeriesId);
     }
+
+    removeElement(array, elem) {
+        var index = array.indexOf(elem);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+        return array;
+    }
+
 
     onChangeService(id) {
         if (this.state.listServiceId.indexOf(id) >= 0) {
@@ -75,6 +87,21 @@ class AddOrder extends React.Component {
         this.props.appActions.getBrand(transportId);
     }
 
+    getListSeletedOil() {
+        var rs = []
+        if (this.state.listServiceId.indexOf("ff808181741c1c93017420bb81b7000c") >= 0) {
+            rs.push({id: "ff808181741c1c93017420bb81b7000c", type: 1, name: "Thay nhớt máy"})
+        }
+        if (this.state.listServiceId.indexOf("ff808181748853bb0174885a13b50003") >= 0) {
+            rs.push({id: "ff808181748853bb0174885a13b50003", type: 2, name: "Thay nhớt lap"})
+        }
+        return rs;
+    }
+
+    _onSelectBrandSeries(e) {
+        this.setState({brandSeriesId: JSON.parse(e.target.value).id});
+    }
+
 
 
     render() {
@@ -88,8 +115,7 @@ class AddOrder extends React.Component {
             brandSeriesId = brandSeries[0].id;
         }
 
-        console.log(brandSeriesId)
-        services = services && services.filter(item => item.type == this.state.tabServiceId && item.category == transportId && item.brandSeriesId == brandSeriesId);
+        services = services && services.filter(item => item.type == this.state.tabServiceId && item.category == transportId && (item.brandSeriesId == brandSeriesId || !item.brandSeriesId));
 
         var tabScheduleId = this.state.tabScheduleId;
         const schedules = this.props.app.schedules && this.props.app.schedules[tabScheduleId]
@@ -105,6 +131,7 @@ class AddOrder extends React.Component {
             _defaultBrand = this.state.brandInput ? this.state.brandInput : brandOptions[0]
         }
 
+        var listOil = this.getListSeletedOil();
         return (
             <div>
                 <div className="breadcomb-area">
@@ -188,7 +215,7 @@ class AddOrder extends React.Component {
                                             <div className="row">
                                                 <div className="col-md-2 title">Dòng xe: </div>
                                                 <div className="col-md-9">
-                                                    <select ref={e => this.brandSeriesInputRef = e} name="car_type" className="form-control form-m">
+                                                    <select onChange={this._onSelectBrandSeries} ref={e => this.brandSeriesInputRef = e} name="car_type" className="form-control form-m">
                                                         {brandSeries && brandSeries.map((item) => {
                                                             return <option key={item["id"]} value={JSON.stringify(item)}>{item["seriesName"]}</option>
                                                         })}
@@ -262,7 +289,7 @@ class AddOrder extends React.Component {
                         </div>
 
 
-                        {/* {this.brandSeriesInputRef.value }                        */}
+                        {listOil.length  > 0 && 
                         <div className="row">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div className="widget-tabs-int">
@@ -272,13 +299,18 @@ class AddOrder extends React.Component {
                                     <div className="widget-tabs-list">
                                         <div className="row">
                                             <div className="content-form">
-                                                <SelectOil brandSeriesId={"ff80818174309b680174309d67510000"} {...this.props}>Nhớt máy</SelectOil>
+                                                {listOil && listOil.map((item, index) => {
+                                                    return (
+                                                        <SelectOil brandSeriesId={brandSeriesId} data={item} {...this.props}>{item.name}</SelectOil>
+                                                    )
+                                                })}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
+                        }
 
                         <div className="row mgTop30">
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
