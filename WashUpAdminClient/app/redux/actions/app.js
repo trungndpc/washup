@@ -139,3 +139,28 @@ export function deleteUser(userId) {
     userId: userId
   }
 }
+
+export function getBrand(cateId) {
+  return {
+    type: type.APP.GET_BRAND_ASYNC,
+    cateId: cateId
+  }
+}
+
+export function getBrandSeries() {
+  return {
+    type: type.APP.GET_BRAND_SERIES_ASYNC
+  }
+}
+
+export function getOil() {
+  return {
+    type: type.APP.GET_OIL_ASYNC
+  }
+}
+
+export function getServicesALL() {
+  return {
+    type: type.APP.GET_SERVICES_ALL_ASYNC
+  }
+}

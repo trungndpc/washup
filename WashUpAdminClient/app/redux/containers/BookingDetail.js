@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import * as appActions from '../actions/app'
 import TimeUtils from '../../utils/TimeUtils'
 import Assignment from '../../components/Assignment'
-import AddService from '../../components/AddService'
+import UpdateOrder from '../../components/UpdateOrder'
 import PriceUtils from '../../utils/PriceUtils'
 import * as Order from '../../constants/order';
 import RejectOrderModal from './order/RejectOrderModal'
@@ -377,7 +377,7 @@ class BookingDetail extends React.Component {
                     }
                     {this.state.isEditService && listServicesId &&
                         <div className="container">
-                            <AddService no={this.closeEdit} ref={(e) => this.updateOrderFormRef = e} timeSchedule={booking["timeSchedule"]} listCurrentServices={listServicesId} brandSeriesId={booking["brandSeriesId"]} transportId={booking["brandSeries"]["category"]} {...this.props} />
+                            <UpdateOrder no={this.closeEdit} ref={(e) => this.updateOrderFormRef = e} timeSchedule={booking["timeSchedule"]} listCurrentServices={listServicesId} brandSeriesId={booking["brandSeriesId"]} transportId={booking["brandSeries"]["category"]} {...this.props} />
                         </div>}
                 </div>
                 }

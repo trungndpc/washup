@@ -121,3 +121,37 @@
 .breadcomb-report .btn i {
     margin-right: 5px;
 }
+.form-m {
+    box-shadow: none;
+    border-top: 0px solid #ccc;
+    border-left: 0px solid #ccc;
+    border-right: 0px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 0px;
+    resize: none;
+    border-radius: 0px;
+}
+
+.content-form {
+    padding: 0 30px;
+}
+
+.content-form .title {
+    line-height: 34px;
+    text-align: left;
+}
+
+.line34 {
+    line-height: 34px;
+}
+
+.vehicle-i input{
+    margin-right: 20px;
+}
+
+.content-form .row {
+    padding: 10px 0px;
+}
+.mgTop30 {
+    margin-top: 30px;
+}
