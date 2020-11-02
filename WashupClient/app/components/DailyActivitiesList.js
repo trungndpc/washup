@@ -18,9 +18,8 @@ class DailyActivitiesList extends Component {
             margin: 30,
             responsiveClass: "true",
             responsive: {
-                0: { items: 1, stagePadding: 100 },
-                320: { items: 2 },
-                600: { items: 2 },
+                320: { items: 1, stagePadding: 20},
+                600: { items: 1 },
                 1000: { items: 3, loop: true }
             }
         };
