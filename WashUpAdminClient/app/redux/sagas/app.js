@@ -27,6 +27,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_BRAND_SERIES_ASYNC, requestBrandSeriesAsync)
   yield takeLatest(type.APP.GET_OIL_ASYNC, requestGetOilAsync)
   yield takeLatest(type.APP.GET_SERVICES_ALL_ASYNC, requestGetServiceALLAsync)
+  yield takeLatest(type.APP.CREATE_ORDER_ASYNC, requestCreateOrderAsync)
 }
 
 function* requestGetListBookingByDateAsync(action) {
@@ -71,6 +72,14 @@ function* requestGetOrderByUserIdAsync(action) {
 function* requestGetEmployeeAsync(action) {
   const resp = yield call(getEmployee, action.roleId);
   yield put({ type: type.APP.GET_EMPLOYES_END, payload: resp.data })
+}
+
+function* requestCreateOrderAsync(action) {
+  const resp = yield call(createOrder, action.data);
+  if(!resp.errorCode) {
+    window.goToOverviewOrder();
+    AlertUtils.showSuccess("Tạo order thành công!")
+  }
 }
 
 function* requestGetServiceAsync(action) {
@@ -190,6 +199,12 @@ function postUpdateStatus(id, status, note) {
 
   return new Promise((resolve, reject) => {
     APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders/update-status`, JSON.stringify(body), resolve, reject);
+  });
+}
+
+function createOrder(data) {
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithCredentials(process.env.DOMAIN + `/api/admin/orders`, JSON.stringify(data), resolve, reject);
   });
 }
 

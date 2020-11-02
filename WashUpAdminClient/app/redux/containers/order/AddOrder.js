@@ -4,13 +4,12 @@ import { bindActionCreators } from 'redux'
 import * as appActions from '../../actions/app'
 import { TYPE_SERVICE } from '../../../constants/Constants'
 import TimeUtils from '../../../utils/TimeUtils'
-import Pagination from 'antd/es/pagination'
 import Select from 'react-select'
 import PriceUtils from '../../../utils/PriceUtils'
 import SelectOil from '../../../components/form-order/SelectOil';
-import { maxBy } from 'lodash'
+import ButtonWithConfirrm from '../../../components/ButtonWithConfirrm'
+import { takeLatest } from 'redux-saga'
 
-const SERVICE_ID_NHOT = [""];
 class AddOrder extends React.Component {
     constructor(props) {
         super(props)
@@ -20,7 +19,9 @@ class AddOrder extends React.Component {
             transportId: 1,
             brandSeriesId: 0,
             brandInput: null,
-            listServiceId: []
+            listServiceId: [],
+            errorMsg: null,
+            scheduleTime: null,
         }
         this.onChangeTabSchedule = this.onChangeTabSchedule.bind(this)
         this.onChangeService = this.onChangeService.bind(this)
@@ -29,11 +30,12 @@ class AddOrder extends React.Component {
         this._onChangeVehicleType = this._onChangeVehicleType.bind(this)
         this.getListSeletedOil = this.getListSeletedOil.bind(this)
         this._onSelectBrandSeries = this._onSelectBrandSeries.bind(this)
+        this.getFormInput = this.getFormInput.bind(this)
+        this.onChangeTimeSchedule = this.onChangeTimeSchedule.bind(this)
+        this.createOrder = this.createOrder.bind(this);
+        this.prev = this.prev.bind(this);
+        window.goToOverviewOrder = this.prev;
 
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return true;
     }
 
     componentDidMount() {
@@ -41,6 +43,74 @@ class AddOrder extends React.Component {
         this.props.appActions.getServicesALL();
         this.props.appActions.getBrand(this.state.transportId)
         this.props.appActions.getBrandSeries()
+    }
+
+    createOrder() {
+        const data = this.getFormInput();
+        if (data) {
+            this.props.appActions.createOrder(data);
+        }
+    }
+
+    prev() {
+        this.props.history.push('/order');
+    }
+
+    getFormInput() {
+        
+        let phone = this.phoneInputRef && this.phoneInputRef.value;
+        if (!phone) {
+            this.setState({ errorMsg: 'Vui lòng nhập số điện thoại' })
+            return;
+        }
+        let name = this.nameInputRef && this.nameInputRef.value;
+        if (!name) {
+            this.setState({errorMsg: "Vui lòng nhập tên"});
+            return;
+        }
+        let address = this.addressInputRed && this.addressInputRed.value;
+        if (!address) {
+            this.setState({errorMsg: "Vui lòng nhập địa chỉ"});
+            return;
+        }
+        let brandId = this.brandInputRef.select.state.selectValue[0].value.id;
+        let brandSeriesId = JSON.parse(this.brandSeriesInputRef.value).id;
+        let nameVehicle = this.nameVehicleInputRef && this.nameVehicleInputRef.value;
+        if (!nameVehicle) {
+            this.setState({errorMsg: "Vui lòng nhập tên của phương tiện"})
+            return;
+        }
+        let licensePlateVehicle = this.licensePlateInputRef &&  this.licensePlateInputRef.value;
+        if (!licensePlateVehicle) {
+            this.setState({errorMsg: "Vui lòng nhập biển số xe"})
+            return;
+        }
+        let listServiceId = this.state.listServiceId;
+        if (!listServiceId || listServiceId.length == 0) {
+            this.setState({errorMsg: "Vui lòng chọn dịch vụ"})
+            return;
+        }
+
+        let timeSchedule = this.state.scheduleTime;
+        if (!timeSchedule) {
+            this.setState({errorMsg: "Vui lòng chọn lịch"})
+            return;
+        }
+
+        const data = {
+            phone: phone,
+            pickUpAddress: address,
+            timeSchedule: timeSchedule,
+            licensePlate: licensePlateVehicle,
+            fullName: name,
+            paymentMethod: 1,
+            brandId: brandId,
+            brandSeriesId: brandSeriesId,
+            serviceIds: listServiceId,
+            vehicleName: nameVehicle
+          }
+        
+        return data;
     }
 
     onChangeTabSchedule(id) {
@@ -70,7 +140,7 @@ class AddOrder extends React.Component {
             let tmpServiceIds = [...this.state.listServiceId];
             tmpServiceIds.push(id);
             this.setState({ listServiceId: tmpServiceIds });
-        }
+        } 
     }
 
     _onChangeBrand(value) {
@@ -90,21 +160,26 @@ class AddOrder extends React.Component {
     getListSeletedOil() {
         var rs = []
         if (this.state.listServiceId.indexOf("ff808181741c1c93017420bb81b7000c") >= 0) {
-            rs.push({id: "ff808181741c1c93017420bb81b7000c", type: 1, name: "Thay nhớt máy"})
+            rs.push({ id: "ff808181741c1c93017420bb81b7000c", type: 1, name: "Thay nhớt máy" })
         }
         if (this.state.listServiceId.indexOf("ff808181748853bb0174885a13b50003") >= 0) {
-            rs.push({id: "ff808181748853bb0174885a13b50003", type: 2, name: "Thay nhớt lap"})
+            rs.push({ id: "ff808181748853bb0174885a13b50003", type: 1, name: "Thay nhớt lap" })
         }
         return rs;
     }
 
     _onSelectBrandSeries(e) {
-        this.setState({brandSeriesId: JSON.parse(e.target.value).id});
+        this.setState({ brandSeriesId: JSON.parse(e.target.value).id });
+    }
+
+    onChangeTimeSchedule(time) {
+        this.setState({scheduleTime: time})
     }
 
 
 
     render() {
+        console.log(this.state.errorMsg)
         //DEBUG
         var transportId = this.state.transportId;
         var brandSeriesId = this.state.brandSeriesId;
@@ -175,19 +250,19 @@ class AddOrder extends React.Component {
                                             <div className="row">
                                                 <div className="col-md-2 title">SDT: </div>
                                                 <div className="col-md-9">
-                                                    <input type="text" className="form-control form-m" />
+                                                    <input ref={e => this.phoneInputRef = e} type="text" className="form-control form-m" />
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-2 title">Tên: </div>
                                                 <div className="col-md-9">
-                                                    <input type="text" className="form-control form-m" />
+                                                    <input ref={e => this.nameInputRef = e} type="text" className="form-control form-m" />
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-2 title">Địa chỉ: </div>
                                                 <div className="col-md-9">
-                                                    <input type="text" className="form-control form-m" />
+                                                    <input ref={e => this.addressInputRed = e} type="text" className="form-control form-m" />
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -209,7 +284,7 @@ class AddOrder extends React.Component {
                                             <div className="row">
                                                 <div className="col-md-2 title">Hãng xe: </div>
                                                 <div className="col-md-9">
-                                                    <Select onChange={this._onChangeBrand} value={_defaultBrand} options={brandOptions} className="" name="car_brand" />
+                                                    <Select ref={e => this.brandInputRef = e} onChange={this._onChangeBrand} value={_defaultBrand} options={brandOptions} className="" name="car_brand" />
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -225,15 +300,14 @@ class AddOrder extends React.Component {
                                             <div className="row">
                                                 <div className="col-md-2 title">Tên xe: </div>
                                                 <div className="col-md-9">
-                                                    <input type="text" className="form-control form-m" />
+                                                    <input ref={e => this.nameVehicleInputRef = e} type="text" className="form-control form-m" />
 
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col-md-2 title">Biển số: </div>
                                                 <div className="col-md-9">
-                                                    <input type="text" className="form-control form-m" />
-
+                                                    <input ref={e => this.licensePlateInputRef = e} type="text" className="form-control form-m" />
                                                 </div>
                                             </div>
                                         </div>
@@ -289,27 +363,27 @@ class AddOrder extends React.Component {
                         </div>
 
 
-                        {listOil.length  > 0 && 
-                        <div className="row">
-                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div className="widget-tabs-int">
-                                    <div className="tab-hd">
-                                        <h2>Chọn nhớt</h2>
-                                    </div>
-                                    <div className="widget-tabs-list">
-                                        <div className="row">
-                                            <div className="content-form">
-                                                {listOil && listOil.map((item, index) => {
-                                                    return (
-                                                        <SelectOil brandSeriesId={brandSeriesId} data={item} {...this.props}>{item.name}</SelectOil>
-                                                    )
-                                                })}
+                        {listOil.length > 0 &&
+                            <div className="row">
+                                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="widget-tabs-int">
+                                        <div className="tab-hd">
+                                            <h2>Chọn nhớt</h2>
+                                        </div>
+                                        <div className="widget-tabs-list">
+                                            <div className="row">
+                                                <div className="content-form">
+                                                    {listOil && listOil.map((item, index) => {
+                                                        return (
+                                                            <SelectOil brandSeriesId={brandSeriesId} data={item} {...this.props}>{item.name}</SelectOil>
+                                                        )
+                                                    })}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> 
                         }
 
                         <div className="row mgTop30">
@@ -338,11 +412,10 @@ class AddOrder extends React.Component {
                                                         </thead>
                                                         <tbody>
                                                             {schedules && schedules.map((item, index) => {
-                                                                const isCheked = this.state.timeSchedule == item["time"];
                                                                 return (
                                                                     <tr key={item["key"]}>
                                                                         <td>{index + 1}</td>
-                                                                        <td><input checked={isCheked} onChange={() => this.onChangeTimeSchedule(item["time"])} type="radio" name="schedule" /></td>
+                                                                        <td><input onChange={() => this.onChangeTimeSchedule(item["time"])} type="radio" name="schedule" /></td>
                                                                         <td>{TimeUtils.timeSchedule(item["time"])}</td>
                                                                         <td>{item["status"] == 1 ? "Còn Trống" : "Đã đầy"}</td>
                                                                     </tr>
@@ -357,6 +430,26 @@ class AddOrder extends React.Component {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="row mgTop30">
+                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div className="widget-tabs-int">
+                                    <div className="widget-tabs-list">
+                                        <div className="row">
+                                            <div className="content-form text-right">
+                                                <button onClick={this.prev} className=" mgright30 btn notika-btn-gray btn-reco-mg btn-button-mg waves-effect"> Quay lại</button>
+
+                                                <ButtonWithConfirrm ok={this.createOrder}>
+                                                    <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Tạo đơn</button>
+                                                </ButtonWithConfirrm>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>

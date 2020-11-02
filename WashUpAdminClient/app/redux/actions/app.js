@@ -164,3 +164,11 @@ export function getServicesALL() {
     type: type.APP.GET_SERVICES_ALL_ASYNC
   }
 }
+
+export function createOrder(data) {
+  return {
+    type: type.APP.CREATE_ORDER_ASYNC,
+    data: data
+  }
+
+}

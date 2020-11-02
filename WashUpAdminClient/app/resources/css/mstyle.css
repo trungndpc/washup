@@ -155,3 +155,11 @@
 .mgTop30 {
     margin-top: 30px;
 }
+
+.text-right {
+    text-align: right;
+}
+
+.mgright30 {
+    margin-right: 30px;
+}
