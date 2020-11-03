@@ -163,3 +163,7 @@
 .mgright30 {
     margin-right: 30px;
 }
+
+.btn-primary {
+    margin: 0 !important;
+}
