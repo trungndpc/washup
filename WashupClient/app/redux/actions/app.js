@@ -113,3 +113,10 @@ export function updateOrder(data) {
     data: data
   }
 }
+
+export function estimatePrice(data) {
+  return {
+    type: type.APP.CALCULATION_PRICE_ASYNC,
+    data: data
+  }
+}

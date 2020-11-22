@@ -34,7 +34,6 @@ class BookingModal extends Component {
             case 3: this.openStepThree(); break;
             case 4: this.openStepFour(); break;
         }
-        console.log("openWithStep")
         var body = document.getElementsByTagName('body')[0];
         body.className = "modal-open"
         body.style.overflow = "hidden"
@@ -68,6 +67,7 @@ class BookingModal extends Component {
     }
 
     openStepOil() {
+        console.log("openStepOil")
         this.setState({
             _renderStep: 4
         })

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import TimeUtils from '../../utils/TimeUtils';
 import PriceUtils from '../../utils/PriceUtils';
-import ConfirmModal from '../ConfirmModal'
-
+import ConfirmModal from '../ConfirmModal';
+import ServiceModel from '../../models/ServiceModel';
 
 class StepFOUR extends Component {
 
@@ -26,6 +26,15 @@ class StepFOUR extends Component {
         this.clickOkCancelBooking = this.clickOkCancelBooking.bind(this);
     }
 
+    componentDidMount() {
+        document.addEventListener('mousedown', this._handleClickOutside);
+        const inforBooking = this.props.app.inforBooking;
+        console.log("A: " + this.props.app.modeBookingModel)
+        if (this.props.app.modeBookingModel == 1 && inforBooking) {
+            console.log("xxxxxxxxxxx")
+            this.props.appActions.estimatePrice(inforBooking)
+        }
+    }
 
     _handleClickOutside(event) {
         if (this.modalRef && !this.modalRef.current.contains(event.target)) {
@@ -33,9 +42,7 @@ class StepFOUR extends Component {
         }
     }
 
-    componentDidMount() {
-        document.addEventListener('mousedown', this._handleClickOutside);
-    }
+
 
     submit() {
         let inforBooking = { ...this.props.app.inforBooking }
@@ -90,6 +97,7 @@ class StepFOUR extends Component {
     render() {
         const isLoading = this.props.app.isLoadingBooking;
         const inforBooking = this.props.app.inforBooking;
+        console.log(inforBooking)
 
         const totalPrice = inforBooking["totalPrice"] + (inforBooking["oilPrice"] ? inforBooking["oilPrice"] : 0);
         return (
@@ -146,7 +154,7 @@ class StepFOUR extends Component {
                                             <i className="fa clipboard_check" />
                                             <div className="info pull-left">
                                                 <div className="title">DỊCH VỤ</div>
-                                                <div className="text">{inforBooking["serviceNames"].join(", ")}</div>
+                                                <div className="text">{ServiceModel.toStringListSelected(inforBooking["services"])}</div>
                                             </div>
                                         </div>
 
