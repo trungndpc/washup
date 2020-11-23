@@ -27,11 +27,8 @@ class StepFOUR extends Component {
     }
 
     componentDidMount() {
-        document.addEventListener('mousedown', this._handleClickOutside);
         const inforBooking = this.props.app.inforBooking;
-        console.log("A: " + this.props.app.modeBookingModel)
         if (this.props.app.modeBookingModel == 1 && inforBooking) {
-            console.log("xxxxxxxxxxx")
             this.props.appActions.estimatePrice(inforBooking)
         }
     }
@@ -97,9 +94,7 @@ class StepFOUR extends Component {
     render() {
         const isLoading = this.props.app.isLoadingBooking;
         const inforBooking = this.props.app.inforBooking;
-        console.log(inforBooking)
 
-        const totalPrice = inforBooking["totalPrice"] + (inforBooking["oilPrice"] ? inforBooking["oilPrice"] : 0);
         return (
             <div>
                 <div id="ModalBooking" style={{ display: `${this.state.isOpen == true ? 'block' : 'none'}` }} className={`modal fade ${this.state.isFadeIn ? 'in' : ''}`} >
@@ -135,7 +130,7 @@ class StepFOUR extends Component {
                                             <i className="fa icon_car" />
                                             <div className="info pull-left">
                                                 <div className="title">PHƯƠNG TIỆN</div>
-                                                <div className="text">{`${inforBooking["brand"].brandName} [${inforBooking["brandSeries"].seriesName}] ${inforBooking["vehicleName"] && inforBooking["vehicleName"]}`}</div>
+                                                <div className="text">{`${inforBooking["brandSeries"].seriesName}`}</div>
                                             </div>
                                         </div>
 
@@ -166,7 +161,7 @@ class StepFOUR extends Component {
                                             <i className="fa icon_money" />
                                             <div className="info pull-left">
                                                 <div className="title">SỐ TIỀN</div>
-                                                <div className="text">{PriceUtils.toThousand(totalPrice)}</div>
+                                                <div className="text">{ inforBooking["totalPrice"]  ? PriceUtils.toThousand(inforBooking["totalPrice"]) : '...'}</div>
                                             </div>
                                         </div>
 

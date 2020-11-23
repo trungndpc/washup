@@ -65,7 +65,6 @@ function* requestUpdateOrderAsync(action) {
 
 function* requestPostEstimatePriceAsync(action) {
   const resp = yield call(postEstimatePrice, action.data);
-  console.log(resp)
   yield put({type: type.APP.CALCULATION_PRICE_END, payload: resp})
 }
 
@@ -240,10 +239,8 @@ function booking(data) {
     "licensePlate": data["licensePlate"],
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
-    "brandId": data["brand"].id,
     "brandSeriesId": data["brandSeries"].id,
     "serviceIds": data["serviceIds"],
-    "vehicleName": data["vehicleName"],
   }
 
   if (data["oilIds"]) {
@@ -265,7 +262,6 @@ function updateOrder(data) {
     "licensePlate": data["licensePlate"],
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
-    "brandId": data["brand"].id,
     "brandSeriesId": data["brandSeries"].id,
     "serviceIds": data["serviceIds"],
     "vehicleName": data["vehicleName"],

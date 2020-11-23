@@ -9,7 +9,6 @@ class StepONE extends Component {
         super(props);
 
         const inforBooking = this.props.app.inforBooking;
-        console.log(inforBooking)
         this.state = {
             isOpen: false,
             isFadeIn: false,
@@ -81,20 +80,16 @@ class StepONE extends Component {
     getFormData(inforBooking) {
         let address = this.addressInputRef.value;
         let fullname = this.fullNameInputRef.value;
-        let brand = this.brandInputRef.select.state.selectValue[0].value;
         let brandSeries = this.brandSeriesInputRef.value;
         let license = this.licensePlateInputRef.value;
-        let vehicleName = this.vehicleNameInputRef.value;
         if (!inforBooking["phone"] && this.phoneInputRef) {
             inforBooking["phone"] = this.phoneInputRef.value;
         }
         inforBooking["address"] = address;
         inforBooking["fullname"] = fullname;
         inforBooking["brandSeries"] = JSON.parse(brandSeries);
-        inforBooking["brand"] = brand;
         inforBooking["licensePlate"] = license;
         inforBooking["transportId"] = this.state.transportId;
-        inforBooking["vehicleName"] = vehicleName;
         return inforBooking;
     }
 
@@ -111,11 +106,6 @@ class StepONE extends Component {
 
         if (!data["fullname"]) {
             this.setState({ "errorMsg": "Vui lòng nhập tên" })
-            return false;
-        }
-
-        if (!data["brand"]) {
-            this.setState({ "errorMsg": "Vui lòng nhập hãng xe" })
             return false;
         }
 
@@ -219,12 +209,6 @@ class StepONE extends Component {
                                                 </div>
                                             </div>
                                             <div className="form-group row">
-                                                <div className="col-md-3 col-xs-12">Hãng xe: </div>
-                                                <div className="col-md-4 col-xs-12">
-                                                    <Select value={_defaultBrand} onChange={this._onChangeBrand} options={brandOptions} ref={e => this.brandInputRef = e} name="car_brand" id="brand_type" />
-                                                </div>
-                                            </div>
-                                            <div className="form-group row">
                                                 <div className="col-md-3 col-xs-12">Dòng xe: </div>
                                                 <div className="col-md-4 col-xs-12">
                                                     <select ref={e => this.brandSeriesInputRef = e} name="car_type" id="car_type" className="form-control">
@@ -232,12 +216,6 @@ class StepONE extends Component {
                                                             return <option key={item["id"]} value={JSON.stringify(item)}>{item["seriesName"]}</option>
                                                         })}
                                                     </select>
-                                                </div>
-                                            </div>
-                                            <div className="form-group row">
-                                                <div className="col-md-3 col-xs-12">Tên xe:</div>
-                                                <div className="col-md-4 col-xs-12">
-                                                    <input ref={e => this.vehicleNameInputRef = e} defaultValue={inforBooking && inforBooking["vehicleName"]} type="text" name="vehicleName" placeholder={this.state.placeholderVehicleName} className="form-control" />
                                                 </div>
                                             </div>
                                             <div className="form-group row">
