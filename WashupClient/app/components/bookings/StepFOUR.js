@@ -94,7 +94,7 @@ class StepFOUR extends Component {
     render() {
         const isLoading = this.props.app.isLoadingBooking;
         const inforBooking = this.props.app.inforBooking;
-
+        console.log(inforBooking)
         return (
             <div>
                 <div id="ModalBooking" style={{ display: `${this.state.isOpen == true ? 'block' : 'none'}` }} className={`modal fade ${this.state.isFadeIn ? 'in' : ''}`} >
@@ -130,7 +130,7 @@ class StepFOUR extends Component {
                                             <i className="fa icon_car" />
                                             <div className="info pull-left">
                                                 <div className="title">PHƯƠNG TIỆN</div>
-                                                <div className="text">{`${inforBooking["brandSeries"].seriesName}`}</div>
+                                                <div className="text">{` ${ inforBooking["brandSeries"] && inforBooking["brandSeries"].seriesName}`}</div>
                                             </div>
                                         </div>
 
@@ -149,7 +149,7 @@ class StepFOUR extends Component {
                                             <i className="fa clipboard_check" />
                                             <div className="info pull-left">
                                                 <div className="title">DỊCH VỤ</div>
-                                                <div className="text">{ServiceModel.toStringListSelected(inforBooking["services"])}</div>
+                                                {/* <div className="text">{ServiceModel.toStringListSelected(inforBooking["services"])}</div> */}
                                             </div>
                                         </div>
 

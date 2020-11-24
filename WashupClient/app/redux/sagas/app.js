@@ -231,6 +231,7 @@ function cancelBooking(id) {
 }
 
 function booking(data) {
+  console.log(data)
   const body = {
     "phone": data["phone"],
     "pickUpAddress": data["address"],
@@ -240,7 +241,8 @@ function booking(data) {
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
     "brandSeriesId": data["brandSeries"].id,
-    "serviceIds": data["serviceIds"],
+    "serviceIds": ServiceModel.getListServiceId(data),
+    "oilIds" : ServiceModel.getListOil(data)
   }
 
   if (data["oilIds"]) {
