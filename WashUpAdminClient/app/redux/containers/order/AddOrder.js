@@ -19,10 +19,12 @@ class AddOrder extends React.Component {
             transportId: 1,
             brandSeriesId: 0,
             brandInput: null,
-            listServiceId: [],
+            listService: [],
             errorMsg: null,
             scheduleTime: null,
         }
+        this.listOilRef = {}
+
         this.onChangeTabSchedule = this.onChangeTabSchedule.bind(this)
         this.onChangeService = this.onChangeService.bind(this)
         this.onClickTabService = this.onClickTabService.bind(this)
@@ -34,6 +36,7 @@ class AddOrder extends React.Component {
         this.onChangeTimeSchedule = this.onChangeTimeSchedule.bind(this)
         this.createOrder = this.createOrder.bind(this);
         this.prev = this.prev.bind(this);
+        this.getListIdOilSelect = this.getListIdOilSelect.bind(this);
         window.goToOverviewOrder = this.prev;
 
     }
@@ -57,7 +60,6 @@ class AddOrder extends React.Component {
     }
 
     getFormInput() {
-        
         let phone = this.phoneInputRef && this.phoneInputRef.value;
         if (!phone) {
             this.setState({ errorMsg: 'Vui lòng nhập số điện thoại' })
@@ -65,37 +67,43 @@ class AddOrder extends React.Component {
         }
         let name = this.nameInputRef && this.nameInputRef.value;
         if (!name) {
-            this.setState({errorMsg: "Vui lòng nhập tên"});
+            this.setState({ errorMsg: "Vui lòng nhập tên" });
             return;
         }
         let address = this.addressInputRed && this.addressInputRed.value;
         if (!address) {
-            this.setState({errorMsg: "Vui lòng nhập địa chỉ"});
+            this.setState({ errorMsg: "Vui lòng nhập địa chỉ" });
             return;
         }
         let brandId = this.brandInputRef.select.state.selectValue[0].value.id;
         let brandSeriesId = JSON.parse(this.brandSeriesInputRef.value).id;
         let nameVehicle = this.nameVehicleInputRef && this.nameVehicleInputRef.value;
         if (!nameVehicle) {
-            this.setState({errorMsg: "Vui lòng nhập tên của phương tiện"})
+            this.setState({ errorMsg: "Vui lòng nhập tên của phương tiện" })
             return;
         }
-        let licensePlateVehicle = this.licensePlateInputRef &&  this.licensePlateInputRef.value;
+        let licensePlateVehicle = this.licensePlateInputRef && this.licensePlateInputRef.value;
         if (!licensePlateVehicle) {
-            this.setState({errorMsg: "Vui lòng nhập biển số xe"})
+            this.setState({ errorMsg: "Vui lòng nhập biển số xe" })
             return;
         }
-        let listServiceId = this.state.listServiceId;
+        let listServiceId = this.state.listService.map((item) => item.id);
         if (!listServiceId || listServiceId.length == 0) {
-            this.setState({errorMsg: "Vui lòng chọn dịch vụ"})
+            this.setState({ errorMsg: "Vui lòng chọn dịch vụ" })
             return;
         }
 
         let timeSchedule = this.state.scheduleTime;
         if (!timeSchedule) {
-            this.setState({errorMsg: "Vui lòng chọn lịch"})
+            this.setState({ errorMsg: "Vui lòng chọn lịch" })
             return;
         }
+        let listOilIds = this.getListIdOilSelect();
+        if (!listOilIds) {
+            this.setState({ errorMsg: "Vui lòng chọn nhớt" })
+            return;
+        }
+
 
         const data = {
             phone: phone,
@@ -108,8 +116,11 @@ class AddOrder extends React.Component {
             brandSeriesId: brandSeriesId,
             serviceIds: listServiceId,
             vehicleName: nameVehicle
-          }
-        
+        }
+        if (listOilIds) {
+            data["oilIds"] = listOilIds;
+        }
+
         return data;
     }
 
@@ -122,8 +133,8 @@ class AddOrder extends React.Component {
         this.props.appActions.getServices(this.state.transportId, id, this.state.brandSeriesId);
     }
 
-    removeElement(array, elem) {
-        var index = array.indexOf(elem);
+    removeElement(array, id) {
+        var index = array.findIndex((item) => item.id == id);
         if (index > -1) {
             array.splice(index, 1);
         }
@@ -131,16 +142,17 @@ class AddOrder extends React.Component {
     }
 
 
-    onChangeService(id) {
-        if (this.state.listServiceId.indexOf(id) >= 0) {
-            let tmpServiceIds = [...this.state.listServiceId];
-            tmpServiceIds = this.removeElement(tmpServiceIds, id);
-            this.setState({ listServiceId: tmpServiceIds });
+    onChangeService(service) {
+        let id = service["id"];
+        if (this.state.listService.findIndex((item) => item.id == id) >= 0) {
+            let tmpService = [...this.state.listService];
+            tmpService = this.removeElement(tmpService, id);
+            this.setState({ listService: tmpService });
         } else {
-            let tmpServiceIds = [...this.state.listServiceId];
-            tmpServiceIds.push(id);
-            this.setState({ listServiceId: tmpServiceIds });
-        } 
+            let tmpService = [...this.state.listService];
+            tmpService.push(service);
+            this.setState({ listService: tmpService });
+        }
     }
 
     _onChangeBrand(value) {
@@ -158,14 +170,7 @@ class AddOrder extends React.Component {
     }
 
     getListSeletedOil() {
-        var rs = []
-        if (this.state.listServiceId.indexOf("ff808181741c1c93017420bb81b7000c") >= 0) {
-            rs.push({ id: "ff808181741c1c93017420bb81b7000c", type: 1, name: "Thay nhớt máy" })
-        }
-        if (this.state.listServiceId.indexOf("ff808181748853bb0174885a13b50003") >= 0) {
-            rs.push({ id: "ff808181748853bb0174885a13b50003", type: 1, name: "Thay nhớt lap" })
-        }
-        return rs;
+        return this.state.listService.filter(item => item.attachType == 1);
     }
 
     _onSelectBrandSeries(e) {
@@ -173,7 +178,22 @@ class AddOrder extends React.Component {
     }
 
     onChangeTimeSchedule(time) {
-        this.setState({scheduleTime: time})
+        this.setState({ scheduleTime: time })
+    }
+
+    getListIdOilSelect() {
+        var rs = [];
+        var listOil = this.getListSeletedOil();
+        listOil.forEach(element => {
+            let oilId = this.listOilRef[element.id].getValue();
+            if (oilId) {
+                rs.push(oilId)
+            }
+        });
+        if (listOil.length == rs.length) {
+            return rs;
+        }
+        return null;
     }
 
 
@@ -342,11 +362,11 @@ class AddOrder extends React.Component {
                                                         </thead>
                                                         <tbody>
                                                             {services && services.map((item, index) => {
-                                                                var isCheked = this.state.listServiceId.indexOf(item["id"]) >= 0;
+                                                                var isCheked = this.state.listService.findIndex((itemSelect) => itemSelect.id == item["id"]) >= 0;
                                                                 return (
                                                                     <tr key={item["key"]}>
                                                                         <td>{index + 1}</td>
-                                                                        <td><input checked={isCheked} onChange={(event => { this.onChangeService(item["id"]) })} type="checkbox" /></td>
+                                                                        <td><input checked={isCheked} onChange={(event => { this.onChangeService(item) })} type="checkbox" /></td>
                                                                         <td>{item["name"]}</td>
                                                                         <td>{PriceUtils.toThousand(item["price"])}</td>
                                                                     </tr>
@@ -363,7 +383,7 @@ class AddOrder extends React.Component {
                         </div>
 
 
-                        {listOil.length > 0 &&
+                        {listOil && listOil.length > 0 &&
                             <div className="row">
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div className="widget-tabs-int">
@@ -375,7 +395,7 @@ class AddOrder extends React.Component {
                                                 <div className="content-form">
                                                     {listOil && listOil.map((item, index) => {
                                                         return (
-                                                            <SelectOil brandSeriesId={brandSeriesId} data={item} {...this.props}>{item.name}</SelectOil>
+                                                            <SelectOil ref={e => this.listOilRef[item.id] = e} serviceId={item.id} {...this.props}>{item.name}</SelectOil>
                                                         )
                                                     })}
                                                 </div>
@@ -436,8 +456,13 @@ class AddOrder extends React.Component {
                                 <div className="widget-tabs-int">
                                     <div className="widget-tabs-list">
                                         <div className="row">
+                                            {this.state.errorMsg &&
+                                                <div style={{ textAlign: 'center', color: 'red' }}>
+                                                    <p>{this.state.errorMsg}</p>
+                                                </div>
+                                            }
                                             <div className="content-form text-right">
-                                                <button onClick={this.prev} className=" mgright30 btn notika-btn-gray btn-reco-mg btn-button-mg waves-effect"> Quay lại</button>
+                                                <button onClick={this.prev} className=" mgright30 btn notika-btn-gray btn-reco-mg waves-effect"> Quay lại</button>
 
                                                 <ButtonWithConfirrm ok={this.createOrder}>
                                                     <button className="btn btn-primary primary-icon-notika waves-effect"><i className="notika-icon notika-checked"></i> Tạo đơn</button>

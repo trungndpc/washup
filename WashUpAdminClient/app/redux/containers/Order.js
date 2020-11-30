@@ -6,7 +6,7 @@ import TimeUtils from '../../utils/TimeUtils'
 import * as OrderConstant from '../../constants/order';
 import Pagination from 'antd/es/pagination'
 import PriceUtils from '../../utils/PriceUtils'
-import UpdateStatusModal from './order/UpdateStatusModal';
+import * as Origin  from '../../constants/OriginOrder';
 
 class Order extends React.Component {
     constructor(props) {
@@ -76,6 +76,7 @@ class Order extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th className="m_code">Mã đơn</th>
+                                                    <th className="m_code">Nguồn</th>
                                                     <th className="m_name">Tên</th>
                                                     <th className="m_phone">SDT</th>
                                                     <th className="m_bienso">Biển số</th>
@@ -105,6 +106,7 @@ class Order extends React.Component {
                                                     return (
                                                         <tr onClick={() => this.onClickDetail(item["id"])} key={item["id"]}>
                                                             <td>{item["orderNumber"]}</td>
+                                                            <td>{Origin.findOriginOrder(item["origin"])}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td>{item["licensePlate"]}</td>

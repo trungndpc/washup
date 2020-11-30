@@ -30,4 +30,7 @@ export const ROLE = {
     OPERATOR: 4
 }
 
-export const SERVICE_THAY_NHOT =  ["ff808181741c1c93017420bb81b7000c", "ff808181748853bb0174885a13b50003"]
+export const SERVICE_ATTACH = {
+    NO_ATTACH: 0,
+    OIL_ATTACH: 1
+}

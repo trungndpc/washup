@@ -6,6 +6,7 @@ import TimeUtils from '../../../utils/TimeUtils'
 import PriceUtils from '../../../utils/PriceUtils'
 import Pagination from 'antd/es/pagination'
 import DatePicker from 'react-datepicker'
+import * as Origin  from '../../../constants/OriginOrder';
 import * as OrderConstant from '../../../constants/order';
 
 class Confirmed extends React.Component {
@@ -109,6 +110,7 @@ class Confirmed extends React.Component {
                                             <thead>
                                                 <tr>
                                                     <th className="m_code">Mã đơn</th>
+                                                    <th className="m_code">Nguồn</th>
                                                     <th className="m_name">Tên</th>
                                                     <th className="m_phone">SDT</th>
                                                     <th className="m_status">Trạng thái</th>
@@ -123,6 +125,7 @@ class Confirmed extends React.Component {
                                                     return (
                                                         <tr key={item["id"]}>
                                                             <td>{item["orderNumber"]}</td>
+                                                            <td>{Origin.findOriginOrder(item["origin"])}</td>
                                                             <td>{item["fullName"]}</td>
                                                             <td>{item["phone"]}</td>
                                                             <td><span style={{ padding: '5px 10px', color: '#fff', backgroundColor: objStatus["color"] }}>{objStatus["toString"]}</span></td>
