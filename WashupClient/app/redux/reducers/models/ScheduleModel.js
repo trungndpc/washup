@@ -12,7 +12,7 @@ class ScheduleModel {
         let currentTime = TimeUtils.getCurrentDay() / 1000;
 
         let listToday = obj[this.TODAY];
-        listToday = listToday.filter(sche => currentTime - sche.time > this.PREPARATION_TIME);
+        listToday = listToday.filter(sche => sche.time - currentTime  > this.PREPARATION_TIME);
         let listTomorow = obj[this.TOMOROW];
         listTomorow = listTomorow.filter(sche => TimeUtils.getHours(sche.time) != 12);
         let listDayAfterTomorow = obj[this.DAY_AFTER_TOMOROW];

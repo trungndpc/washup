@@ -1,6 +1,9 @@
 class ServiceModel {
 
     static isChecked(listServices, serviceId) {
+        if (!listServices){
+            return false;
+        }
         return listServices.findIndex(service => service["id"] === serviceId) >= 0;
     }
 
@@ -10,6 +13,9 @@ class ServiceModel {
     }
 
     static isSelectOil(listServices) {
+        if (!listServices) {
+            return false;
+        }
         let listOil = listServices.filter((service) => service.attachType == 2);
         return listOil.length > 0
     }

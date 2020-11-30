@@ -87,7 +87,7 @@ class StepTHREE extends Component {
             serviceId: serviceId,
             errorMsg: null
         })
-        let services = [...this.state.services];
+        let services = this.state.services ? [...this.state.services] : []
         let isChecked = ServiceModel.isChecked(services, serviceId);
         if (isChecked) {
             services = ServiceModel.remove(services, serviceId);
