@@ -8,9 +8,10 @@ class StepTHREE extends Component {
 
     constructor(props) {
         super(props);
+        let inforBooking = {...this.props.app.inforBooking};
         this.state = {
             isOpen: true,
-            services: [],
+            services: inforBooking ? inforBooking["services"] : [],
             tabServiceId: TYPE_SERVICE.CO_BAN,
             methodPaymentId: 1,
             errorMsg: null,
@@ -57,6 +58,8 @@ class StepTHREE extends Component {
         if (this.noteInputRef && this.noteInputRef.value) {
             inforBooking["note"] = this.noteInputRef.value;
         }
+        console.log("update")
+        console.log(inforBooking)
         this.props.appActions.putInforBooking(inforBooking);
 
         document.removeEventListener('mousedown', this._handleClickOutside);

@@ -117,15 +117,9 @@ function* requestGetOrderByPhoneAsync(action) {
     formData["totalPrice"] = apiData["totalPrice"];
     formData["brandSeries"] = apiData["brandSeries"];
     formData["brand"] = apiData["brand"];
-    let listServiceIds = [];
-    let listServiceNames = [];
-    let apiServices = apiData["services"];
-    apiServices.forEach(services => {
-      listServiceIds.push(services["id"]);
-      listServiceNames.push(services["name"]);
-    });
-    formData["serviceIds"] = listServiceIds;
-    formData["serviceNames"] = listServiceNames;
+    formData["services"] = apiData["services"]
+    formData["status"] = apiData["status"]
+    formData["transportId"] = apiData["brandSeries"]["category"]
 
     yield put({type: type.APP.CHANGE_STATUS_SEARCH_PHONE_MODAL, status: false});
     yield put({type: type.APP.PUT_INFO_BOOKING, data: formData});
@@ -224,14 +218,12 @@ function cancelBooking(id) {
   let body = {
     id: id
   }
-  console.log(body)
   return new Promise((resolve, reject) => {
     APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/cancel-by-customer`, JSON.stringify(body), resolve, reject);
   });
 }
 
 function booking(data) {
-  console.log(data)
   const body = {
     "phone": data["phone"],
     "pickUpAddress": data["address"],
@@ -265,12 +257,8 @@ function updateOrder(data) {
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
     "brandSeriesId": data["brandSeries"].id,
-    "serviceIds": data["serviceIds"],
-    "vehicleName": data["vehicleName"],
-  }
-
-  if (data["oilIds"]) {
-    body["oilIds"] = data["oilIds"]
+    "serviceIds": ServiceModel.getListServiceId(data),
+    "oilIds" : ServiceModel.getListOil(data)
   }
 
   return new Promise((resolve, reject) => {

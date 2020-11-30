@@ -31,6 +31,7 @@ class ServiceModel {
     }
 
     static toStringListSelected(listServices) {
+        console.log(listServices)
         let listName = listServices.map((service) => service.name);
         return listName.join(", ")
     }

@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import PriceUtils from '../utils/PriceUtils'
-import { Link } from "react-router-dom";
 
 
 class PhoneSearchModal extends Component {
@@ -41,6 +39,7 @@ class PhoneSearchModal extends Component {
     }
 
     close() {
+        this.setState({errorMsg: null})
         document.removeEventListener('mousedown', this._handleClickOutside);
         this.props.appActions.changeModeBookingModal(0);
         this.props.appActions.changeStatusSearchPhoneModal(false);
@@ -75,7 +74,10 @@ class PhoneSearchModal extends Component {
                         <div className="modal-body">
                             <div className="box_input booking-list-modal">
                                 <div className="error_msg_form_search_phone">{errorMsg}</div>
-                                <div class="form-row align-items-center">
+                                <div>
+                                    <p>Nhập số điện thoại, để xem được lịch đã đặt</p>
+                                </div>
+                                <div className="form-row align-items-center">
                                     <div className="input-group mrbotton10">
                                         <div style={{
                                             padding: '5px 15px',
@@ -84,7 +86,7 @@ class PhoneSearchModal extends Component {
                                         }} className="input-group-prepend">
                                             <div style={{ fontSize: 'larger' }} className="input-group-text"><i className="fa fa-mobile"></i></div>
                                         </div>
-                                        <input onChange={this._formatPhone} type="tel" pattern="[0-9]{4}.[0-9]{3}.[0-9]{3}" ref={e => this.phoneInputRef = e} class="form-control" placeholder="xxx.xxx.xxx">
+                                        <input onChange={this._formatPhone} type="tel" pattern="[0-9]{4}.[0-9]{3}.[0-9]{3}" ref={e => this.phoneInputRef = e} className="form-control">
                                         </input>
                                     </div>
                                     <div className="form-group text-center">
