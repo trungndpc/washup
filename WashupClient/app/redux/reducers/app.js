@@ -133,6 +133,17 @@ export default function app(state = initialState, action) {
       }
       break;
     }
+    case type.APP.CALCULATION_PRICE_END: {
+      let payload = action.payload;
+      let totalPrice = payload.data.totalPrice;
+      let inforBooking = { ...newState.inforBooking }
+      if (inforBooking) {
+        inforBooking.totalPrice = totalPrice;
+        newState.inforBooking = inforBooking;
+      }
+
+      break;
+    }
     default:
       return state
   }

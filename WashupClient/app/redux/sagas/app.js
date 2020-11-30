@@ -3,6 +3,8 @@ import * as type from '../actions/action-types'
 import APIUtils from '../../utils/APIUtils'
 import { Model } from '../../constants/Constants';
 import AlertUtils from '../../utils/AlertUtils';
+import ServiceModel from '../../models/ServiceModel';
+
 
 export default function* app() {
   yield takeLatest(type.APP.GET_MODELS_ASYNC, requestGetModelAsync)
@@ -19,6 +21,7 @@ export default function* app() {
   yield takeLatest(type.APP.GET_ORDER_BY_PHONE_ASYNC, requestGetOrderByPhoneAsync)
   yield takeLatest(type.APP.CANCEL_BOOKING_ASYNC, cancelBookingAsync)
   yield takeLatest(type.APP.UPDATE_ORDER_ASYNC, requestUpdateOrderAsync)
+  yield takeLatest(type.APP.CALCULATION_PRICE_ASYNC, requestPostEstimatePriceAsync)
 }
 
 function* requestGetModelAsync() {
@@ -58,6 +61,11 @@ function* requestUpdateOrderAsync(action) {
     window.closeFormModal();
   }
   yield put({ type: type.APP.UPDATE_ORDER_END, payload: resp })
+}
+
+function* requestPostEstimatePriceAsync(action) {
+  const resp = yield call(postEstimatePrice, action.data);
+  yield put({type: type.APP.CALCULATION_PRICE_END, payload: resp})
 }
 
 function* requestGetAccessorisAsync() {
@@ -109,15 +117,9 @@ function* requestGetOrderByPhoneAsync(action) {
     formData["totalPrice"] = apiData["totalPrice"];
     formData["brandSeries"] = apiData["brandSeries"];
     formData["brand"] = apiData["brand"];
-    let listServiceIds = [];
-    let listServiceNames = [];
-    let apiServices = apiData["services"];
-    apiServices.forEach(services => {
-      listServiceIds.push(services["id"]);
-      listServiceNames.push(services["name"]);
-    });
-    formData["serviceIds"] = listServiceIds;
-    formData["serviceNames"] = listServiceNames;
+    formData["services"] = apiData["services"]
+    formData["status"] = apiData["status"]
+    formData["transportId"] = apiData["brandSeries"]["category"]
 
     yield put({type: type.APP.CHANGE_STATUS_SEARCH_PHONE_MODAL, status: false});
     yield put({type: type.APP.PUT_INFO_BOOKING, data: formData});
@@ -216,7 +218,6 @@ function cancelBooking(id) {
   let body = {
     id: id
   }
-  console.log(body)
   return new Promise((resolve, reject) => {
     APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/cancel-by-customer`, JSON.stringify(body), resolve, reject);
   });
@@ -231,10 +232,9 @@ function booking(data) {
     "licensePlate": data["licensePlate"],
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
-    "brandId": data["brand"].id,
     "brandSeriesId": data["brandSeries"].id,
-    "serviceIds": data["serviceIds"],
-    "vehicleName": data["vehicleName"],
+    "serviceIds": ServiceModel.getListServiceId(data),
+    "oilIds" : ServiceModel.getListOil(data)
   }
 
   if (data["oilIds"]) {
@@ -256,17 +256,25 @@ function updateOrder(data) {
     "licensePlate": data["licensePlate"],
     "fullName": data["fullname"],
     "paymentMethod": data["paymentMethod"],
-    "brandId": data["brand"].id,
     "brandSeriesId": data["brandSeries"].id,
-    "serviceIds": data["serviceIds"],
-    "vehicleName": data["vehicleName"],
-  }
-
-  if (data["oilIds"]) {
-    body["oilIds"] = data["oilIds"]
+    "serviceIds": ServiceModel.getListServiceId(data),
+    "oilIds" : ServiceModel.getListOil(data)
   }
 
   return new Promise((resolve, reject) => {
     APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/update-order`, JSON.stringify(body), resolve, reject);
   });
+}
+
+function postEstimatePrice(data) {
+  const body = {
+    serviceIds: data.services.map(service => service.id)
+  }
+  let oilIds = ServiceModel.getListOil(data);
+  if (oilIds) {
+    body.oilIds = oilIds;
+  }
+  return new Promise((resolve, reject) => {
+    APIUtils.postJSONWithoutCredentials(process.env.DOMAIN + `/api/orders/price-calculation`, JSON.stringify(body), resolve, reject);
+  }); 
 }

@@ -30,7 +30,7 @@ class BookingManagerModal extends Component {
         return (
             <div>
                 {isOpenSearchPhone && <PhoneSearchModal {...this.props} />}
-                {isOpenSearchPhone && <div class="modal-backdrop fade in"></div>}
+                {isOpenSearchPhone && <div className="modal-backdrop fade in"></div>}
             </div>
         )
     }

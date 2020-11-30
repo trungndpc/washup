@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import TimeUtils from '../../utils/TimeUtils';
 import PriceUtils from '../../utils/PriceUtils';
-import ConfirmModal from '../ConfirmModal'
-
+import ConfirmModal from '../ConfirmModal';
+import ServiceModel from '../../models/ServiceModel';
+import * as Status from '../../common/Status';
 
 class StepFOUR extends Component {
 
@@ -26,6 +27,12 @@ class StepFOUR extends Component {
         this.clickOkCancelBooking = this.clickOkCancelBooking.bind(this);
     }
 
+    componentDidMount() {
+        const inforBooking = this.props.app.inforBooking;
+        if ((this.props.app.modeBookingModel == 1 || this.props.app.modeBookingModel == 3 )&& inforBooking) {
+            this.props.appActions.estimatePrice(inforBooking)
+        }
+    }
 
     _handleClickOutside(event) {
         if (this.modalRef && !this.modalRef.current.contains(event.target)) {
@@ -33,9 +40,7 @@ class StepFOUR extends Component {
         }
     }
 
-    componentDidMount() {
-        document.addEventListener('mousedown', this._handleClickOutside);
-    }
+
 
     submit() {
         let inforBooking = { ...this.props.app.inforBooking }
@@ -68,7 +73,7 @@ class StepFOUR extends Component {
 
     cancelBooking() {
         this.confirmModal.open();
-        this.setState({isOpen: false})
+        this.setState({ isOpen: false })
         document.removeEventListener('mousedown', this._handleClickOutside);
     }
 
@@ -78,7 +83,7 @@ class StepFOUR extends Component {
     }
 
     clickNotOkBooking() {
-        this.setState({isOpen: true})
+        this.setState({ isOpen: true })
         document.addEventListener('mousedown', this._handleClickOutside);
     }
 
@@ -90,8 +95,6 @@ class StepFOUR extends Component {
     render() {
         const isLoading = this.props.app.isLoadingBooking;
         const inforBooking = this.props.app.inforBooking;
-
-        const totalPrice = inforBooking["totalPrice"] + (inforBooking["oilPrice"] ? inforBooking["oilPrice"] : 0);
         return (
             <div>
                 <div id="ModalBooking" style={{ display: `${this.state.isOpen == true ? 'block' : 'none'}` }} className={`modal fade ${this.state.isFadeIn ? 'in' : ''}`} >
@@ -127,26 +130,38 @@ class StepFOUR extends Component {
                                             <i className="fa icon_car" />
                                             <div className="info pull-left">
                                                 <div className="title">PHƯƠNG TIỆN</div>
-                                                <div className="text">{`${inforBooking["brand"].brandName} [${inforBooking["brandSeries"].seriesName}] ${inforBooking["vehicleName"] && inforBooking["vehicleName"]}`}</div>
+                                                <div className="text">{`${inforBooking["brandSeries"].seriesName} - ${inforBooking["licensePlate"]}`}</div>
                                             </div>
                                         </div>
 
                                     </div>
                                     <div className="clearfix">
 
-                                        <div className="form-group col-right pull-right">
-                                            <i className="fa icon_idcard" />
-                                            <div className="info pull-left">
-                                                <div className="title">BIỂN SỐ XE</div>
-                                                <div className="text">{inforBooking["licensePlate"]}</div>
+                                        {this.props.app.modeBookingModel == 1 &&
+                                            <div className="form-group col-right pull-right">
+                                                <i className="fa icon_idcard" />
+                                                <div className="info pull-left">
+                                                    <div className="title">TRẠNG THÁI</div>
+                                                    <div className="text">Chưa đặt</div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
+
+                                        {(this.props.app.modeBookingModel == 2 || this.props.app.modeBookingModel == 3) &&
+                                            <div className="form-group col-right pull-right">
+                                                <i className="fa icon_idcard" />
+                                                <div className="info pull-left">
+                                                    <div className="title">TRẠNG THÁI</div>
+                                                    <div style={{ color: `${Status.findStatus(inforBooking["status"]).color}` }} className="text">{Status.findStatus(inforBooking["status"]).toString}</div>
+                                                </div>
+                                            </div>
+                                        }
 
                                         <div className="form-group col-left pull-left">
                                             <i className="fa clipboard_check" />
                                             <div className="info pull-left">
                                                 <div className="title">DỊCH VỤ</div>
-                                                <div className="text">{inforBooking["serviceNames"].join(", ")}</div>
+                                                <div className="text">{ServiceModel.toStringListSelected(inforBooking["services"])}</div>
                                             </div>
                                         </div>
 
@@ -158,7 +173,7 @@ class StepFOUR extends Component {
                                             <i className="fa icon_money" />
                                             <div className="info pull-left">
                                                 <div className="title">SỐ TIỀN</div>
-                                                <div className="text">{PriceUtils.toThousand(totalPrice)}</div>
+                                                <div className="text">{inforBooking["totalPrice"] ? PriceUtils.toThousand(inforBooking["totalPrice"]) : '...'}</div>
                                             </div>
                                         </div>
 
@@ -190,12 +205,17 @@ class StepFOUR extends Component {
                                         <button onClick={this.submit} type="button" className="btn btn-success btn-next-step3">ĐẶT LỊCH</button>
                                     </div>
                                 }
-                                {this.props.app.modeBookingModel == 2 &&
-                                    <div className="form-group text-center">
-                                        <button onClick={this.changeBooking} type="button" className="btn btn-success btn-next-step3 mg10">ĐỔI LỊCH</button>
-                                        <button onClick={this.cancelBooking} type="button" className="btn btn-fefault btn-prev-step3"> HỦY LỊCH</button>
-                                    </div>
-                                }
+                                {this.props.app.modeBookingModel == 2 && (
+                                    inforBooking["status"] == Status.Status.PENDING.value ?
+                                        <div className="form-group text-center">
+                                            <button onClick={this.changeBooking} type="button" className="btn btn-success btn-next-step3 mg10">ĐỔI LỊCH</button>
+                                            <button onClick={this.cancelBooking} type="button" className="btn btn-fefault btn-prev-step3"> HỦY LỊCH</button>
+                                        </div>
+                                        :
+                                        <div className="form-group text-center">
+                                            <button onClick={this.close} type="button" className="btn btn-success btn-next-step3 mg10">ĐÓNG</button>
+                                        </div>
+                                )}
                                 {this.props.app.modeBookingModel == 3 &&
                                     <div className="form-group text-center">
                                         <button onClick={this.prev} type="button" className="btn btn-fefault btn-prev-step3">QUAY LẠI</button>
