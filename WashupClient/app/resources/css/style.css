@@ -313,6 +313,9 @@ a:hover {text-decoration:none; color:#1b3868}
 	background:#fff; padding: 0 25px;
 }
 .membership .title::after{border-bottom:1px solid #ccc; height:1px;}
+#membership_slider  .owl-stage-outer {
+	padding: 20px 0px;
+}
 
 #membership_slider {position: relative;}
 #membership_slider .ow-client-logo img {
@@ -355,7 +358,8 @@ a:hover {text-decoration:none; color:#1b3868}
 	margin: 0 5px;
     display: grid;
 	/* box-shadow: 0px 1px 10px 6px #ccc; */
-	box-shadow: 0px 6px 4px -2px #ccc;
+	
+	box-shadow: -7px 18px 17px 2px #ccc;
     border-radius: 8px;
 }
 #membership_slider .item .price {height:38px; line-height:38px;}

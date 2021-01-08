@@ -24,7 +24,7 @@ class MembershipList extends Component {
                 0: { items: 1, stagePadding: 100},
                 320: {items: 2},
                 600: { items: 3 },
-                1000: { items: 5, loop: false }
+                1000: { items: 4, loop: false }
             }
         };
 
@@ -34,6 +34,78 @@ class MembershipList extends Component {
                 <div className="box">
                     <OwlCarousel id="membership_slider" className="owl-carousel owl-theme" options={options} >
                         <div className="item">
+                            <img src={require('../resources/images/combo/4-cb1.png')} className="img-responsive" />
+                            {/* <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">3.850K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">2.950K</span></div>
+                            </div> */}
+                        </div>
+                        {/* <div className="item">
+                            <img src={require('../resources/images/combo/7-cb5.png')} className="img-responsive" />
+                            <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">150K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">140K</span></div>
+                            </div>
+                        </div> */}
+                        <div className="item">
+                            <img src={require('../resources/images/combo/4-cb2.png')} className="img-responsive" />
+                            {/* <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">450K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">399K</span></div>
+                            </div> */}
+                        </div>
+                        <div className="item">
+                            <img src={require('../resources/images/combo/7-cb4.png')} className="img-responsive" />
+                            {/* <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">210K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">180K</span></div>
+                            </div> */}
+                        </div>
+                        <div className="item">
+                            <img src={require('../resources/images/combo/7-cb3.png')} className="img-responsive" />
+                            {/* <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">1.600K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">1.200K</span></div>
+                            </div> */}
+                        </div>
+                        <div className="item">
+                            <img src={require('../resources/images/combo/4-cb3.png')} className="img-responsive" />
+                            {/* <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">1.400K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">900K</span></div>
+                            </div> */}
+                        </div>
+                        <div className="item">
+                            <img src={require('../resources/images/combo/4-cb5.png')} className="img-responsive" />
+                            {/* <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">190K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">150K</span></div>
+                            </div> */}
+                        </div>
+                        <div className="item">
+                            <img src={require('../resources/images/combo/4-cb6.png')} className="img-responsive" />
+                            {/* <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">135K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">120K</span></div>
+                            </div> */}
+                        </div>
+                        <div className="item">
+                            <img src={require('../resources/images/combo/7-cb1.png')} className="img-responsive" />
+                            {/* <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">4.600K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">3.450k</span></div>
+                            </div> */}
+                        </div>
+
+                        <div className="item">
+                            <img src={require('../resources/images/combo/7-cb2.png')} className="img-responsive" />
+                            {/* <div className="price">
+                                <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">510K</span></div>
+                                <div className="col-md-5 col-xs-5 text-right"><span className="price_new">499K</span></div>
+                            </div> */}
+                        </div>
+
+                        {/* <div className="item">
                             <img src={require('../resources/images/the-thanh-vien/ttv32.jpg')} className="img-responsive" />
                             <div className="price">
                                 <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">1.573K</span></div>
@@ -116,7 +188,7 @@ class MembershipList extends Component {
                                 <div className="col-md-7 col-xs-7 text-left">Giá từ: <span className="price_old">1.503K</span></div>
                                 <div className="col-md-5 col-xs-5 text-right"><span className="price_new">1.403K</span></div>
                             </div>
-                        </div>
+                        </div> */}
                     </OwlCarousel>
                 </div>
             </div>

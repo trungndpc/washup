@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { OIL_BRAND } from '../constants/Constants'
 import Select from 'react-select'
+import PriceUtils from '../utils/PriceUtils'
 
 
 class OILSelection extends Component {
@@ -64,7 +65,7 @@ class OILSelection extends Component {
         for (const key in oils) {
             const oil = oils[key];
             if (oil.manufacturer == brandId) {
-                options.push({ value: oil.id, label: oil.name })
+            options.push({ value: oil.id, label: <span>{oil["name"]} - <span style={{ color: 'red' }}> {PriceUtils.toThousand(oil["price"])} </span></span> });
             }
         }
         return options;
