@@ -11,6 +11,8 @@ import MembershipList from '../../components/MembershipList';
 import MLink from '../../components/MLink'
 import BookingModal from '../../components/bookings/BookingModal';
 import DailyActivitiesList from '../../components/DailyActivitiesList';
+import InstallApp from '../../components/InstallApp'
+import AdsPopup from '../../components/AdsPopup'
 
 
 class Home extends React.Component {
@@ -61,13 +63,13 @@ class Home extends React.Component {
 
   bookingOTOService() {
     this.props.appActions.changeModeBookingModal(1);
-    this.props.appActions.putInforBooking({ "transportId": Model.OTO})
+    this.props.appActions.putInforBooking({ "transportId": Model.OTO })
     this.bookingModalRef && this.bookingModalRef.open();
   }
 
   bookingXemayService() {
     this.props.appActions.changeModeBookingModal(1);
-    this.props.appActions.putInforBooking({ "transportId": Model.XEMAY})
+    this.props.appActions.putInforBooking({ "transportId": Model.XEMAY })
     this.bookingModalRef && this.bookingModalRef.open();
   }
 
@@ -111,6 +113,7 @@ class Home extends React.Component {
     }
     return (
       <div>
+        <AdsPopup />
         <Header {...this.props} />
         <div id="site-banner" />
         <div id="site-service">
@@ -198,13 +201,14 @@ class Home extends React.Component {
                   </div>
                   <div className="clearfix" />
                 </div>
-                <MembershipList />
+                {/* <MembershipList /> */}
               </div>
               <div className="panel_footer"><div className="space" /></div>
             </div>
           </div></div>
         </div>
-        <DailyActivitiesList {...this.props}/>
+        <InstallApp />
+        <DailyActivitiesList {...this.props} />
         <Footer />
 
         <div id="schedule_now">

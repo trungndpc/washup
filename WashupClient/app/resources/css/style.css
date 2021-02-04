@@ -395,7 +395,7 @@ a:hover {text-decoration:none; color:#1b3868}
 
 /* PRODUCT LIST */
 #site-product{
-	height:555px; overflow:hidden; background:url('../images/bg_orange.jpg') no-repeat center center;background-size:cover;padding-top:45px;
+	 overflow:hidden; background:url('../images/bg_orange.jpg') no-repeat center center;background-size:cover;padding-top:45px;
 }
 #site-product .panel_header { margin:10px 0}
 #site-product .panel_header h3.title{color:#fff;padding-left:15px;border-left:#fff 4px solid;}
@@ -529,4 +529,92 @@ a:hover {text-decoration:none; color:#1b3868}
 
 #activy_list .item{
 	background:#fff; padding:5px; border-radius: 8px; border: 1px solid #e97e15;
+}
+
+.install-container {
+	text-align: center;
+    padding-top: 40px;
+}
+
+.btn-install-app {
+	position: relative;
+	padding: 10px 43px;
+    border: none;
+    color: #f8901f;
+    font-size: medium;
+    font-weight: 600;
+	border-radius: 40px;
+	padding-right: 56px;
+}
+
+.btn-install-app img {
+	position: absolute;
+    top: -21px;
+    width: 33px;
+}
+
+.adpopup-container{
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 10000;
+    background: rgb(0 0 0 / 86%);
+}
+
+.adpopup-container .btnads {
+	padding: 10px 30px;
+    color: #f8901f;
+    font-weight: 600;
+    font-size: 31px;
+    border-radius: 16px;
+    border: none;
+    width: 100%;
+}
+
+.adpopup-container .btnads-container {
+	position: absolute;
+    bottom: 22%;
+    left: 0;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.adpopup-container .content {
+	position: relative;
+	display: inline-block;
+}
+
+.btn-platform-container{
+	position: absolute;
+    width: 100%;
+    bottom: 18px;
+}
+
+.btn-platform-container div {
+	display: inline-block;
+}
+
+.btn-platform-container .btn-platform-android {
+	float: left;
+	padding-left: 38px;
+	cursor: pointer;
+}
+
+.btn-platform-container .btn-platform-ios {
+    float: right;
+    padding-right: 38px;
+}
+
+.btn-close-ads {
+	position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #fff;
+    background: no-repeat;
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
 }

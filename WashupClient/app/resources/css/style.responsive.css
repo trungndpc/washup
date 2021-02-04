@@ -67,6 +67,19 @@
 	}
 }
 @media only screen and (max-width: 768px)  {
+
+	.adpopup-container .content  {
+		width: 90%;
+	}
+
+	.adpopup-container .content .bgss {
+		width: 100%;
+	}
+
+	.adpopup-container .content .btn-platform-container img{
+		width: 140px;
+	}
+
 	#ModalBooking .main-title {
 		overflow: hidden; 
 	}
@@ -198,6 +211,16 @@
 @media only screen and (max-width: 411px) {
 }
 @media only screen and (max-width: 375px) {
+	.adpopup-container .btnads {
+		font-size: 25px;
+	}
+
+	.adpopup-container .content .btn-platform-container img{
+		width: 120px;
+	}
+
+
+
 	.booking_final .title {
 		font-size: small;
 	}
@@ -247,6 +270,16 @@
 @media only screen and (max-width: 330px) {
 }
 @media only screen and (max-width: 320px) {
+
+	.adpopup-container .btnads {
+		font-size: 20px;
+	}
+
+	.adpopup-container .content .btn-platform-container img{
+		width: 100px;
+	}
+
+
 	#ModalBooking .note {
 		font-size: inherit !important;
 	}
